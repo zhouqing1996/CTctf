@@ -32,9 +32,9 @@
                   <th>操作</th>
                 </tr>
                 <tr v-for=" (c,key) in currentPageData1" :key="key">
-                  <td>{{key+1}}</td>
-                  <td>{{c.cqid}}</td>
-                  <td>{{c.cqitem}}</td>
+                  <td style="width: 10%">{{key+1}}</td>
+                  <td style="width: 10%">{{c.cqid}}</td>
+                  <td style="width: 70%;text-align: left">{{c.cqitem}}</td>
                   <td>
                     <span class="span2" @click="Click1(c.cqid)" :id="tianjia1(c.cqid)">添加</span>
                   </td>
@@ -79,9 +79,9 @@
                   <th>操作</th>
                 </tr>
                 <tr v-for=" (f,key) in currentPageData2" :key="key">
-                  <td>{{key+1}}</td>
-                  <td>{{f.fqid}}</td>
-                  <td>{{f.fqitem}}</td>
+                  <td style="width: 10%">{{key+1}}</td>
+                  <td style="width: 10%">{{f.fqid}}</td>
+                  <td style="width: 70%;text-align: left">{{f.fqitem}}</td>
                   <td>
                     <!--<span  class="span2" @click="Click2(f.fqid)" >添加</span>-->
                     <span class="span2" @click="Click2(f.fqid)" :id="tianjia2(f.fqid)">添加</span>
@@ -127,9 +127,9 @@
                   <th>操作</th>
                 </tr>
                 <tr v-for=" (j,key) in currentPageData3" :key="key">
-                  <td>{{key+1}}</td>
-                  <td>{{j.jqid}}</td>
-                  <td>{{j.jqitem}}</td>
+                  <td style="width: 10%">{{key+1}}</td>
+                  <td style="width: 10%">{{j.jqid}}</td>
+                  <td style="width: 70%;text-align: left">{{j.jqitem}}</td>
                   <td>
                     <!--<span  class="span2" @click="Click3(j.jqid)">添加</span>-->
                     <span class="span2" @click="Click3(j.jqid)" :id="tianjia3(j.jqid)">添加</span>
@@ -175,9 +175,9 @@
                   <th>操作</th>
                 </tr>
                 <tr v-for=" (m,key) in currentPageData4" :key="key">
-                  <td>{{key+1}}</td>
-                  <td>{{m.mqid}}</td>
-                  <td>{{m.mqitem}}</td>
+                  <td style="width: 10%">{{key+1}}</td>
+                  <td style="width: 10%">{{m.mqid}}</td>
+                  <td style="width: 70%;text-align: left">{{m.mqitem}}</td>
                   <td>
                     <!--<span  class="span2" @click="Click4(m.mqid)">添加</span>-->
                     <span class="span2" @click="Click4(m.mqid)" :id="tianjia4(m.mqid)">添加</span>
@@ -223,12 +223,12 @@
                   <th>操作</th>
                 </tr>
                 <tr v-for=" (p,key) in currentPageData5" :key="key">
-                  <td>{{key+1}}</td>
-                  <td>{{p.pqid}}</td>
-                  <td>{{p.pqitem}}</td>
+                  <td style="width: 10%">{{key+1}}</td>
+                  <td style="width: 10%">{{p.pqid}}</td>
+                  <td style="width: 70%;text-align: left">{{p.pqitem}}</td>
                   <td>
                     <!--<span  class="span2" @click="Click5(p.pqid)">添加</span>-->
-                    <span class="span2" @click="Click5(p.pqid)" :id="tianjia5(p.pqid)">添加</span>
+                    <span class="span2" @click="Click5(p.pqid)" :id="tianjia5(p.pqid)" >添加</span>
                   </td>
                 </tr>
               </table>
@@ -254,8 +254,8 @@
             <span slot="label" @click="SelfView"><i class="el-icon-date" ></i>完成组卷</span>
             <div class="display2">
               <div>
-                <h3>选择题</h3>
-                <div>
+                <div v-if="ViewList1.length>0">
+                  <h3>选择题</h3>
                   <span v-for="(c,key1) in ViewList1":key="key1">
                     <li class="item">({{key1+1}}){{c.cqitem}}<br>
                       <input type="radio"  value="">（A）{{c.cqcho.split('---')[0]}}<br>
@@ -265,16 +265,17 @@
                     </li>
                   </span>
                 </div>
-                <h3>填空题</h3>
-                <div>
+                <div v-if="ViewList1.length>0">
+                  <h3>填空题</h3>
                   <span v-for="(f,key2) in ViewList2":key="key2">
                     <li class="item">({{key2+1}}){{f.fqitem}}<br>
                         <input type="text" value=""><br>
                     </li>
                   </span>
                 </div>
-                <h3>判断题</h3>
-                <div>
+
+                <div v-if="ViewList3.length>0">
+                  <h3>判断题</h3>
                   <span v-for="(j,key3) in ViewList3":key="key3">
                     <li class="item">({{key3+1}}){{j.jqitem}}<br>
                       <input type="radio"  value="1">对<br>
@@ -283,15 +284,15 @@
                     </li>
                   </span>
                 </div>
-                <h3>多选题</h3>
-                <div>
+                <div v-if="ViewList4.length>0">
+                  <h3>多选题</h3>
                   <span v-for="(m,key4) in ViewList4":key="key4">
                     <li class="item">({{key4+1}}){{m.mqitem}}<br>
                     </li>
                   </span>
                 </div>
-                <h3>程序题</h3>
-                <div>
+                <div v-if="ViewList5.length>0">
+                  <h3>程序题</h3>
                   <span v-for="(p,key5) in ViewList5":key="key5">
                     <li class="item">({{key5+1}}){{p.pqitem}}<br>
                       <input type="text" value=""><br>
@@ -304,6 +305,9 @@
                   <el-form :model="SelfList">
                     <el-form-item label="试卷名称" :label-width="formLabelWidth">
                       <el-input style="width: 350px;" v-model="SelfList.name" auto-complete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item label="测试时间（分钟）" :label-width="formLabelWidth">
+                      <el-input style="width: 350px;" v-model="SelfList.gdtime" auto-complete="off"></el-input>
                     </el-form-item>
                   </el-form>
                   <div slot="footer" style="align-content: center" class="dialog-footer">
@@ -369,7 +373,8 @@
             dialogFormVisible:false,
             formLabelWidth: '120px',
             SelfList:{
-              name:''
+              name:'',
+              gdtime:'',
             },
           //  预览问卷
             ViewList1:[],
@@ -645,28 +650,37 @@
         },
         SelfOK:function () {
           console.log("完成问卷")
-          this.$http.post('/yii/exam/index/addexam',{
-            flag:2,
-            k:2,
-            chooseList:this.List1,
-            fillList:this.List2,
-            judgeList:this.List3,
-            choosemList:this.List4,
-            programList:this.List5,
-            exname:this.SelfList.name,
-            auth:this.$store.getters.getsId
-          }).then(function (res) {
-            console.log(res.data)
-            if(res.data.message=="完成问卷试卷")
-            {
-              this.$router.push({path:'/admin/exam/create'})
-            }
-            alert(res.data.message)
-            this.dialogFormVisible = false
-            this.SelfList.name =""
-          }).catch(function (error) {
-            console.log(error)
-          })
+          if(this.List1.length ==0 ||this.List2.length==0||this.List3.length==0||this.List4.length==0||this.List5.length==0)
+          {
+            this.$alert('五类题型中还有题型没有添加，请检查', '警告', {
+              confirmButtonText: '确定',})
+          }
+          else{
+            this.$http.post('/yii/exam/index/addexam',{
+              flag:2,
+              k:2,
+              chooseList:this.List1,
+              fillList:this.List2,
+              judgeList:this.List3,
+              choosemList:this.List4,
+              programList:this.List5,
+              exname:this.SelfList.name,
+              gdtime:this.SelfList.gdtime,
+              auth:this.$store.getters.getsId
+            }).then(function (res) {
+              console.log(res.data)
+              if(res.data.message=="完成问卷试卷")
+              {
+                this.$router.push({path:'/admin/exam/create'})
+              }
+              alert(res.data.message)
+              this.dialogFormVisible = false
+              this.SelfList.name =""
+            }).catch(function (error) {
+              console.log(error)
+            })
+          }
+
         }
       },
       created(){
@@ -782,8 +796,10 @@
   table, td {
     border: solid 1px #ccc;
     padding: 5px;
-    text-align: center;
     font-size: 18px;
+    overflow:hidden;
+    text-overflow: ellipsis;
+    text-align: center;
   }
   .display{
     padding-left: 5px;
@@ -830,4 +846,9 @@
     width: 100px;
     margin: 0 10px;
   }
+  /*.item{*/
+    /*overflow:hidden;*/
+    /*text-overflow: ellipsis;*/
+    /*text-align: left;*/
+  /*}*/
 </style>

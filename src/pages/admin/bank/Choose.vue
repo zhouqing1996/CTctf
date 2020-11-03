@@ -579,30 +579,45 @@
         //添加题库
         addcQuestion:function (List) {
           console.log(List)
-          this.$http.post('/yii/bank/chooseq/addchoose',{
-            qitem:List.item,
-            op1:List.op1,
-            op2:List.op2,
-            op3:List.op3,
-            op4:List.op4,
-            ans:List.ans,
-            tail:List.tail,
-            rem:List.rem
-          }).then(function (res) {
-            console.log(res.data)
-            if(res.data.message=="插入选择题成功")
-            {
-              this.getQuerycquestion()
-              alert("插入选择题成功")
-              this.dialogFormVisibleadd=false
-              this.Reset()
-            }
-            else
-            {
-              alert(res.data.message)
-              this.Reset()
-            }
-          })
+          if(List.item == '')
+          {
+            this.$alert('题干为空', '警告', {
+              confirmButtonText: '确定',})
+          }
+          else if(List.ans==''){
+            this.$alert('答案为空', '警告', {
+              confirmButtonText: '确定',})
+          }
+          else if(List.op1==''||List.op2==''||List.op3==''||List.op4==''){
+            this.$alert('必须为四个选项', '警告', {
+              confirmButtonText: '确定',})
+          }
+          else{
+            this.$http.post('/yii/bank/chooseq/addchoose',{
+              qitem:List.item,
+              op1:List.op1,
+              op2:List.op2,
+              op3:List.op3,
+              op4:List.op4,
+              ans:List.ans,
+              tail:List.tail,
+              rem:List.rem
+            }).then(function (res) {
+              console.log(res.data)
+              if(res.data.message=="插入选择题成功")
+              {
+                this.getQuerycquestion()
+                alert("插入选择题成功")
+                this.dialogFormVisibleadd=false
+                this.Reset()
+              }
+              else
+              {
+                alert(res.data.message)
+                this.Reset()
+              }
+            })
+          }
         },
         //重置
         Reset:function () {

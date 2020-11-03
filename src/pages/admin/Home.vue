@@ -55,7 +55,7 @@
           </el-submenu>
         </el-menu>
     </el-header>
-    <el-main  class="main-css">
+    <el-main  class="main-css" v-bind:style="{minHeight: Height+'px'}">
       <router-view />
     </el-main>
     <el-footer class="footer">
@@ -95,9 +95,15 @@
       data() {
         return{
           // userForm:[]
-          isN:true
-
+          isN:true,
+          Height:0
         }
+      },
+      mounted(){
+        //动态设置内容高度 让footer始终居底   header+footer的高度是100
+        this.Height = document.documentElement.clientHeight - 50;
+        //监听浏览器窗口变化　
+        window.onresize = ()=> {this.Height = document.documentElement.clientHeight -50}
       },
       methods:{
           reload1:function(index){

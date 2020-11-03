@@ -304,7 +304,7 @@
         // 翻页相关
         currentPage: 1,
         totalPage: 1,
-        pageSize: 15,
+        pageSize: 10,
         currentPageData:[]
       }
     },
@@ -393,7 +393,7 @@
           this.$alert('题干为空', '警告', {
             confirmButtonText: '确定',})
         }
-        else if(List.ans){
+        else if(List.ans==''){
           this.$alert('答案为空', '警告', {
             confirmButtonText: '确定',})
         }

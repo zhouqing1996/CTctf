@@ -27,16 +27,18 @@
             </el-menu-item>
           </el-menu>
         </el-col>
-        <el-col :span="12">
+        <el-col :span="16">
           <div>
             <div>
-              试卷名称：<input type="text" v-model="exname" placeholder="试卷名称"/>
+              试卷名称：<input type="text" v-model="exname" placeholder="试卷名称" class="exname" style="width: 300px"/>
+              <br>
+              规定时间：<input type="text" v-model="gdtime" placeholder="规定时间" class="exname" style="display: inline-block"/>
               <hr/>
             </div>
             <div class="create">
               <!--单选题-->
-              <el-form>
-                <h3>一、选择题</h3>
+              <el-form v-if="CList.length>0">
+                <h3>选择题</h3>
                 <el-form-item v-for="(item,index) in CList" :key="index">
                   <span>({{index+1}})</span>
                   题   干：<el-input v-model="item.cqitem" placeholder="题目题干" class="input"></el-input>
@@ -51,8 +53,8 @@
                 </el-form-item>
               </el-form>
               <!--填空题-->
-              <el-form>
-                <h3>二、填空题</h3>
+              <el-form v-if="FList.length>0">
+                <h3>填空题</h3>
                 <el-form-item v-for="(item,index) in FList" :key="index">
                   <span>（{{index+1}}）</span>
                   题  干：<el-input v-model="item.fitem" placeholder="题目题干" class="input"></el-input>
@@ -63,8 +65,8 @@
                 </el-form-item>
               </el-form>
               <!--判断题-->
-              <el-form>
-                <h3>三、判断题</h3>
+              <el-form v-if="JList.length>0">
+                <h3>判断题</h3>
                 <el-form-item v-for="(item,index) in JList" :key="index">
                   <span>（{{index+1}}）</span>
                   题    干：<el-input v-model="item.jitem" placeholder="题目题干" class="input"></el-input>
@@ -75,8 +77,8 @@
                 </el-form-item>
               </el-form>
               <!--多选题-->
-              <el-form>
-                <h3>四、多选题</h3>
+              <el-form v-if="CMList.length>0">
+                <h3>多选题</h3>
                 <el-form-item v-for="(item,index) in CMList" :key="index">
                   <span>（{{index+1}}）</span>
                   题  干：<el-input v-model="item.mitem" placeholder="题目题干" class="input"></el-input>
@@ -92,8 +94,8 @@
                 </el-form-item>
               </el-form>
               <!--程序题-->
-              <el-form>
-                <h3>五、程序题</h3>
+              <el-form v-if="PList.length>0">
+                <h3>程序题</h3>
                 <el-form-item v-for="(item,index) in PList" :key="index">
                   <span>（{{index+1}}）</span>
                   题   干：<el-input v-model="item.pitem" placeholder="题目题干" class="input"></el-input>
@@ -110,10 +112,11 @@
         <el-col :span="1">
           <el-divider direction="vertical"></el-divider>
         </el-col>
-        <el-col :span="8" >
+        <el-col :span="4" >
           <div class="yulan">
-            <h3>一、选择题</h3>
+
               <div v-if="CList.length >0">
+                <h3>选择题</h3>
                   <span v-for="(c,key1) in CList":key="key1" >
                   <span class="item">({{key1+1}}){{c.cqitem}}</span><br>
                     <el-radio-group >
@@ -127,8 +130,9 @@
                   <span class="rem">相关知识：{{c.cqrem}}</span><br>
                 </span>
               </div>
-            <h3>二、填空题</h3>
+
               <div v-if="FList.length>0">
+                <h3>填空题</h3>
                   <span v-for="(c,key1) in FList":key="key1" >
                   <span class="item">({{key1+1}}){{c.fitem}}</span><br>
                   <span class="ans" >答案：{{c.fans}}</span><br>
@@ -136,8 +140,9 @@
                   <span class="rem">相关知识：{{c.frem}}</span><br>
                 </span>
               </div>
-            <h3>三、判断题</h3>
+
               <div v-if="JList.length>0">
+                <h3>判断题</h3>
                   <span v-for="(c,key1) in JList":key="key1" >
                   <span class="item">({{key1+1}}){{c.jitem}}</span><br>
                   <span class="ans" >答案：{{c.jans}}</span><br>
@@ -145,8 +150,9 @@
                   <span class="rem">相关知识：{{c.jrem}}</span><br>
                 </span>
               </div>
-            <h3>四、多选题</h3>
+
               <div v-if="CMList.length>0">
+                <h3>多选题</h3>
                   <span v-for="(c,key1) in CMList":key="key1" >
                   <span class="item">({{key1+1}}){{c.mitem}}</span><br>
                   <el-radio-group >
@@ -160,8 +166,9 @@
                   <span class="rem">相关知识：{{c.mrem}}</span><br>
                 </span>
               </div>
-            <h3>五、程序题</h3>
+
               <div v-if="PList.length>0">
+                <h3>程序题</h3>
                   <span v-for="(c,key1) in PList":key="key1" >
                   <span class="item">({{key1+1}}){{c.pitem}}</span><br>
                   <span class="ans" >答案：{{c.pans}}</span><br>
@@ -182,6 +189,7 @@
       data(){
           return{
             exname:'',
+            gdtime:0,
             CList:[],
             FList:[],
             JList:[],
@@ -280,6 +288,7 @@
                   JList:this.JList,
                   PList:this.PList,
                   CMList:this.CMList,
+                  gdtime:this.gdtime,
                   auth:this.$store.getters.getsId
                 }).then(function (res) {
                   console.log(res.data)
@@ -292,6 +301,7 @@
                     this.JList =[]
                     this.CMList =[]
                     this.PList =[]
+                    this.gdtime =0
                   }
                   else {
                     // alert(res.data.message)
@@ -309,6 +319,21 @@
 </script>
 
 <style scoped>
+  .exname{
+    outline-style: none ;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 13px 14px;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: "Microsoft soft";
+  }
+  .exname:focus{
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6)
+  }
   .el-divider--vertical {
     display: inline-block;
     width: 1px;
@@ -351,7 +376,10 @@
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6)
   }
   .nnn{
-    width: 100%;
+    margin-top: 20px;
+    margin-left: 50px;
+    margin-right: 50px;
+    width: 80%;
     height: 650px;
   }
   .item{
