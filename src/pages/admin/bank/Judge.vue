@@ -4,7 +4,7 @@
     <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb-css" style="font-size: 0.25rem">
       <el-breadcrumb-item :to="{ path: '/admin/index' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item>题库信息</el-breadcrumb-item>
-      <el-breadcrumb-item>判断题</el-breadcrumb-item>
+      <el-breadcrumb-item ><span @click="getQueryJQuestion" style="font-weight: bold">判断题</span></el-breadcrumb-item>
     </el-breadcrumb>
     <div><hr/></div>
     <div class="display1">
@@ -150,120 +150,6 @@
                 </div>
               </div>
             </div>
-           <span>
-              <!--<table >-->
-              <!--<tr>-->
-                <!--<th>序号</th>-->
-                <!--<th>题编号 </th>-->
-                <!--<th>题干</th>-->
-                <!--<th>答案</th>-->
-                <!--<th>详解</th>-->
-                <!--<th>相关知识</th>-->
-                <!--<th>状态</th>-->
-                <!--<th>操作</th>-->
-              <!--</tr>-->
-              <!--<tr v-for=" (JQuestion,key) in currentPageData" :key="key">-->
-                <!--<td>{{ key+1 }}</td>-->
-                <!--<td>{{JQuestion.jqid}}</td>-->
-                <!--<td>-->
-                  <!--<el-tooltip placement="top" effect="light">-->
-                    <!--<div slot="content">{{JQuestion.jqitem}}</div>-->
-                    <!--<el-button class="btn1">{{JQuestion.jqid}}</el-button>-->
-                  <!--</el-tooltip>-->
-                  <!--<span v-if="JQuestion.jqstatus==1" @click="dialogFormVisiblechangeitem=true;changeList.id=JQuestion.jqid;item=JQuestion.jqitem" class="span2">修改</span>-->
-                  <!--<el-dialog title="修改题干" :visible.sync="dialogFormVisiblechangeitem">-->
-                    <!--<el-form :model="changeList">-->
-                      <!--<el-form-item label="题干内容1" :label-width="formLabelWidth">-->
-                        <!--<el-input style="width: 350px;" v-model="item" auto-complete="off"></el-input>-->
-                      <!--</el-form-item>-->
-                      <!--<el-form-item label="题干内容" :label-width="formLabelWidth">-->
-                        <!--<el-input style="width: 350px;" v-model="changeList.item" auto-complete="off"></el-input>-->
-                      <!--</el-form-item>-->
-                    <!--</el-form>-->
-                    <!--<div slot="footer" style="align-content: center" class="dialog-footer">-->
-                      <!--<el-button type="primary" @click="changejudge(1,changeList)">提交</el-button>-->
-                      <!--<el-button @click="dialogFormVisiblechangeitem=false">退出</el-button>-->
-                    <!--</div>-->
-                  <!--</el-dialog>-->
-                <!--</td>-->
-                <!--<td v-if="JQuestion.jqans==0">错误-->
-                  <!--<span v-if="JQuestion.jqstatus==1" @click="dialogFormVisiblechangeans=true;changeList.id=JQuestion.jqid;item=JQuestion.jqans" class="span2">修改</span></td>-->
-                <!--<td v-if="JQuestion.jqans==1">正确-->
-                  <!--<span v-if="JQuestion.jqstatus==1" @click="dialogFormVisiblechangeans=true;changeList.id=JQuestion.jqid;item=JQuestion.jqans" class="span2">修改</span></td>-->
-
-                  <!--<el-dialog title="修改答案" :visible.sync="dialogFormVisiblechangeans">-->
-                    <!--<el-form :model="changeList">-->
-                      <!--<el-form-item label="原始答案" :label-width="formLabelWidth">-->
-                        <!--<span v-if="item==0">错误</span>-->
-                        <!--<span v-if="item==1">正确</span>-->
-                        <!--&lt;!&ndash;<el-input style="width: 350px;" v-model="item" auto-complete="off"></el-input>&ndash;&gt;-->
-                      <!--</el-form-item>-->
-                      <!--<el-form-item label="修改答案" :label-width="formLabelWidth">-->
-                        <!--<select style="font-size:20px;width:150px;" v-model="changeList.ans"  >-->
-                          <!--<option value="1">正确</option>-->
-                          <!--<option value="0">错误</option>-->
-                        <!--</select>-->
-                      <!--</el-form-item>-->
-                    <!--</el-form>-->
-                    <!--<div slot="footer" style="align-content: center" class="dialog-footer">-->
-                      <!--<el-button type="primary" @click="changejudge(2,changeList)">提交</el-button>-->
-                      <!--<el-button @click="dialogFormVisiblechangeans=false">退出</el-button>-->
-                    <!--</div>-->
-                  <!--</el-dialog>-->
-                <!--<td>-->
-                  <!--<el-tooltip placement="top" effect="light">-->
-                    <!--<div slot="content">{{JQuestion.jqtail}}</div>-->
-                    <!--<el-button class="btn1">{{JQuestion.jqid}}</el-button>-->
-                  <!--</el-tooltip>-->
-                  <!--<span v-if="JQuestion.jqstatus==1" @click="dialogFormVisiblechangetail=true;changeList.id=JQuestion.jqid;item=JQuestion.jqtail" class="span2">修改</span>-->
-                  <!--<el-dialog title="修改详解" :visible.sync="dialogFormVisiblechangetail">-->
-                    <!--<el-form :model="changeList">-->
-                      <!--<el-form-item label="原始详解" :label-width="formLabelWidth">-->
-                        <!--<el-input style="width: 350px;" v-model="item" auto-complete="off"></el-input>-->
-                      <!--</el-form-item>-->
-                      <!--<el-form-item label="修改详解" :label-width="formLabelWidth">-->
-                        <!--<el-input style="width: 350px;" v-model="changeList.tail" auto-complete="off"></el-input>-->
-                      <!--</el-form-item>-->
-                    <!--</el-form>-->
-                    <!--<div slot="footer" style="align-content: center" class="dialog-footer">-->
-                      <!--<el-button type="primary" @click="changejudge(3,changeList)">提交</el-button>-->
-                      <!--<el-button @click="dialogFormVisiblechangetail=false">退出</el-button>-->
-                    <!--</div>-->
-                  <!--</el-dialog>-->
-                <!--</td>-->
-                <!--<td>-->
-                  <!--<el-tooltip placement="top" effect="light">-->
-                    <!--<div slot="content">{{JQuestion.jqrem}}</div>-->
-                    <!--<el-button class="btn1">{{JQuestion.jqid}}</el-button>-->
-                  <!--</el-tooltip>-->
-                  <!--<span v-if="JQuestion.jqstatus==1" @click="dialogFormVisiblechangerem=true;changeList.id=JQuestion.jqid;item=JQuestion.jqtail" class="span2">修改</span>-->
-                  <!--<el-dialog title="修改知识点" :visible.sync="dialogFormVisiblechangerem">-->
-                    <!--<el-form :model="changeList">-->
-                      <!--<el-form-item label="原始知识点" :label-width="formLabelWidth">-->
-                        <!--<el-input style="width: 350px;" v-model="item" auto-complete="off"></el-input>-->
-                      <!--</el-form-item>-->
-                      <!--<el-form-item label="修改知识点" :label-width="formLabelWidth">-->
-                        <!--<el-input style="width: 350px;" v-model="changeList.rem" auto-complete="off"></el-input>-->
-                      <!--</el-form-item>-->
-                    <!--</el-form>-->
-                    <!--<div slot="footer" style="align-content: center" class="dialog-footer">-->
-                      <!--<el-button type="primary" @click="changejudge(4,changeList)">提交</el-button>-->
-                      <!--<el-button @click="dialogFormVisiblechangerem=false">退出</el-button>-->
-                    <!--</div>-->
-                  <!--</el-dialog>-->
-                <!--</td>-->
-                <!--<td v-if="JQuestion.jqstatus==1">有效</td>-->
-                <!--<td v-if="JQuestion.jqstatus==0">无效-->
-                  <!--<span v-if="JQuestion.jqstatus==0" @click="changejudge(5,JQuestion.jqid)" class="span2">修改</span>-->
-                <!--</td>-->
-
-                <!--<td>-->
-                  <!--<span v-if="JQuestion.jqstatus==1"@click="deletejudge(1,JQuestion.jqid)" class="span1"><i class="el-icon-delete">删除题目</i></span>-->
-                  <!--<span v-if="JQuestion.jqstatus==0" @click="deletejudge(2,JQuestion.jqid)" class="span1"><i class="el-icon-delete">永久删除</i></span>-->
-                <!--</td>-->
-              <!--</tr>-->
-            <!--</table>-->
-           </span>
           </div>
           <div class="page">
             <ul class="pagination pagination-sm"><!--分页-->
@@ -417,7 +303,8 @@
             qitem:List.item,
             ans:List.ans,
             tail:List.tail,
-            rem:List.rem
+            rem:List.rem,
+            auth:this.$store.getters.getsId
           }).then(function (res) {
             console.log(res.data)
             if(res.data.message=="插入判断题成功")
@@ -457,6 +344,7 @@
             cid:this.changeList.id,
             flag:1,
             item:this.changeList.item,
+            auth:this.$store.getters.getsId
           }).then(function (res) {
             console.log(res.data)
             if(res.data.message=="该判断题题干修改成功")
@@ -475,7 +363,8 @@
           this.$http.post('/yii/bank/judge/change',{
             cid:this.changeList.id,
             flag:2,
-            ans:this.changeList.ans
+            ans:this.changeList.ans,
+            auth:this.$store.getters.getsId
           }).then(function (res) {
             console.log(res.data)
             if(res.data.message=="该判断题答案修改成功")
@@ -494,7 +383,8 @@
           this.$http.post('/yii/bank/judge/change',{
             cid:this.changeList.id,
             flag:3,
-            tail:this.changeList.tail
+            tail:this.changeList.tail,
+            auth:this.$store.getters.getsId
           }).then(function (res) {
             console.log(res.data)
             if(res.data.message=="该判断题详解修改成功")
@@ -513,7 +403,8 @@
           this.$http.post('/yii/bank/judge/change',{
             cid:this.changeList.id,
             flag:4,
-            rem:this.changeList.rem
+            rem:this.changeList.rem,
+            auth:this.$store.getters.getsId
           }).then(function (res) {
             console.log(res.data)
             if(res.data.message=="该判断题相关知识修改成功")
@@ -532,7 +423,8 @@
           console.log(id)
           this.$http.post('/yii/bank/judge/change',{
             cid:id,
-            flag:5
+            flag:5,
+            auth:this.$store.getters.getsId
           }).then(function (res) {
 
             console.log(res.data)
@@ -561,7 +453,8 @@
           }).then(() => {
             this.$http.post('/yii/bank/judge/delete',{
               fid:id,
-              flag:1
+              flag:1,
+              auth:this.$store.getters.getsId
             }).then(function (res) {
               console.log(res.data)
               if(res.data.message=="该判断题删除成功")
@@ -645,6 +538,7 @@
               obj.ans= v.答案
               obj.tail= v.详解
               obj.rem= v.相关点
+              obj.auth = _this.$store.getters.getsId
               arr.push(obj)
             })
             _this.memberList = [...arr]

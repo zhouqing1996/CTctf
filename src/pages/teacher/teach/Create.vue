@@ -3,7 +3,7 @@
   <div>
     <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb-css">
       <el-breadcrumb-item :to="{ path: '/teacher/index' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>测评试卷</el-breadcrumb-item>
+      <el-breadcrumb-item ><span @click="getExamList(3)" style="font-weight: bold">测评试卷</span></el-breadcrumb-item>
     </el-breadcrumb>
     <div><hr/></div>
     <div class="display1">
@@ -11,21 +11,17 @@
         <el-tab-pane>
           <span slot="label"><i class="el-icon-date"></i> 试卷列表</span>
           <div class="display2">
-            <div class="searchmem">
+            <div class="top">
               <div class="meeting" >
                 <el-input v-model="inputname" placeholder="模糊查找" size="mini"></el-input>
               </div>
               <button class="btn2 el-icon-search" v-on:click="getExamList(4)">搜索试卷</button>
-
               <router-link :to="{ name: 'TeacherSelfCreate' }">
                 <button class="btn2 el-icon-circle-plus-outline">手动组卷</button>
               </router-link>
-
               <router-link :to="{ name: 'TeacherNewCreate' }">
                 <button class="btn2 el-icon-circle-plus-outline">创建试卷</button>
               </router-link>
-
-              <!--<button class="btn2 el-icon-circle-plus-outline" @click="alert('暂时未实现')">创建组卷（未）</button>-->
               <button class="btn2 el-icon-circle-plus-outline" @click="dialogFormVisibleAdd=true">自动组卷</button>
               <el-dialog title="自动组卷" :visible.sync="dialogFormVisibleAdd">
                 <el-form :model="addexam">
@@ -83,36 +79,6 @@
                 </div>
               </div>
             </div>
-            <span>
-              <!--<table >-->
-              <!--<tr>-->
-                <!--<th>序号</th>-->
-                <!--<th>试卷编号 </th>-->
-                <!--<th>试卷名</th>-->
-                <!--<th>创建时间</th>-->
-                <!--&lt;!&ndash;<th>作者编号</th>&ndash;&gt;-->
-                <!--<th>状态</th>-->
-                <!--<th>操作</th>-->
-              <!--</tr>-->
-              <!--<tr v-for=" (exam,key) in currentPageData" :key="key">-->
-                <!--<td>{{ key+1 }}</td>-->
-                <!--<td>{{exam.exid}}</td>-->
-                <!--<td>{{exam.exname}}</td>-->
-                <!--<td>{{exam.createtime}}</td>-->
-                <!--&lt;!&ndash;<td>{{exam.auth}}</td>&ndash;&gt;-->
-                <!--<td v-if="exam.exstatus==1">有效</td>-->
-                <!--<td v-if="exam.exstatus==0">无效-->
-                  <!--<span @click="changeExamstatus(exam.exid)" class="span2">修改</span>-->
-                <!--</td>-->
-                <!--<td>-->
-                  <!--<span v-if="exam.exstatus==1" class="span2" @click="lookexam(exam.exid)">查看试卷-->
-                  <!--</span>-->
-                  <!--<span v-if="exam.exstatus==1"@click="deleteExam(1,exam.exid)" class="span1"><i class="el-icon-delete">删除试卷</i></span>-->
-                  <!--<span v-if="exam.exstatus==0" @click="deleteExam(2,exam.exid)" class="span1"><i class="el-icon-delete">永久删除</i></span>-->
-                <!--</td>-->
-              <!--</tr>-->
-            <!--</table>-->
-            </span>
           </div>
           <div class="page">
             <ul class="pagination pagination-sm"><!--分页-->
@@ -414,21 +380,8 @@
   a {
     text-decoration: none;
   }
-  .router-link-active {
-    text-decoration: none;
-  }
-  .btn1 {
-    font-size: 10px;/*px*/
-    padding: 7px 7px;
-    border: 1px solid #E5E7E9;/*no*/
-    cursor: pointer;
-    background: #fff;
-    margin-bottom: -1px;
-    color: black;
-    width: 40px;
-  }
-  .active {
-    color: #01A6FE;
+  .top{
+    top: 20px;
   }
   .btn2 {
     width: 100px;/*px*/
@@ -553,6 +506,7 @@
     padding-left: 5px;
     padding-right: 5px;
     background-color: #fff;
+    margin-bottom: 10px;
   }
   .page {
     text-align: center;

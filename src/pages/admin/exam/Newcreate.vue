@@ -1,123 +1,124 @@
 <template>
-    <div class="nnn">
-      <el-row class="tac">
-        <el-col :span="3">
-          <el-menu
-            class="el-menu-vertical-demo"
-            >
-            <el-menu-item index="1" v-on:click="addCClick">
-              <i class="el-icon-menu"></i>
-              <span slot="title"  >单选题</span>
-            </el-menu-item>
-            <el-menu-item index="2" v-on:click="addFClick">
-              <i class="el-icon-menu"></i>
-              <span slot="title" >填空题</span>
-            </el-menu-item>
-            <el-menu-item index="3" v-on:click="addJClick">
-              <i class="el-icon-menu"></i>
-              <span slot="title" >判断题</span>
-            </el-menu-item>
-            <el-menu-item index="4" v-on:click="addCMClick">
-              <i class="el-icon-chat-dot-round"></i>
-              <span slot="title" >多选题</span>
-            </el-menu-item>
-            <el-menu-item index="5" v-on:click="addPClick">
-              <i class="el-icon-menu"></i>
-              <span slot="title" >程序题</span>
-            </el-menu-item>
-          </el-menu>
-        </el-col>
-        <el-col :span="16">
-          <div>
-            <div>
-              试卷名称：<input type="text" v-model="exname" placeholder="试卷名称" class="exname" style="width: 300px"/>
-              <br>
-              规定时间：<input type="text" v-model="gdtime" placeholder="规定时间" class="exname" style="display: inline-block"/>
-              <hr/>
-            </div>
-            <div class="create">
-              <!--单选题-->
-              <el-form v-if="CList.length>0">
-                <h3>选择题</h3>
-                <el-form-item v-for="(item,index) in CList" :key="index">
-                  <span>({{index+1}})</span>
-                  题   干：<el-input v-model="item.cqitem" placeholder="题目题干" class="input"></el-input>
-                  <el-button @click.prevent="deleteCClick(index)" type="danger" >删除</el-button><br>
-                  选项  一：<el-input v-model="item.cqcho1" placeholder="题目选项一" class="input"></el-input><br>
-                  选项  二：<el-input v-model="item.cqcho2" placeholder="题目选项二" class="input"></el-input><br>
-                  选项  三：<el-input v-model="item.cqcho3" placeholder="题目选项三" class="input"></el-input><br>
-                  选项  四：<el-input v-model="item.cqcho4"rem placeholder="题目选项四" class="input"></el-input><br>
-                  相关知识：<el-input v-model="item.cqrem" placeholder="题目相关知识" class="input"></el-input><br>
-                  答    案：<el-input v-model="item.cqans" placeholder="题目答案" class="input"></el-input><br>
-                  详    解：<el-input v-model="item.cqtail" placeholder="题目详解" class="input"></el-input><br>
-                </el-form-item>
-              </el-form>
-              <!--填空题-->
-              <el-form v-if="FList.length>0">
-                <h3>填空题</h3>
-                <el-form-item v-for="(item,index) in FList" :key="index">
-                  <span>（{{index+1}}）</span>
-                  题  干：<el-input v-model="item.fitem" placeholder="题目题干" class="input"></el-input>
-                  <el-button @click.prevent="deleteFClick(index)" type="danger" >删除</el-button><br>
-                  相关知识：<el-input v-model="item.frem" placeholder="题目相关知识" class="input"></el-input><br>
-                  答    案：<el-input v-model="item.fans" placeholder="题目答案" class="input"></el-input><br>
-                  详    解：<el-input v-model="item.ftail" placeholder="题目详解" class="input"></el-input><br>
-                </el-form-item>
-              </el-form>
-              <!--判断题-->
-              <el-form v-if="JList.length>0">
-                <h3>判断题</h3>
-                <el-form-item v-for="(item,index) in JList" :key="index">
-                  <span>（{{index+1}}）</span>
-                  题    干：<el-input v-model="item.jitem" placeholder="题目题干" class="input"></el-input>
-                  <el-button @click.prevent="deleteJClick(index)" type="danger" >删除</el-button><br>
-                  相关知识：<el-input v-model="item.jrem" placeholder="题目相关知识" class="input"></el-input><br>
-                  答    案：<el-input v-model="item.jans" placeholder="题目答案" class="input"></el-input><br>
-                  详    解：<el-input v-model="item.jtail" placeholder="题目详解" class="input"></el-input><br>
-                </el-form-item>
-              </el-form>
-              <!--多选题-->
-              <el-form v-if="CMList.length>0">
-                <h3>多选题</h3>
-                <el-form-item v-for="(item,index) in CMList" :key="index">
-                  <span>（{{index+1}}）</span>
-                  题  干：<el-input v-model="item.mitem" placeholder="题目题干" class="input"></el-input>
-                  <el-button @click.prevent="deleteCMClick(index)" type="danger" >删除</el-button><br>
-                  选项  一：<el-input v-model="item.mcho1" placeholder="题目选项一" class="input"></el-input><br>
-                  选项  二：<el-input v-model="item.mcho2" placeholder="题目选项二" class="input"></el-input><br>
-                  选项  三：<el-input v-model="item.mcho3" placeholder="题目选项三" class="input"></el-input><br>
-                  选项  四：<el-input v-model="item.mcho4"rem placeholder="题目选项四" class="input"></el-input><br>
-                  相关知识：<el-input v-model="item.mrem" placeholder="题目相关知识" class="input"></el-input><br>
-                  答    案：<el-input v-model="item.mans" placeholder="题目答案" class="input"></el-input><br>
-                  详    解：<el-input v-model="item.mtail" placeholder="题目详解" class="input"></el-input><br>
-                  <span>多选题答案选项用“---”连接，如答案为ABC 则显示在A---B---C</span>
-                </el-form-item>
-              </el-form>
-              <!--程序题-->
-              <el-form v-if="PList.length>0">
-                <h3>程序题</h3>
-                <el-form-item v-for="(item,index) in PList" :key="index">
-                  <span>（{{index+1}}）</span>
-                  题   干：<el-input v-model="item.pitem" placeholder="题目题干" class="input"></el-input>
-                  <el-button @click.prevent="deletePClick(index)" type="danger" >删除</el-button><br>
-                  相关知识：<el-input v-model="item.prem" placeholder="题目相关知识" class="input"></el-input><br>
-                  答    案：<el-input v-model="item.pans" placeholder="题目答案" class="input"></el-input><br>
-                  详    解：<el-input v-model="item.ptail" placeholder="题目详解" class="input"></el-input><br>
-                </el-form-item>
-              </el-form>
-            </div>
-            <button class="btn2 el-icon-circle-plus-outline" @click="createOK">完成创建</button>
+  <div class="nnn">
+    <el-row class="tac">
+      <el-col :span="3">
+        <el-menu class="el-menu-vertical-demo">
+          <el-menu-item index="1" v-on:click="addCClick">
+            <i class="el-icon-menu"></i>
+            <span slot="title"  >单选题</span>
+          </el-menu-item>
+          <el-menu-item index="2" v-on:click="addFClick">
+            <i class="el-icon-menu"></i>
+            <span slot="title" >填空题</span>
+          </el-menu-item>
+          <el-menu-item index="3" v-on:click="addJClick">
+            <i class="el-icon-menu"></i>
+            <span slot="title" >判断题</span>
+          </el-menu-item>
+          <el-menu-item index="4" v-on:click="addCMClick">
+            <i class="el-icon-chat-dot-round"></i>
+            <span slot="title" >多选题</span>
+          </el-menu-item>
+          <el-menu-item index="5" v-on:click="addPClick">
+            <i class="el-icon-menu"></i>
+            <span slot="title" >程序题</span>
+          </el-menu-item>
+        </el-menu>
+      </el-col>
+      <el-col :span="16">
+        <div>
+          <div class="ttitle">
+            试卷名称：<input type="text" v-model="exname" placeholder="试卷名称" class="exname" style="width: 300px"/>
+            <br>
+            规定时间(分钟)：<input type="text" v-model="gdtime" placeholder="规定时间" class="exname" style="display: inline-block"/>
+            <hr/>
           </div>
-        </el-col>
-        <el-col :span="1">
-          <el-divider direction="vertical"></el-divider>
-        </el-col>
-        <el-col :span="4" >
-          <div class="yulan">
-
-              <div v-if="CList.length >0">
-                <h3>选择题</h3>
-                  <span v-for="(c,key1) in CList":key="key1" >
+          <div class="create">
+            <!--单选题-->
+            <el-form v-if="CList.length>0">
+              <h3>选择题</h3>
+              <el-form-item v-for="(item,index) in CList" :key="index">
+                <span>({{index+1}})</span>
+                题   干：<el-input v-model="item.cqitem" placeholder="题目题干" class="input"></el-input>
+                <el-button @click.prevent="deleteCClick(index)" type="danger" >删除</el-button><br>
+                选项  一：<el-input v-model="item.cqcho1" placeholder="题目选项一" class="input"></el-input><br>
+                选项  二：<el-input v-model="item.cqcho2" placeholder="题目选项二" class="input"></el-input><br>
+                选项  三：<el-input v-model="item.cqcho3" placeholder="题目选项三" class="input"></el-input><br>
+                选项  四：<el-input v-model="item.cqcho4"rem placeholder="题目选项四" class="input"></el-input><br>
+                相关知识：<el-input v-model="item.cqrem" placeholder="题目相关知识" class="input"></el-input><br>
+                答    案：<el-input v-model="item.cqans" placeholder="题目答案" class="input"></el-input><br>
+                详    解：<el-input v-model="item.cqtail" placeholder="题目详解" class="input"></el-input><br>
+              </el-form-item>
+            </el-form>
+            <!--填空题-->
+            <el-form v-if="FList.length>0">
+              <h3>填空题</h3>
+              <el-form-item v-for="(item,index) in FList" :key="index">
+                <span>（{{index+1}}）</span>
+                题  干：<el-input v-model="item.fitem" placeholder="题目题干" class="input"></el-input>
+                <el-button @click.prevent="deleteFClick(index)" type="danger" >删除</el-button><br>
+                相关知识：<el-input v-model="item.frem" placeholder="题目相关知识" class="input"></el-input><br>
+                答    案：<el-input v-model="item.fans" placeholder="题目答案" class="input"></el-input><br>
+                详    解：<el-input v-model="item.ftail" placeholder="题目详解" class="input"></el-input><br>
+              </el-form-item>
+            </el-form>
+            <!--判断题-->
+            <el-form v-if="JList.length>0">
+              <h3>判断题</h3>
+              <el-form-item v-for="(item,index) in JList" :key="index">
+                <span>（{{index+1}}）</span>
+                题    干：<el-input v-model="item.jitem" placeholder="题目题干" class="input"></el-input>
+                <el-button @click.prevent="deleteJClick(index)" type="danger" >删除</el-button><br>
+                相关知识：<el-input v-model="item.jrem" placeholder="题目相关知识" class="input"></el-input><br>
+                答    案：
+                <!--<el-input v-model="item.jans" placeholder="题目答案" class="input"></el-input><br>-->
+                <input type="radio" :name="index" v-model="item.jans" value="1">正确
+                <input type="radio" :name="index" v-model="item.jans" value="0">错误
+                <br>
+                详    解：<el-input v-model="item.jtail" placeholder="题目详解" class="input"></el-input><br>
+              </el-form-item>
+            </el-form>
+            <!--多选题-->
+            <el-form v-if="CMList.length>0">
+              <h3>多选题</h3>
+              <el-form-item v-for="(item,index) in CMList" :key="index">
+                <span>（{{index+1}}）</span>
+                题  干：<el-input v-model="item.mitem" placeholder="题目题干" class="input"></el-input>
+                <el-button @click.prevent="deleteCMClick(index)" type="danger" >删除</el-button><br>
+                选项  一：<el-input v-model="item.mcho1" placeholder="题目选项一" class="input"></el-input><br>
+                选项  二：<el-input v-model="item.mcho2" placeholder="题目选项二" class="input"></el-input><br>
+                选项  三：<el-input v-model="item.mcho3" placeholder="题目选项三" class="input"></el-input><br>
+                选项  四：<el-input v-model="item.mcho4"rem placeholder="题目选项四" class="input"></el-input><br>
+                相关知识：<el-input v-model="item.mrem" placeholder="题目相关知识" class="input"></el-input><br>
+                答    案：<el-input v-model="item.mans" placeholder="题目答案" class="input"></el-input><br>
+                详    解：<el-input v-model="item.mtail" placeholder="题目详解" class="input"></el-input><br>
+                <span>多选题答案选项用“---”连接，如答案为ABC 则显示在A---B---C</span>
+              </el-form-item>
+            </el-form>
+            <!--程序题-->
+            <el-form v-if="PList.length>0">
+              <h3>程序题</h3>
+              <el-form-item v-for="(item,index) in PList" :key="index">
+                <span>（{{index+1}}）</span>
+                题   干：<el-input v-model="item.pitem" placeholder="题目题干" class="input"></el-input>
+                <el-button @click.prevent="deletePClick(index)" type="danger" >删除</el-button><br>
+                相关知识：<el-input v-model="item.prem" placeholder="题目相关知识" class="input"></el-input><br>
+                答    案：<el-input v-model="item.pans" placeholder="题目答案" class="input"></el-input><br>
+                详    解：<el-input v-model="item.ptail" placeholder="题目详解" class="input"></el-input><br>
+              </el-form-item>
+            </el-form>
+          </div>
+          <button class="btn2 el-icon-circle-plus-outline" @click="createOK">完成创建</button>
+        </div>
+      </el-col>
+      <el-col :span="1">
+        <el-divider direction="vertical"></el-divider>
+      </el-col>
+      <el-col :span="4" >
+        <div class="yulan">
+          <div v-if="CList.length >0">
+            <h3>选择题</h3>
+            <span v-for="(c,key1) in CList":key="key1" >
                   <span class="item">({{key1+1}}){{c.cqitem}}</span><br>
                     <el-radio-group >
                       <el-radio :label="3">{{c.cqcho1}}</el-radio><br>
@@ -129,31 +130,32 @@
                   <span class="tail">详解：{{c.cqtail}}</span><br>
                   <span class="rem">相关知识：{{c.cqrem}}</span><br>
                 </span>
-              </div>
+          </div>
 
-              <div v-if="FList.length>0">
-                <h3>填空题</h3>
-                  <span v-for="(c,key1) in FList":key="key1" >
+          <div v-if="FList.length>0">
+            <h3>填空题</h3>
+            <span v-for="(c,key1) in FList":key="key1" >
                   <span class="item">({{key1+1}}){{c.fitem}}</span><br>
                   <span class="ans" >答案：{{c.fans}}</span><br>
                   <span class="tail">详解：{{c.ftail}}</span><br>
                   <span class="rem">相关知识：{{c.frem}}</span><br>
                 </span>
-              </div>
+          </div>
 
-              <div v-if="JList.length>0">
-                <h3>判断题</h3>
-                  <span v-for="(c,key1) in JList":key="key1" >
+          <div v-if="JList.length>0">
+            <h3>判断题</h3>
+            <span v-for="(c,key1) in JList":key="key1" >
                   <span class="item">({{key1+1}}){{c.jitem}}</span><br>
-                  <span class="ans" >答案：{{c.jans}}</span><br>
+                  <span class="ans" v-if="c.jans==1">答案：正确</span>
+                  <span class="ans" v-if="c.jans==0">答案：错误</span><br>
                   <span class="tail">详解：{{c.jtail}}</span><br>
                   <span class="rem">相关知识：{{c.jrem}}</span><br>
                 </span>
-              </div>
+          </div>
 
-              <div v-if="CMList.length>0">
-                <h3>多选题</h3>
-                  <span v-for="(c,key1) in CMList":key="key1" >
+          <div v-if="CMList.length>0">
+            <h3>多选题</h3>
+            <span v-for="(c,key1) in CMList":key="key1" >
                   <span class="item">({{key1+1}}){{c.mitem}}</span><br>
                   <el-radio-group >
                       <el-radio :label="3">{{c.mcho1}}</el-radio><br>
@@ -165,160 +167,172 @@
                   <span class="tail">详解：{{c.mtail}}</span><br>
                   <span class="rem">相关知识：{{c.mrem}}</span><br>
                 </span>
-              </div>
+          </div>
 
-              <div v-if="PList.length>0">
-                <h3>程序题</h3>
-                  <span v-for="(c,key1) in PList":key="key1" >
+          <div v-if="PList.length>0">
+            <h3>程序题</h3>
+            <span v-for="(c,key1) in PList":key="key1" >
                   <span class="item">({{key1+1}}){{c.pitem}}</span><br>
                   <span class="ans" >答案：{{c.pans}}</span><br>
                   <span class="tail">详解：{{c.ptail}}</span><br>
                   <span class="rem">相关知识：{{c.prem}}</span><br>
                 </span>
-              </div>
           </div>
-        </el-col>
-      </el-row>
-    </div>
+        </div>
+      </el-col>
+    </el-row>
+  </div>
 </template>
 
 <script>
 
-    export default {
-        name: "Newcreate",
-      data(){
-          return{
-            exname:'',
-            gdtime:0,
-            CList:[],
-            FList:[],
-            JList:[],
-            CMList:[],
-            PList:[],
-          }
+  export default {
+    name: "tNewcreate",
+    data(){
+      return{
+        exname:'',
+        gdtime:0,
+        CList:[],
+        FList:[],
+        JList:[],
+        CMList:[],
+        PList:[],
+      }
+    },
+    methods:{
+      //添加选择题
+      addCClick:function(){
+        this.CList.push({
+          cqitem:'',
+          cqcho1:'',
+          cqcho2:'',
+          cqcho3:'',
+          cqcho4:'',
+          cqans:'',
+          cqrem:'',
+          cqtail:''
+        })
       },
-      methods:{
-          //添加选择题
-          addCClick:function(){
-            this.CList.push({
-              cqitem:'',
-              cqcho1:'',
-              cqcho2:'',
-              cqcho3:'',
-              cqcho4:'',
-              cqans:'',
-              cqrem:'',
-              cqtail:''
-            })
-          },
-          deleteCClick:function (id) {
-            this.CList.splice(id,1)
-          },
-        addFClick:function () {
-          this.FList.push({
-            fitem:'',
-            fans:'',
-            frem:'',
-            ftail:''
-          })
-        },
-        deleteFClick:function (id) {
-          this.FList.splice(id,1)
-        },
-        addJClick:function () {
-          this.JList.push({
-            jitem:'',
-            jans:'',
-            jrem:'',
-            jtail:''
-          })
-        },
-        deleteJClick:function (id) {
-          this.JList.splice(id,1)
-        },
-        addCMClick:function () {
-          this.CMList.push({
-            mitem:'',
-            mcho1:'',
-            mcho2:'',
-            mcho3:'',
-            mcho4:'',
-            mans:'',
-            mrem:'',
-            mtail:''
-          })
-        },
-        deleteCMClick:function (id) {
-          this.CMList.splice(id,1)
-        },
-        addPClick:function () {
-          this.PList.push({
-            pitem:'',
-            pans:'',
-            prem:'',
-            ptail:''
-          })
-        },
-        deletePClick:function (id) {
-          this.PList.splice(id,1)
-        },
-        createOK:function () {
-            if(this.exname.length==0)
-            {
-              this.$alert('试卷没有名称', '警告', {
-                confirmButtonText: '确定',})
-            }
-            else{
-              let lc = this.CList.length;
-              let lj =this.JList.length;
-              let lp=this.PList.length;
-              let lcm = this.CMList.length;
-              let lf = this.FList.length;
-              if(lc==0 || lj==0|| lp ==0 || lcm==0 ||lf==0)
-              {
-                this.$alert('试卷不完整，没有将五类题目都创建', '警告', {
-                  confirmButtonText: '确定',})
-              }
-              else{
-                this.$http.post('/yii/exam/index/addexam',{
-                  exname:this.exname,
-                  flag:3,
-                  CList:this.CList,
-                  FList:this.FList,
-                  JList:this.JList,
-                  PList:this.PList,
-                  CMList:this.CMList,
-                  gdtime:this.gdtime,
-                  auth:this.$store.getters.getsId
-                }).then(function (res) {
-                  console.log(res.data)
-                  if(res.data.message=="完成创建试卷")
-                  {
-                    alert(res.data.message)
-                    this.$router.push({path:'/admin/exam/create'})
-                    this.CList =[]
-                    this.FList=[]
-                    this.JList =[]
-                    this.CMList =[]
-                    this.PList =[]
-                    this.gdtime =0
-                  }
-                  else {
-                    // alert(res.data.message)
-                  }
-                })
-              }
-            }
-
+      deleteCClick:function (id) {
+        this.CList.splice(id,1)
+      },
+      addFClick:function () {
+        this.FList.push({
+          fitem:'',
+          fans:'',
+          frem:'',
+          ftail:''
+        })
+      },
+      deleteFClick:function (id) {
+        this.FList.splice(id,1)
+      },
+      addJClick:function () {
+        this.JList.push({
+          jitem:'',
+          jans:'',
+          jrem:'',
+          jtail:''
+        })
+      },
+      deleteJClick:function (id) {
+        this.JList.splice(id,1)
+      },
+      addCMClick:function () {
+        this.CMList.push({
+          mitem:'',
+          mcho1:'',
+          mcho2:'',
+          mcho3:'',
+          mcho4:'',
+          mans:'',
+          mrem:'',
+          mtail:''
+        })
+      },
+      deleteCMClick:function (id) {
+        this.CMList.splice(id,1)
+      },
+      addPClick:function () {
+        this.PList.push({
+          pitem:'',
+          pans:'',
+          prem:'',
+          ptail:''
+        })
+      },
+      deletePClick:function (id) {
+        this.PList.splice(id,1)
+      },
+      createOK:function () {
+        if(this.exname.length==0)
+        {
+          this.$alert('试卷没有名称', '警告', {
+            confirmButtonText: '确定',})
         }
-      },
-      created(){
+        else if(this.gdtime==0)
+        {
+          this.$alert('试卷没有设置时间', '警告', {
+            confirmButtonText: '确定',})
+        }
+        else{
+          let lc = this.CList.length;
+          let lj =this.JList.length;
+          let lp=this.PList.length;
+          let lcm = this.CMList.length;
+          let lf = this.FList.length;
+          if(lc==0 || lj==0|| lp ==0 || lcm==0 ||lf==0)
+          {
+            this.$alert('试卷不完整，没有将五类题目都创建', '警告', {
+              confirmButtonText: '确定',})
+          }
+          else{
+            this.$http.post('/yii/exam/index/addexam',{
+              exname:this.exname,
+              flag:3,
+              CList:this.CList,
+              FList:this.FList,
+              JList:this.JList,
+              PList:this.PList,
+              CMList:this.CMList,
+              gdtime:this.gdtime,
+              auth:this.$store.getters.getsId
+            }).then(function (res) {
+              console.log(res.data)
+              if(res.data.message=="完成创建试卷")
+              {
+                alert(res.data.message)
+                this.$router.push({path:'/admin/exam/create'})
+                this.CList =[]
+                this.FList=[]
+                this.JList =[]
+                this.CMList =[]
+                this.PList =[]
+                this.gdtime =0
+                this.exname=''
+              }
+              else {
+                // alert(res.data.message)
+              }
+            })
+          }
+        }
 
       }
+    },
+    created(){
+
     }
+  }
 </script>
 
 <style scoped>
+  .ttitle{
+    text-align: left;
+    margin-left: 20px;
+    font-weight: bold;
+    line-height: 20px;
+  }
   .exname{
     outline-style: none ;
     border: 1px solid #ccc;
@@ -381,6 +395,7 @@
     margin-right: 50px;
     width: 80%;
     height: 650px;
+    font-weight: bold;
   }
   .item{
     margin-left: 20px;

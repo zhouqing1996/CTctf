@@ -4,7 +4,7 @@
     <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb-css" style="font-size: 0.25rem">
       <el-breadcrumb-item :to="{ path: '/admin/index' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item>题库信息</el-breadcrumb-item>
-      <el-breadcrumb-item>选择题</el-breadcrumb-item>
+      <el-breadcrumb-item ><span @click="getQuerycquestion" style="font-weight: bold">选择题</span></el-breadcrumb-item>
     </el-breadcrumb>
     <div><hr/></div>
     <div class="display1">
@@ -601,7 +601,8 @@
               op4:List.op4,
               ans:List.ans,
               tail:List.tail,
-              rem:List.rem
+              rem:List.rem,
+              auth:this.$store.getters.getsId
             }).then(function (res) {
               console.log(res.data)
               if(res.data.message=="插入选择题成功")
@@ -629,7 +630,6 @@
           this.addList.op3=""
           this.addList.op4=""
           this.addList.item=""
-
         },
         //修改
         //1:题干
@@ -648,6 +648,7 @@
               cid:this.changeList.id,
               flag:1,
               item:this.changeList.item,
+              auth:this.$store.getters.getsId
             }).then(function (res) {
               console.log(res.data)
               if(res.data.message=="该选择题题干修改成功")
@@ -667,7 +668,8 @@
               cid:this.changeList.id,
               flag:2,
               top:1,
-              op1:this.changeList.op1
+              op1:this.changeList.op1,
+              auth:this.$store.getters.getsId
             }).then(function (res) {
               console.log(res.data)
               if(res.data.message=="该选择题选项1修改成功")
@@ -687,7 +689,8 @@
               cid:this.changeList.id,
               flag:2,
               top:2,
-              op2:this.changeList.op2
+              op2:this.changeList.op2,
+              auth:this.$store.getters.getsId
             }).then(function (res) {
               console.log(res.data)
               if(res.data.message=="该选择题选项2修改成功")
@@ -707,7 +710,8 @@
               cid:this.changeList.id,
               flag:2,
               top:3,
-              op3:this.changeList.op3
+              op3:this.changeList.op3,
+              auth:this.$store.getters.getsId
             }).then(function (res) {
               console.log(res.data)
               if(res.data.message=="该选择题选项3修改成功")
@@ -727,7 +731,8 @@
               cid:this.changeList.id,
               flag:2,
               top:4,
-              op4:this.changeList.op4
+              op4:this.changeList.op4,
+              auth:this.$store.getters.getsId
             }).then(function (res) {
               console.log(res.data)
               if(res.data.message=="该选择题选项4修改成功")
@@ -746,7 +751,8 @@
             this.$http.post('/yii/bank/chooseq/change',{
               cid:this.changeList.id,
               flag:3,
-              ans:this.changeList.ans
+              ans:this.changeList.ans,
+              auth:this.$store.getters.getsId
             }).then(function (res) {
               console.log(res.data)
               if(res.data.message=="该选择题答案修改成功")
@@ -765,7 +771,8 @@
             this.$http.post('/yii/bank/chooseq/change',{
               cid:this.changeList.id,
               flag:4,
-              tail:this.changeList.tail
+              tail:this.changeList.tail,
+              auth:this.$store.getters.getsId
             }).then(function (res) {
               console.log(res.data)
               if(res.data.message=="该选择题详解修改成功")
@@ -784,7 +791,8 @@
             this.$http.post('/yii/bank/chooseq/change',{
               cid:this.changeList.id,
               flag:5,
-              rem:this.changeList.rem
+              rem:this.changeList.rem,
+              auth:this.$store.getters.getsId
             }).then(function (res) {
               console.log(res.data)
               if(res.data.message=="该选择题相关知识修改成功")
@@ -803,7 +811,8 @@
             console.log(id)
             this.$http.post('/yii/bank/chooseq/change',{
               cid:id,
-              flag:6
+              flag:6,
+              auth:this.$store.getters.getsId
             }).then(function (res) {
 
               console.log(res.data)
@@ -832,7 +841,8 @@
             }).then(() => {
               this.$http.post('/yii/bank/chooseq/delete',{
                 cid:id,
-                flag:1
+                flag:1,
+                auth:this.$store.getters.getsId
               }).then(function (res) {
                 console.log(res.data)
                 if(res.data.message=="该选择题删除成功")
@@ -920,6 +930,7 @@
                 obj.ans= v.答案
                 obj.tail= v.详解
                 obj.rem= v.相关点
+                obj.auth=_this.$store.getters.getsId
                 arr.push(obj)
               })
               _this.memberList = [...arr]

@@ -2,7 +2,7 @@
   <div>
     <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb-css">
       <el-breadcrumb-item :to="{ path: '/user/index' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>测评</el-breadcrumb-item>
+      <el-breadcrumb-item><span @click="getEvaList" style="font-weight: bold">测评</span></el-breadcrumb-item>
     </el-breadcrumb>
     <div><hr/></div>
     <div class="display1">
@@ -24,8 +24,9 @@
                 <div class="detail">
                   <div>
                     <h3>
-                      <span class="span2">[序号：{{ key+1 }} 试卷编号：{{exam.exid}}</span>
-                      <a  @click="Goexam(exam.exid,exam.gdtime)" class="title" target="_blank">{{exam.exname}}</a>
+                      <span class="span2">[序号：{{ key+1 }} 试卷编号：{{exam.exid}}]
+                        <p @click="Goexam(exam.exid,exam.gdtime)" class="title" target="_blank">{{exam.exname}}</p>
+                      </span>
                     </h3>
                   </div>
                   <div>
@@ -231,13 +232,14 @@
     margin-top: 17px;
     margin-bottom: 5px;
   }
+
+  .btn2:hover {
+    background-color: #5FA7FE;
+  }
   .title {
     font-size: 16px;
     color: #000;
     font-weight: bold;
-  }
-  .btn2:hover {
-    background-color: #5FA7FE;
   }
   a:link{
     color: dodgerblue;
@@ -385,11 +387,12 @@
     line-height: 24px;
     margin-top: 0;
   }
-  li{list-style-type:none;}
+
   .dialog1{
     width: 350px;
     height:400px;
   }
+  li{list-style-type:none;}
   ul {
     display: flex;
     /*flex-direction: row;*/

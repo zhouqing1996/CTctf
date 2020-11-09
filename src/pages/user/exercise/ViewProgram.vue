@@ -11,12 +11,14 @@
         </el-page-header>
       </div>
       <div v-for="(p,index) in List">
-        <div>
+        <div class="item">
           <h3>{{p.pqitem}}(程序题)</h3>
           <input type="text"  :name="p.pqid" @input="Click(p.pqid,$event)"><br>
         </div>
         <hr/>
-        <div v-if="Visable==true">
+        <div v-if="Visable==true" class="item">
+          <p v-if="AnsFlag==1" class="uansR" >您的答案：{{Ans[0].ans}}</p>
+          <p v-else class="uansE" >您的答案：{{Ans[0].ans}}</p>
           <span>答案：{{p.pqans}}</span><br>
           <span>相关知识点：{{p.pqrem}}</span><br>
           <span>详解：{{p.pqtail}}</span><br>
@@ -42,6 +44,7 @@
           List:[],
           //用户答案
           Ans:[],
+          AnsFlag:0,
           //  显示答案
           Visable:false,
           //  计时
@@ -98,25 +101,36 @@
           s = s > 9 ? s:'0' + s
           let time = h+':'+m+':'+s
           console.log(time)
-          this.$http.post('/yii/student/exercise/submitanser',{
-            flag:3,
-            uid:this.uid,
-            qid:this.qid,
-            ans:this.Ans,
-            ctime:time
-          }).then(function (res) {
-            console.log(res.data)
-            if(res.data.message=="练习程序题成功")
-            {
-              this.Visable = true
-            }
-            else{
-              alert(res.data.message)
-            }
-          }).catch(function (error) {
-            console.log(error)
-          })
-
+          if(this.Ans.length==0)
+          {
+            this.$alert('您尚未作答，请检查', '警告', {
+              confirmButtonText: '确定',})
+          }
+          else if(this.Ans[0].ans=='')
+          {
+            this.$alert('您尚未作答，请检查', '警告', {
+              confirmButtonText: '确定',})
+          }else{
+            this.$http.post('/yii/student/exercise/submitanser',{
+              flag:3,
+              uid:this.uid,
+              qid:this.qid,
+              ans:this.Ans,
+              ctime:time
+            }).then(function (res) {
+              console.log(res.data)
+              if(res.data.message=="练习程序题成功")
+              {
+                this.Visable = true
+                this.AnsFlag=res.data.data
+              }
+              else{
+                alert(res.data.message)
+              }
+            }).catch(function (error) {
+              console.log(error)
+            })
+          }
         }
       },
       created(){
@@ -161,5 +175,21 @@
     margin-top: 5px;
     text-align: left;
     padding: 30px;
+  }
+  .item{
+    margin-left: 50px;
+    margin-top: 20px;
+  }
+  .uansR{
+    /*正确答案*/
+    margin-left: 30px;
+    color: yellowgreen;
+    font-weight: bold;
+  }
+  .uansE{
+    /*错误答案*/
+    margin-left: 30px;
+    color: coral;
+    font-weight: bold;
   }
 </style>

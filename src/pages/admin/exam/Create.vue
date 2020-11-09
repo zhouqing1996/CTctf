@@ -3,7 +3,7 @@
   <div>
     <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb-css">
       <el-breadcrumb-item :to="{ path: '/admin/index' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>测评试卷</el-breadcrumb-item>
+      <el-breadcrumb-item><span @click="getExamList(3)" style="font-weight: bold">测评试卷</span></el-breadcrumb-item>
     </el-breadcrumb>
     <div><hr/></div>
     <div class="display1">

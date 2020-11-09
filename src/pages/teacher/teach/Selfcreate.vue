@@ -3,7 +3,7 @@
       <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb-css">
         <el-breadcrumb-item :to="{ path: '/teacher/create' }">测评题库</el-breadcrumb-item>
         <el-breadcrumb-item>手动组卷</el-breadcrumb-item>
-        <el-breadcrumb-item>题库列表</el-breadcrumb-item>
+        <el-breadcrumb-item><span @click="getQuery" style="font-weight: bold">题库列表</span></el-breadcrumb-item>
         <!--<el-breadcrumb-item></el-breadcrumb-item>-->
         <!--<el-breadcrumb-item><button class="btn2 el-icon-folder-checked" >完成组卷</button></el-breadcrumb-item>-->
       </el-breadcrumb>
@@ -277,8 +277,8 @@
                 <div>
                   <span v-for="(j,key3) in ViewList3":key="key3">
                     <li class="item">({{key3+1}}){{j.jqitem}}<br>
-                      <input type="radio"  value="1">对<br>
-                      <input type="radio"  value="0">错<br>
+                      <input type="radio"  value="1">正确<br>
+                      <input type="radio"  value="0">错误<br>
 
                     </li>
                   </span>
@@ -667,6 +667,13 @@
           }).catch(function (error) {
             console.log(error)
           })
+        },
+        getQuery:function () {
+          this.getQuery1()
+          this.getQuery2()
+          this.getQuery3()
+          this.getQuery4()
+          this.getQuery5()
         }
       },
       created(){

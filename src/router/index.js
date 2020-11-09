@@ -46,7 +46,7 @@ import Book from '../pages/admin/book/Book'
 //创建试卷
 import Create from '../pages/admin/exam/Create'
 //查看试卷
-import View from '../pages/admin/exam/Viewexam'
+import ViewA from '../pages/admin/exam/Viewexam'
 //手动组卷（题库中选择）
 import SelfCreate from '../pages/admin/exam/Selfcreate'
 //创建试卷
@@ -85,6 +85,10 @@ import UserIndex from '../pages/user/Index'
 import UserEvaluate from '../pages/user/evaluate/Evaluate'
 //进入测评
 import UserGoEva from '../pages/user/evaluate/Goeva'
+//查看结果
+import UserResult from '../pages/user/evaluate/Resultview'
+//查看详情
+import UserView from '../pages/user/evaluate/Result'
 
 //排名
 import UserRank from '../pages/user/rank/Rank'
@@ -105,8 +109,15 @@ import UserExerciseChoosem from '../pages/user/exercise/ViewChoosem'
 import UserMy from '../pages/user/my/My'
 import Userchangepwd from '../pages/user/my/Changepwd'
 
+//用户数据分析
+//练习
+import UserAnlysis from '../pages/user/exercise/Anlysis'
 
-
+//图像
+import SLineChart from '../components/SLineChart'
+import RadarChart from '../components/RadarChart'
+import CalenderHeatmap from '../components/CalenderHeatmap'
+import BarChart from '../components/BarChart'
 
 
 
@@ -114,6 +125,38 @@ Vue.use(Router)
 const  router = new Router({
   mode:'history',
   routes: [
+    {
+      path:'/slinechart',
+      name:'slinechart',
+      meta:{
+        isLogin:false
+      },
+      component:SLineChart
+    },
+    {
+      path:'/heatmap',
+      name:'heatmap',
+      meta:{
+        isLogin:false
+      },
+      component:CalenderHeatmap
+    },
+    {
+      path:'/barchart',
+      name:'barchart',
+      meta:{
+        isLogin:false
+      },
+      component:BarChart
+    },
+    {
+      path:'/radarChart',
+      name:'radarChart',
+      meta:{
+        isLogin:false
+      },
+      component:RadarChart
+    },
     {
       //测试
       path: '/',
@@ -277,7 +320,7 @@ const  router = new Router({
           meta:{
             isLogin:true
           },
-          component:View
+          component:ViewA
         },
         {
           path:'/admin/exam/selfcreate',
@@ -434,6 +477,23 @@ const  router = new Router({
           component:UserGoEva
         },
         {
+        //  查看结果
+          path:'/user/evaluate/result',
+          name:'UserResult',
+          meta:{
+            isLogin:true
+          },
+          component:UserResult
+        },
+        {
+          path:'/user/evaluate/userview',
+          name:'UserViews',
+          meta:{
+            isLogin:true
+          },
+          component:UserView
+        },
+        {
         //  练习
           path:'/user/exercise',
           name:'Userexercise',
@@ -486,6 +546,15 @@ const  router = new Router({
             isLogin:true
           },
           component:UserExerciseChoosem
+        },
+        {
+          //  用户练习数据分析
+          path:'/user/exercise/anlysis',
+          name:'Useranlysis',
+          meta:{
+            isLogin:true
+          },
+          component:UserAnlysis
         },
         {
         //  我的

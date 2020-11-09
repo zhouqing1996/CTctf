@@ -1,11 +1,9 @@
 <template>
     <!--用户信息-->
   <div>
-    <!--<el-page-header @click="history.back()" content="用户信息">-->
-    <!--</el-page-header>-->
     <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb-css">
-      <!--<el-breadcrumb-item :to="{ path: '/admin/index' }">首页</el-breadcrumb-item>-->
-      <el-breadcrumb-item>用户信息</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/admin/index' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item><span @click="getQuery" style="font-weight: bold">用户信息</span></el-breadcrumb-item>
     </el-breadcrumb>
     <div><hr/></div>
     <div class="display1">
@@ -127,7 +125,7 @@
                     </div>
                   </el-dialog>
                   <!--<span v-if="userinfo.status==0" @click="changeStatus(userinfo.id)" class="span2"><i class="el-icon-edit">修改状态</i></span>-->
-                  <span v-if="userinfo.status==1"@click="deleteUser(userinfo.id)" class="span1"><i class="el-icon-delete">删除用户</i></span>
+                  <span v-if="userinfo.status==1&&userinfo.role!=1"@click="deleteUser(userinfo.id)" class="span1"><i class="el-icon-delete">删除用户</i></span>
                   <span v-if="userinfo.status==0" @click="deleteUsers(userinfo.id)" class="span1"><i class="el-icon-delete">永久删除</i></span>
                 </td>
               </tr>

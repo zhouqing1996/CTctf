@@ -12,6 +12,10 @@ import axios from 'axios'
 
 import initHtml5Editor from './common/initHtml5Editor'
 import 'font-awesome/css/font-awesome.min.css'
+
+import echarts from 'echarts'
+Vue.prototype.$echarts = echarts
+
 Vue.use(initHtml5Editor)
 // 添加请求拦截器，在请求头加token
 axios.interceptors.request.use(

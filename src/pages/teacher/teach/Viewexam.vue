@@ -6,8 +6,10 @@
       </el-page-header>
     </div>
     <div>
-      <h1>{{examList.id}}:<strong>{{examList.exname}}</strong></h1>
-      <p><i class="el-icon-s-custom"></i>试卷创建人：{{examList.exUser}}  ||<i class="el-icon-date"></i>创建时间：{{examList.exCreateTime}}</p>
+      <h1><strong>{{examList.exname}}</strong></h1>
+      <p><i class="el-icon-s-custom"></i>试卷创建人：{{examList.exUser}}
+        ||<i class="el-icon-date"></i>创建时间：{{examList.exCreateTime}}
+      ||<i class="el-icon-time"></i>考试时间：{{examList.gdtime}} 分钟</p>
       <hr/>
       <h2>一、选择题</h2>
       <div>
@@ -72,9 +74,6 @@
       </span>
       </div>
     </div>
-    <!--<div>-->
-      <!--<button class="btn2" @click="back">返回</button>-->
-    <!--</div>-->
   </div>
 </template>
 
@@ -88,6 +87,7 @@
               exname:'',
               exUser:'',
               exCreateTime:'',
+              gdtime:''
             },
             chooseqList:[],
             fillqList:[],
@@ -116,6 +116,7 @@
             that.programqList=res.data.data[5]
             that.judgeList =res.data.data[6]
             that.choosemList=res.data.data[7]
+            that.examList.gdtime = res.data.data[8].gdtime
           })
         }
       },

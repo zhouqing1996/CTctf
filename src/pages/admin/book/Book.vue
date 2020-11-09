@@ -3,7 +3,7 @@
   <div>
     <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb-css">
       <el-breadcrumb-item :to="{ path: '/admin/index' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>书籍信息</el-breadcrumb-item>
+      <el-breadcrumb-item><span @click="getBookList(3)" style="font-weight: bold">书籍信息</span></el-breadcrumb-item>
     </el-breadcrumb>
     <div><hr/></div>
     <div class="display1">
@@ -137,108 +137,6 @@
                 </div>
               </div>
             </div>
-            <span>
-              <!--<table >-->
-              <!--<tr>-->
-                <!--<th>序号</th>-->
-                <!--<th>书编号 </th>-->
-                <!--<th>书名</th>-->
-                <!--<th>出版社</th>-->
-                <!--<th>作者</th>-->
-                <!--<th>关于</th>-->
-                <!--<th>状态</th>-->
-                <!--<th>操作</th>-->
-              <!--</tr>-->
-              <!--<tr v-for=" (Book,key) in currentPageData" :key="key">-->
-                <!--<td>{{ key+1 }}</td>-->
-                <!--<td>{{Book.bookid}}</td>-->
-                <!--<td>{{Book.bookname}}-->
-                  <!--<span v-if="Book.status==1" @click="dialogFormVisiblechangName=true;changeList.id=Book.bookid;item=Book.bookname" class="span2">修改</span>-->
-                  <!--<el-dialog title="修改书名" :visible.sync="dialogFormVisiblechangName">-->
-                    <!--<el-form :model="changeList">-->
-                      <!--<el-form-item label="书名内容1" :label-width="formLabelWidth">-->
-                        <!--<el-input style="width: 350px;" v-model="item" auto-complete="off"></el-input>-->
-                      <!--</el-form-item>-->
-                      <!--<el-form-item label="书名内容" :label-width="formLabelWidth">-->
-                        <!--<el-input style="width: 350px;" v-model="changeList.name" auto-complete="off"></el-input>-->
-                      <!--</el-form-item>-->
-                    <!--</el-form>-->
-                    <!--<div slot="footer" style="align-content: center" class="dialog-footer">-->
-                      <!--<el-button type="primary" @click="changeBook(1,changeList)">提交</el-button>-->
-                      <!--<el-button @click="dialogFormVisiblechangName=false">退出</el-button>-->
-                    <!--</div>-->
-                  <!--</el-dialog>-->
-                <!--</td>-->
-                <!--<td>-->
-                  <!--{{Book.publish}}-->
-                  <!--<span v-if="Book.status==1" @click="dialogFormVisiblechangePublish=true;changeList.id=Book.bookid;item=Book.publish" class="span2">修改</span>-->
-                  <!--<el-dialog title="修改出版社" :visible.sync="dialogFormVisiblechangePublish">-->
-                    <!--<el-form :model="changeList">-->
-                      <!--<el-form-item label="原始出版社" :label-width="formLabelWidth">-->
-                        <!--<el-input style="width: 350px;" v-model="item" auto-complete="off"></el-input>-->
-                      <!--</el-form-item>-->
-                      <!--<el-form-item label="修改出版社" :label-width="formLabelWidth">-->
-                        <!--<el-input style="width: 350px;" v-model="changeList.publish" auto-complete="off"></el-input>-->
-                      <!--</el-form-item>-->
-                    <!--</el-form>-->
-                    <!--<div slot="footer" style="align-content: center" class="dialog-footer">-->
-                      <!--<el-button type="primary" @click="changeBook(2,changeList)">提交</el-button>-->
-                      <!--<el-button @click="dialogFormVisiblechangePublish=false">退出</el-button>-->
-                    <!--</div>-->
-                  <!--</el-dialog>-->
-                <!--</td>-->
-                <!--<td>-->
-                  <!--{{Book.author}}-->
-                  <!--<span v-if="Book.status==1" @click="dialogFormVisiblechangeAuthor=true;changeList.id=Book.bookid;item=Book.author" class="span2">修改</span>-->
-                  <!--<el-dialog title="修改作者" :visible.sync="dialogFormVisiblechangeAuthor">-->
-                    <!--<el-form :model="changeList">-->
-                      <!--<el-form-item label="原始作者" :label-width="formLabelWidth">-->
-                        <!--<el-input style="width: 350px;" v-model="item" auto-complete="off"></el-input>-->
-                      <!--</el-form-item>-->
-                      <!--<el-form-item label="修改作者" :label-width="formLabelWidth">-->
-                        <!--<el-input style="width: 350px;" v-model="changeList.author" auto-complete="off"></el-input>-->
-                      <!--</el-form-item>-->
-                    <!--</el-form>-->
-                    <!--<div slot="footer" style="align-content: center" class="dialog-footer">-->
-                      <!--<el-button type="primary" @click="changeBook(3,changeList)">提交</el-button>-->
-                      <!--<el-button @click="dialogFormVisiblechangeAuthor=false">退出</el-button>-->
-                    <!--</div>-->
-                  <!--</el-dialog>-->
-                <!--</td>-->
-                <!--<td>-->
-                  <!--<el-tooltip placement="top" effect="light">-->
-                  <!--<div slot="content">{{Book.about}}</div>-->
-                  <!--<el-button class="btn1">关于</el-button>-->
-                  <!--</el-tooltip>-->
-                  <!--<span v-if="Book.status==1" @click="dialogFormVisiblechangeAbout=true;changeList.id=Book.bookid;item=Book.about" class="span2">修改</span>-->
-                  <!--<el-dialog title="修改关于" :visible.sync="dialogFormVisiblechangeAbout">-->
-                    <!--<el-form :model="changeList">-->
-                      <!--<el-form-item label="原始关于" :label-width="formLabelWidth">-->
-                        <!--<el-input style="width: 350px;" v-model="item" auto-complete="off"></el-input>-->
-                      <!--</el-form-item>-->
-                      <!--<el-form-item label="修改关于" :label-width="formLabelWidth">-->
-                        <!--<el-input style="width: 350px;" v-model="changeList.about" auto-complete="off"></el-input>-->
-                      <!--</el-form-item>-->
-                    <!--</el-form>-->
-                    <!--<div slot="footer" style="align-content: center" class="dialog-footer">-->
-                      <!--<el-button type="primary" @click="changeBook(4,changeList)">提交</el-button>-->
-                      <!--<el-button @click="dialogFormVisiblechangeAbout=false">退出</el-button>-->
-                    <!--</div>-->
-                  <!--</el-dialog>-->
-                <!--</td>-->
-                <!--<td v-if="Book.status==1">有效</td>-->
-                <!--<td v-if="Book.status==0">无效-->
-                  <!--<span v-if="Book.status==0" @click="changeBook(5,Book.bookid)" class="span2">修改</span>-->
-                <!--</td>-->
-
-                <!--<td>-->
-
-                  <!--<span v-if="Book.status==1"@click="deleteBook(1,Book.bookid)" class="span1"><i class="el-icon-delete">删除图书</i></span>-->
-                  <!--<span v-if="Book.status==0" @click="deleteBook(2,Book.bookid)" class="span1"><i class="el-icon-delete">永久删除</i></span>-->
-                <!--</td>-->
-              <!--</tr>-->
-            <!--</table>-->
-            </span>
           </div>
           <div class="page">
             <ul class="pagination pagination-sm"><!--分页-->
@@ -385,7 +283,8 @@
               bookname:this.addList.name,
               publish:this.addList.publish,
               author:this.addList.author,
-              about:this.addList.about
+              about:this.addList.about,
+              auth:this.$store.getters.getsId
             }).then(function (res) {
               console.log(res.data)
             if(res.data.message=="图书添加成功")
@@ -417,7 +316,8 @@
             this.$http.post('/yii/book/book/changebook',{
               bookid:this.changeList.id,
               flag:1,
-              bookname:this.changeList.name
+              bookname:this.changeList.name,
+              auth:this.$store.getters.getsId
             }).then(function (res) {
               console.log(res.data)
               if(res.data.message=="该图书名修改成功")
@@ -436,7 +336,8 @@
             this.$http.post('/yii/book/book/changebook',{
               bookid:this.changeList.id,
               flag:2,
-              publish:this.changeList.publish
+              publish:this.changeList.publish,
+              auth:this.$store.getters.getsId
             }).then(function (res) {
               console.log(res.data)
               if(res.data.message=="该图书出版社修改成功")
@@ -455,7 +356,8 @@
             this.$http.post('/yii/book/book/changebook',{
               bookid:this.changeList.id,
               flag:3,
-              author:this.changeList.author
+              author:this.changeList.author,
+              auth:this.$store.getters.getsId
             }).then(function (res) {
               console.log(res.data)
               if(res.data.message=="该图书作者修改成功")
@@ -474,7 +376,8 @@
             this.$http.post('/yii/book/book/changebook',{
               bookid:this.changeList.id,
               flag:4,
-              about:this.changeList.about
+              about:this.changeList.about,
+              auth:this.$store.getters.getsId
             }).then(function (res) {
               console.log(res.data)
               if(res.data.message=="该图书关于修改成功")
@@ -493,6 +396,7 @@
             this.$http.post('/yii/book/book/changebook',{
               bookid:id,
               flag:5,
+              auth:this.$store.getters.getsId
             }).then(function (res) {
               console.log(res.data)
               if(res.data.message=="该图书状态修改成功")
@@ -522,7 +426,8 @@
             }).then(() => {
               this.$http.post('/yii/book/book/deletebook',{
                 flag:1,
-                bookid:id
+                bookid:id,
+                auth:this.$store.getters.getsId
               }).then(function (res) {
                 console.log(res.data)
                 if(res.data.message=="该图书已删除")
@@ -609,6 +514,7 @@
                   obj.publish= v.出版社
                   obj.author= v.作者
                   obj.about=v.关于
+                  obj.auth=_this.$store.getters.getsId
                   arr.push(obj)
                 })
               _this.memberList = [...arr]

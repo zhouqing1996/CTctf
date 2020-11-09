@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb-css">
-      <el-breadcrumb-item>练习</el-breadcrumb-item>
+      <el-breadcrumb-item><span @click="getQuery" style="font-weight: bold">练习</span></el-breadcrumb-item>
     </el-breadcrumb>
     <div><hr/></div>
     <div class="display1">
@@ -27,9 +27,9 @@
                 <th>操作</th>
               </tr>
               <tr v-for=" (c,key) in currentPageData1" :key="key">
-                <td>{{key+1}}</td>
-                <td>{{c.cqid}}</td>
-                <td>{{c.cqitem}}</td>
+                <td style="width: 10%">{{key+1}}</td>
+                <td style="width: 10%">{{c.cqid}}</td>
+                <td style="width: 70%;text-align: left">{{c.cqitem}}</td>
                 <td>
                   <span class="span2" @click="Click1(c.cqid)">进入练习</span>
                 </td>
@@ -72,9 +72,9 @@
                 <th>操作</th>
               </tr>
               <tr v-for=" (f,key) in currentPageData2" :key="key">
-                <td>{{key+1}}</td>
-                <td>{{f.fqid}}</td>
-                <td>{{f.fqitem}}</td>
+                <td style="width: 10%">{{key+1}}</td>
+                <td style="width: 10%">{{f.fqid}}</td>
+                <td style="width: 70%;text-align: left">{{f.fqitem}}</td>
                 <td>
                   <span class="span2" @click="Click2(f.fqid)">进入练习</span>
                 </td>
@@ -118,9 +118,9 @@
                 <th>操作</th>
               </tr>
               <tr v-for=" (j,key) in currentPageData3" :key="key">
-                <td>{{key+1}}</td>
-                <td>{{j.jqid}}</td>
-                <td>{{j.jqitem}}</td>
+                <td style="width: 10%">{{key+1}}</td>
+                <td style="width: 10%">{{j.jqid}}</td>
+                <td style="width: 70%;text-align: left">{{j.jqitem}}</td>
                 <td>
                   <span class="span2" @click="Click3(j.jqid)">进入练习</span>
                 </td>
@@ -163,9 +163,9 @@
                 <th>操作</th>
               </tr>
               <tr v-for=" (m,key) in currentPageData4" :key="key">
-                <td>{{key+1}}</td>
-                <td>{{m.mqid}}</td>
-                <td>{{m.mqitem}}</td>
+                <td style="width: 10%">{{key+1}}</td>
+                <td style="width: 10%">{{m.mqid}}</td>
+                <td style="width: 70%;text-align: left">{{m.mqitem}}</td>
                 <td>
                   <span class="span2" @click="Click4(m.mqid)">进入练习</span>
                 </td>
@@ -209,9 +209,9 @@
                 <th>操作</th>
               </tr>
               <tr v-for=" (p,key) in currentPageData5" :key="key">
-                <td>{{key+1}}</td>
-                <td>{{p.pqid}}</td>
-                <td>{{p.pqitem}}</td>
+                <td style="width: 5%">{{key+1}}</td>
+                <td style="width: 5%">{{p.pqid}}</td>
+                <td style="width: 80%;text-align: left">{{p.pqitem}}</td>
                 <td>
                   <span class="span2" @click="Click5(p.pqid)">进入练习</span>
                 </td>
@@ -479,7 +479,13 @@
             }
           })
         },
-
+        getQuery:function () {
+          this.getQuery1()
+          this.getQuery2()
+          this.getQuery3()
+          this.getQuery4()
+          this.getQuery5()
+        }
       },
       created(){
         this.getQuery1()

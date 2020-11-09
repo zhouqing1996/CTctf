@@ -4,7 +4,7 @@
     <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb-css" style="font-size: 0.25rem">
       <el-breadcrumb-item :to="{ path: '/admin/index' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item>题库信息</el-breadcrumb-item>
-      <el-breadcrumb-item>程序题</el-breadcrumb-item>
+      <el-breadcrumb-item ><span @click="getQueryP" style="font-weight: bold">程序题</span></el-breadcrumb-item>
     </el-breadcrumb>
     <div><hr/></div>
     <div class="display1">
@@ -137,118 +137,6 @@
                 </div>
               </div>
             </div>
-            <span>
-              <!--<table >-->
-              <!--<tr>-->
-                <!--<th>序号</th>-->
-                <!--<th>题编号 </th>-->
-                <!--<th>题干</th>-->
-                <!--<th>答案</th>-->
-                <!--<th>详解</th>-->
-                <!--<th>相关知识</th>-->
-                <!--<th>状态</th>-->
-                <!--<th>操作</th>-->
-              <!--</tr>-->
-              <!--<tr v-for=" (P,key) in currentPageData" :key="key">-->
-                <!--<td>{{ key+1 }}</td>-->
-                <!--<td>{{P.pqid}}</td>-->
-                <!--<td>-->
-                  <!--<el-tooltip placement="top" effect="light">-->
-                    <!--<div slot="content">{{P.pqitem}}</div>-->
-                    <!--<el-button class="btn1">{{P.pqid}}</el-button>-->
-                  <!--</el-tooltip>-->
-                  <!--<span v-if="P.pqstatus==1" @click="dialogFormVisiblechangeitem=true;changeList.id=P.pqid;item=P.pqitem" class="span2">修改</span>-->
-                  <!--<el-dialog title="修改题干" :visible.sync="dialogFormVisiblechangeitem">-->
-                    <!--<el-form :model="changeList">-->
-                      <!--<el-form-item label="题干内容1" :label-width="formLabelWidth">-->
-                        <!--<el-input style="width: 350px;" v-model="item" auto-complete="off"></el-input>-->
-                      <!--</el-form-item>-->
-                      <!--<el-form-item label="题干内容" :label-width="formLabelWidth">-->
-                        <!--<el-input style="width: 350px;" v-model="changeList.item" auto-complete="off"></el-input>-->
-                      <!--</el-form-item>-->
-                    <!--</el-form>-->
-                    <!--<div slot="footer" style="align-content: center" class="dialog-footer">-->
-                      <!--<el-button type="primary" @click="changeprogram(1,changeList)">提交</el-button>-->
-                      <!--<el-button @click="dialogFormVisiblechangeitem=false">退出</el-button>-->
-                    <!--</div>-->
-                  <!--</el-dialog>-->
-                <!--</td>-->
-                <!--<td>-->
-                  <!--<el-tooltip placement="top" effect="light">-->
-                    <!--<div slot="content">{{P.pqans}}</div>-->
-                    <!--<el-button class="btn1">{{P.pqid}}</el-button>-->
-                  <!--</el-tooltip>-->
-                  <!--<span v-if="P.pqstatus==1" @click="dialogFormVisiblechangeans=true;changeList.id=P.pqid;item=P.pqans" class="span2">修改</span>-->
-                  <!--<el-dialog title="修改答案" :visible.sync="dialogFormVisiblechangeans">-->
-                    <!--<el-form :model="changeList">-->
-                      <!--<el-form-item label="原始答案" :label-width="formLabelWidth">-->
-                        <!--<el-input style="width: 350px;" v-model="item" auto-complete="off"></el-input>-->
-                      <!--</el-form-item>-->
-                      <!--<el-form-item label="修改答案" :label-width="formLabelWidth">-->
-                        <!--<el-input style="width: 350px;" v-model="changeList.ans" auto-complete="off"></el-input>-->
-                      <!--</el-form-item>-->
-                    <!--</el-form>-->
-                    <!--<div slot="footer" style="align-content: center" class="dialog-footer">-->
-                      <!--<el-button type="primary" @click="changeprogram(2,changeList)">提交</el-button>-->
-                      <!--<el-button @click="dialogFormVisiblechangeans=false">退出</el-button>-->
-                    <!--</div>-->
-                  <!--</el-dialog>-->
-                <!--</td>-->
-                <!--<td>-->
-                  <!--<el-tooltip placement="top" effect="light">-->
-                    <!--<div slot="content">{{P.pqtail}}</div>-->
-                    <!--<el-button class="btn1">{{P.pqid}}</el-button>-->
-                  <!--</el-tooltip>-->
-                  <!--<span v-if="P.pqstatus==1" @click="dialogFormVisiblechangetail=true;changeList.id=P.pqid;item=P.pqtail" class="span2">修改</span>-->
-                  <!--<el-dialog title="修改详解" :visible.sync="dialogFormVisiblechangetail">-->
-                    <!--<el-form :model="changeList">-->
-                      <!--<el-form-item label="原始详解" :label-width="formLabelWidth">-->
-                        <!--<el-input style="width: 350px;" v-model="item" auto-complete="off"></el-input>-->
-                      <!--</el-form-item>-->
-                      <!--<el-form-item label="修改详解" :label-width="formLabelWidth">-->
-                        <!--<el-input style="width: 350px;" v-model="changeList.tail" auto-complete="off"></el-input>-->
-                      <!--</el-form-item>-->
-                    <!--</el-form>-->
-                    <!--<div slot="footer" style="align-content: center" class="dialog-footer">-->
-                      <!--<el-button type="primary" @click="changeprogram(3,changeList)">提交</el-button>-->
-                      <!--<el-button @click="dialogFormVisiblechangetail=false">退出</el-button>-->
-                    <!--</div>-->
-                  <!--</el-dialog>-->
-                <!--</td>-->
-                <!--<td>-->
-                  <!--<el-tooltip placement="top" effect="light">-->
-                    <!--<div slot="content">{{P.pqrem}}</div>-->
-                    <!--<el-button class="btn1">{{P.pqid}}</el-button>-->
-                  <!--</el-tooltip>-->
-                  <!--<span v-if="P.pqstatus==1" @click="dialogFormVisiblechangerem=true;changeList.id=P.pqid;item=P.pqtail" class="span2">修改</span>-->
-                  <!--<el-dialog title="修改知识点" :visible.sync="dialogFormVisiblechangerem">-->
-                    <!--<el-form :model="changeList">-->
-                      <!--<el-form-item label="原始知识点" :label-width="formLabelWidth">-->
-                        <!--<el-input style="width: 350px;" v-model="item" auto-complete="off"></el-input>-->
-                      <!--</el-form-item>-->
-                      <!--<el-form-item label="修改知识点" :label-width="formLabelWidth">-->
-                        <!--<el-input style="width: 350px;" v-model="changeList.rem" auto-complete="off"></el-input>-->
-                      <!--</el-form-item>-->
-                    <!--</el-form>-->
-                    <!--<div slot="footer" style="align-content: center" class="dialog-footer">-->
-                      <!--<el-button type="primary" @click="changeprogram(4,changeList)">提交</el-button>-->
-                      <!--<el-button @click="dialogFormVisiblechangerem=false">退出</el-button>-->
-                    <!--</div>-->
-                  <!--</el-dialog>-->
-                <!--</td>-->
-                <!--<td v-if="P.pqstatus==1">有效</td>-->
-                <!--<td v-if="P.pqstatus==0">无效-->
-                  <!--<span v-if="P.pqstatus==0" @click="changeprogram(5,P.pqid)" class="span2">修改</span>-->
-                <!--</td>-->
-
-                <!--<td>-->
-
-                  <!--<span v-if="P.pqstatus==1"@click="deleteprogram(1,P.pqid)" class="span1"><i class="el-icon-delete">删除题目</i></span>-->
-                  <!--<span v-if="P.pqstatus==0" @click="deleteprogram(2,P.pqid)" class="span1"><i class="el-icon-delete">永久删除</i></span>-->
-                <!--</td>-->
-              <!--</tr>-->
-            <!--</table>-->
-            </span>
           </div>
           <div class="page">
             <ul class="pagination pagination-sm"><!--分页-->
@@ -402,7 +290,8 @@
             qitem:List.item,
             ans:List.ans,
             tail:List.tail,
-            rem:List.rem
+            rem:List.rem,
+            auth:this.$store.getters.getsId
           }).then(function (res) {
             console.log(res.data)
             if(res.data.message=="插入程序题成功")
@@ -442,6 +331,7 @@
             cid:this.changeList.id,
             flag:1,
             item:this.changeList.item,
+            auth:this.$store.getters.getsId
           }).then(function (res) {
             console.log(res.data)
             if(res.data.message=="该程序题题干修改成功")
@@ -460,7 +350,8 @@
           this.$http.post('/yii/bank/program/change',{
             cid:this.changeList.id,
             flag:2,
-            ans:this.changeList.ans
+            ans:this.changeList.ans,
+            auth:this.$store.getters.getsId
           }).then(function (res) {
             console.log(res.data)
             if(res.data.message=="该程序题答案修改成功")
@@ -479,7 +370,8 @@
           this.$http.post('/yii/bank/program/change',{
             cid:this.changeList.id,
             flag:3,
-            tail:this.changeList.tail
+            tail:this.changeList.tail,
+            auth:this.$store.getters.getsId
           }).then(function (res) {
             console.log(res.data)
             if(res.data.message=="该程序题详解修改成功")
@@ -498,7 +390,8 @@
           this.$http.post('/yii/bank/program/change',{
             cid:this.changeList.id,
             flag:4,
-            rem:this.changeList.rem
+            rem:this.changeList.rem,
+            auth:this.$store.getters.getsId
           }).then(function (res) {
             console.log(res.data)
             if(res.data.message=="该程序题相关知识修改成功")
@@ -517,7 +410,8 @@
           console.log(id)
           this.$http.post('/yii/bank/program/change',{
             cid:id,
-            flag:5
+            flag:5,
+            auth:this.$store.getters.getsId
           }).then(function (res) {
 
             console.log(res.data)
@@ -546,7 +440,8 @@
           }).then(() => {
             this.$http.post('/yii/bank/program/delete',{
               fid:id,
-              flag:1
+              flag:1,
+              auth:this.$store.getters.getsId
             }).then(function (res) {
               console.log(res.data)
               if(res.data.message=="该程序题删除成功")
@@ -630,6 +525,7 @@
               obj.ans= v.答案
               obj.tail= v.详解
               obj.rem= v.相关点
+              obj.auth=_this.$store.getters.getsId
               arr.push(obj)
             })
             _this.memberList = [...arr]

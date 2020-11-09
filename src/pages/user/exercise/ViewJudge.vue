@@ -11,14 +11,23 @@
         </el-page-header>
       </div>
       <div v-for="(j,i) in List">
-        <div>
+        <div class="item">
           <h3>{{j.jqitem}}（判断题）</h3>
           <input type="radio" :name="j.jqid" @change="Click(j.jqid,1)">正确
           <input type="radio" :name="j.jqid" @change="Click(j.jqid,0)">错误
         </div>
         <hr/>
-        <div v-if="Visable==true">
-          <span>答案：{{j.jqans}}</span><br>
+        <div v-if="Visable==true" class="item">
+          <p v-if="AnsFlag==1" class="uansR" >
+            <label v-if="Ans[0].ans==1">您的答案：正确</label>
+            <label v-if="Ans[0].ans==0">您的答案：错误</label>
+          </p>
+          <p v-if="AnsFlag==0" class="uansE" >
+            <label v-if="Ans[0].ans==1">您的答案：正确</label>
+            <label v-if="Ans[0].ans==0">您的答案：错误</label>
+          </p>
+          <span v-if="j.jqans==1">答案：正确</span><br>
+          <span v-if="j.jqans==0">答案：错误</span><br>
           <span>相关知识点：{{j.jqrem}}</span><br>
           <span>详解：{{j.jqtail}}</span><br>
           <hr/>
@@ -43,6 +52,7 @@
           List:[],
           //用户答案
           Ans:[],
+          AnsFlag:0,
           //  显示答案
           Visable:false,
           //  计时
@@ -99,25 +109,37 @@
           s = s > 9 ? s:'0' + s
           let time = h+':'+m+':'+s
           console.log(time)
-          this.$http.post('/yii/student/exercise/submitanser',{
-            flag:4,
-            uid:this.uid,
-            qid:this.qid,
-            ans:this.Ans,
-            ctime:time
-          }).then(function (res) {
-            console.log(res.data)
-            if(res.data.message=="练习判断题成功")
-            {
-              this.Visable = true
-            }
-            else{
-              alert(res.data.message)
-            }
-          }).catch(function (error) {
-            console.log(error)
-          })
-
+          if(this.Ans.length==0)
+          {
+            this.$alert('您尚未作答，请检查', '警告', {
+              confirmButtonText: '确定',})
+          }
+          else if(this.Ans[0].ans=='')
+          {
+            this.$alert('您尚未作答，请检查', '警告', {
+              confirmButtonText: '确定',})
+          }
+          else{
+            this.$http.post('/yii/student/exercise/submitanser',{
+              flag:4,
+              uid:this.uid,
+              qid:this.qid,
+              ans:this.Ans,
+              ctime:time
+            }).then(function (res) {
+              console.log(res.data)
+              if(res.data.message=="练习判断题成功")
+              {
+                this.Visable = true
+                this.AnsFlag=res.data.data
+              }
+              else{
+                alert(res.data.message)
+              }
+            }).catch(function (error) {
+              console.log(error)
+            })
+          }
         }
       },
       created(){
@@ -162,5 +184,21 @@
     margin-top: 5px;
     text-align: left;
     padding: 30px;
+  }
+  .item{
+    margin-left: 50px;
+    margin-top: 20px;
+  }
+  .uansR{
+    /*正确答案*/
+    margin-left: 30px;
+    color: yellowgreen;
+    font-weight: bold;
+  }
+  .uansE{
+    /*错误答案*/
+    margin-left: 30px;
+    color: coral;
+    font-weight: bold;
   }
 </style>

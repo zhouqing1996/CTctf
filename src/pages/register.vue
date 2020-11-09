@@ -1,31 +1,48 @@
 <template>
-  <body id="poster">
-  <el-form class="register-container" label-position="left" label-width="0px">
-    <h3 class="register_title">注册</h3>
-    <el-form-item>
-      <el-input type="text" v-model="registerForm.username" auto-complete="off" placeholder="请输入用户名"></el-input>
-    </el-form-item>
-
-    <el-form-item>
-      <el-input :type="passwordVisible1"  v-model="registerForm.password" auto-complete="off" placeholder="密码规则：6-10位包含数字、字母、特殊字符">
-        <i slot="suffix" :class="icon1" @click="showPass1"></i>
-      </el-input>
-    </el-form-item>
-
-    <el-form-item>
-    <el-input :type="passwordVisible2"  v-model="registerForm.password1" auto-complete="off" placeholder="请再次输入密码">
-      <i slot="suffix" :class="icon2" @click="showPass2"></i>
-    </el-input>
-    </el-form-item>
-
-    <el-form-item style="width: 100%">
-      <el-button type="primary" style="width: 100%;background: #505458;border: none" v-on:click="submitForm(registerForm)">确认注册</el-button>
-    </el-form-item>
-    <p class="other"><router-link to="/login">登录</router-link></p>
-  </el-form>
-  </body>
+  <div class="page">
+    <div class="loginwarrp">
+      <div class="logo">计算思维考试系统</div>
+      <div class="login_form">
+        <li class="login-item" >
+          <span style="font-size: 20px;color: #0ea0db;" class="el-icon-user">用户账号：</span>
+          <input type="text" v-model="registerForm.username" class="login_input" placeholder="用户名">
+          <span class="error"></span>
+        </li>
+        <li class="login-item">
+          <span style="font-size: 20px;color: #0ea0db;" class="el-icon-key">设置密码：</span>
+          <input :type="passwordVisible1" v-model="registerForm.password" class="login_input" placeholder="6-10位包含数字、字母、特殊字符">
+          <i slot="suffix" :class="icon1" @click="showPass1"></i>
+          <span class="error"></span>
+        </li>
+        <li class="login-item">
+          <span style="font-size: 20px;color: #0ea0db;" class="el-icon-key">确认密码：</span>
+          <input :type="passwordVisible2" v-model="registerForm.password1" class="login_input" placeholder="密码">
+          <i slot="suffix" :class="icon2" @click="showPass2"></i>
+          <span class="error"></span>
+        </li>
+        <li class="login-item">
+          <span style="font-size: 20px;color: #0ea0db;" class="el-icon-s-custom">注册身份：</span>
+          <select v-model="registerForm.role" placeholder="选择注册身份">
+            <option value="2">教  师</option>
+            <option value="3" selected="selected">学  生</option>
+            <option value="1">管理员</option>
+          </select>
+          <span class="error"></span>
+        </li>
+        <div class="clearfix">
+          <li class="login-sub">
+            <input type="button" value="注册" v-on:click="submitForm(registerForm)">
+          </li>
+          <span class="error"></span>
+        </div>
+          <div  >
+            <span><router-link to="/login">有账号？立即登录</router-link></span>
+            <span><router-link to="/forget">忘记密码？立即找回</router-link></span>
+          </div>
+        </div>
+      </div>
+    </div>
 </template>
-
 <script>
     export default {
         name: "register",
@@ -34,7 +51,8 @@
           registerForm: {
             password: "",
             password1: "",
-            username: ""
+            username: "",
+            role:''
           },
           flag: true,
           passwordVisible1:'password',
@@ -82,7 +100,8 @@
             console.log(this.registerForm.password);
             this.$http.post('/yii/home/index/register',{
               username:this.registerForm.username,
-              password:this.registerForm.password
+              password:this.registerForm.password,
+              role:this.registerForm.role
             }).then(res=>{
               console.log(res.data)
               if(res.data.message=="注册成功")
@@ -111,49 +130,7 @@
 </script>
 
 <style scoped>
-  #poster {
-    /*background:url("../assets/eva.jpg") no-repeat;*/
-    background-position: center;
-    height: 100%;
-    width: 100%;
-    background-size: cover;
-    position: fixed;
-  }
-  body{
-    margin: 0px;
-    padding: 0;
-  }
-
-  .register-container {
-    border-radius: 15px;
-    background-clip: padding-box;
-    margin: 90px auto;
-    width: 350px;
-    padding: 35px 35px 15px 35px;
-    background: #fff;
-    border: 1px solid #eaeaea;
-    box-shadow: 0 0 25px #cac6c6;
-  }
-
-  .register_title {
-    margin: 0px auto 40px auto;
-    text-align: center;
-    color: #505458;
-  }
-
-  .other {
-    margin-top: 10px;
-    font-size: 14px;
-    line-height: 22px;
-    color: #1ab2ff;
-    cursor: pointer;
-    text-align: center;
-    /*text-indent: 8px;*/
-    width: 360px;
-  }
-  .other:hover {
-    /*color: #2c2fd6;*/
-  }
+  @import "../common/css/login.css";
 </style>
 
 

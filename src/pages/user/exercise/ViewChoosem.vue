@@ -10,15 +10,17 @@
         <el-page-header @back="back">
         </el-page-header>
       </div>
-      <div v-for="(m,index) in List">
+      <div v-for="(m,index) in List" class="item">
         <h3>{{m.mqitem}}（多选题）</h3>
         <ul>
           <li v-for="(x,i) in m.mqcho" >
-            <input type="radio" :name="m.mqid+i"
+            <input type="checkbox" :name="m.mqid+i"
                    @change="Click(m.mqid,m.mqcho[i])"/>{{x}}
           </li>
         </ul>
-        <div v-if="Visable==true">
+        <div v-if="Visable==true" class="item">
+          <p v-if="AnsFlag==1" class="uansR" >您的答案：{{Ans[0].ans}}</p>
+          <p v-else class="uansE" >您的答案：{{Ans[0].ans}}</p>
           <span>答案：{{m.mqans}}</span><br>
           <span>相关知识点：{{m.mqrem}}</span><br>
           <span>详解：{{m.mqtail}}</span><br>
@@ -34,6 +36,7 @@
 </template>
 
 <script>
+
     export default {
         name: "ViewChoosem",
       data(){
@@ -46,6 +49,10 @@
           Ans:[],
           //  显示答案
           Visable:false,
+          //判断答案是否正确
+          AnsFlag :false,
+          //选择答案时设置单击选中，双击取消
+          // changed:0,
           //  计时
           startTime:'',
           endTime:'',
@@ -77,6 +84,7 @@
                 mqtail:tmp[i].mqtail
               })
             }
+            console.log(this.List)
           }).catch(function (error) {
             console.log(error)
           })
@@ -85,27 +93,60 @@
           let flag =true
           for(let i=0;i< this.Ans.length;i++)
           {
-            if(this.Ans[i]['id']==id)
-            {
-              flag =false
-              if(this.Ans[i]['ans']==str)
+            if(this.Ans[i]['id']==id) {
+              flag = false
+              let li = this.Ans[i]['ans'].split('---')
+              //判断是否重复
+              let t = true
+              let n=li.length
+              for(let j=0;j<li.length;j++)
               {
-                this.Ans.splice(id,1)
+                if(li[j]==str)
+                {
+                  t=false
+                  n=j;
+                  break
+                }
+              }
+              if(t)
+              {
+                //没有重复的
+                if(this.Ans[i]['ans']==''){
+                  this.Ans[i]['ans'] = str
+                }
+                else{
+                  this.Ans[i]['ans'] = this.Ans[i]['ans']+'---'+str
+                }
               }
               else{
-                this.Ans[i]['ans']=this.Ans[i]['ans']+'---'+str
+                let st = ''
+                for(let k=0;k<li.length;k++)
+                {
+                  if(k==n)
+                  {
+                    continue
+                  }
+                  else{
+                    if(st==''||k==0){
+                      st = li[k]
+                    }
+                    else{
+                      st = st+'---'+li[k]
+                    }
+                  }
+                }
+                this.Ans[i]['ans'] = st
               }
-              break
             }
           }
-          if(flag){
-            this.Ans.push({
-              id:id,
-              ans:str
-            })
-          }
-          console.log(this.List)
-        },
+            if(flag){
+              this.Ans.push({
+                id:id,
+                ans:str
+              })
+            }
+            console.log(this.Ans)
+          },
         Submit:function () {
           this.endTime = new Date()
           let SubTime = parseInt((this.endTime - this.startTime)/1000);
@@ -118,25 +159,55 @@
           s = s > 9 ? s:'0' + s
           let time = h+':'+m+':'+s
           console.log(time)
-          this.$http.post('/yii/student/exercise/submitanser',{
-            flag:5,
-            uid:this.uid,
-            qid:this.qid,
-            ctime:time
-          }).then(function (res) {
-            console.log(res.data)
-            if(res.data.message=="练习多选题成功")
-            {
-              this.Visable = true
-            }
-            else{
-              alert(res.data.message)
-            }
-          }).catch(function (error) {
-            console.log(error)
-          })
+          if(this.Ans.length==0)
+          {
+            this.$alert('您尚未作答，请检查', '警告', {
+              confirmButtonText: '确定',})
+          }
+          else if(this.Ans[0].ans=='')
+          {
+            this.$alert('您尚未作答，请检查', '警告', {
+              confirmButtonText: '确定',})
+          }
+          else{
+            this.$http.post('/yii/student/exercise/submitanser',{
+              flag:5,
+              uid:this.uid,
+              qid:this.qid,
+              ctime:time,
+              ans:this.Ans
+            }).then(function (res) {
+              console.log(res.data)
+              if(res.data.message=="练习多选题成功")
+              {
+                this.Visable = true
+                this.AnsFlag = res.data.data
+              }
+              else{
+                alert(res.data.message)
+              }
 
-        }
+            }).catch(function (error) {
+              console.log(error)
+            })
+          }
+        },
+        // //判断多选题答案与标准版答案是否相同，需要判断其中的值顺序
+        // Judge:function () {
+        //   let s = this.List[0].mqans.split('---')
+        //   let su = this.Ans[0].ans.split('---')
+        //   if(s.length != su.length){
+        //     this.AnsFlag = false
+        //   }
+        //   for(let i=0;i<s.length;i++)
+        //   {
+        //     if(s.indexOf(su[i]==-1))
+        //     {
+        //       this.AnsFlag = false
+        //     }
+        //   }
+        //   this.AnsFlag = true
+        // }
       },
       created(){
         this.qid = this.$route.query.id
@@ -180,5 +251,21 @@
     margin-top: 5px;
     text-align: left;
     padding: 30px;
+  }
+  .item{
+    margin-left: 50px;
+    margin-top: 20px;
+  }
+  .uansR{
+    /*正确答案*/
+    margin-left: 30px;
+    color: yellowgreen;
+    font-weight: bold;
+  }
+  .uansE{
+    /*错误答案*/
+    margin-left: 30px;
+    color: coral;
+    font-weight: bold;
   }
 </style>

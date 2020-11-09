@@ -23,7 +23,7 @@
           <h3>({{index+1}}):{{c.cqitem}}</h3>
           <ul>
             <li v-for="(x,i) in c.cqcho" >
-              <input type="radio" :name="c.cqid"
+              <input type="radio" :name="'choose'+c.cqid"
                      @change="cr(c.cqid,c.cqcho[i])"/>{{x}}
             </li>
           </ul>
@@ -34,7 +34,8 @@
       <div>
       <span v-for="(f,key2) in fillqList":key="key2">
       <li class="item">({{key2+1}}){{f.fqitem}}<br>
-        <input type="text"  :name="f.fqid" @input="fr(f.fqid,$event)" class="fans"><br>
+        <textarea style="width: 400px;height: 200px;" :name="'fill'+f.fqid" @input="fr(f.fqid,$event)" class="fans"></textarea>
+        <!--<input type="text"  :name="'fill'+f.fqid" @input="fr(f.fqid,$event)" class="fans"><br>-->
         <!--<div class="rich-html">-->
               <!--<vue-html5-editor :content="fsans" :id="f.fqid" :height="200" @change="updateData">-->
               <!--</vue-html5-editor>-->
@@ -47,8 +48,8 @@
       <div>
       <span v-for="(j,keyj) in judgeList":key="keyj">
       <li class="item">({{keyj+1}}){{j.jqitem}}<br>
-        <input type="radio" :name="j.jqid" @change="jr(j.jqid,1)">正确
-        <input type="radio" :name="j.jqid" @change="jr(j.jqid,0)">错误
+        <input type="radio" :name="'judge'+j.jqid" @change="jr(j.jqid,1)">正确
+        <input type="radio" :name="'judge'+j.jqid" @change="jr(j.jqid,0)">错误
       </li>
     </span>
       </div>
@@ -59,7 +60,7 @@
           <h3>({{index+1}}):{{m.mitem}}</h3>
           <ul>
             <li v-for="(x,i) in m.mcho" >
-              <input type="radio" :name="m.mid+i"
+              <input type="checkbox" :name="'choosem'+m.mid+i"
                      @change="mr(m.mid,m.mcho[i])"/>{{x}}
             </li>
           </ul>
@@ -70,7 +71,7 @@
       <div>
       <span v-for="(p,keyp) in programqList":key="keyp">
       <li class="item">({{keyp+1}}){{p.pqitem}}<br>
-        <input type="text"  :name="p.pqid" @input="pr(p.pqid,$event)"><br>
+        <input type="text"  :name="'program'+p.pqid" @input="pr(p.pqid,$event)"><br>
       </li>
     </span>
       </div>
@@ -283,18 +284,55 @@
           let flag =true
           for(let i=0;i< this.cmList.length;i++)
           {
-            if(this.cmList[i]['id']==id)
-            {
-              flag =false
-              if(this.cmList[i]['ans']==str)
-              {
-                this.cmList.splice(id,1)
+            if(this.cmList[i]['id']==id) {
+              flag = false
+              flag = false
+              let li = this.cmList[i]['ans'].split('---')
+              //判断是否重复
+              let t = true
+              let n = li.length
+              for (let j = 0; j < li.length; j++) {
+                if (li[j] == str) {
+                  n = j;
+                  t = false
+                  break
+                }
               }
-              else{
-                this.cmList[i]['ans']=this.cmList[i]['ans']+'---'+str;
+              if (t) {
+                if (this.cmList[i]['ans'] == '') {
+                  this.cmList[i]['ans'] = str
+                }
+                else {
+                  this.cmList[i]['ans'] = this.cmList[i]['ans'] + '---' + str
+                }
               }
-              break
+              else {
+                let st = ''
+                for (let k = 0; k < li.length; k++) {
+                  if (k == n) {
+                    continue
+                  }
+                  else {
+                    if (st == '' || k == 0) {
+                      st = li[k]
+                    }
+                    else {
+                      st = st + '---' + li[k]
+                    }
+                  }
+                }
+                this.cmList[i]['ans'] = st
+              }
             }
+            //   if(this.cmList[i]['ans']==str)
+            //   {
+            //     this.cmList.splice(id,1)
+            //   }
+            //   else{
+            //     this.cmList[i]['ans']=this.cmList[i]['ans']+'---'+str;
+            //   }
+            //   break
+            // }
           }
           if(flag){
             this.cmList.push({
@@ -509,7 +547,7 @@
     border: none;
     color: white;
     background-color: #7F96FE;
-    float: left;
+    float: right;
     margin-left: 5px;
     margin-top: 17px;
     margin-bottom: 5px;
@@ -518,7 +556,6 @@
 
   .btn2:hover {
     background-color: #5FA7FE;
-    float: right!important;
   }
   li{list-style-type:none;}
 </style>

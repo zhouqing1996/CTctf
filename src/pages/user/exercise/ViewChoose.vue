@@ -11,16 +11,18 @@
         </el-page-header>
       </div>
       <div v-for="(c,i) in List">
-        <div>
+        <div class="item">
           <h3>{{c.cqitem}}(选择题)</h3>
           <ul>
             <li v-for="(x,i) in c.cqcho" >
               <input type="radio" :name="c.cqid"
-                     @change="Click(c.cqid,c.cqcho[i])"/>{{x}}
+                     @click="Click(c.cqid,c.cqcho[i],$event)"/>{{x}}
             </li>
           </ul>
         </div>
-        <div v-if="Visable==true">
+        <div v-if="Visable==true" class="item">
+          <p v-if="AnsFlag==1" class="uansR" >您的答案：{{Ans[0].ans}}</p>
+          <p v-else class="uansE" >您的答案：{{Ans[0].ans}}</p>
           <span>答案：{{c.cqans}}</span><br>
           <span>相关知识点：{{c.cqrem}}</span><br>
           <span>详解：{{c.cqtail}}</span><br>
@@ -28,7 +30,6 @@
         </div>
         <div>
           <button class="btn2" v-if="Visable==false" @click="Submit">提交</button>
-          <!--<button class="btn2" @click="back">返回</button>-->
         </div>
       </div>
     </div>
@@ -46,6 +47,8 @@
             List:[],
             //用户答案
             Ans:[],
+          //  判断答案正误
+            AnsFlag:false,
           //  显示答案
             Visable:false,
           //  计时
@@ -83,14 +86,21 @@
               console.log(error)
             })
           },
-        Click:function(id,str){
+        Click:function(id,str,$event){
           let flag = true
           for(let i=0;i< this.Ans.length;i++)
           {
             if(this.Ans[i]['id']==id)
             {
               flag=false
-              this.Ans[i]['ans']=str
+              if(this.Ans[i]['ans']==str)
+              {
+                $event.target.checked = false
+                this.Ans[i]['ans']=''
+              }
+              else{
+                this.Ans[i]['ans']=str
+              }
               break
             }
           }
@@ -114,25 +124,37 @@
           s = s > 9 ? s:'0' + s
           let time = h+':'+m+':'+s
           console.log(time)
-          this.$http.post('/yii/student/exercise/submitanser',{
-            flag:1,
-            uid:this.uid,
-            qid:this.qid,
-            ans:this.Ans,
-            ctime:time
-          }).then(function (res) {
-            console.log(res.data)
-            if(res.data.message=="练习选择题成功")
-            {
-              this.Visable = true
-            }
-            else{
-              alert(res.data.message)
-            }
-          }).catch(function (error) {
-            console.log(error)
-          })
-
+          if(this.Ans.length==0)
+          {
+            this.$alert('您尚未作答，请检查', '警告', {
+              confirmButtonText: '确定',})
+          }
+          else if(this.Ans[0].ans=='')
+          {
+            this.$alert('您尚未作答，请检查', '警告', {
+              confirmButtonText: '确定',})
+          }
+          else{
+            this.$http.post('/yii/student/exercise/submitanser',{
+              flag:1,
+              uid:this.uid,
+              qid:this.qid,
+              ans:this.Ans,
+              ctime:time
+            }).then(function (res) {
+              console.log(res.data)
+              if(res.data.message=="练习选择题成功")
+              {
+                this.Visable = true
+                this.AnsFlag = res.data.data
+              }
+              else{
+                alert(res.data.message)
+              }
+            }).catch(function (error) {
+              console.log(error)
+            })
+          }
         }
       },
       created(){
@@ -161,13 +183,25 @@
     color: white;
     background-color: #7F96FE;
     float: left;
-    margin-left: 5px;
+    margin-left: 50px;
     margin-top: 17px;
     margin-bottom: 5px;
   }
 
   .btn2:hover {
     background-color: #5FA7FE;
+  }
+  .uansR{
+    /*正确答案*/
+    margin-left: 30px;
+    color: yellowgreen;
+    font-weight: bold;
+  }
+  .uansE{
+    /*错误答案*/
+    margin-left: 30px;
+    color: coral;
+    font-weight: bold;
   }
   li{list-style-type:none;}
   #waimian {
@@ -178,5 +212,9 @@
     margin-top: 5px;
     text-align: left;
     padding: 30px;
+  }
+  .item{
+    margin-left: 50px;
+    margin-top: 20px;
   }
 </style>

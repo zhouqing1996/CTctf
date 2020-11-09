@@ -4,7 +4,7 @@
     <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb-css" style="font-size: 0.25rem">
       <el-breadcrumb-item :to="{ path: '/admin/index' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item>题库信息</el-breadcrumb-item>
-      <el-breadcrumb-item>多选题</el-breadcrumb-item>
+      <el-breadcrumb-item ><span @click="getQuerymquestion" style="font-weight: bold">多选题</span></el-breadcrumb-item>
     </el-breadcrumb>
     <div><hr/></div>
     <div class="display1">
@@ -207,207 +207,6 @@
                 </div>
               </div>
             </div>
-           <span>
-              <!--<table >-->
-              <!--<tr>-->
-                <!--<th>序号</th>-->
-                <!--<th>题编号 </th>-->
-                <!--<th>题干</th>-->
-                <!--<th>选项1</th>-->
-                <!--<th>选项2</th>-->
-                <!--<th>选项3</th>-->
-                <!--<th>选项4</th>-->
-                <!--<th>答案</th>-->
-                <!--<th>详解</th>-->
-                <!--<th>相关知识</th>-->
-                <!--<th>状态</th>-->
-                <!--<th>操作</th>-->
-              <!--</tr>-->
-              <!--<tr v-for=" (mquestion,key) in currentPageData" :key="key">-->
-                <!--<td>{{ key+1 }}</td>-->
-                <!--<td>{{mquestion.mqid}}</td>-->
-                <!--<td>-->
-                  <!--<el-tooltip placement="top" effect="light">-->
-                    <!--<div slot="content">{{mquestion.mqitem}}</div>-->
-                    <!--<el-button class="btn1">{{mquestion.mqid}}</el-button>-->
-                  <!--</el-tooltip>-->
-                  <!--<span v-if="mquestion.mqstatus==1" @click="dialogFormVisiblechangeitem=true;changeList.id=mquestion.mqid;item=mquestion.mqitem" class="span2">修改</span>-->
-                  <!--<el-dialog title="修改题干" :visible.sync="dialogFormVisiblechangeitem">-->
-                    <!--<el-form :model="changeList">-->
-                      <!--<el-form-item label="题干内容1" :label-width="formLabelWidth">-->
-                        <!--<el-input style="width: 350px;" v-model="item" auto-complete="off"></el-input>-->
-                      <!--</el-form-item>-->
-                      <!--<el-form-item label="题干内容" :label-width="formLabelWidth">-->
-                        <!--<el-input style="width: 350px;" v-model="changeList.item" auto-complete="off"></el-input>-->
-                      <!--</el-form-item>-->
-                    <!--</el-form>-->
-                    <!--<div slot="footer" style="align-content: center" class="dialog-footer">-->
-                      <!--<el-button type="primary" @click="changeChoose(1,changeList)">提交</el-button>-->
-                      <!--<el-button @click="dialogFormVisiblechangeitem=false">退出</el-button>-->
-                    <!--</div>-->
-                  <!--</el-dialog>-->
-                <!--</td>-->
-                <!--<td>-->
-                  <!--<el-tooltip placement="top" effect="light">-->
-                    <!--<div slot="content">{{mquestion.mqcho.split('-&#45;&#45;')[0]}}</div>-->
-                    <!--<el-button class="btn1">{{mquestion.mqid}}</el-button>-->
-                  <!--</el-tooltip>-->
-                  <!--<span v-if="mquestion.mqstatus==1" @click="dialogFormVisiblechangeop1=true;changeList.id=mquestion.mqid;item=mquestion.mqcho.split('-&#45;&#45;')[0]" class="span2">修改</span>-->
-                  <!--<el-dialog title="修改选项1" :visible.sync="dialogFormVisiblechangeop1">-->
-                    <!--<el-form :model="changeList">-->
-                      <!--<el-form-item label="选项内容1" :label-width="formLabelWidth">-->
-                        <!--<el-input style="width: 350px;" v-model="item" auto-complete="off"></el-input>-->
-                      <!--</el-form-item>-->
-                      <!--<el-form-item label="选项内容" :label-width="formLabelWidth">-->
-                        <!--<el-input style="width: 350px;" v-model="changeList.op1" auto-complete="off"></el-input>-->
-                      <!--</el-form-item>-->
-                    <!--</el-form>-->
-                    <!--<div slot="footer" style="align-content: center" class="dialog-footer">-->
-                      <!--<el-button type="primary" @click="changeChoose(2,changeList)">提交</el-button>-->
-                      <!--<el-button @click="dialogFormVisiblechangeop1=false">退出</el-button>-->
-                    <!--</div>-->
-                  <!--</el-dialog>-->
-                <!--</td>-->
-                <!--<td>-->
-                  <!--<el-tooltip placement="top" effect="light">-->
-                    <!--<div slot="content">{{mquestion.mqcho.split('-&#45;&#45;')[1]}}</div>-->
-                    <!--<el-button class="btn1">{{mquestion.mqid}}</el-button>-->
-                  <!--</el-tooltip>-->
-                  <!--<span v-if="mquestion.mqstatus==1" @click="dialogFormVisiblechangeop2=true;changeList.id=mquestion.mqid;item=mquestion.mqcho.split('-&#45;&#45;')[1]" class="span2">修改</span>-->
-                  <!--<el-dialog title="修改选项2" :visible.sync="dialogFormVisiblechangeop2">-->
-                    <!--<el-form :model="changeList">-->
-                      <!--<el-form-item label="选项内容2" :label-width="formLabelWidth">-->
-                        <!--<el-input style="width: 350px;" v-model="item" auto-complete="off"></el-input>-->
-                      <!--</el-form-item>-->
-                      <!--<el-form-item label="选项内容" :label-width="formLabelWidth">-->
-                        <!--<el-input style="width: 350px;" v-model="changeList.op2" auto-complete="off"></el-input>-->
-                      <!--</el-form-item>-->
-                    <!--</el-form>-->
-                    <!--<div slot="footer" style="align-content: center" class="dialog-footer">-->
-                      <!--<el-button type="primary" @click="changeChoose(3,changeList)">提交</el-button>-->
-                      <!--<el-button @click="dialogFormVisiblechangeop2=false">退出</el-button>-->
-                    <!--</div>-->
-                  <!--</el-dialog>-->
-                <!--</td>-->
-                <!--<td>-->
-                  <!--<el-tooltip placement="top" effect="light">-->
-                    <!--<div slot="content">{{mquestion.mqcho.split('-&#45;&#45;')[2]}}</div>-->
-                    <!--<el-button class="btn1">{{mquestion.mqid}}</el-button>-->
-                  <!--</el-tooltip>-->
-                  <!--<span v-if="mquestion.mqstatus==1" @click="dialogFormVisiblechangeop3=true;changeList.id=mquestion.mqid;item=mquestion.mqcho.split('-&#45;&#45;')[2]" class="span2">修改</span>-->
-                  <!--<el-dialog title="修改选项3" :visible.sync="dialogFormVisiblechangeop3">-->
-                    <!--<el-form :model="changeList">-->
-                      <!--<el-form-item label="选项内容3" :label-width="formLabelWidth">-->
-                        <!--<el-input style="width: 350px;" v-model="item" auto-complete="off"></el-input>-->
-                      <!--</el-form-item>-->
-                      <!--<el-form-item label="选项内容" :label-width="formLabelWidth">-->
-                        <!--<el-input style="width: 350px;" v-model="changeList.op3" auto-complete="off"></el-input>-->
-                      <!--</el-form-item>-->
-                    <!--</el-form>-->
-                    <!--<div slot="footer" style="align-content: center" class="dialog-footer">-->
-                      <!--<el-button type="primary" @click="changeChoose(4,changeList)">提交</el-button>-->
-                      <!--<el-button @click="dialogFormVisiblechangeop3=false">退出</el-button>-->
-                    <!--</div>-->
-                  <!--</el-dialog>-->
-                <!--</td>-->
-                <!--<td>-->
-                  <!--<el-tooltip placement="top" effect="light">-->
-                    <!--<div slot="content">{{mquestion.mqcho.split('-&#45;&#45;')[3]}}</div>-->
-                    <!--<el-button class="btn1">{{mquestion.mqid}}</el-button>-->
-                  <!--</el-tooltip>-->
-                  <!--<span v-if="mquestion.mqstatus==1" @click="dialogFormVisiblechangeop4=true;changeList.id=mquestion.mqid;item=mquestion.mqcho.split('-&#45;&#45;')[3]" class="span2">修改</span>-->
-                  <!--<el-dialog title="修改选项4" :visible.sync="dialogFormVisiblechangeop4">-->
-                    <!--<el-form :model="changeList">-->
-                      <!--<el-form-item label="选项内容4" :label-width="formLabelWidth">-->
-                        <!--<el-input style="width: 350px;" v-model="item" auto-complete="off"></el-input>-->
-                      <!--</el-form-item>-->
-                      <!--<el-form-item label="选项内容" :label-width="formLabelWidth">-->
-                        <!--<el-input style="width: 350px;" v-model="changeList.op4" auto-complete="off"></el-input>-->
-                      <!--</el-form-item>-->
-                    <!--</el-form>-->
-                    <!--<div slot="footer" style="align-content: center" class="dialog-footer">-->
-                      <!--<el-button type="primary" @click="changeChoose(5,changeList)">提交</el-button>-->
-                      <!--<el-button @click="dialogFormVisiblechangeop4=false">退出</el-button>-->
-                    <!--</div>-->
-                  <!--</el-dialog>-->
-                <!--</td>-->
-                <!--<td>-->
-                  <!--<el-tooltip placement="top" effect="light">-->
-                    <!--<div slot="content">{{mquestion.mqans}}</div>-->
-                    <!--<el-button class="btn1">{{mquestion.mqid}}</el-button>-->
-                  <!--</el-tooltip>-->
-                  <!--&lt;!&ndash;<span v-if="mquestion.mqstatus==1" @click="" class="span2">修改答案</span>&ndash;&gt;-->
-                  <!--<span v-if="mquestion.mqstatus==1" @click="dialogFormVisiblechangeans=true;changeList.id=mquestion.mqid;item=mquestion.mqans" class="span2">修改</span>-->
-                  <!--<el-dialog title="修改答案" :visible.sync="dialogFormVisiblechangeans">-->
-                    <!--<el-form :model="changeList">-->
-                      <!--<el-form-item label="选项内容4" :label-width="formLabelWidth">-->
-                        <!--<el-input style="width: 350px;" v-model="item" auto-complete="off"></el-input>-->
-                      <!--</el-form-item>-->
-                      <!--<el-form-item label="选项内容" :label-width="formLabelWidth">-->
-                        <!--<el-input style="width: 350px;" v-model="changeList.ans" auto-complete="off"></el-input>-->
-                      <!--</el-form-item>-->
-                    <!--</el-form>-->
-                    <!--<div slot="footer" style="align-content: center" class="dialog-footer">-->
-                      <!--<el-button type="primary" @click="changeChoose(6,changeList)">提交</el-button>-->
-                      <!--<el-button @click="dialogFormVisiblechangeans=false">退出</el-button>-->
-                    <!--</div>-->
-                  <!--</el-dialog>-->
-                <!--</td>-->
-                <!--<td>-->
-                  <!--<el-tooltip placement="top" effect="light">-->
-                    <!--<div slot="content">{{mquestion.mqtail}}</div>-->
-                    <!--<el-button class="btn1">{{mquestion.mqid}}</el-button>-->
-                  <!--</el-tooltip>-->
-                  <!--&lt;!&ndash;<span v-if="mquestion.mqstatus==1" @click="" class="span2">修改详解</span>&ndash;&gt;-->
-                  <!--<span v-if="mquestion.mqstatus==1" @click="dialogFormVisiblechangetail=true;changeList.id=mquestion.mqid;item=mquestion.mqtail" class="span2">修改</span>-->
-                  <!--<el-dialog title="修改详解" :visible.sync="dialogFormVisiblechangetail">-->
-                    <!--<el-form :model="changeList">-->
-                      <!--<el-form-item label="选项内容4" :label-width="formLabelWidth">-->
-                        <!--<el-input style="width: 350px;" v-model="item" auto-complete="off"></el-input>-->
-                      <!--</el-form-item>-->
-                      <!--<el-form-item label="选项内容" :label-width="formLabelWidth">-->
-                        <!--<el-input style="width: 350px;" v-model="changeList.tail" auto-complete="off"></el-input>-->
-                      <!--</el-form-item>-->
-                    <!--</el-form>-->
-                    <!--<div slot="footer" style="align-content: center" class="dialog-footer">-->
-                      <!--<el-button type="primary" @click="changeChoose(7,changeList)">提交</el-button>-->
-                      <!--<el-button @click="dialogFormVisiblechangetail=false">退出</el-button>-->
-                    <!--</div>-->
-                  <!--</el-dialog>-->
-                <!--</td>-->
-                <!--<td>-->
-                  <!--<el-tooltip placement="top" effect="light">-->
-                    <!--<div slot="content">{{mquestion.mqrem}}</div>-->
-                    <!--<el-button class="btn1">{{mquestion.mqid}}</el-button>-->
-                  <!--</el-tooltip>-->
-                  <!--&lt;!&ndash;<span v-if="mquestion.mqstatus==1" @click="" class="span2">修改知识点</span>&ndash;&gt;-->
-                  <!--<span v-if="mquestion.mqstatus==1" @click="dialogFormVisiblechangerem=true;changeList.id=mquestion.mqid;item=mquestion.mqtail" class="span2">修改</span>-->
-                  <!--<el-dialog title="修改知识点" :visible.sync="dialogFormVisiblechangerem">-->
-                    <!--<el-form :model="changeList">-->
-                      <!--<el-form-item label="选项内容4" :label-width="formLabelWidth">-->
-                        <!--<el-input style="width: 350px;" v-model="item" auto-complete="off"></el-input>-->
-                      <!--</el-form-item>-->
-                      <!--<el-form-item label="选项内容" :label-width="formLabelWidth">-->
-                        <!--<el-input style="width: 350px;" v-model="changeList.rem" auto-complete="off"></el-input>-->
-                      <!--</el-form-item>-->
-                    <!--</el-form>-->
-                    <!--<div slot="footer" style="align-content: center" class="dialog-footer">-->
-                      <!--<el-button type="primary" @click="changeChoose(8,changeList)">提交</el-button>-->
-                      <!--<el-button @click="dialogFormVisiblechangerem=false">退出</el-button>-->
-                    <!--</div>-->
-                  <!--</el-dialog>-->
-                <!--</td>-->
-                <!--<td v-if="mquestion.mqstatus==1">有效</td>-->
-                <!--<td v-if="mquestion.mqstatus==0">无效-->
-                  <!--<span v-if="mquestion.mqstatus==0" @click="changeChoose(9,mquestion.mqid)" class="span2">修改</span>-->
-                <!--</td>-->
-                <!--<td>-->
-                  <!--<span v-if="mquestion.mqstatus==1"@click="deleteChoose(1,mquestion.mqid)" class="span1"><i class="el-icon-delete">删除题目</i></span>-->
-                  <!--<span v-if="mquestion.mqstatus==0" @click="deleteChoose(2,mquestion.mqid)" class="span1"><i class="el-icon-delete">永久删除</i></span>-->
-                <!--</td>-->
-              <!--</tr>-->
-            <!--</table>-->
-           </span>
           </div>
           <div class="page">
             <ul class="pagination pagination-sm"><!--分页-->
@@ -577,7 +376,8 @@
             op4:List.op4,
             ans:List.ans,
             tail:List.tail,
-            rem:List.rem
+            rem:List.rem,
+            auth:this.$store.getters.getsId
           }).then(function (res) {
             console.log(res.data)
             if(res.data.message=="插入多选题成功")
@@ -620,6 +420,7 @@
             cid:this.changeList.id,
             flag:1,
             item:this.changeList.item,
+            auth:this.$store.getters.getsId
           }).then(function (res) {
             console.log(res.data)
             if(res.data.message=="该多选题题干修改成功")
@@ -639,7 +440,8 @@
             cid:this.changeList.id,
             flag:2,
             top:1,
-            op1:this.changeList.op1
+            op1:this.changeList.op1,
+            auth:this.$store.getters.getsId
           }).then(function (res) {
             console.log(res.data)
             if(res.data.message=="该多选题选项1修改成功")
@@ -659,7 +461,8 @@
             cid:this.changeList.id,
             flag:2,
             top:2,
-            op2:this.changeList.op2
+            op2:this.changeList.op2,
+            auth:this.$store.getters.getsId
           }).then(function (res) {
             console.log(res.data)
             if(res.data.message=="该多选题选项2修改成功")
@@ -679,7 +482,8 @@
             cid:this.changeList.id,
             flag:2,
             top:3,
-            op3:this.changeList.op3
+            op3:this.changeList.op3,
+            auth:this.$store.getters.getsId
           }).then(function (res) {
             console.log(res.data)
             if(res.data.message=="该多选题选项3修改成功")
@@ -699,7 +503,8 @@
             cid:this.changeList.id,
             flag:2,
             top:4,
-            op4:this.changeList.op4
+            op4:this.changeList.op4,
+            auth:this.$store.getters.getsId
           }).then(function (res) {
             console.log(res.data)
             if(res.data.message=="该多选题选项4修改成功")
@@ -718,7 +523,8 @@
           this.$http.post('/yii/bank/choosem/change',{
             cid:this.changeList.id,
             flag:3,
-            ans:this.changeList.ans
+            ans:this.changeList.ans,
+            auth:this.$store.getters.getsId
           }).then(function (res) {
             console.log(res.data)
             if(res.data.message=="该多选题答案修改成功")
@@ -737,7 +543,8 @@
           this.$http.post('/yii/bank/choosem/change',{
             cid:this.changeList.id,
             flag:4,
-            tail:this.changeList.tail
+            tail:this.changeList.tail,
+            auth:this.$store.getters.getsId
           }).then(function (res) {
             console.log(res.data)
             if(res.data.message=="该多选题详解修改成功")
@@ -756,7 +563,8 @@
           this.$http.post('/yii/bank/choosem/change',{
             cid:this.changeList.id,
             flag:5,
-            rem:this.changeList.rem
+            rem:this.changeList.rem,
+            auth:this.$store.getters.getsId
           }).then(function (res) {
             console.log(res.data)
             if(res.data.message=="该多选题相关知识修改成功")
@@ -775,7 +583,8 @@
           console.log(id)
           this.$http.post('/yii/bank/choosem/change',{
             cid:id,
-            flag:6
+            flag:6,
+            auth:this.$store.getters.getsId
           }).then(function (res) {
 
             console.log(res.data)
@@ -804,7 +613,8 @@
           }).then(() => {
             this.$http.post('/yii/bank/choosem/delete',{
               cid:id,
-              flag:1
+              flag:1,
+              auth:this.$store.getters.getsId
             }).then(function (res) {
               console.log(res.data)
               if(res.data.message=="该多选题删除成功")
@@ -892,6 +702,7 @@
               obj.ans= v.答案
               obj.tail= v.详解
               obj.rem= v.相关点
+              obj.auth=_this.$store.getters.getsId
               arr.push(obj)
             })
             _this.memberList = [...arr]

@@ -12,12 +12,17 @@
         </el-page-header>
       </div>
       <div v-for="(f,index) in List">
-        <div>
+        <div class="item">
           <h3>{{f.fqitem}}（填空题）</h3>
-          <input type="text"  :name="f.fqid" @input="Click(f.fqid,$event)"><br>
+          <!--<input type="text"  :name="f.fqid" @input="Click(f.fqid,$event)"><br>-->
+          <textarea :name="f.fqid" @input="Click(f.fqid,$event)" style="width: 400px;height: 200px">
+
+          </textarea>
         </div>
         <hr/>
-        <div v-if="Visable==true">
+        <div v-if="Visable==true" class="item">
+          <p v-if="AnsFlag==1" class="uansR" >您的答案：{{Ans[0].ans}}</p>
+          <p v-else class="uansE" >您的答案：{{Ans[0].ans}}</p>
           <span>答案：{{f.fqans}}</span><br>
           <span>相关知识点：{{f.fqrem}}</span><br>
           <span>详解：{{f.fqtail}}</span><br>
@@ -43,6 +48,7 @@
           List:[],
           //用户答案
           Ans:[],
+          AnsFlag:false,
           //  显示答案
           Visable:false,
           //  计时
@@ -99,25 +105,37 @@
           s = s > 9 ? s:'0' + s
           let time = h+':'+m+':'+s
           console.log(time)
-          this.$http.post('/yii/student/exercise/submitanser',{
-            flag:2,
-            uid:this.uid,
-            qid:this.qid,
-            ans:this.Ans,
-            ctime:time
-          }).then(function (res) {
-            console.log(res.data)
-            if(res.data.message=="练习填空题成功")
-            {
-              this.Visable = true
-            }
-            else{
-              alert(res.data.message)
-            }
-          }).catch(function (error) {
-            console.log(error)
-          })
-
+          if(this.Ans.length==0)
+          {
+            this.$alert('您尚未作答，请检查', '警告', {
+              confirmButtonText: '确定',})
+          }
+          else if(this.Ans[0].ans=='')
+          {
+            this.$alert('您尚未作答，请检查', '警告', {
+              confirmButtonText: '确定',})
+          }
+          else{
+            this.$http.post('/yii/student/exercise/submitanser',{
+              flag:2,
+              uid:this.uid,
+              qid:this.qid,
+              ans:this.Ans,
+              ctime:time
+            }).then(function (res) {
+              console.log(res.data)
+              if(res.data.message=="练习填空题成功")
+              {
+                this.Visable = true
+                this.AnsFlag =res.data.data
+              }
+              else{
+                alert(res.data.message)
+              }
+            }).catch(function (error) {
+              console.log(error)
+            })
+          }
         }
       },
       created(){
@@ -145,7 +163,7 @@
     color: white;
     background-color: #7F96FE;
     float: left;
-    margin-left: 5px;
+    margin-left: 50px;
     margin-top: 17px;
     margin-bottom: 5px;
   }
@@ -162,5 +180,21 @@
     margin-top: 5px;
     text-align: left;
     padding: 30px;
+  }
+  .item{
+    margin-left: 50px;
+    margin-top: 20px;
+  }
+  .uansR{
+    /*正确答案*/
+    margin-left: 30px;
+    color: yellowgreen;
+    font-weight: bold;
+  }
+  .uansE{
+    /*错误答案*/
+    margin-left: 30px;
+    color: coral;
+    font-weight: bold;
   }
 </style>
