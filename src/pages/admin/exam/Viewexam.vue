@@ -1,6 +1,11 @@
 <template>
     <!--查看试卷-->
+
   <div id="waimian">
+    <div class="back">
+      <el-page-header @back="back">
+      </el-page-header>
+    </div>
     <div>
       <h1>{{examList.id}}:<strong>{{examList.exname}}</strong></h1>
       <p><i class="el-icon-s-custom"></i>试卷创建人：{{examList.exUser}}  ||<i class="el-icon-date"></i>创建时间：{{examList.exCreateTime}}</p>

@@ -24,6 +24,9 @@
               <!--添加-->
               <el-dialog title="添加用户" :visible.sync="dialogFormVisible">
                 <el-form :model="addUserList">
+                  <el-form-item label="用户工号" :label-width="formLabelWidth">
+                    <el-input style="width: 350px;" v-model="addUserList.addno" auto-complete="off"></el-input>
+                  </el-form-item>
                   <el-form-item label="用户名称" :label-width="formLabelWidth">
                     <el-input style="width: 350px;" v-model="addUserList.addname" auto-complete="off"></el-input>
                   </el-form-item>
@@ -125,27 +128,27 @@
                     </div>
                   </el-dialog>
                   <!--<span v-if="userinfo.status==0" @click="changeStatus(userinfo.id)" class="span2"><i class="el-icon-edit">修改状态</i></span>-->
-                  <span v-if="userinfo.status==1&&userinfo.role!=1"@click="deleteUser(userinfo.id)" class="span1"><i class="el-icon-delete">删除用户</i></span>
+                  <span v-if="userinfo.status==1&&userinfo.id!=userid"@click="deleteUser(userinfo.id)" class="span1"><i class="el-icon-delete">删除用户</i></span>
                   <span v-if="userinfo.status==0" @click="deleteUsers(userinfo.id)" class="span1"><i class="el-icon-delete">永久删除</i></span>
                 </td>
               </tr>
             </table>
           </div>
-          <div class="page">
-            <ul class="pagination pagination-sm"><!--分页-->
-              <li class="page-item" v-if="currentPage!=1">
-                <span class="page-link" v-on:click="prePage">上一页</span>
-              </li>
-              <li class="page-item" >
-                <span class="page-link" >第{{ currentPage }}页/共{{totalPage}}页</span>
-              </li>
-              <li class="page-item" v-if="currentPage!=totalPage">
-                <span class="page-link" v-on:click="nextPage">下一页</span>
-              </li>
-            </ul>
-          </div>
         </el-tab-pane>
       </el-tabs>
+      <div style="font-size: 16px">
+        <ul class="pagination pagination-sm"><!--分页-->
+          <li class="page-item" v-if="currentPage!=1">
+            <span class="page-link" v-on:click="prePage">上一页</span>
+          </li>
+          <li class="page-item" >
+            <span class="page-link" >第{{ currentPage }}页/共{{totalPage}}页</span>
+          </li>
+          <li class="page-item" v-if="currentPage!=totalPage">
+            <span class="page-link" v-on:click="nextPage">下一页</span>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 
@@ -156,6 +159,7 @@
       name: "Userinfo",
       data() {
         return {
+          userid:this.$store.getters.getsId,
           //用户信息列表
           userinfoList: [],
           inputname: '',
@@ -172,7 +176,8 @@
             addname: '',
             addpwd: '',
             addrole: '',
-            addstatus: ''
+            addstatus: '',
+            addno:''
           },
           formLabelWidth: '120px',
           // 翻页相关
@@ -294,7 +299,8 @@
               addname: this.addUserList.addname,
               addpwd: this.addUserList.addpwd,
               addrole: this.addUserList.addrole,
-              addstatus: this.addUserList.addstatus
+              addstatus: this.addUserList.addstatus,
+              addno:this.addUserList.addno
             }).then(function (res) {
             console.log(res.data)
             let msg = res.data.message
@@ -321,6 +327,7 @@
           this.addUserList.addrole = "";
           this.addUserList.addpwd = "";
           this.addUserList.addname = ""
+          this.addUserList.addno=''
         },
         //修改状态
         changeStatus: function (userid) {
@@ -489,6 +496,7 @@
               let arr = []
               outdata.map(v => {
                 let obj ={}
+                obj.no = v.工号
                 obj.name = v.用户名
                 obj.password= v.密码
                 obj.role= v.角色

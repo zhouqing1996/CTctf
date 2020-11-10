@@ -60,8 +60,9 @@
               <div class="detail" v-for=" (exam,key) in currentPageData">
                 <div>
                   <h3>
-                    <span class="span2">[序号：{{ key+1 }} 试卷编号：{{exam.exid}}</span>
-                       <a v-if="exam.exstatus==1" class="title" @click="lookexam(exam.exid)">{{exam.exname}}</a>
+                       <a v-if="exam.exstatus==1" class="title" @click="lookexam(exam.exid)">
+                         <span class="span2">[序号：{{ key+1 }} 试卷编号：{{exam.exid}}</span>{{exam.exname}}
+                       </a>
                     <a v-if="exam.exstatus==0" class="title">{{exam.exname}}</a>
                     <div class="delete">
                       <span v-if="exam.exstatus==1">有效
@@ -80,21 +81,21 @@
               </div>
             </div>
           </div>
-          <div class="page">
-            <ul class="pagination pagination-sm"><!--分页-->
-              <li class="page-item" v-if="currentPage!=1">
-                <span class="page-link" v-on:click="prePage">上一页</span>
-              </li>
-              <li class="page-item" >
-                <span class="page-link" >第{{ currentPage }}页/共{{totalPage}}页</span>
-              </li>
-              <li class="page-item" v-if="currentPage!=totalPage">
-                <span class="page-link" v-on:click="nextPage">下一页</span>
-              </li>
-            </ul>
-          </div>
         </el-tab-pane>
       </el-tabs>
+      <div style="font-size: 18px">
+        <ul class="pagination pagination-sm"><!--分页-->
+          <li class="page-item" v-if="currentPage!=1">
+            <span class="page-link" v-on:click="prePage">上一页</span>
+          </li>
+          <li class="page-item" >
+            <span class="page-link" >第{{ currentPage }}页/共{{totalPage}}页</span>
+          </li>
+          <li class="page-item" v-if="currentPage!=totalPage">
+            <span class="page-link" v-on:click="nextPage">下一页</span>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>

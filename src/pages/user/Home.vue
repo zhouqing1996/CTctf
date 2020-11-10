@@ -31,12 +31,15 @@
         <el-submenu index="7">
           <template slot="title">我的信息</template>
           <el-menu-item index="7-1">
-            <router-link to="/user/my" >我的资料</router-link>
+            <router-link to="/user/class/select" >选择导师</router-link>
           </el-menu-item>
           <el-menu-item index="7-2">
+            <router-link to="/user/my" >我的资料</router-link>
+          </el-menu-item>
+          <el-menu-item index="7-3">
             <router-link to="/user/my/changepwd" >修改密码</router-link>
           </el-menu-item>
-          <el-menu-item index="7-3" v-on:click="logout">
+          <el-menu-item index="7-4" v-on:click="logout">
             退出登录
           </el-menu-item>
         </el-submenu>

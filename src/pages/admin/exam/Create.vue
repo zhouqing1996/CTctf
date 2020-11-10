@@ -81,52 +81,23 @@
                 </div>
               </div>
             </div>
-            <span>
-              <!--<table >-->
-              <!--<tr>-->
-                <!--<th>序号</th>-->
-                <!--<th>试卷编号 </th>-->
-                <!--<th>试卷名</th>-->
-                <!--<th>创建时间</th>-->
-                <!--<th>作者编号</th>-->
-                <!--<th>状态</th>-->
-                <!--<th>操作</th>-->
-              <!--</tr>-->
-              <!--<tr v-for=" (exam,key) in currentPageData" :key="key">-->
-                <!--<td>{{ key+1 }}</td>-->
-                <!--<td>{{exam.exid}}</td>-->
-                <!--<td>{{exam.exname}}</td>-->
-                <!--<td>{{exam.createtime}}</td>-->
-                <!--<td>{{exam.auth}}</td>-->
-                <!--<td v-if="exam.exstatus==1">有效</td>-->
-                <!--<td v-if="exam.exstatus==0">无效-->
-                  <!--<span @click="changeExamstatus(exam.exid)" class="span2">修改</span>-->
-                <!--</td>-->
-                <!--<td>-->
-                  <!--<span v-if="exam.exstatus==1" class="span2" @click="lookexam(exam.exid)">查看试卷-->
-                  <!--</span>-->
-                  <!--<span v-if="exam.exstatus==1"@click="deleteExam(1,exam.exid)" class="span1"><i class="el-icon-delete">删除试卷</i></span>-->
-                  <!--<span v-if="exam.exstatus==0" @click="deleteExam(2,exam.exid)" class="span1"><i class="el-icon-delete">永久删除</i></span>-->
-                <!--</td>-->
-              <!--</tr>-->
-            <!--</table>-->
-            </span>
-          </div>
-          <div class="page">
-            <ul class="pagination pagination-sm"><!--分页-->
-              <li class="page-item" v-if="currentPage!=1">
-                <span class="page-link" v-on:click="prePage">上一页</span>
-              </li>
-              <li class="page-item" >
-                <span class="page-link" >第{{ currentPage }}页/共{{totalPage}}页</span>
-              </li>
-              <li class="page-item" v-if="currentPage!=totalPage">
-                <span class="page-link" v-on:click="nextPage">下一页</span>
-              </li>
-            </ul>
           </div>
         </el-tab-pane>
+        <div class="page">
+          <ul class="pagination pagination-sm"><!--分页-->
+            <li class="page-item" v-if="currentPage!=1">
+              <span class="page-link" v-on:click="prePage">上一页</span>
+            </li>
+            <li class="page-item" >
+              <span class="page-link" >第{{ currentPage }}页/共{{totalPage}}页</span>
+            </li>
+            <li class="page-item" v-if="currentPage!=totalPage">
+              <span class="page-link" v-on:click="nextPage">下一页</span>
+            </li>
+          </ul>
+        </div>
       </el-tabs>
+
     </div>
   </div>
 </template>

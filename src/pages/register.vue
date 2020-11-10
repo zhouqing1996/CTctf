@@ -5,6 +5,11 @@
       <div class="login_form">
         <li class="login-item" >
           <span style="font-size: 20px;color: #0ea0db;" class="el-icon-user">用户账号：</span>
+          <input type="text" v-model="registerForm.userno" class="login_input" placeholder="用户账号">
+          <span class="error"></span>
+        </li>
+        <li class="login-item" >
+          <span style="font-size: 20px;color: #0ea0db;" class="el-icon-user">用户名：</span>
           <input type="text" v-model="registerForm.username" class="login_input" placeholder="用户名">
           <span class="error"></span>
         </li>
@@ -49,6 +54,7 @@
       data() {
         return {
           registerForm: {
+            userno:'',
             password: "",
             password1: "",
             username: "",
@@ -90,6 +96,11 @@
             this.$alert('密码规则为：6-10位包含数字、字母、特殊字符的字串', '警告', {
               confirmButtonText: '确定',})
           }
+          else if(this.registerForm.userno=='')
+          {
+            this.$alert('用户账号为空！', '警告', {
+              confirmButtonText: '确定',})
+          }
           else if(this.registerForm.password1 != this.registerForm.password)
           {
             this.$alert('两次输入密码不一致', '警告', {
@@ -101,7 +112,8 @@
             this.$http.post('/yii/home/index/register',{
               username:this.registerForm.username,
               password:this.registerForm.password,
-              role:this.registerForm.role
+              role:this.registerForm.role,
+              no:this.registerForm.userno
             }).then(res=>{
               console.log(res.data)
               if(res.data.message=="注册成功")

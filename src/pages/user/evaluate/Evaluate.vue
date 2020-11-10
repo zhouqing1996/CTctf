@@ -24,9 +24,9 @@
                 <div class="detail">
                   <div>
                     <h3>
-                      <span class="span2">[序号：{{ key+1 }} 试卷编号：{{exam.exid}}]
-                        <p @click="Goexam(exam.exid,exam.gdtime)" class="title" target="_blank">{{exam.exname}}</p>
-                      </span>
+                      <p @click="Goexam(exam.exid,exam.gdtime)" class="title" target="_blank">
+                          <span class="span2">[序号：{{ key+1 }} 试卷编号：{{exam.exid}}]</span>{{exam.exname}}
+                          </p>
                     </h3>
                   </div>
                   <div>
@@ -38,24 +38,6 @@
                 </div>
               </div>
             </div>
-            <span>
-              <!--<table >-->
-              <!--<tr>-->
-                <!--<th>序号</th>-->
-                <!--<th>试卷编号 </th>-->
-                <!--<th>试卷名</th>-->
-                <!--<th>操作</th>-->
-              <!--</tr>-->
-              <!--<tr v-for=" (exam,key) in currentPageData" :key="key">-->
-                <!--<td>{{ key+1 }}</td>-->
-                <!--<td>{{exam.exid}}</td>-->
-                <!--<td>{{exam.exname}}</td>-->
-                <!--<td>-->
-                  <!--<span v-if="exam.exstatus==1" class="span2" @click="Goexam(exam.exid)">进入测试</span>-->
-                <!--</td>-->
-              <!--</tr>-->
-            <!--</table>-->
-            </span>
           </div>
         </el-tab-pane>
       </el-tabs>
@@ -112,9 +94,10 @@
           this.currentPage++;
           this.setCurrentPageDate()
         },
-          getEvaList:function () {
+        getEvaList:function () {
             this.$http.post('/yii/exam/index/queryexam',{
-              flag:1,
+              flag:5,
+              sid:this.$store.getters.getsId
             }).then(function (res) {
               console.log(res.data)
               // this.EvaList =res.data.data
@@ -211,8 +194,11 @@
           }
         },
       },
+      mounted(){
+        setInterval(this.getUser(),2000)
+      },
       created(){
-          this.getUser()
+          setInterval(this.getUser(),2000)
           this.getEvaList()
       }
     }

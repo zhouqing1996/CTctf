@@ -108,6 +108,9 @@ import UserExerciseChoosem from '../pages/user/exercise/ViewChoosem'
 //我的
 import UserMy from '../pages/user/my/My'
 import Userchangepwd from '../pages/user/my/Changepwd'
+//选择教师/课程
+import UserSelectTeacher  from '../pages/user/class/SelectTeacher'
+
 
 //用户数据分析
 //练习
@@ -557,6 +560,15 @@ const  router = new Router({
           component:UserAnlysis
         },
         {
+          //用户选择教师/课堂
+          path:'/user/class/select',
+          name:'SelectTeacher',
+          meta:{
+            isLogin:true
+          },
+          component:UserSelectTeacher
+        },
+        {
         //  我的
           path:'/user/my',
           name:'usermy',
@@ -587,32 +599,4 @@ const  router = new Router({
     }
   ]
 })
-// export default new Router({
-//   mode:'history',
-//   routes: [
-//     {
-//       path: '/',
-//       name: 'Index',
-//       meta:{
-//         requireAuth:true,//需要登录
-//       },
-//       component: Index
-//     },
-//     {
-//       path: '/register',
-//       name: 'Register',
-//       component: Register
-//     },
-//     {
-//       path:'/forget',
-//       name:'Forget',
-//       component:Forget
-//     },
-//     {
-//       path:'/login',
-//       name:'Login',
-//       component:Login
-//     }
-//   ]
-// });
 export default router;
