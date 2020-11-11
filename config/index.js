@@ -11,13 +11,6 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      // '/api': {
-      //   changeOrigin: true,// 如果接口跨域，需要进行这个参数配置
-      //   target: 'http://localhost:3000',// 接口的域名
-      //   pathRewrite: {
-      //     '^/api': ''//后面可以使重写的新路径，一般不做更改
-      //   }
-      // },
       '/yii': {
         changeOrigin: true,// 如果接口跨域，需要进行这个参数配置
         target: 'http://127.0.0.1/ComputeThinking/advanced/backend/web/index.php',// 接口的域名
@@ -25,13 +18,6 @@ module.exports = {
           '^/yii': ''//后面可以使重写的新路径，一般不做更改
         }
       },
-      // '/translate': {
-      //   changeOrigin: true,// 如果接口跨域，需要进行这个参数配置
-      //   target: 'https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20170721T082515Z.54cf3dc583f679db.f4a96182281281d8b5dfe24b4e88298e2133f219&lang=zh-en&text=',// 接口的域名
-      //   pathRewrite: {
-      //     '^/translate': ''//后面可以使重写的新路径，一般不做更改
-      //   }
-      // }
     },
 
     // Various Dev Server settings

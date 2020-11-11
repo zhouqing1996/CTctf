@@ -99,6 +99,7 @@
               flag:5,
               sid:this.$store.getters.getsId
             }).then(function (res) {
+              // console.log(this.$http.interceptors.request)
               console.log(res.data)
               // this.EvaList =res.data.data
               this.EvaList = []

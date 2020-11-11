@@ -17,21 +17,12 @@ import echarts from 'echarts'
 Vue.prototype.$echarts = echarts
 
 Vue.use(initHtml5Editor)
-// 添加请求拦截器，在请求头加token
-axios.interceptors.request.use(
-  config=>{
-    if(localStorage.getItem('Token'))
-    {
-      config.headers.Token = localStorage.getItem('Token')
-    }
-    return config;
-  },
-  error => {
-    return Promise.reject(error)
-  }
-);
 Vue.prototype.$http = axios
-//
+axios.interceptors.request.use(function (config) {
+  config.url=process.env.apiBaseUrl+config.url
+  return config
+})
+
 router.beforeEach((to,from,next)=>{
   let stoken = store.getters.getsToken
   let user = store.getters.getsName
@@ -51,26 +42,6 @@ router.beforeEach((to,from,next)=>{
   }else{
     return next();
   }
-
-  // console.log(stoken)
-  // if (stoken) {
-  //   // next()
-  //   //已经登录的
-  //   if(!to.meta.isLogin==true)
-  //   {
-  //     console.log("已经登录过了，先退出登录")
-  //   }
-  //   next()
-  // }
-  // else {
-  //   if(to.meta.isLogin){
-  //     next('/login')
-  //     console.log("需要登录")
-  //   }
-  //   else{
-  //     next()
-  //   }
-  // }
 })
 Vue.use(VueResource)
 Vue.use(Vuerouter)

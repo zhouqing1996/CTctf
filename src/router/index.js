@@ -73,7 +73,8 @@ import TeacherSelfCreate from '../pages/teacher/teach/Selfcreate'
 import TeacherNewCreate from '../pages/teacher/teach/Newcreate'
 //教师管理学生
 import TeacherSManage from '../pages/teacher/student/SManage'
-
+//数据分析
+import TeacherFenxi from '../pages/teacher/fenxi/fenxi'
 
 
 //用户身份
@@ -441,6 +442,15 @@ const  router = new Router({
             isLogin:true
           },
           component:TeacherSManage
+        },
+        {
+        //  试卷数据分析
+          path:"/teacher/fenxi",
+          name:'TeacherFenxi',
+          meta:{
+            isLogin:true
+          },
+          component:TeacherFenxi
         }
       ]
     },

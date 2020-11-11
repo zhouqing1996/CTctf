@@ -8,20 +8,20 @@
             <input type="text" v-model="loginForm.username" class="login_input" placeholder="账号">
           <span class="error"></span>
         </li>
-          <li class="login-item">
-            <span style="font-size: 20px;color: #0ea0db;" class="el-icon-key">登录密码：</span>
-            <input :type="passwordVisible" v-model="loginForm.password" class="login_input" placeholder="密码">
-              <i slot="suffix" :class="icon" @click="showPass" style="text-align: right"></i>
-            <span class="error"></span>
-          </li>
-          <li class="login-item">
-            <span style="font-size: 20px;color: #0ea0db;" class="el-icon-s-custom">登录身份：</span>
-            <select v-model="loginForm.role" placeholder="选择登录身份">
-              <option value="2">教  师</option>
-              <option value="3" selected="selected">学  生</option>
-              <option value="1">管理员</option>
-            </select>
-          </li>
+        <li class="login-item">
+          <span style="font-size: 20px;color: #0ea0db;" class="el-icon-key">登录密码：</span>
+          <input :type="passwordVisible" v-model="loginForm.password" class="login_input" placeholder="密码">
+          <i slot="suffix" :class="icon" @click="showPass" style="text-align: right"></i>
+          <span class="error"></span>
+        </li>
+        <li class="login-item">
+          <span style="font-size: 20px;color: #0ea0db;" class="el-icon-s-custom">登录身份：</span>
+          <select v-model="loginForm.role" placeholder="选择登录身份">
+            <option value="2">教  师</option>
+            <option value="3" selected="selected">学  生</option>
+            <option value="1">管理员</option>
+          </select>
+        </li>
         <div class="clearfix">
           <li class="login-sub">
             <input type="button" value="登录" v-on:click="login">
@@ -33,7 +33,6 @@
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
