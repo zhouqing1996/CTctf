@@ -1,0 +1,17 @@
+/*分析*/
+/*整体分析*/
+.whole{
+  width: 200px;
+  font-size: 16px;
+  background-color: seashell;
+  height: auto;
+  color: black;
+  text-align: left;
+  margin: 5px 5px 5px 5px;
+}
+
+/*作答次数占比情况*/
+/*扇形图*/
+.pie{
+
+}

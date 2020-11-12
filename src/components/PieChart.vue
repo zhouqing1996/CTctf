@@ -6,37 +6,67 @@
 </template>
 
 <script>
-    import initHtml5Editor from "../common/initHtml5Editor";
+    import index from "../store";
 
     export default {
         name: "PieChart",
       data(){
           return{
-            title:'扇形图',
-            tdata:[],
-            name:'占比',
-            sdata:[]
+            title:'',
+            subtitle:'',
+            name:[],
+            data:[],
+            sname:'占比'
           }
       },
-      props:[],
+      props:["sdata","t","subt"],
       mounted(){
-
+          this.init()
       },
       watch:{
-
+        sdata(oldVal, newVal) {
+          this.drawPie();
+        },
+        t(oldVal, newVal) {
+          this.drawPie();
+        },
+        subt(oldVal, newVal) {
+          this.drawPie();
+        },
       },
       created(){
 
       },
       methods:{
+          init(){
+
+          },
+        toData(data,t,st){
+            this.title = t
+          this.subtitle =st
+            if(data!=null)
+            {
+              this.data = []
+              data.forEach((value,index)=>{
+                this.name.push("次数："+value.num)
+                this.data.push({
+                  value:value.value,
+                  name:value.num+"次做答"
+                })
+              })
+            }
+        },
           drawPie:function () {
             let that =this
+            that.toData(that.sdata,that.t,that.subt)
+            console.log(that.data)
             let myChart = that.$echarts.init(
               document.getElementById("PieChart")
             );
             myChart.setOption({
               title:{
                 text:that.title,
+                subtext:that.subtitle,
                 left:'center'
               },
               tooltip:{
@@ -50,11 +80,11 @@
               },
               series:[
                 {
-                  name:that.name,
+                  name:that.sname,
                   type:'pie',
                   radius:'55%',
                   center:['50%','60%'],
-                  data:that.tdata,
+                  data:that.data,
                   emphasis: {
                     itemStyle: {
                       shadowBlur:10,
