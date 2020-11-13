@@ -51,7 +51,8 @@ import ViewA from '../pages/admin/exam/Viewexam'
 import SelfCreate from '../pages/admin/exam/Selfcreate'
 //创建试卷
 import NewCreate from '../pages/admin/exam/Newcreate'
-
+//分析试卷的答题情况
+import AdminFenxi from '../pages/admin/exam/Fenxi'
 
 
 
@@ -316,6 +317,14 @@ const  router = new Router({
             isLogin:true
           },
           component:Create
+        },
+        {
+          path:'/admin/exam/fenxi',
+          name:'AdminFenxi',
+          meta:{
+            isLogin:true
+          },
+          component:AdminFenxi
         },
         //查看试卷
         {

@@ -63,6 +63,8 @@
                     <a v-if="exam.exstatus==1" class="title" @click="lookexam(exam.exid)">{{exam.exname}}</a>
                     <a v-if="exam.exstatus==0" class="title">{{exam.exname}}</a>
                     <div class="delete">
+                      <span @click="goDown(exam.exid)">下载试卷</span>
+                      <span @click="goFenXi(exam.exid)">学生答题情况</span>
                       <span v-if="exam.exstatus==1">有效
                         <span @click="deleteExam(1,exam.exid)" class="span1"><i class="el-icon-delete">删除</i></span>
                         </span>
@@ -132,6 +134,23 @@
           }
       },
       methods:{
+        goDown:function(id){
+          this.$http.post('/yii/exam/download/dfile',{
+            eid:id
+          }).then(function (res) {
+            console.log(res.data)
+            window.open(res.data.data)
+          })
+        },
+        goFenXi:function(id)
+        {
+          this.$router.push({
+            path:'/admin/exam/fenxi',
+            query:{
+              eid:id
+            }
+          })
+        },
         //  查看试卷
         lookexam:function(id){
           console.log(id)

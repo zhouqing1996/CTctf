@@ -1,6 +1,10 @@
 <template>
     <!--数据分析-->
   <div>
+    <div class="back">
+      <el-page-header @back="back">
+      </el-page-header>
+    </div>
     <div class="whole">
       <p style="color: #FF0000;text-align: center;font-weight: bold">试卷的整体分析</p>
       <span><strong>答题总人数：</strong>{{List.userNum}}</span><br>
@@ -64,10 +68,15 @@
           }
       },
       created(){
-          this.List.eid =3
+          this.List.eid =this.$route.query.eid
           this.getData()
       },
       methods:{
+        back:function(){
+          this.$router.push({
+            path:'/teacher/create',
+          })
+        },
           //查看某用户的作答情况
         viewuser:function(eid,uid)
         {
