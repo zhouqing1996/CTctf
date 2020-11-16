@@ -2,7 +2,11 @@
   <el-container>
     <el-header >
         <el-menu
-          mode="horizontal">
+          class="el-menu-demo"
+          mode="horizontal"
+          background-color="	#1E90FF"
+          text-color="#fff"
+          active-text-color="#ffd04b">
           <el-menu-item index="1">
             <router-link to="/admin/index">首页</router-link>
           </el-menu-item>

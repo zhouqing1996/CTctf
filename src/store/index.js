@@ -5,16 +5,6 @@ Vue.use(Vuex)
 export  default new Vuex.Store({
 
   state:{
-    // //name
-    // Name:localStorage.getItem('Name')?localStorage.getItem('Name'):'',
-    // //password
-    // Password:localStorage.getItem('Password')?localStorage.getItem('Password'):'',
-    // //  token
-    // Token:localStorage.getItem('Token')?localStorage.getItem('Token'):'',
-    // //role
-    // Role:localStorage.getItem('Role')?localStorage.getItem('Role'):'',
-    // //status
-    // Status:localStorage.getItem('Status')?localStorage.getItem('Status'):'',
     //全局变量
     Id:JSON.parse(localStorage.getItem("vuex"))?JSON.parse(localStorage.getItem("vuex"))['Id']:"",
     Name:JSON.parse(localStorage.getItem("vuex"))?JSON.parse(localStorage.getItem("vuex"))['Name']:"",
@@ -29,6 +19,7 @@ export  default new Vuex.Store({
     sToken:JSON.parse(sessionStorage.getItem("vuex"))?JSON.parse(sessionStorage.getItem("vuex"))['sToken']:"",
     sRole:JSON.parse(sessionStorage.getItem("vuex"))?JSON.parse(sessionStorage.getItem("vuex"))['sRole']:"",
     sStatus:JSON.parse(sessionStorage.getItem("vuex"))?JSON.parse(sessionStorage.getItem("vuex"))['sStatus']:"",
+    sNo:JSON.parse(sessionStorage.getItem("vuex"))?JSON.parse(sessionStorage.getItem("vuex"))['sNo']:"",
 
     isLogin:false
 
@@ -117,6 +108,10 @@ export  default new Vuex.Store({
       state.sStatus = status;
       sessionStorage.setItem("vuex",JSON.stringify(state))
     },
+    setsNo:function (state,no) {
+      state.sNo = no;
+      localStorage.setItem("vuex",JSON.stringify(state))
+    },
     delsId(state)
     {
       state.sId = "";
@@ -140,6 +135,11 @@ export  default new Vuex.Store({
     delsRole(state)
     {
       state.sRole = "";
+      sessionStorage.setItem("vuex",JSON.stringify(state))
+    },
+    delsNo(state)
+    {
+      state.sNo= "";
       sessionStorage.setItem("vuex",JSON.stringify(state))
     },
     delsStatus(state)
@@ -187,7 +187,10 @@ export  default new Vuex.Store({
     },
     getsStatus:(state)=>{
       return state.sStatus
-    }
+    },
+    getsNo:(state)=>{
+      return state.sNo
+    },
   },
   actions:{
     //获取登录状态
@@ -213,17 +216,17 @@ export  default new Vuex.Store({
     slogin:({commit},obj)=>{
       commit('setsId',obj.id),commit('setsName',obj.username),commit('setsPwd',obj.password),
         commit('setsToken',obj.token),commit('setsRole',obj.role),
-        commit('setsStatus',obj.status)
+        commit('setsStatus',obj.status),commit('setsNo',obj.no)
     },
     slogout:({commit})=>{
       commit('delsId'),commit('delsName'),commit('delsPwd'),
-        commit('delsToken'),commit('delsRole'),
+        commit('delsToken'),commit('delsRole'),commit('delsNo'),
         commit('delsStatus')
     },
     sforget:({commit},obj)=>{
       commit('setsId',obj.id),commit('setsName',obj.username),commit('setsPwd',obj.password),
         commit('setsToken',obj.token),commit('setsRole',obj.role),
-        commit('setsStatus',obj.status)
+        commit('setsStatus',obj.status),commit('setsNo',obj.no)
     },
   }
 });

@@ -9,7 +9,7 @@
           <span class="error"></span>
         </li>
         <li class="login-item" >
-          <span style="font-size: 20px;color: #0ea0db;" class="el-icon-user">用户名：</span>
+          <span style="font-size: 20px;color: #0ea0db;" class="el-icon-user"> 用 户 名：</span>
           <input type="text" v-model="registerForm.username" class="login_input" placeholder="用户名">
           <span class="error"></span>
         </li>

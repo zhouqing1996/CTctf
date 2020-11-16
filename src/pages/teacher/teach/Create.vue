@@ -66,8 +66,8 @@
                     <a v-if="exam.exstatus==0" class="title">{{exam.exname}}</a>
 
                     <div class="delete">
-                      <span @click="goDown(exam.exid)">下载试卷</span>
-                      <span @click="goFenXi(exam.exid)">学生答题情况</span>
+                      <span @click="goDown(exam.exid)" class="span3">下载试卷</span>
+                      <span @click="goFenXi(exam.exid)" class="span3">学生答题情况</span>
                       <span v-if="exam.exstatus==1">有效
                         <span @click="deleteExam(1,exam.exid)" class="span1"><i class="el-icon-delete">删除</i></span>
                         </span>
@@ -138,7 +138,9 @@
               eid:id
             }).then(function (res) {
               console.log(res.data)
-              window.open(res.data.data)
+              // window.location.href=res.data.data[0]
+              window.open(res.data.data[0])
+
             })
           },
           goFenXi:function(id)
@@ -488,6 +490,27 @@
   }
   .span2:hover{
     background-color: #5FA7FE;
+  }
+  /*下载试卷*/
+  .span3{
+    padding: 7px;
+    color: white;
+    background-color: #0ea0db;
+    margin-left: 5px;
+    margin-top: 17px;
+    margin-bottom: 5px;
+    display: inline-block;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: auto;
+    height: 30px;
+    line-height: 20px;
+    text-align: center;
+    font-size: 12px;
+    border-radius: 2px;
+  }
+  .span3:hover{
+    background-color: gray;
   }
   .delete{
     float: right!important;

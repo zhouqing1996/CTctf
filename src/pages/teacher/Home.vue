@@ -13,17 +13,20 @@
         <el-menu-item index="2">
           <router-link to="/teacher/stuManage" >学生管理</router-link>
         </el-menu-item>
-        <el-submenu index="3">
-          <template slot="title">教师事务管理</template>
-          <el-menu-item index="3-1">
-            <router-link to="/teacher/create" >评测管理</router-link>
-          </el-menu-item>
-          <el-menu-item index="3-2">
-            <router-link to="" >资源管理</router-link>
-          </el-menu-item>
-        </el-submenu>
+        <!--<el-submenu index="3">-->
+          <!--<template slot="title">教师事务管理</template>-->
+          <!--<el-menu-item index="3-1">-->
+            <!--<router-link to="/teacher/create" >评测管理</router-link>-->
+          <!--</el-menu-item>-->
+          <!--<el-menu-item index="3-2">-->
+            <!--<router-link to="" >资源管理</router-link>-->
+          <!--</el-menu-item>-->
+        <!--</el-submenu>-->
+        <el-menu-item index="3">
+          <router-link to="" >资源管理</router-link>
+        </el-menu-item>
         <el-menu-item index="4">
-          <router-link to="" >学生评测数据</router-link>
+          <router-link to="/teacher/create" >评测管理</router-link>
         </el-menu-item>
         <el-submenu index="7">
           <template slot="title">我的信息</template>
