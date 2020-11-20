@@ -48,6 +48,8 @@ Vue.use(Vuerouter)
 // Vue.use(VueAxios,axios)//注册
 Vue.use(ElementUI);
 Vue.config.productionTip = false
+import MonacoInstall from './common/install'
+Vue.use(MonacoInstall)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

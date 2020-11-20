@@ -123,13 +123,30 @@ import SLineChart from '../components/SLineChart'
 import RadarChart from '../components/RadarChart'
 import CalenderHeatmap from '../components/CalenderHeatmap'
 import BarChart from '../components/BarChart'
-
-
+//代码编辑器
+import CodeMirror from '../components/CodeMirror'
+import Monaco from '../components/MonacoEditor'
 
 Vue.use(Router)
 const  router = new Router({
   mode:'history',
   routes: [
+    {
+      path:'/code',
+      name:'code',
+      meta:{
+        isLogin:false
+      },
+      component:CodeMirror
+    },
+    {
+      path:'/code2',
+      name:'code2',
+      meta:{
+        isLogin:false
+      },
+      component:Monaco
+    },
     {
       path:'/slinechart',
       name:'slinechart',

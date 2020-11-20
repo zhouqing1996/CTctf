@@ -35,11 +35,6 @@
       <span v-for="(f,key2) in fillqList":key="key2">
       <li class="item">({{key2+1}}){{f.fqitem}}<br>
         <textarea style="width: 400px;height: 200px;" :name="'fill'+f.fqid" @input="fr(f.fqid,$event)" class="fans"></textarea>
-        <!--<input type="text"  :name="'fill'+f.fqid" @input="fr(f.fqid,$event)" class="fans"><br>-->
-        <!--<div class="rich-html">-->
-              <!--<vue-html5-editor :content="fsans" :id="f.fqid" :height="200" @change="updateData">-->
-              <!--</vue-html5-editor>-->
-        <!--</div>-->
       </li>
     </span>
       </div>
@@ -69,9 +64,23 @@
       <hr/>
       <h2>五、程序题</h2>
       <div>
+        <span style="color: #FF0000;margin-left: 20px">
+          <strong>请注意每一题目完成之后要点击保存！</strong>编程语言选择：
+          <el-select v-model="yuyan"  placeholder="请选择" size="mini" class="code-mode-select">
+          <el-option
+            v-for="item in languages"
+            :key="item"
+            :label="item"
+            :value="item">
+          </el-option>
+        </el-select>
+        </span>
       <span v-for="(p,keyp) in programqList":key="keyp">
       <li class="item">({{keyp+1}}){{p.pqitem}}<br>
-        <input type="text"  :name="'program'+p.pqid" @input="pr(p.pqid,$event)"><br>
+        <MonacoEditor :codes="code_content"
+                      :read-only="false"
+                      :language="yuyan" @contentBody="get"></MonacoEditor>
+        <button @click="pr(p.pqid,code_content)">保存</button>
       </li>
     </span>
       </div>
@@ -84,10 +93,30 @@
 </template>
 
 <script>
+    import MonacoEditor from "../../../components/MonacoEditor";
+    import CodeMirror from "../../../components/CodeMirror";
     export default {
         name: "Goeva",
+      components: {CodeMirror, MonacoEditor},
       data(){
           return{
+            languages: {
+              'c': 'c',
+              'cpp': 'c++',
+              'css': 'css',
+              'go': 'go',
+              'html': 'html',
+              'java': 'java',
+              'javascript': 'javascript',
+              'markdown': 'markdown',
+              'php': 'php',
+              'python': 'python',
+              'r': 'r',
+              'swift': 'swift',
+              'typescript': 'typescript',
+              'vb': 'vb',
+              'xml': 'xml',
+            },
             eid:"",
             examList:{
               id:'',
@@ -107,6 +136,9 @@
             fList:[],
             jList:[],
             pList:[],
+            code_content:'',
+            yuyan:'python',
+            // language:'',
           //  倒计时
             tLabeL:'',
             limitTime:0,
@@ -200,7 +232,6 @@
         //提交填空题
         updateData (ans) {
           console.log(ans)
-
         },
         fr:function(id,event){
           let MeTime = new Date()
@@ -324,15 +355,6 @@
                 this.cmList[i]['ans'] = st
               }
             }
-            //   if(this.cmList[i]['ans']==str)
-            //   {
-            //     this.cmList.splice(id,1)
-            //   }
-            //   else{
-            //     this.cmList[i]['ans']=this.cmList[i]['ans']+'---'+str;
-            //   }
-            //   break
-            // }
           }
           if(flag){
             this.cmList.push({
@@ -344,7 +366,12 @@
           console.log(this.cmList)
         },
         //提交程序题
-        pr:function(id,event){
+        changePValue:function(vel)
+        {
+          this.code_content = vel
+          console.log(this.code_content)
+        },
+        pr:function(id,code_content){
           let MeTime = new Date()
           let SubTime = parseInt((MeTime - this.MsTime)/1000);
           let d = Math.floor(parseInt(SubTime/(24 * 60 * 60)));
@@ -363,14 +390,14 @@
             if(this.pList[i]['id']==id)
             {
               flag=false
-              this.pList[i]['ans'] = event.currentTarget.value
+              this.pList[i]['ans'] = this.code_content
               break
             }
           }
           if(flag){
             this.pList.push({
               id:id,
-              ans:event.currentTarget.value,
+              ans:this.code_content,
               ctime:time
             })
           }
@@ -378,31 +405,32 @@
         },
         //提交试卷
         EvaOK:function () {
-          let enTime = new Date()
-          let SubTime = parseInt((enTime - this.stime)/1000);
-          let d = Math.floor(parseInt(SubTime/(24 * 60 * 60)));
-          let h = Math.floor(parseInt(SubTime/60/60%24));
-          let m = Math.floor(parseInt(SubTime/60%60));
-          let s = Math.floor(parseInt(SubTime%60));
-          h = h > 9 ? h :'0' + h
-          m = m > 9 ? m :'0' + m
-          s = s > 9 ? s:'0' + s
-          let time = h+':'+m+':'+s
-          console.log(time)
-          this.$http.post('/yii/exam/exam/userans',{
-            cList:this.cList,
-            fList:this.fList,
-            cmList:this.cmList,
-            pList:this.pList,
-            jList:this.jList,
-            uid:this.$store.getters.getsId,
-            eid:this.eid,
-            ctime:time
-          }).then(function (res) {
-            console.log(res.data)
-            this.$router.push({path:'/user/evaluate'})
-            alert(res.data.message)
-          })
+          console.log(this.code_content)
+          // let enTime = new Date()
+          // let SubTime = parseInt((enTime - this.stime)/1000);
+          // let d = Math.floor(parseInt(SubTime/(24 * 60 * 60)));
+          // let h = Math.floor(parseInt(SubTime/60/60%24));
+          // let m = Math.floor(parseInt(SubTime/60%60));
+          // let s = Math.floor(parseInt(SubTime%60));
+          // h = h > 9 ? h :'0' + h
+          // m = m > 9 ? m :'0' + m
+          // s = s > 9 ? s:'0' + s
+          // let time = h+':'+m+':'+s
+          // console.log(time)
+          // this.$http.post('/yii/exam/exam/userans',{
+          //   cList:this.cList,
+          //   fList:this.fList,
+          //   cmList:this.cmList,
+          //   pList:this.pList,
+          //   jList:this.jList,
+          //   uid:this.$store.getters.getsId,
+          //   eid:this.eid,
+          //   ctime:time
+          // }).then(function (res) {
+          //   console.log(res.data)
+          //   this.$router.push({path:'/user/evaluate'})
+          //   alert(res.data.message)
+          // })
         },
       //  计时
 
@@ -538,6 +566,7 @@
     margin-top: 10px;
     font-family: "Times New Roman";
     font-size: 16px;
+    margin-bottom: 10px;
   }
   .btn2 {
     width: 100px;/*px*/

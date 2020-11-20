@@ -109,7 +109,7 @@
                 this.EvaList.push({
                   exid:List[i].exid,
                   exname:List[i].exname,
-                  auth:this.getUserName(List[i].auth),
+                  auth:List[i].auth,
                   gdtime:List[i].gdtime,
                   createtime:List[i].createtime,
                   exstatus:List[i].exstatus
@@ -196,10 +196,10 @@
         },
       },
       mounted(){
-        setInterval(this.getUser(),2000)
+        // setInterval(this.getUser(),2000)
       },
       created(){
-          setInterval(this.getUser(),2000)
+          // setInterval(this.getUser(),2000)
           this.getEvaList()
       }
     }
