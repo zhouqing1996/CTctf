@@ -57,6 +57,12 @@
           }
       },
       methods:{
+          next:function()
+          {
+            this.$router.push({
+              path:'/user/exercisre/pchoose',
+            })
+          },
         back:function()
         {
           this.$router.push({

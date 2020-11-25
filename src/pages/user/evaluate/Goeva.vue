@@ -79,7 +79,7 @@
       <li class="item">({{keyp+1}}){{p.pqitem}}<br>
         <MonacoEditor :codes="code_content"
                       :read-only="false"
-                      :language="yuyan" @contentBody="get"></MonacoEditor>
+                      :language="yuyan" @contentBody="changePValue"></MonacoEditor>
         <button @click="pr(p.pqid,code_content)">保存</button>
       </li>
     </span>
@@ -405,32 +405,37 @@
         },
         //提交试卷
         EvaOK:function () {
+          console.log(this.cList)
+          console.log(this.pList)
+          console.log(this.cmList)
+          console.log(this.jList)
+          console.log(this.fList)
           console.log(this.code_content)
-          // let enTime = new Date()
-          // let SubTime = parseInt((enTime - this.stime)/1000);
-          // let d = Math.floor(parseInt(SubTime/(24 * 60 * 60)));
-          // let h = Math.floor(parseInt(SubTime/60/60%24));
-          // let m = Math.floor(parseInt(SubTime/60%60));
-          // let s = Math.floor(parseInt(SubTime%60));
-          // h = h > 9 ? h :'0' + h
-          // m = m > 9 ? m :'0' + m
-          // s = s > 9 ? s:'0' + s
-          // let time = h+':'+m+':'+s
-          // console.log(time)
-          // this.$http.post('/yii/exam/exam/userans',{
-          //   cList:this.cList,
-          //   fList:this.fList,
-          //   cmList:this.cmList,
-          //   pList:this.pList,
-          //   jList:this.jList,
-          //   uid:this.$store.getters.getsId,
-          //   eid:this.eid,
-          //   ctime:time
-          // }).then(function (res) {
-          //   console.log(res.data)
-          //   this.$router.push({path:'/user/evaluate'})
-          //   alert(res.data.message)
-          // })
+          let enTime = new Date()
+          let SubTime = parseInt((enTime - this.stime)/1000);
+          let d = Math.floor(parseInt(SubTime/(24 * 60 * 60)));
+          let h = Math.floor(parseInt(SubTime/60/60%24));
+          let m = Math.floor(parseInt(SubTime/60%60));
+          let s = Math.floor(parseInt(SubTime%60));
+          h = h > 9 ? h :'0' + h
+          m = m > 9 ? m :'0' + m
+          s = s > 9 ? s:'0' + s
+          let time = h+':'+m+':'+s
+          console.log(time)
+          this.$http.post('/yii/exam/exam/userans',{
+            cList:this.cList,
+            fList:this.fList,
+            cmList:this.cmList,
+            pList:this.pList,
+            jList:this.jList,
+            uid:this.$store.getters.getsId,
+            eid:this.eid,
+            ctime:time
+          }).then(function (res) {
+            console.log(res.data)
+            this.$router.push({path:'/user/evaluate'})
+            alert(res.data.message)
+          })
         },
       //  计时
 

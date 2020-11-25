@@ -8,13 +8,13 @@
       <el-tabs type="border-card">
         <!--选择题-->
         <el-tab-pane>
-          <span slot="label"><i class="el-icon-date"></i> 选择题列表</span>
+          <span slot="label" @click="getQuery1"><i class="el-icon-date" ></i> 选择题列表</span>
           <div class="display2">
             <div class="searchmem">
               <div class="meeting" >
                 <el-input v-model="inputname" placeholder="选择题" size="mini"></el-input>
               </div>
-              <button class="btn3 el-icon-search" >搜索</button>
+              <button class="btn3 el-icon-search" @click="search(1,inputname)" >搜索</button>
             </div>
             <br>
             <br>
@@ -53,13 +53,13 @@
         </el-tab-pane>
         <!--填空题-->
         <el-tab-pane>
-          <span slot="label"><i class="el-icon-date"></i> 填空题列表</span>
+          <span slot="label" @click="getQuery2"><i class="el-icon-date"></i> 填空题列表</span>
           <div class="display2">
             <div class="searchmem">
               <div class="meeting" >
                 <el-input v-model="inputname" placeholder="填空题" size="mini"></el-input>
               </div>
-              <button class="btn3 el-icon-search" >搜索</button>
+              <button class="btn3 el-icon-search" @click="search(2,inputname)">搜索</button>
             </div>
             <br>
             <br>
@@ -99,13 +99,13 @@
         </el-tab-pane>
         <!--判断题-->
         <el-tab-pane>
-          <span slot="label"><i class="el-icon-date"></i> 判断题列表</span>
+          <span slot="label" @click="getQuery3"><i class="el-icon-date"></i> 判断题列表</span>
           <div class="display2">
             <div class="searchmem">
               <div class="meeting" >
                 <el-input v-model="inputname" placeholder="判断题" size="mini"></el-input>
               </div>
-              <button class="btn3 el-icon-search" >搜索</button>
+              <button class="btn3 el-icon-search" @click="search(3,inputname)">搜索</button>
             </div>
             <br>
             <br>
@@ -144,13 +144,13 @@
         </el-tab-pane>
         <!--多选题-->
         <el-tab-pane>
-          <span slot="label"><i class="el-icon-date"></i> 多选题列表</span>
+          <span slot="label" @click="getQuery4"><i class="el-icon-date"></i> 多选题列表</span>
           <div class="display2">
             <div class="searchmem">
               <div class="meeting" >
                 <el-input v-model="inputname" placeholder="多选题" size="mini"></el-input>
               </div>
-              <button class="btn3 el-icon-search" >搜索</button>
+              <button class="btn3 el-icon-search" @click="search(4,inputname)">搜索</button>
             </div>
             <br>
             <br>
@@ -190,13 +190,13 @@
         </el-tab-pane>
         <!--程序题-->
         <el-tab-pane>
-          <span slot="label"><i class="el-icon-date"></i> 程序题列表</span>
+          <span slot="label" @click="getQuery5"><i class="el-icon-date"></i> 程序题列表</span>
           <div class="display2">
             <div class="searchmem">
               <div class="meeting" >
                 <el-input v-model="inputname" placeholder="程序题" size="mini"></el-input>
               </div>
-              <button class="btn3 el-icon-search" >搜索</button>
+              <button class="btn3 el-icon-search" @click="search(5,inputname)">搜索</button>
             </div>
             <br>
             <br>
@@ -278,7 +278,6 @@
             totalPage5: 1,
             pageSize5: 10,
             currentPageData5: [],
-
           }
       },
       methods:{
@@ -370,6 +369,7 @@
         },
         //获取所有列表内容;只有有效题目
         getQuery1:function () {
+          this.inputname=''
           //选择题
           this.$http.post('/yii/bank/chooseq/querychoose',{
             flag:2
@@ -384,6 +384,7 @@
           })
         },
         getQuery2:function () {
+          this.inputname=''
           //填空题
           this.$http.post('/yii/bank/fillq/queryfill',{
             flag:2
@@ -398,6 +399,7 @@
           })
         },
         getQuery3:function () {
+          this.inputname=''
           //判断题
           this.$http.post('/yii/bank/judge/queryjudge',{
             flag:2
@@ -412,6 +414,7 @@
           })
         },
         getQuery4:function () {
+          this.inputname=''
           //多选题
           this.$http.post('/yii/bank/choosem/querychoose',{
             flag:2
@@ -426,6 +429,7 @@
           })
         },
         getQuery5:function () {
+          this.inputname=''
           //程序题
           this.$http.post('/yii/bank/program/queryprogram',{
             flag:2
@@ -485,14 +489,60 @@
           this.getQuery3()
           this.getQuery4()
           this.getQuery5()
+        },
+        search:function (id,name) {
+          let that = this
+          if(name=='')
+          {
+            that.$alert('搜索内容不能为空！', '警告', {
+              confirmButtonText: '确定',})
+          }
+          else
+          {
+            that.$http.post('/yii/student/exercise/search',{
+              id:id,
+              name:name
+            }).then(function (res) {
+              switch (id) {
+                case 1:
+                  this.Lists1 = res.data.data
+                  this.totalPage1 =Math.ceil(this.Lists1.length/this.pageSize1)
+                  this.totalPage1=this.totalPage1==0?1:this.totalPage1
+                  this.setCurrentPageDate1()
+                  break
+                case 2:
+                  this.Lists2 = res.data.data
+                  this.totalPage2 =Math.ceil(this.Lists2.length/this.pageSize2)
+                  this.totalPage2=this.totalPage2==0?1:this.totalPage2
+                  this.setCurrentPageDate2()
+                  break
+                case 3:
+                  this.Lists3 = res.data.data
+                  this.totalPage3 =Math.ceil(this.Lists3.length/this.pageSize3)
+                  this.totalPage3=this.totalPage3==0?1:this.totalPage3
+                  this.setCurrentPageDate3()
+                  break
+                case 4:
+                  this.Lists4 = res.data.data
+                  this.totalPage4=Math.ceil(this.Lists4.length/this.pageSize4)
+                  this.totalPage4=this.totalPage4==0?1:this.totalPage4
+                  this.setCurrentPageDate4()
+                  break
+                case 5:
+                  this.Lists5= res.data.data
+                  this.totalPage5 =Math.ceil(this.Lists5.length/this.pageSize5)
+                  this.totalPage5=this.totalPage5==0?1:this.totalPage5
+                  this.setCurrentPageDate5()
+                  break
+                default:
+                  break
+              }
+            })
+          }
         }
       },
       created(){
-        this.getQuery1()
-        this.getQuery2()
-        this.getQuery3()
-        this.getQuery4()
-        this.getQuery5()
+          this.getQuery()
       }
     }
 </script>

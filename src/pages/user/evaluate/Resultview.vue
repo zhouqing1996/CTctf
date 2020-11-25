@@ -30,6 +30,9 @@
                   </h3>
                 </div>
                 <div>
+                  <span class="Im">
+                      <img src="../../../assets/images/avter.png" style="width: 20px;height: 20px"><span class="name">{{x.auth}}</span>
+                  </span>
                 <span class="ctime" >
                   <i class="el-icon-time">分数：{{x.grade}}</i>
                   <i class="el-icon-time">作答时长：{{x.ctime}}分钟</i>
@@ -172,6 +175,7 @@
                     grade:list[i].grade,
                     exid:list[i].exid,
                     ctime:ntime,
+                    auth:list[i].auth,
                     finishtime:list[i].finishtime
                   })
                 }

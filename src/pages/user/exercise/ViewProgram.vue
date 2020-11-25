@@ -13,12 +13,29 @@
       <div v-for="(p,index) in List">
         <div class="item">
           <h3>{{p.pqitem}}(程序题)</h3>
-          <input type="text"  :name="p.pqid" @input="Click(p.pqid,$event)"><br>
+          <span style="color: #FF0000;margin-left: 20px">
+          <strong>完成之后点击保存后提交！</strong>编程语言选择：
+          <el-select v-model="yuyan"  placeholder="请选择" size="mini" class="code-mode-select">
+          <el-option
+            v-for="item in languages"
+            :key="item"
+            :label="item"
+            :value="item">
+          </el-option>
+        </el-select>
+        </span>
+          <MonacoEditor :codes="code_content"
+                        :read-only="false"
+                        :language="yuyan" @contentBody="changePValue"></MonacoEditor>
+          <button @click="Click(p.pqid,code_content)">保存</button>
+          <!--<input type="text"  :name="p.pqid" @input="Click(p.pqid,$event)"><br>-->
         </div>
         <hr/>
         <div v-if="Visable==true" class="item">
           <p v-if="AnsFlag==1" class="uansR" >您的答案：{{Ans[0].ans}}</p>
-          <p v-else class="uansE" >您的答案：{{Ans[0].ans}}</p>
+          <p v-else class="uansE" >您的答案：
+            <v-text>{{Ans[0].ans}}</v-text>
+          </p>
           <span>答案：{{p.pqans}}</span><br>
           <span>相关知识点：{{p.pqrem}}</span><br>
           <span>详解：{{p.pqtail}}</span><br>
@@ -34,8 +51,10 @@
 </template>
 
 <script>
+    import MonacoEditor from "../../../components/MonacoEditor";
     export default {
         name: "ViewProgram",
+      components: {MonacoEditor},
       data(){
         return{
           qid:'',
@@ -50,6 +69,25 @@
           //  计时
           startTime:'',
           endTime:'',
+          code_content:'',
+          yuyan:'python',
+          languages: {
+            'c': 'c',
+            'cpp': 'c++',
+            'css': 'css',
+            'go': 'go',
+            'html': 'html',
+            'java': 'java',
+            'javascript': 'javascript',
+            'markdown': 'markdown',
+            'php': 'php',
+            'python': 'python',
+            'r': 'r',
+            'swift': 'swift',
+            'typescript': 'typescript',
+            'vb': 'vb',
+            'xml': 'xml',
+          },
         }
       },
       methods:{
@@ -70,21 +108,27 @@
             console.log(error)
           })
         },
-        Click:function(id,event){
+        //提交程序题
+        changePValue:function(vel)
+        {
+          this.code_content = vel
+          console.log(this.code_content)
+        },
+        Click:function(id,code_content){
           let flag = true
           for(let i=0;i< this.Ans.length;i++)
           {
             if(this.Ans[i]['id']==id)
             {
               flag=false
-              this.Ans[i]['ans'] = event.currentTarget.value
+              this.Ans[i]['ans'] = this.code_content
               break
             }
           }
           if(flag){
             this.Ans.push({
               id:id,
-              ans:event.currentTarget.value
+              ans:this.code_content
             })
           }
           console.log(this.Ans)
