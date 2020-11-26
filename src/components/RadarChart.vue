@@ -1,6 +1,7 @@
 <template>
     <!--雷达图-->
   <div>
+    <!--:style="{height: '400px',width:'400px'}"-->
     <div id="Radar" :style="{height: '400px',width:'400px'}"></div>
   </div>
 </template>

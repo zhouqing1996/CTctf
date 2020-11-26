@@ -433,7 +433,7 @@
             ctime:time
           }).then(function (res) {
             console.log(res.data)
-            this.$router.push({path:'/user/evaluate'})
+            this.$router.push({path:'/user/evaluate/userview'})
             alert(res.data.message)
           })
         },
