@@ -20,21 +20,23 @@
           }
       },
       created(){
-          this.getTeacherList()
+        let that = this
+          that.getTeacherList()
       },
       methods:{
           //提交
         selectT:function()
         {
-          if(this.selectId=='')
+          let that = this
+          if(that.selectId=='')
           {
-            this.$alert('尚未选择导师', '警告', {
+            that.$alert('尚未选择导师', '警告', {
               confirmButtonText: '确定',})
           }
           else{
-            this.$http.post('/yii/student/student/choosest',{
-              sid:this.$store.getters.getsId,
-              tid:this.selectId
+            that.$http.post('/student/student/choosest',{
+              sid:that.$store.getters.getsId,
+              tid:that.selectId
             }).then(function (res) {
               console.log(res.data)
               alert(res.data.message)
@@ -42,11 +44,12 @@
           }
         },
           getTeacherList:function () {
-            this.$http.post('/yii/home/user/person',{
+            let that = this
+            that.$http.post('/home/user/person',{
               flag:2
             }).then(function (res) {
               console.log(res.data)
-              this.teacherList = res.data.data
+              that.teacherList = res.data.data
             })
           }
       }

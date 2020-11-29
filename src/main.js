@@ -8,19 +8,27 @@ import router from './router'
 import store from './store/index'
 import Vuerouter from 'vue-router'
 import VueResource from 'vue-resource'
-import axios from 'axios'
+import Axios from 'axios'
+import Vuex from 'vuex'
 
 import initHtml5Editor from './common/initHtml5Editor'
 import 'font-awesome/css/font-awesome.min.css'
 
 import echarts from 'echarts'
 Vue.prototype.$echarts = echarts
+// Vue.use(VueResource)
+// Vue.use(Vuerouter)
+Vue.use(ElementUI);
 
-Vue.use(initHtml5Editor)
-Vue.prototype.$http = axios
-axios.interceptors.request.use(function (config) {
-  config.url=process.env.apiBaseUrl+config.url
+Vue.prototype.$http = Axios
+
+Axios.interceptors.request.use(function (config) {
+  console.log(config.url)
+  config.url = process.env.API_HOST + config.url
   return config
+},function (error) {
+  console.log(error)
+  return Promise.reject(error)
 })
 
 router.beforeEach((to,from,next)=>{
@@ -43,11 +51,9 @@ router.beforeEach((to,from,next)=>{
     return next();
   }
 })
-Vue.use(VueResource)
-Vue.use(Vuerouter)
-// Vue.use(VueAxios,axios)//注册
-Vue.use(ElementUI);
+Vue.use(Vuex)
 Vue.config.productionTip = false
+Vue.use(initHtml5Editor)
 import MonacoInstall from './common/install'
 Vue.use(MonacoInstall)
 /* eslint-disable no-new */

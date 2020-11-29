@@ -33,18 +33,21 @@
       }
     },
     created(){
-      this.getTList()
+      let that = this
+      that.getTList()
     },
     methods:{
       selectT:function()
       {
-        this.$router.push({
+        let that = this
+        that.$router.push({
           path:'/user/class/select'
         })
       },
       getTList:function () {
-        this.$http.post('/yii/student/student/stlist',{
-          sid:this.userid
+        let that = this
+        that.$http.post('/yii/student/student/stlist',{
+          sid:that.userid
         }).then(function (res) {
           console.log(res.data)
           if(res.data.message=='学生导师信息为空')
@@ -56,16 +59,16 @@
             for(let i=0;i<l.length;i++)
             {
               let falg =true
-              for(let j=0;j<this.tList.length;j++)
+              for(let j=0;j<that.tList.length;j++)
               {
-                if(this.tList[j].tid==l[i].tid){
+                if(that.tList[j].tid==l[i].tid){
                   falg=false
                   break
                 }
               }
               if(falg)
               {
-                this.tList.push({
+                that.tList.push({
                   tid:l[i].tid,
                   tno:l[i].tno,
                   tname:l[i].tname

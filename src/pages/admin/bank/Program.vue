@@ -60,7 +60,7 @@
               <button class="btn2 el-icon-folder-remove" @click="getQuerypQuestionN">无效题目</button>
               <button class="btn2 el-icon-folder-checked" @click="getQuerypQuestion">所有题目</button>
               <button class="btn2 el-icon-document" @click="addP">批量添加</button>
-              <input type="file" @change="importExcel(this)" id="inputExcel"
+              <input type="file" @change="importExcel(that)" id="inputExcel"
                      accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" style="display: none"/>
             </div>
             <table >
@@ -158,9 +158,10 @@
     },
     methods:{
       viewProgram:function(id){
+        let that =this
         console.log(id)
-        // this.$router.push({ name:'viewexam', params: { id: id }})
-        this.$router.push({
+        // that.$router.push({ name:'viewexam', params: { id: id }})
+        that.$router.push({
           path:'/admin/bank/viewP',
           query:{
             id:id
@@ -169,117 +170,126 @@
       },
       //分页
       setCurrentPageDate: function () {
-        let begin = (this.currentPage - 1) * this.pageSize;
-        let end = this.currentPage * this.pageSize;
-        this.currentPageData = this.pQuestionList.slice(begin, end)
+        let that =this
+        let begin = (that.currentPage - 1) * that.pageSize;
+        let end = that.currentPage * that.pageSize;
+        that.currentPageData = that.pQuestionList.slice(begin, end)
       },
       prePage() {
-        console.log(this.currentPage)
-        if (this.currentPage == 1)
+        let that =this
+        console.log(that.currentPage)
+        if (that.currentPage == 1)
           return
-        this.currentPage--;
-        this.setCurrentPageDate()
+        that.currentPage--;
+        that.setCurrentPageDate()
       },
       nextPage() {
-        if (this.currentPage == this.totalPage) return
-        this.currentPage++;
-        this.setCurrentPageDate()
+        let that =this
+        if (that.currentPage == that.totalPage) return
+        that.currentPage++;
+        that.setCurrentPageDate()
       },
       //获取程序题列表
       getQuerypQuestion:function(){
-        this.$http.post('/yii/bank/programq/queryprogram',{
+        let that =this
+        that.$http.post('/bank/programq/queryprogram',{
           flag:1
         }).then(function (res) {
           console.log(res.data)
-          this.pQuestionList = res.data.data
-          this.totalPage =Math.ceil(this.pQuestionList.length/this.pageSize)
-          this.totalPage=this.totalPage==0?1:this.totalPage
-          this.setCurrentPageDate()
+          that.pQuestionList = res.data.data
+          that.totalPage =Math.ceil(that.pQuestionList.length/that.pageSize)
+          that.totalPage=that.totalPage==0?1:that.totalPage
+          that.setCurrentPageDate()
         }).catch(function (error) {
           console.log(error)
         })
       },
       //获取有效程序题列表
       getQuerypQuestionY:function(){
-        this.$http.post('/yii/bank/programq/queryprogram',{
+        let that =this
+        that.$http.post('/bank/programq/queryprogram',{
           flag:2
         }).then(function (res) {
           console.log(res.data)
-          this.pQuestionList = res.data.data
-          this.totalPage =Math.ceil(this.pQuestionList.length/this.pageSize)
-          this.totalPage=this.totalPage==0?1:this.totalPage
-          this.setCurrentPageDate()
+          that.pQuestionList = res.data.data
+          that.totalPage =Math.ceil(that.pQuestionList.length/that.pageSize)
+          that.totalPage=that.totalPage==0?1:that.totalPage
+          that.setCurrentPageDate()
         }).catch(function (error) {
           console.log(error)
         })
       },
       //获取无效程序题列表
       getQuerypQuestionN:function(){
-        this.$http.post('/yii/bank/programq/queryprogram',{
+        let that =this
+        that.$http.post('/bank/programq/queryprogram',{
           flag:4
         }).then(function (res) {
           console.log(res.data)
-          this.pQuestionList = res.data.data
-          this.totalPage =Math.ceil(this.pQuestionList.length/this.pageSize)
-          this.totalPage=this.totalPage==0?1:this.totalPage
-          this.setCurrentPageDate()
+          that.pQuestionList = res.data.data
+          that.totalPage =Math.ceil(that.pQuestionList.length/that.pageSize)
+          that.totalPage=that.totalPage==0?1:that.totalPage
+          that.setCurrentPageDate()
         }).catch(function (error) {
           console.log(error)
         })
       },
       //搜索
       searchP:function () {
-        console.log(this.name)
-        this.$http.post('/yii/bank/programq/queryprogram',{
+        let that =this
+        console.log(that.name)
+        that.$http.post('/bank/programq/queryprogram',{
           flag:3,
-          name:this.inputname
+          name:that.inputname
         }).then(function (res) {
           console.log(res.data)
-          this.pQuestionList = res.data.data
-          this.totalPage =Math.ceil(this.pQuestionList.length/this.pageSize)
-          this.totalPage=this.totalPage==0?1:this.totalPage
-          this.setCurrentPageDate()
+          that.pQuestionList = res.data.data
+          that.totalPage =Math.ceil(that.pQuestionList.length/that.pageSize)
+          that.totalPage=that.totalPage==0?1:that.totalPage
+          that.setCurrentPageDate()
         }).catch(function (error) {
           console.log(error)
         })
       },
       //添加题库
       addpQuestion:function (List) {
+        let that =this
         console.log(List)
-        this.$http.post('/yii/bank/programq/addprogram',{
-          qtitle:this.addList.title,
-          qback:this.addList.back,
-          qdescri:this.addList.descri,
-          qinputB:this.addList.inputB,
-          qoutputB:this.addList.outputB,
-          qcase:this.addList.case,
-          qother:this.addList.other,
-          qlabel:this.addList.label,
-          qrem:this.addList.rem,
-          qans:this.addList.ans,
-          qauth:this.$store.getters.getsId
+        that.$http.post('/bank/programq/addprogram',{
+          qtitle:that.addList.title,
+          qback:that.addList.back,
+          qdescri:that.addList.descri,
+          qinputB:that.addList.inputB,
+          qoutputB:that.addList.outputB,
+          qcase:that.addList.case,
+          qother:that.addList.other,
+          qlabel:that.addList.label,
+          qrem:that.addList.rem,
+          qans:that.addList.ans,
+          qauth:that.$store.getters.getsId
         }).then(function (res) {
           console.log(res.data)
           if(res.data.message=="插入程序题成功")
           {
-            this.getQuerypQuestion()
+            that.getQuerypQuestion()
             alert("插入程序题成功")
-            this.dialogFormVisibleadd=false
-            this.Reset()
+            that.dialogFormVisibleadd=false
+            that.Reset()
           }
           else
           {
             alert(res.data.message)
-            this.Reset()
+            that.Reset()
           }
         })
       },
       //重置
       Reset:function () {
-        this.addList.rem=""
-        this.addList.tail=""
-        this.addList.ans=""
-        this.addList.item=""
+        let that =this
+        that.addList.rem=""
+        that.addList.tail=""
+        that.addList.ans=""
+        that.addList.item=""
 
       },
       //修改
@@ -289,86 +299,87 @@
       //4：知识点
       //5:状态
       changefill:function (item,id) {
+        let that =this
         console.log(item)
         if(item==1) {
-          this.$http.post('/yii/bank/programq/change',{
-            cid:this.changeList.id,
+          that.$http.post('/bank/programq/change',{
+            cid:that.changeList.id,
             flag:1,
-            item:this.changeList.item,
+            item:that.changeList.item,
           }).then(function (res) {
             console.log(res.data)
             if(res.data.message=="该程序题题干修改成功")
             {
-              this.getQuerypQuestion()
+              that.getQuerypQuestion()
             }
             alert(res.data.message)
-            this.dialogFormVisiblechangeitem=false
-            this.changeList.id=""
-            this.changeList.item=""
+            that.dialogFormVisiblechangeitem=false
+            that.changeList.id=""
+            that.changeList.item=""
           }).catch(function (error) {
             console.log(error)
           })
         }
         else if(item==2){
-          this.$http.post('/yii/bank/programq/change',{
-            cid:this.changeList.id,
+          that.$http.post('/bank/programq/change',{
+            cid:that.changeList.id,
             flag:2,
-            ans:this.changeList.ans
+            ans:that.changeList.ans
           }).then(function (res) {
             console.log(res.data)
             if(res.data.message=="该程序题答案修改成功")
             {
-              this.getQuerypQuestion()
+              that.getQuerypQuestion()
             }
             alert(res.data.message)
-            this.dialogFormVisiblechangeans=false
-            this.changeList.id=""
-            this.changeList.ans=""
+            that.dialogFormVisiblechangeans=false
+            that.changeList.id=""
+            that.changeList.ans=""
           }).catch(function (error) {
             console.log(error)
           })
         }
         else if(item==3){
-          this.$http.post('/yii/bank/programq/change',{
-            cid:this.changeList.id,
+          that.$http.post('/bank/programq/change',{
+            cid:that.changeList.id,
             flag:3,
-            tail:this.changeList.tail
+            tail:that.changeList.tail
           }).then(function (res) {
             console.log(res.data)
             if(res.data.message=="该程序题详解修改成功")
             {
-              this.getQuerypQuestion()
+              that.getQuerypQuestion()
             }
             alert(res.data.message)
-            this.dialogFormVisiblechangetail=false
-            this.changeList.id=""
-            this.changeList.tail=""
+            that.dialogFormVisiblechangetail=false
+            that.changeList.id=""
+            that.changeList.tail=""
           }).catch(function (error) {
             console.log(error)
           })
         }
         else if(item==4){
-          this.$http.post('/yii/bank/programq/change',{
-            cid:this.changeList.id,
+          that.$http.post('/bank/programq/change',{
+            cid:that.changeList.id,
             flag:4,
-            rem:this.changeList.rem
+            rem:that.changeList.rem
           }).then(function (res) {
             console.log(res.data)
             if(res.data.message=="该程序题相关知识修改成功")
             {
-              this.getQuerypQuestion()
+              that.getQuerypQuestion()
             }
             alert(res.data.message)
-            this.dialogFormVisiblechangerem=false
-            this.changeList.id=""
-            this.changeList.tail=""
+            that.dialogFormVisiblechangerem=false
+            that.changeList.id=""
+            that.changeList.tail=""
           }).catch(function (error) {
             console.log(error)
           })
         }
         else if(item==5){
           console.log(id)
-          this.$http.post('/yii/bank/programq/change',{
+          that.$http.post('/bank/programq/change',{
             cid:id,
             flag:10
           }).then(function (res) {
@@ -376,7 +387,7 @@
             console.log(res.data)
             if(res.data.message=="该程序题状态修改成功")
             {
-              this.getQuerypQuestion()
+              that.getQuerypQuestion()
             }
             alert(res.data.message)
           })
@@ -389,22 +400,23 @@
       //1:暂时删除
       //2：永久删除
       deletefill:function (item,id) {
+        let that =this
         console.log(item)
         if(item==1)
         {
-          this.$confirm("删除该用户程序题，是否继续？", "提示", {
+          that.$confirm("删除该用户程序题，是否继续？", "提示", {
             confirmButtonText: "确定",
             cancelButtonText: "取消",
             type: "warning"
           }).then(() => {
-            this.$http.post('/yii/bank/programq/delete',{
+            that.$http.post('/bank/programq/delete',{
               fid:id,
               flag:1
             }).then(function (res) {
               console.log(res.data)
               if(res.data.message=="该程序题删除成功")
               {
-                this.getQuerypQuestion()
+                that.getQuerypQuestion()
               }
               alert(res.data.message)
             })
@@ -414,19 +426,19 @@
         }
         else if(item==2)
         {
-          this.$confirm("永久删除该用户程序题，是否继续？", "提示", {
+          that.$confirm("永久删除该用户程序题，是否继续？", "提示", {
             confirmButtonText: "确定",
             cancelButtonText: "取消",
             type: "warning"
           }).then(() => {
-            this.$http.post('/yii/bank/programq/delete',{
+            that.$http.post('/bank/programq/delete',{
               fid:id,
               flag:2
             }).then(function (res) {
               console.log(res.data)
               if(res.data.message=="该程序题永久删除成功")
               {
-                this.getQuerypQuestion()
+                that.getQuerypQuestion()
               }
               alert(res.data.message)
             })
@@ -443,9 +455,9 @@
         this.inputExcel.click()
       },
       importExcel (obj) {
-        let _this = this
+        let _that = this
         let inputDOM = this.$refs.inputer   // 通过DOM取文件数据
-        this.file = event.currentTarget.files[0]
+        that.file = event.currentTarget.files[0]
         var rABS = false // 是否将文件读取为二进制字符串
         var f = this.file
         var reader = new FileReader()
@@ -453,7 +465,6 @@
         FileReader.prototype.readAsBinaryString = function (f) {
           var binary = ''
           var rABS = false // 是否将文件读取为二进制字符串
-          var pt = this
           var wb // 读取完成的数据
           var outdata
           var reader = new FileReader()
@@ -486,20 +497,20 @@
               obj.outputB =v.输出格式
               obj.case = v.输入输出样例
               obj.other = v.说明
-              obj.auth = _this.$store.getters.getsId
+              obj.auth = _that.$store.getters.getsId
               obj.label = v.标签
               obj.rem = v.推荐相关
               obj.ans = v.答案
               arr.push(obj)
             })
-            _this.memberList = [...arr]
+            _that.memberList = [...arr]
             let data = {
-              data: JSON.stringify(_this.memberList)
+              data: JSON.stringify(_that.memberList)
             }
             console.log(data)
-            _this.$http.post('/yii/bank/programq/importexcel', data).then(body => {
+            _that.$http.post('/bank/programq/importexcel', data).then(body => {
               alert(body.data.message)
-              _this.getQuerypQuestion()
+              _that.getQuerypQuestion()
             })
           }
           reader.readAsArrayBuffer(f)

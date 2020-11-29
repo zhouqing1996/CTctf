@@ -27,11 +27,12 @@
       methods:{
         //  获取试卷信息
         getExam:function () {
-          console.log(this.exList)
-          this.$http.post('/yii/exam/exam/checkans',{
-            num:this.exList.num,
-            uid:this.exList.uid,
-            eid:this.exList.eid
+          let that = this
+          console.log(that.exList)
+          that.$http.post('/yii/exam/exam/checkans',{
+            num:that.exList.num,
+            uid:that.exList.uid,
+            eid:that.exList.eid
           }).then(function (res) {
             console.log(res)
 

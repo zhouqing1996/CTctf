@@ -78,35 +78,39 @@
       methods:{
         //分页
         setCurrentPageDate: function () {
-          let begin = (this.currentPage - 1) * this.pageSize;
-          let end = this.currentPage * this.pageSize;
-          this.currentPageData = this.EvaList.slice(begin, end)
+          let that = this
+          let begin = (that.currentPage - 1) * that.pageSize;
+          let end = that.currentPage * that.pageSize;
+          that.currentPageData = that.EvaList.slice(begin, end)
         },
         prePage() {
-          console.log(this.currentPage)
-          if (this.currentPage == 1)
+          let that = this
+          console.log(that.currentPage)
+          if (that.currentPage == 1)
             return
-          this.currentPage--;
-          this.setCurrentPageDate()
+          that.currentPage--;
+          that.setCurrentPageDate()
         },
         nextPage() {
-          if (this.currentPage == this.totalPage) return
-          this.currentPage++;
-          this.setCurrentPageDate()
+          let that = this
+          if (that.currentPage == that.totalPage) return
+          that.currentPage++;
+          that.setCurrentPageDate()
         },
         getEvaList:function () {
-            this.$http.post('/yii/exam/index/queryexam',{
+          let that = this
+            that.$http.post('/exam/index/queryexam',{
               flag:5,
-              sid:this.$store.getters.getsId
+              sid:that.$store.getters.getsId
             }).then(function (res) {
-              // console.log(this.$http.interceptors.request)
+              // console.log(that.$http.interceptors.request)
               console.log(res.data)
-              // this.EvaList =res.data.data
-              this.EvaList = []
+              // that.EvaList =res.data.data
+              that.EvaList = []
               let List = res.data.data
               for(let i=0;i<List.length;i++)
               {
-                this.EvaList.push({
+                that.EvaList.push({
                   exid:List[i].exid,
                   exname:List[i].exname,
                   auth:List[i].auth,
@@ -115,24 +119,26 @@
                   exstatus:List[i].exstatus
                 })
               }
-              this.totalPage =Math.ceil(this.EvaList.length/this.pageSize)
-              this.totalPage=this.totalPage==0?1:this.totalPage
-              this.setCurrentPageDate()
+              that.totalPage =Math.ceil(that.EvaList.length/that.pageSize)
+              that.totalPage=that.totalPage==0?1:that.totalPage
+              that.setCurrentPageDate()
             })
           },
         SeachEva:function () {
-          this.$http.post('/yii/exam/index/queryexam',{
+          let that = this
+          that.$http.post('/exam/index/queryexam',{
             flag:4,
-            name:this.inputname
+            name:that.inputname
           }).then(function (res) {
             console.log(res.data)
-            this.EvaList =res.data.data
-            this.totalPage =Math.ceil(this.EvaList.length/this.pageSize)
-            this.totalPage=this.totalPage==0?1:this.totalPage
-            this.setCurrentPageDate()
+            that.EvaList =res.data.data
+            that.totalPage =Math.ceil(that.EvaList.length/that.pageSize)
+            that.totalPage=that.totalPage==0?1:that.totalPage
+            that.setCurrentPageDate()
           })
         },
         getCurrTime:function(){
+          let that = this
           var date = new Date();
           var seperator1 = "-";
           var seperator2 = ":";
@@ -159,25 +165,26 @@
           if (second >= 0 && second <= 9) {
             second = "0" + second;
           }
-          this.currentTime =  year + seperator1 + month + seperator1 + strDate
+          that.currentTime =  year + seperator1 + month + seperator1 + strDate
             + " " + hour + seperator2 + minute + seperator2 + second;
         },
         Goexam:function(id,s){
+          let that = this
           console.log(id)
           console.log(s)
-          this.getCurrTime()
-          this.$router.push({
+          that.getCurrTime()
+          that.$router.push({
             path:'/user/evaluate/goeva',
             query:{
               id:id,
-              stime:this.currentTime,
+              stime:that.currentTime,
               limit:s
             }
           })
         },
         getUser:function(){
           let that =this
-          this.$http.post('/yii/home/user/query',{
+          that.$http.post('/home/user/query',{
             flag:2
           }).then(function (res) {
             console.log(res.data)
@@ -196,11 +203,12 @@
         },
       },
       mounted(){
-        // setInterval(this.getUser(),2000)
+        // setInterval(that.getUser(),2000)
       },
       created(){
-          // setInterval(this.getUser(),2000)
-          this.getEvaList()
+        let that = this
+          // setInterval(that.getUser(),2000)
+          that.getEvaList()
       }
     }
 </script>

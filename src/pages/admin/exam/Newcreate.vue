@@ -254,7 +254,8 @@
         this.CMList.splice(id,1)
       },
       addPClick:function () {
-        this.PList.push({
+        let that =this
+        that.PList.push({
           pitem:'',
           pans:'',
           prem:'',
@@ -265,51 +266,52 @@
         this.PList.splice(id,1)
       },
       createOK:function () {
-        if(this.exname.length==0)
+        let that =this
+        if(that.exname.length==0)
         {
-          this.$alert('试卷没有名称', '警告', {
+          that.$alert('试卷没有名称', '警告', {
             confirmButtonText: '确定',})
         }
-        else if(this.gdtime==0)
+        else if(that.gdtime==0)
         {
-          this.$alert('试卷没有设置时间', '警告', {
+          that.$alert('试卷没有设置时间', '警告', {
             confirmButtonText: '确定',})
         }
         else{
-          let lc = this.CList.length;
-          let lj =this.JList.length;
-          let lp=this.PList.length;
-          let lcm = this.CMList.length;
-          let lf = this.FList.length;
+          let lc = that.CList.length;
+          let lj =that.JList.length;
+          let lp=that.PList.length;
+          let lcm = that.CMList.length;
+          let lf = that.FList.length;
           if(lc==0 || lj==0|| lp ==0 || lcm==0 ||lf==0)
           {
-            this.$alert('试卷不完整，没有将五类题目都创建', '警告', {
+            that.$alert('试卷不完整，没有将五类题目都创建', '警告', {
               confirmButtonText: '确定',})
           }
           else{
-            this.$http.post('/yii/exam/index/addexam',{
-              exname:this.exname,
+            that.$http.post('/exam/index/addexam',{
+              exname:that.exname,
               flag:3,
-              CList:this.CList,
-              FList:this.FList,
-              JList:this.JList,
-              PList:this.PList,
-              CMList:this.CMList,
-              gdtime:this.gdtime,
-              auth:this.$store.getters.getsId
+              CList:that.CList,
+              FList:that.FList,
+              JList:that.JList,
+              PList:that.PList,
+              CMList:that.CMList,
+              gdtime:that.gdtime,
+              auth:that.$store.getters.getsId
             }).then(function (res) {
               console.log(res.data)
               if(res.data.message=="完成创建试卷")
               {
                 alert(res.data.message)
-                this.$router.push({path:'/admin/exam/create'})
-                this.CList =[]
-                this.FList=[]
-                this.JList =[]
-                this.CMList =[]
-                this.PList =[]
-                this.gdtime =0
-                this.exname=''
+                that.$router.push({path:'/admin/exam/create'})
+                that.CList =[]
+                that.FList=[]
+                that.JList =[]
+                that.CMList =[]
+                that.PList =[]
+                that.gdtime =0
+                that.exname=''
               }
               else {
                 // alert(res.data.message)

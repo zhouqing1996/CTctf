@@ -134,7 +134,8 @@
       },
       methods:{
           goDown:function(id){
-            this.$http.post('/yii/exam/download/dfile',{
+            let that = this
+            that.$http.post('/exam/download/dfile',{
               eid:id
             }).then(function (res) {
               console.log(res.data)
@@ -145,7 +146,8 @@
           },
           goFenXi:function(id)
           {
-            this.$router.push({
+            let that = this
+            that.$router.push({
               path:'/teacher/fenxi',
               query:{
                 eid:id
@@ -154,8 +156,9 @@
           },
         //  查看试卷
         lookexam:function(id){
+          let that = this
           console.log(id)
-          this.$router.push({
+          that.$router.push({
             path:'/teacher/viewexam',
             query:{
               id:id
@@ -164,90 +167,95 @@
         },
         //分页
         setCurrentPageDate: function () {
-          let begin = (this.currentPage - 1) * this.pageSize;
-          let end = this.currentPage * this.pageSize;
-          this.currentPageData = this.examList.slice(begin, end)
+          let that = this
+          let begin = (that.currentPage - 1) * that.pageSize;
+          let end = that.currentPage * that.pageSize;
+          that.currentPageData = that.examList.slice(begin, end)
         },
         prePage() {
-          console.log(this.currentPage)
-          if (this.currentPage == 1)
+          let that = this
+          console.log(that.currentPage)
+          if (that.currentPage == 1)
             return
-          this.currentPage--;
-          this.setCurrentPageDate()
+          that.currentPage--;
+          that.setCurrentPageDate()
         },
         nextPage() {
-          if (this.currentPage == this.totalPage) return
-          this.currentPage++;
-          this.setCurrentPageDate()
+          let that = this
+          if (that.currentPage == that.totalPage) return
+          that.currentPage++;
+          that.setCurrentPageDate()
         },
         Reset:function(){
-          this.addexam.name="";
-          this.addexam.nc=0;
-          this.addexam.np=0;
-          this.addexam.nf=0;
-          this.addexam.nj =0;
-          this.addexam.ncm=0
-          this.addexam.gdtime=0
+          let that = this
+          that.addexam.name="";
+          that.addexam.nc=0;
+          that.addexam.np=0;
+          that.addexam.nf=0;
+          that.addexam.nj =0;
+          that.addexam.ncm=0
+          that.addexam.gdtime=0
         },
       //  组卷
       //  1：自动组卷
       //  2：手动组卷
         AddExam:function () {
+          let that = this
           var numRe = new RegExp(/^[0-9]*$/)
-          if(this.addexam.gdtime==0||this.addexam.ncm==0||this.addexam.nc==0||this.addexam.nf==0||this.addexam.np==0||this.addexam.nj==0)
+          if(that.addexam.gdtime==0||that.addexam.ncm==0||that.addexam.nc==0||that.addexam.nf==0||that.addexam.np==0||that.addexam.nj==0)
           {
-            this.$alert('每种题型都必须有！', '警告', {
+            that.$alert('每种题型都必须有！', '警告', {
               confirmButtonText: '确定',})
           }
-          else if(!numRe.test(this.addexam.gdtime))
+          else if(!numRe.test(that.addexam.gdtime))
           {
-            this.$alert('规定时间不是数字', '警告', {
+            that.$alert('规定时间不是数字', '警告', {
               confirmButtonText: '确定',})
           }
-          else if(this.addexam.name=="")
+          else if(that.addexam.name=="")
           {
-            this.$alert('试卷名为空', '警告', {
+            that.$alert('试卷名为空', '警告', {
               confirmButtonText: '确定',})
           }
-          else if (!numRe.test(this.addexam.ncm)) {
-            this.$alert('多选题数不是一个数字', '警告', {
+          else if (!numRe.test(that.addexam.ncm)) {
+            that.$alert('多选题数不是一个数字', '警告', {
               confirmButtonText: '确定',})
           }
-          else if (!numRe.test(this.addexam.nc)) {
-            this.$alert('选择题数不是一个数字', '警告', {
+          else if (!numRe.test(that.addexam.nc)) {
+            that.$alert('选择题数不是一个数字', '警告', {
               confirmButtonText: '确定',})
           }
-          else if (!numRe.test(this.addexam.nj)) {
-            this.$alert('判断题数不是一个数字', '警告', {
+          else if (!numRe.test(that.addexam.nj)) {
+            that.$alert('判断题数不是一个数字', '警告', {
               confirmButtonText: '确定',})
           }
-          else if (!numRe.test(this.addexam.np)) {
-            this.$alert('程序题数不是一个数字', '警告', {
+          else if (!numRe.test(that.addexam.np)) {
+            that.$alert('程序题数不是一个数字', '警告', {
               confirmButtonText: '确定',})
           }
-          else if (!numRe.test(this.addexam.nf)) {
-            this.$alert('填空题数不是一个数字', '警告', {
+          else if (!numRe.test(that.addexam.nf)) {
+            that.$alert('填空题数不是一个数字', '警告', {
               confirmButtonText: '确定',})
           }
           else {
-            this.$http.post('/yii/exam/index/addexam',{
+            that.$http.post('/exam/index/addexam',{
               flag:1,
-              exname:this.addexam.name,
-              numc:this.addexam.nc,
-              numf:this.addexam.nf,
-              nump:this.addexam.np,
-              numj:this.addexam.nj,
-              numcm:this.addexam.ncm,
-              gdtime:this.addexam.gdtime,
-              auth:this.$store.getters.getsId
+              exname:that.addexam.name,
+              numc:that.addexam.nc,
+              numf:that.addexam.nf,
+              nump:that.addexam.np,
+              numj:that.addexam.nj,
+              numcm:that.addexam.ncm,
+              gdtime:that.addexam.gdtime,
+              auth:that.$store.getters.getsId
             }).then(function (res) {
               console.log(res.data)
               if(res.data.message=="自动组卷成功")
               {
-                this.getExamList(3)
+                that.getExamList(3)
               }
-              this.dialogFormVisibleAdd=false
-              this.Reset();
+              that.dialogFormVisibleAdd=false
+              that.Reset();
               alert(res.data.message)
             }).catch(function (error) {
               console.log(error)
@@ -260,64 +268,65 @@
         //3：所有试卷
         //4:模糊查找
         getExamList:function (item) {
+          let that = this
           console.log(item)
           if(item==1)
           {
-            this.$http.post('/yii/exam/teacher/queryexamt',{
+            that.$http.post('/exam/teacher/queryexamt',{
               flag:1,
-              tid:this.tid
+              tid:that.tid
             }).then(function (res) {
               console.log(res.data)
-              this.examList = res.data.data
-              this.totalPage =Math.ceil(this.examList.length/this.pageSize)
-              this.totalPage=this.totalPage==0?1:this.totalPage
-              this.setCurrentPageDate()
+              that.examList = res.data.data
+              that.totalPage =Math.ceil(that.examList.length/that.pageSize)
+              that.totalPage=that.totalPage==0?1:that.totalPage
+              that.setCurrentPageDate()
             }).catch(function (error) {
               console.log(error)
             })
           }
           else if(item==2)
           {
-            this.$http.post('/yii/exam/teacher/queryexamt',{
+            that.$http.post('/exam/teacher/queryexamt',{
               flag:2,
-              tid:this.tid
+              tid:that.tid
             }).then(function (res) {
               console.log(res.data)
-              this.examList = res.data.data
-              this.totalPage =Math.ceil(this.examList.length/this.pageSize)
-              this.totalPage=this.totalPage==0?1:this.totalPage
-              this.setCurrentPageDate()
+              that.examList = res.data.data
+              that.totalPage =Math.ceil(that.examList.length/that.pageSize)
+              that.totalPage=that.totalPage==0?1:that.totalPage
+              that.setCurrentPageDate()
             }).catch(function (error) {
               console.log(error)
             })
           }
           else if(item==3)
           {
-            this.$http.post('/yii/exam/teacher/queryexamt',{
+            that.$http.post('/exam/teacher/queryexamt',{
               flag:3,
-              tid:this.tid
+              tid:that.tid
             }).then(function (res) {
               console.log(res.data)
-              this.examList = res.data.data
-              this.totalPage =Math.ceil(this.examList.length/this.pageSize)
-              this.totalPage=this.totalPage==0?1:this.totalPage
-              this.setCurrentPageDate()
+              that.examList = res.data.data
+              that.totalPage =Math.ceil(that.examList.length/that.pageSize)
+              that.totalPage=that.totalPage==0?1:that.totalPage
+              that.setCurrentPageDate()
             }).catch(function (error) {
               console.log(error)
             })
           }
           else if(item==4)
           {
-            this.$http.post('/yii/exam/teacher/queryexamt',{
+            that.$http.post('/exam/teacher/queryexamt',{
               flag:4,
-              tid:this.tid,
-              name:this.inputname
+              tid:that.tid,
+              name:that.inputname
             }).then(function (res) {
               console.log(res.data)
-              this.examList = res.data.data
-              this.totalPage =Math.ceil(this.examList.length/this.pageSize)
-              this.totalPage=this.totalPage==0?1:this.totalPage
-              this.setCurrentPageDate()
+              that.examList = res.data.data
+              that.totalPage =Math.ceil(that.examList.length/that.pageSize)
+              that.totalPage=that.totalPage==0?1:that.totalPage
+              that.setCurrentPageDate()
             }).catch(function (error) {
               console.log(error)
             })
@@ -328,11 +337,12 @@
         },
         //修改状态
         changeExamstatus:function (id) {
-          this.$http.post('/yii/exam/index/changestatus',{
+          let that = this
+          that.$http.post('/exam/index/changestatus',{
             exid:id
           }).then(function (res) {
             console.log(res.data)
-            this.getExamList(3)
+            that.getExamList(3)
             alert(res.data.message)
           }).catch(function (error) {
             console.log(error)
@@ -340,21 +350,22 @@
         },
       //  删除
         deleteExam:function (item,id) {
+          let that = this
           if(item==1)
           {
-            this.$confirm("删除该试卷，是否继续？", "提示", {
+            that.$confirm("删除该试卷，是否继续？", "提示", {
               confirmButtonText: "确定",
               cancelButtonText: "取消",
               type: "warning"
             }).then(() => {
-              this.$http.post('/yii/exam/index/deleteexam',{
+              that.$http.post('/exam/index/deleteexam',{
                 flag:1,
                 exid:id
               }).then(function (res) {
                 console.log(res.data)
                 if(res.data.message=="删除成功")
                 {
-                  this.getExamList(3)
+                  that.getExamList(3)
                 }
                 alert(res.data.message)
               })
@@ -364,19 +375,19 @@
           }
           else if(item==2)
           {
-            this.$confirm("完全删除该试卷，是否继续？", "提示", {
+            that.$confirm("完全删除该试卷，是否继续？", "提示", {
               confirmButtonText: "确定",
               cancelButtonText: "取消",
               type: "warning"
             }).then(() => {
-              this.$http.post('/yii/exam/index/deleteexam',{
+              that.$http.post('/exam/index/deleteexam',{
                 flag:2,
                 exid:id
               }).then(function (res) {
                 console.log(res.data)
                 if(res.data.message=="完全删除成功")
                 {
-                  this.getExamList(3)
+                  that.getExamList(3)
                 }
                 alert(res.data.message)
               })
@@ -390,8 +401,9 @@
         }
       },
       created(){
-        this.tid=this.$store.getters.getsId
-          this.getExamList(3)
+        let that = this
+        that.tid=that.$store.getters.getsId
+          that.getExamList(3)
       },
       mounted(){
 

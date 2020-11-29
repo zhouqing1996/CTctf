@@ -86,7 +86,7 @@
         },
           getData:function () {
             let that =this
-            that.$http.post('/yii/teacher/teacher/teacherfenxi',{
+            that.$http.post('/teacher/teacher/teacherfenxi',{
               eid:that.List.eid,
             }).then(function (res) {
               console.log(res.data)

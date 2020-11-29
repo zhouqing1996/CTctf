@@ -42,7 +42,7 @@
               <button class="btn2 el-icon-folder-checked" @click="getBookList(3)">所有图书</button>
               <!--<button class="btn3" @click="AddB">批量添加</button>-->
               <button class="btn2 el-icon-document" @click="AddB">批量添加</button>
-              <input type="file" @change="importExcel(this)" id="inputExcel"
+              <input type="file" @change="importExcel(that)" id="inputExcel"
                        accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" style="display: none"/>
             </div>
             <div class="waimian">
@@ -194,81 +194,86 @@
       methods:{
         //分页
         setCurrentPageDate: function () {
-          let begin = (this.currentPage - 1) * this.pageSize;
-          let end = this.currentPage * this.pageSize;
-          this.currentPageData = this.bookList.slice(begin, end)
+          let that =this
+          let begin = (that.currentPage - 1) * that.pageSize;
+          let end = that.currentPage * that.pageSize;
+          that.currentPageData = that.bookList.slice(begin, end)
         },
         prePage() {
-          console.log(this.currentPage)
-          if (this.currentPage == 1)
+          let that =this
+          console.log(that.currentPage)
+          if (that.currentPage == 1)
             return
-          this.currentPage--;
-          this.setCurrentPageDate()
+          that.currentPage--;
+          that.setCurrentPageDate()
         },
         nextPage() {
-          if (this.currentPage == this.totalPage) return
-          this.currentPage++;
-          this.setCurrentPageDate()
+          let that =this
+          if (that.currentPage == that.totalPage) return
+          that.currentPage++;
+          that.setCurrentPageDate()
         },
         searchB:function()
         {
-          console.log(this.inputname)
-          if(this.inputname=="")
+          let that =this
+          console.log(that.inputname)
+          if(that.inputname=="")
           {
             alert("请输入需要查询的内容")
             return
           }
-          this.$http.post('/yii/book/book/querybook',{
+          that.$http.post('/book/book/querybook',{
             flag:4,
-            name:this.inputname
+            name:that.inputname
           }).then(function (res) {
             console.log(res.data)
-            this.bookList = res.data.data
-            this.totalPage =Math.ceil(this.bookList.length/this.pageSize)
-            this.totalPage=this.totalPage==0?1:this.totalPage
-            this.setCurrentPageDate()
+            that.bookList = res.data.data
+            that.totalPage =Math.ceil(that.bookList.length/that.pageSize)
+            that.totalPage=that.totalPage==0?1:that.totalPage
+            that.setCurrentPageDate()
           })
         },
           getBookList:function(item)
           {
+            let that =this
             console.log(item)
             if(item==1)
             {
               //有效图书
-              this.$http.post('/yii/book/book/querybook',{
+              that.$http.post('/book/book/querybook',{
                 flag:1
               }).then(function (res) {
                 console.log(res.data)
-                this.bookList = res.data.data
-                this.totalPage =Math.ceil(this.bookList.length/this.pageSize)
-                this.totalPage=this.totalPage==0?1:this.totalPage
-                this.setCurrentPageDate()
+                that.bookList = res.data.data
+                that.totalPage =Math.ceil(that.bookList.length/that.pageSize)
+                that.totalPage=that.totalPage==0?1:that.totalPage
+                that.setCurrentPageDate()
               })
             }
             else if(item==2)
             {
               //无效图书
-              this.$http.post('/yii/book/book/querybook',{
+              that.$http.post('/book/book/querybook',{
                 flag:2
               }).then(function (res) {
                 console.log(res.data)
-                this.bookList = res.data.data
-                this.totalPage =Math.ceil(this.bookList.length/this.pageSize)
-                this.totalPage=this.totalPage==0?1:this.totalPage
-                this.setCurrentPageDate()
+                that.bookList = res.data.data
+                that.totalPage =Math.ceil(that.bookList.length/that.pageSize)
+                that.totalPage=that.totalPage==0?1:that.totalPage
+                that.setCurrentPageDate()
               })
             }
             else if(item==3)
             {
               //所有图书
-              this.$http.post('/yii/book/book/querybook',{
+              that.$http.post('/book/book/querybook',{
                 flag:3
               }).then(function (res) {
                 console.log(res.data)
-                this.bookList = res.data.data
-                this.totalPage =Math.ceil(this.bookList.length/this.pageSize)
-                this.totalPage=this.totalPage==0?1:this.totalPage
-                this.setCurrentPageDate()
+                that.bookList = res.data.data
+                that.totalPage =Math.ceil(that.bookList.length/that.pageSize)
+                that.totalPage=that.totalPage==0?1:that.totalPage
+                that.setCurrentPageDate()
               })
             }
             else
@@ -277,30 +282,32 @@
             }
           },
         addBook:function () {
-          console.log(this.addList)
-          this.$http.post('/yii/book/book/addbook',
+          let that =this
+          console.log(that.addList)
+          that.$http.post('/book/book/addbook',
             {
-              bookname:this.addList.name,
-              publish:this.addList.publish,
-              author:this.addList.author,
-              about:this.addList.about,
-              auth:this.$store.getters.getsId
+              bookname:that.addList.name,
+              publish:that.addList.publish,
+              author:that.addList.author,
+              about:that.addList.about,
+              auth:that.$store.getters.getsId
             }).then(function (res) {
               console.log(res.data)
             if(res.data.message=="图书添加成功")
             {
-              this.getBookList(3)
+              that.getBookList(3)
             }
-            this.dialogFormVisibleadd=false
-            this.Reset()
+            that.dialogFormVisibleadd=false
+            that.Reset()
             alert(res.data.message)
           })
         },
         Reset:function () {
-          this.addList.name=""
-          this.addList.publish=""
-          this.addList.author=""
-          this.addList.about=""
+          let that =this
+          that.addList.name=""
+          that.addList.publish=""
+          that.addList.author=""
+          that.addList.about=""
         },
         //修改
         //1：书名
@@ -309,22 +316,23 @@
         //4:关于
         //5：状态
         changeBook:function (item,id) {
+          let that =this
           console.log(item)
-          console.log(this.changeList)
+          console.log(that.changeList)
           if(item==1)
           {
-            this.$http.post('/yii/book/book/changebook',{
-              bookid:this.changeList.id,
+            that.$http.post('/book/book/changebook',{
+              bookid:that.changeList.id,
               flag:1,
-              bookname:this.changeList.name,
-              auth:this.$store.getters.getsId
+              bookname:that.changeList.name,
+              auth:that.$store.getters.getsId
             }).then(function (res) {
               console.log(res.data)
               if(res.data.message=="该图书名修改成功")
               {
-                this.getBookList(3)
+                that.getBookList(3)
               }
-              this.dialogFormVisiblechangName=false
+              that.dialogFormVisiblechangName=false
               alert(res.data.message)
               console.log(res.data.message)
             }).catch(function (error) {
@@ -333,18 +341,18 @@
           }
           else if(item==2)
           {
-            this.$http.post('/yii/book/book/changebook',{
-              bookid:this.changeList.id,
+            that.$http.post('/book/book/changebook',{
+              bookid:that.changeList.id,
               flag:2,
-              publish:this.changeList.publish,
-              auth:this.$store.getters.getsId
+              publish:that.changeList.publish,
+              auth:that.$store.getters.getsId
             }).then(function (res) {
               console.log(res.data)
               if(res.data.message=="该图书出版社修改成功")
               {
-                this.getBookList(3)
+                that.getBookList(3)
               }
-              this.dialogFormVisiblechangePublish=false
+              that.dialogFormVisiblechangePublish=false
               alert(res.data.message)
               console.log(res.data.message)
             }).catch(function (error) {
@@ -353,18 +361,18 @@
           }
           else if(item==3)
           {
-            this.$http.post('/yii/book/book/changebook',{
-              bookid:this.changeList.id,
+            that.$http.post('/book/book/changebook',{
+              bookid:that.changeList.id,
               flag:3,
-              author:this.changeList.author,
-              auth:this.$store.getters.getsId
+              author:that.changeList.author,
+              auth:that.$store.getters.getsId
             }).then(function (res) {
               console.log(res.data)
               if(res.data.message=="该图书作者修改成功")
               {
-                this.getBookList(3)
+                that.getBookList(3)
               }
-              this.dialogFormVisiblechangeAuthor=false
+              that.dialogFormVisiblechangeAuthor=false
               alert(res.data.message)
               console.log(res.data.message)
             }).catch(function (error) {
@@ -373,18 +381,18 @@
           }
           else if(item==4)
           {
-            this.$http.post('/yii/book/book/changebook',{
-              bookid:this.changeList.id,
+            that.$http.post('/book/book/changebook',{
+              bookid:that.changeList.id,
               flag:4,
-              about:this.changeList.about,
-              auth:this.$store.getters.getsId
+              about:that.changeList.about,
+              auth:that.$store.getters.getsId
             }).then(function (res) {
               console.log(res.data)
               if(res.data.message=="该图书关于修改成功")
               {
-                this.getBookList(3)
+                that.getBookList(3)
               }
-              this.dialogFormVisiblechangeAbout=false
+              that.dialogFormVisiblechangeAbout=false
               alert(res.data.message)
               console.log(res.data.message)
             }).catch(function (error) {
@@ -393,15 +401,15 @@
           }
           else if(item==5)
           {
-            this.$http.post('/yii/book/book/changebook',{
+            that.$http.post('/book/book/changebook',{
               bookid:id,
               flag:5,
-              auth:this.$store.getters.getsId
+              auth:that.$store.getters.getsId
             }).then(function (res) {
               console.log(res.data)
               if(res.data.message=="该图书状态修改成功")
               {
-                this.getBookList(3)
+                that.getBookList(3)
               }
               alert(res.data.message)
               console.log(res.data.message)
@@ -416,23 +424,24 @@
         },
         deleteBook(item,id)
         {
+          let that =this
           console.log(item)
           if(item==1)
           {
-            this.$confirm("删除该书籍，是否继续？", "提示", {
+            that.$confirm("删除该书籍，是否继续？", "提示", {
               confirmButtonText: "确定",
               cancelButtonText: "取消",
               type: "warning"
             }).then(() => {
-              this.$http.post('/yii/book/book/deletebook',{
+              that.$http.post('/book/book/deletebook',{
                 flag:1,
                 bookid:id,
-                auth:this.$store.getters.getsId
+                auth:that.$store.getters.getsId
               }).then(function (res) {
                 console.log(res.data)
                 if(res.data.message=="该图书已删除")
                 {
-                  this.getBookList(3)
+                  that.getBookList(3)
                 }
                 alert(res.data.message)
               })
@@ -442,19 +451,19 @@
           }
           else if(item==2)
           {
-            this.$confirm("永久删除该书籍，是否继续？", "提示", {
+            that.$confirm("永久删除该书籍，是否继续？", "提示", {
               confirmButtonText: "确定",
               cancelButtonText: "取消",
               type: "warning"
             }).then(() => {
-              this.$http.post('/yii/book/book/deletebook',{
+              that.$http.post('/book/book/deletebook',{
                 flag:2,
                 bookid:id
               }).then(function (res) {
                 console.log(res.data)
                 if(res.data.message=="该图书已永久删除")
                 {
-                  this.getBookList(3)
+                  that.getBookList(3)
                 }
                 alert(res.data.message)
               })
@@ -474,9 +483,9 @@
           this.inputExcel.click()
         },
         importExcel (obj) {
-          let _this = this
+          let _that = this
           let inputDOM = this.$refs.inputer   // 通过DOM取文件数据
-          this.file = event.currentTarget.files[0]
+          that.file = event.currentTarget.files[0]
           var rABS = false // 是否将文件读取为二进制字符串
           var f = this.file
           var reader = new FileReader()
@@ -484,7 +493,6 @@
           FileReader.prototype.readAsBinaryString = function (f) {
             var binary = ''
             var rABS = false // 是否将文件读取为二进制字符串
-            var pt = this
             var wb // 读取完成的数据
             var outdata
             var reader = new FileReader()
@@ -514,17 +522,17 @@
                   obj.publish= v.出版社
                   obj.author= v.作者
                   obj.about=v.关于
-                  obj.auth=_this.$store.getters.getsId
+                  obj.auth=_that.$store.getters.getsId
                   arr.push(obj)
                 })
-              _this.memberList = [...arr]
+              _that.memberList = [...arr]
               let data = {
-                data: JSON.stringify(_this.memberList)
+                data: JSON.stringify(_that.memberList)
               }
               console.log(data)
-                _this.$http.post('/yii/book/book/importexcel', data).then(body => {
+                _that.$http.post('/book/book/importexcel', data).then(body => {
                   alert(body.data.message)
-                  _this.getBookList(3)
+                  _that.getBookList(3)
                 })
             }
             reader.readAsArrayBuffer(f)

@@ -129,7 +129,10 @@ import Monaco from '../components/MonacoEditor'
 
 Vue.use(Router)
 const  router = new Router({
-  mode:'history',
+  // mode:'history',
+  base:'/ComputeThinking/',
+  mode:'hash',
+  hash:true,
   routes: [
     {
       path:'/code',
@@ -179,15 +182,15 @@ const  router = new Router({
       },
       component:RadarChart
     },
-    {
-      //测试
-      path: '/',
-      name: 'Index',
-      meta:{
-        isLogin:true,//需要登录
-      },
-      component: Index
-    },
+    // {
+    //   //测试
+    //   path: '/',
+    //   name: 'Index',
+    //   meta:{
+    //     isLogin:true,//需要登录
+    //   },
+    //   component: Index
+    // },
     {
       //注册
       path: '/register',
@@ -205,6 +208,11 @@ const  router = new Router({
         isLogin:false,
       },
       component:Forget
+    },
+    {
+      path:'/',
+      name:'index',
+      redirect: '/login'
     },
     {
       //登录

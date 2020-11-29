@@ -16,11 +16,11 @@
                 <el-input v-model="inputname" placeholder="用户姓名" size="mini"></el-input>
               </div>
               <button class="btn3 el-icon-search" v-on:click="searchCom()">搜索</button>
-              <router-link :to="{ name: 'adduser' }">
-                <button class="btn3 el-icon-circle-plus-outline">添加</button>
-              </router-link>
+              <!--<router-link :to="{ name: 'adduser' }">-->
+                <!--<button class="btn3 el-icon-circle-plus-outline">添加</button>-->
+              <!--</router-link>-->
               <!--//另一种形式-->
-              <button class="btn3 el-icon-circle-plus-outline" @click="dialogFormVisible = true">添加2</button>
+              <button class="btn3 el-icon-circle-plus-outline" @click="dialogFormVisible = true">添加</button>
               <!--添加-->
               <el-dialog title="添加用户" :visible.sync="dialogFormVisible">
                 <el-form :model="addUserList">
@@ -31,7 +31,7 @@
                     <el-input style="width: 350px;" v-model="addUserList.addname" auto-complete="off"></el-input>
                   </el-form-item>
                   <el-form-item label="用户密码" :label-width="formLabelWidth">
-                    <el-input style="width: 350px;" v-model="addUserList.addpwd" auto-complete="off"></el-input>
+                    <el-input style="width: 350px;" v-model="addUserList.addpwd" auto-complete="off"  placeholder="6-10位包含数字、字母、特殊字符"></el-input>
                   </el-form-item>
                   <el-form-item label="用户角色" :label-width="formLabelWidth">
                     <select style="font-size:15px;width:180px;" v-model="addUserList.addrole"  >
@@ -190,136 +190,182 @@
       methods: {
         //分页
         setCurrentPageDate: function () {
-          let begin = (this.currentPage - 1) * this.pageSize;
-          let end = this.currentPage * this.pageSize;
-          this.currentPageData = this.userinfoList.slice(begin, end)
+          let that =this
+          let begin = (that.currentPage - 1) * that.pageSize;
+          let end = that.currentPage * that.pageSize;
+          that.currentPageData = that.userinfoList.slice(begin, end)
         },
         prePage() {
-          console.log(this.currentPage)
-          if (this.currentPage == 1)
+          let that =this
+          console.log(that.currentPage)
+          if (that.currentPage == 1)
             return
-          this.currentPage--;
-          this.setCurrentPageDate()
+          that.currentPage--;
+          that.setCurrentPageDate()
         },
         nextPage() {
-          if (this.currentPage == this.totalPage) return
-          this.currentPage++;
-          this.setCurrentPageDate()
+          let that =this
+          if (that.currentPage == that.totalPage) return
+          that.currentPage++;
+          that.setCurrentPageDate()
         },
         //搜索
         searchCom:function(){
-          console.log(this.inputname)
-          this.$http.post('/yii/home/user/query',
+          let that =this
+          console.log(that.inputname)
+          that.$http.post('/home/user/query',
             {
               flag:4,
-              name:this.inputname
+              name:that.inputname
             }).then(function (res) {
             console.log(res.data)
-            this.userinfoList=res.data.data
-            this.totalPage =Math.ceil(this.userinfoList.length/this.pageSize)
-            this.totalPage=this.totalPage==0?1:this.totalPage
-            this.setCurrentPageDate()
+            that.userinfoList=res.data.data
+            that.totalPage =Math.ceil(that.userinfoList.length/that.pageSize)
+            that.totalPage=that.totalPage==0?1:that.totalPage
+            that.setCurrentPageDate()
           })
         },
         getQueryT:function(){
-          this.$http.post('/yii/home/user/query',
+          let that =this
+          that.$http.post('/home/user/query',
             {
               flag: 5,
             }).then(function (res) {
             console.log(res.data)
             // that.userinfoList = res.data.data
-            this.userinfoList=res.data.data
-            this.totalPage =Math.ceil(this.userinfoList.length/this.pageSize)
-            this.totalPage=this.totalPage==0?1:this.totalPage
-            this.setCurrentPageDate()
+            that.userinfoList=res.data.data
+            that.totalPage =Math.ceil(that.userinfoList.length/that.pageSize)
+            that.totalPage=that.totalPage==0?1:that.totalPage
+            that.setCurrentPageDate()
           })
         },
         getQueryS:function(){
-          this.$http.post('/yii/home/user/query',
+          let that =this
+          that.$http.post('/home/user/query',
             {
               flag: 6,
             }).then(function (res) {
             console.log(res.data)
             // that.userinfoList = res.data.data
-            this.userinfoList=res.data.data
-            this.totalPage =Math.ceil(this.userinfoList.length/this.pageSize)
-            this.totalPage=this.totalPage==0?1:this.totalPage
-            this.setCurrentPageDate()
+            that.userinfoList=res.data.data
+            that.totalPage =Math.ceil(that.userinfoList.length/that.pageSize)
+            that.totalPage=that.totalPage==0?1:that.totalPage
+            that.setCurrentPageDate()
           })
         },
         //获取全部的用户信息
         getQuery: function () {
-          // let that = this
-          this.$http.post('/yii/home/user/query',
+          let that = this
+          that.$http.post('/home/user/query',
             {
               flag: 2,
             }).then(function (res) {
             console.log(res.data)
             // that.userinfoList = res.data.data
-            this.userinfoList=res.data.data
-            this.totalPage =Math.ceil(this.userinfoList.length/this.pageSize)
-            this.totalPage=this.totalPage==0?1:this.totalPage
-            this.setCurrentPageDate()
+            that.userinfoList=res.data.data
+            that.totalPage =Math.ceil(that.userinfoList.length/that.pageSize)
+            that.totalPage=that.totalPage==0?1:that.totalPage
+            that.setCurrentPageDate()
           })
         },
         //获取有效的用户信息
         getQueryY: function () {
-          // let that = this
-          this.$http.post('/yii/home/user/query',
+          let that = this
+          that.$http.post('/home/user/query',
             {
               flag: 1,
             }).then(function (res) {
             console.log(res.data)
             // that.userinfoList = res.data.data
-            this.userinfoList=res.data.data
-            this.totalPage =Math.ceil(this.userinfoList.length/this.pageSize)
-            this.totalPage=this.totalPage==0?1:this.totalPage
-            this.setCurrentPageDate()
+            that.userinfoList=res.data.data
+            that.totalPage =Math.ceil(that.userinfoList.length/that.pageSize)
+            that.totalPage=that.totalPage==0?1:that.totalPage
+            that.setCurrentPageDate()
           })
         },
         //获取无效的用户信息
         getQueryN: function () {
-          // let that = this
-          this.$http.post('/yii/home/user/query',
+          let that = this
+          that.$http.post('/home/user/query',
             {
               flag: 3,
             }).then(function (res) {
             console.log(res.data)
             // that.userinfoList = res.data.data
-            this.userinfoList=res.data.data
-            this.totalPage =Math.ceil(this.userinfoList.length/this.pageSize)
-            this.totalPage=this.totalPage==0?1:this.totalPage
-            this.setCurrentPageDate()
+            that.userinfoList=res.data.data
+            that.totalPage =Math.ceil(that.userinfoList.length/that.pageSize)
+            that.totalPage=that.totalPage==0?1:that.totalPage
+            that.setCurrentPageDate()
           })
         },
         //增加用户
         addUser: function (userList) {
-          this.$http.post('/yii/home/user/adduser',
-            {
-              addname: this.addUserList.addname,
-              addpwd: this.addUserList.addpwd,
-              addrole: this.addUserList.addrole,
-              addstatus: this.addUserList.addstatus,
-              addno:this.addUserList.addno
-            }).then(function (res) {
-            console.log(res.data)
-            let msg = res.data.message
-            if (msg == "该用户名已存在") {
-              this.dialogFormVisible = false;
-              alert("该用户名已存在,不能添加！")
+          let that =this
+          if(that.addUserList.addname==''||that.addUserList.addpwd==''||that.addUserList.addrole==''
+            ||that.addUserList.addstatus==''||that.addUserList.addno=='')
+          {
+            that.$alert('添加用户信息不完整','提示',{
+              confirmButtonText:'确定',
+              type:'warning'
+            })
+          }
+          else
+          {
+            let  Reg = new RegExp(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[~!@#$%^&*()_+`\-={}:";'<>,.\/]).{6,10}/)
+            let No = new RegExp(/^[0-9]*$/)
+            if(!Reg.test(that.addUserList.addpwd)){
+              that.$alert('密码不符规则','提示',{
+                confirmButtonText:'确定',
+                type:'warning'
+              })
             }
-            else if (msg == "用户添加成功") {
-              alert(msg)
-              this.dialogFormVisible = false;
-              this.getQuery();
+            else if(!No.test(that.addUserList.addno))
+            {
+              that.$alert('工号格式不正确','提示',{
+                confirmButtonText:'确定',
+                type:'warning'
+              })
             }
             else {
-              this.dialogFormVisible = false;
-              alert(msg)
+              that.$http.post('/home/user/adduser',
+                {
+                  addname: that.addUserList.addname,
+                  addpwd: that.addUserList.addpwd,
+                  addrole: that.addUserList.addrole,
+                  addstatus: that.addUserList.addstatus,
+                  addno:that.addUserList.addno
+                }).then(function (res) {
+                console.log(res.data)
+                let msg = res.data.message
+                if (msg == "该用户名已存在") {
+                  // that.dialogFormVisible = false;
+                  // alert("该用户名已存在,不能添加！")
+                  that.$alert(res.data.message,'提示',{
+                    confirmButtonText:'确定',
+                    type:'warning'
+                  })
+                }
+                else if (msg == "用户添加成功") {
+                  that.$alert(res.data.message,'提示',{
+                    confirmButtonText:'确定',
+                    type:'warning'
+                  })
+                  that.dialogFormVisible = false;
+                  that.getQuery();
+                  that.addReset()
+                }
+                else {
+                  // that.dialogFormVisible = false;
+                  that.$alert(res.data.message,'提示',{
+                    confirmButtonText:'确定',
+                    type:'warning'
+                  })
+                }
+              }).catch(function (error) {
+                console.log(error)
+              })
             }
-          }).catch(function (error) {
-            console.log(error)
-          })
+          }
         },
         //添加用户时重置
         addReset: function () {
@@ -331,20 +377,21 @@
         },
         //修改状态
         changeStatus: function (userid) {
+          let that = this
           console.log(userid)
-          this.$confirm("修改该用户状态，是否继续？", "提示", {
+          that.$confirm("修改该用户状态，是否继续？", "提示", {
             confirmButtonText: "确定",
             cancelButtonText: "取消",
             type: "warning"
           }).then(() => {
-            this.$http.post('/yii/home/user/changeuser',
+            that.$http.post('/home/user/changeuser',
               {
                 flag: 4,
                 userid: userid
               }).then(function (res) {
               console.log(res.data)
               if (res.data.message == "该用户状态修改成功") {
-                this.getQuery()
+                that.getQuery()
                 alert("该用户状态修改成功！")
               }
               else {
@@ -357,22 +404,23 @@
         },
         //修改角色
         changeRole: function (List) {
+          let that = this
           console.log(List)
-          this.$http.post('/yii/home/user/changeuser',
+          that.$http.post('/home/user/changeuser',
             {
               flag: 2,
               userid: List.id,
               role: List.role
             }).then(function (res) {
             console.log(res.data)
-            this.changeList.role = ""
+            that.changeList.role = ""
             if (res.data.message == "该用户角色修改成功") {
-              this.getQuery()
-              this.dialogFormVisibleRole = false
+              that.getQuery()
+              that.dialogFormVisibleRole = false
               alert("该用户角色修改成功！")
             }
             else {
-              this.dialogFormVisibleName = false
+              that.dialogFormVisibleName = false
               alert(res.data.message)
             }
           }).catch(function (error) {
@@ -381,26 +429,27 @@
         },
         //修改用户名
         changeUsername: function (List) {
+          let that = this
           console.log(List)
-          this.$http.post('/yii/home/user/changeuser',
+          that.$http.post('/home/user/changeuser',
             {
               flag: 1,
               userid: List.id,
               username: List.name
             }).then(function (res) {
             console.log(res.data)
-            this.changeList.name = ""
+            that.changeList.name = ""
             if (res.data.message == "已有该用户名用户存在") {
               alert("已有该用户名用户存在,修改用户名失败")
-              this.dialogFormVisibleName = false
+              that.dialogFormVisibleName = false
             }
             else if (res.data.message == "该用户名修改成功") {
-              this.getQuery()
-              this.dialogFormVisibleName = false
+              that.getQuery()
+              that.dialogFormVisibleName = false
               alert("该用户名修改成功！")
             }
             else {
-              this.dialogFormVisibleName = false
+              that.dialogFormVisibleName = false
               alert(res.data.message)
 
             }
@@ -411,20 +460,21 @@
         },
         //删除用户（暂时删除）
         deleteUser: function (userid) {
+          let that = this
           console.log(userid)
-          this.$confirm("将该用户删除，是否继续？", "提示", {
+          that.$confirm("将该用户删除，是否继续？", "提示", {
             confirmButtonText: "确定",
             cancelButtonText: "取消",
             type: "warning"
           }).then(() => {
-            this.$http.post('/yii/home/user/deleteuser',
+            that.$http.post('/home/user/deleteuser',
               {
                 flag: 1,
                 userid: userid
               }).then(function (res) {
               console.log(res.data)
               if (res.data.message == "该用户已删除") {
-                this.getQuery()
+                that.getQuery()
                 alert("删除该用户成功！")
               }
             })
@@ -434,20 +484,21 @@
         },
         //永久删除
         deleteUsers: function (userid) {
-          this.$confirm("该用户将永久删除，是否继续？", "提示", {
+          let that = this
+          that.$confirm("该用户将永久删除，是否继续？", "提示", {
             confirmButtonText: "确定",
             cancelButtonText: "取消",
             type: "warning"
           }).then(() => {
             console.log("2222")
-            this.$http.post('/yii/home/user/deleteuser',
+            that.$http.post('/home/user/deleteuser',
               {
                 flag: 2,
                 userid: userid
               }).then(function (res) {
               console.log(res.data)
               if (res.data.message == "该用户已永久删除") {
-                this.getQuery()
+                that.getQuery()
                 alert("永久删除该用户成功！")
               }
             })
@@ -507,7 +558,7 @@
                 data: JSON.stringify(_this.memberList)
               }
               console.log(data)
-              _this.$http.post('/yii/home/user/importexcel', data).then(body => {
+              _this.$http.post('/home/user/importexcel', data).then(body => {
                 alert(body.data.message)
                 _this.getQuery()
               })

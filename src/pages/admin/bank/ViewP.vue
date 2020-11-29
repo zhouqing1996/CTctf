@@ -65,7 +65,7 @@
       methods:{
           getProgram:function () {
             let that =this
-            this.$http.post('/yii/bank/programq/queryprogram',{
+            this.$http.post('/bank/programq/queryprogram',{
               flag:5,
               id:this.id
             }).then(function (res) {

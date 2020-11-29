@@ -75,30 +75,31 @@
     methods:{
       mounted(){
         //动态设置内容高度 让footer始终居底   header+footer的高度是100
-        this.Height = document.documentElement.clientHeight - 50;
+        that.Height = document.documentElement.clientHeight - 50;
         //监听浏览器窗口变化　
-        window.onresize = ()=> {this.Height = document.documentElement.clientHeight -50}
+        window.onresize = ()=> {that.Height = document.documentElement.clientHeight -50}
       },
       //退出登录
       logout:function () {
-        let suserid=this.$store.getters.getsId
+        let that = this
+        let suserid=that.$store.getters.getsId
         console.log(suserid)
-        this.$confirm("是否退出？","提示",{
+        that.$confirm("是否退出？","提示",{
           confirmButtonText:"确定",
           cancelButtonText:"取消",
           type:"warning"
         }).then(()=>{
-          this.$http.post('/yii/home/index/logout',
+          that.$http.post('/home/index/logout',
             {
               userid:suserid
             }).then(function (res) {
             console.log(res.data)
             if(res.data.message=="退出成功")
             {
-              this.$store.dispatch('logout')
-              this.$store.dispatch('slogout')
+              that.$store.dispatch('logout')
+              that.$store.dispatch('slogout')
               alert("退出成功！")
-              this.$router.push({path:'/login'})
+              that.$router.push({path:'/login'})
             }
             else
             {

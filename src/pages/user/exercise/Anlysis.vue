@@ -31,28 +31,30 @@
           }
       },
       created(){
-          this.getData()
+        let that = this
+          that.getData()
       },
       methods:{
           getData:function () {
-            this.$http.post('/yii/student/student/radar',{
+            let that = this
+            that.$http.post('/student/student/radar',{
               num:1,
               uid:8,
               eid:1,
             }).then(function (res) {
               console.log(res.data)
-              this.fact.NC=res.data.data[0].nc
-              this.fact.NF=res.data.data[0].nf
-              this.fact.NP=res.data.data[0].np
-              this.fact.NM=res.data.data[0].nm
-              this.fact.NJ=res.data.data[0].nj
-              this.real.NC=res.data.data[1].nc
-              this.real.NF=res.data.data[1].nf
-              this.real.NP=res.data.data[1].np
-              this.real.NM=res.data.data[1].nm
-              this.real.NJ=res.data.data[1].nj
-              console.log(this.fact)
-              console.log(this.real)
+              that.fact.NC=res.data.data[0].nc
+              that.fact.NF=res.data.data[0].nf
+              that.fact.NP=res.data.data[0].np
+              that.fact.NM=res.data.data[0].nm
+              that.fact.NJ=res.data.data[0].nj
+              that.real.NC=res.data.data[1].nc
+              that.real.NF=res.data.data[1].nf
+              that.real.NP=res.data.data[1].np
+              that.real.NM=res.data.data[1].nm
+              that.real.NJ=res.data.data[1].nj
+              console.log(that.fact)
+              console.log(that.real)
             })
           }
       }

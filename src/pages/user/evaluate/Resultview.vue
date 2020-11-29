@@ -83,42 +83,45 @@
           }
       },
       created(){
-          this.uid = this.$store.getters.getsId
-          this.getExamList()
+        let that = this
+          that.uid = that.$store.getters.getsId
+          that.getExamList()
       },
       methods:{
           //查看结果
         View:function(eid,num)
         {
+          let that = this
           console.log()
-          this.$router.push({
+          that.$router.push({
             path:'/user/evaluate/userview',
             query:{
               eid:eid,
               num:num,
-              uid:this.uid
+              uid:that.uid
             }
           })
         },
           //模糊查找
         SeachEva:function()
         {
-          console.log(this.name)
-          if(this.name=='')
+          let that = this
+          console.log(that.name)
+          if(that.name=='')
           {
-            this.$confirm("输入内容为空", "提示", {
+            that.$confirm("输入内容为空", "提示", {
               confirmButtonText: "确定",
               type: "warning"
             })
           }
           else{
-            this.$http.post('/yii/exam/exam/userqueryname',{
-              name:this.name,
-              uid:this.uid
+            that.$http.post('/exam/exam/userqueryname',{
+              name:that.name,
+              uid:that.uid
             }).then(function (res) {
               console.log(res.data)
-              let _that = this
-              if(res.data.message==this.name+"查找成功")
+              let _that = that
+              if(res.data.message==that.name+"查找成功")
               {
                 let list = res.data.data
                 _that.uexamList = [];
@@ -139,9 +142,9 @@
                   })
                 }
                 console.log(_that.uexamList)
-                this.totalPage =Math.ceil(_that.uexamList.length/this.pageSize)
-                this.totalPage=this.totalPage==0?1:this.totalPage
-                this.setCurrentPageDate()
+                that.totalPage =Math.ceil(_that.uexamList.length/that.pageSize)
+                that.totalPage=that.totalPage==0?1:that.totalPage
+                that.setCurrentPageDate()
               }
             }).catch(function (err) {
               console.log(err)
@@ -151,11 +154,12 @@
         },
           //获取用户作答信息
           getExamList:function () {
-            console.log(this.uid)
-            this.name=''
-            let _that = this
-            this.$http.post('/yii/exam/exam/userresult',{
-              uid:this.uid
+            let that = this
+            console.log(that.uid)
+            that.name=''
+            let _that = that
+            that.$http.post('/exam/exam/userresult',{
+              uid:that.uid
             }).then(function (res) {
               console.log(res.data)
               if(res.data.message=="查找成功")
@@ -180,9 +184,9 @@
                   })
                 }
                 console.log(_that.uexamList)
-                this.totalPage =Math.ceil(_that.uexamList.length/this.pageSize)
-                this.totalPage=this.totalPage==0?1:this.totalPage
-                this.setCurrentPageDate()
+                that.totalPage =Math.ceil(_that.uexamList.length/that.pageSize)
+                that.totalPage=that.totalPage==0?1:that.totalPage
+                that.setCurrentPageDate()
               }
             }).catch(function (err) {
               console.log(err)
@@ -190,21 +194,24 @@
           },
         //分页
         setCurrentPageDate: function () {
-          let begin = (this.currentPage - 1) * this.pageSize;
-          let end = this.currentPage * this.pageSize;
-          this.currentPageData = this.uexamList.slice(begin, end)
+          let that = this
+          let begin = (that.currentPage - 1) * that.pageSize;
+          let end = that.currentPage * that.pageSize;
+          that.currentPageData = that.uexamList.slice(begin, end)
         },
         prePage() {
-          console.log(this.currentPage)
-          if (this.currentPage == 1)
+          let that = this
+          console.log(that.currentPage)
+          if (that.currentPage == 1)
             return
-          this.currentPage--;
-          this.setCurrentPageDate()
+          that.currentPage--;
+          that.setCurrentPageDate()
         },
         nextPage() {
-          if (this.currentPage == this.totalPage) return
-          this.currentPage++;
-          this.setCurrentPageDate()
+          let that = this
+          if (that.currentPage == that.totalPage) return
+          that.currentPage++;
+          that.setCurrentPageDate()
         },
       }
     }

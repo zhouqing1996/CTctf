@@ -69,61 +69,64 @@
       },
       methods: {
         showPass1() {
-          if (this.passwordVisible1 === "text") {
-            this.passwordVisible1 = "password";
+          let that =this
+          if (that.passwordVisible1 === "text") {
+            that.passwordVisible1 = "password";
             //更换图标
-            this.icon1 = "el-icon-view";
+            that.icon1 = "el-icon-view";
           } else {
-            this.passwordVisible1 = "text";
-            this.icon1 = "el-icon-lock";
+            that.passwordVisible1 = "text";
+            that.icon1 = "el-icon-lock";
           }
         },
         showPass2() {
-          if (this.passwordVisible2 === "text") {
-            this.passwordVisible2 = "password";
+          let that =this
+          if (that.passwordVisible2 === "text") {
+            that.passwordVisible2 = "password";
             //更换图标
-            this.icon2 = "el-icon-view";
+            that.icon2 = "el-icon-view";
           } else {
-            this.passwordVisible2 = "text";
-            this.icon2 = "el-icon-lock";
+            that.passwordVisible2 = "text";
+            that.icon2 = "el-icon-lock";
           }
         },
         submitForm(formName) {
+          let that =this
           let r = '/^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[~!@#$%^&*()_+`\\-={}:";\'<>,.\\/]).{6,10}/';
           var Reg = new RegExp(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[~!@#$%^&*()_+`\-={}:";'<>,.\/]).{6,10}/)
-          if(!Reg.test(this.registerForm.password))
+          if(!Reg.test(that.registerForm.password))
           {
-            this.$alert('密码规则为：6-10位包含数字、字母、特殊字符的字串', '警告', {
+            that.$alert('密码规则为：6-10位包含数字、字母、特殊字符的字串', '警告', {
               confirmButtonText: '确定',})
           }
-          else if(this.registerForm.userno=='')
+          else if(that.registerForm.userno=='')
           {
-            this.$alert('用户账号为空！', '警告', {
+            that.$alert('用户账号为空！', '警告', {
               confirmButtonText: '确定',})
           }
-          else if(this.registerForm.password1 != this.registerForm.password)
+          else if(that.registerForm.password1 != that.registerForm.password)
           {
-            this.$alert('两次输入密码不一致', '警告', {
+            that.$alert('两次输入密码不一致', '警告', {
               confirmButtonText: '确定',})
           }
           else{
-            console.log(this.registerForm.username);
-            console.log(this.registerForm.password);
-            this.$http.post('/yii/home/index/register',{
-              username:this.registerForm.username,
-              password:this.registerForm.password,
-              role:this.registerForm.role,
-              no:this.registerForm.userno
+            console.log(that.registerForm.username);
+            console.log(that.registerForm.password);
+            that.$http.post('/home/index/register',{
+              username:that.registerForm.username,
+              password:that.registerForm.password,
+              role:that.registerForm.role,
+              no:that.registerForm.userno
             }).then(res=>{
               console.log(res.data)
               if(res.data.message=="注册成功")
               {
                 alert('注册成功')
-                this.$router.push({
+                that.$router.push({
                   path:'/login',
                   params:{
-                    username:this.registerForm.username,
-                    password:this.registerForm.password
+                    username:that.registerForm.username,
+                    password:that.registerForm.password
                   }
                 })
               }

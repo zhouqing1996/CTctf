@@ -54,7 +54,7 @@
               <button class="btn2 el-icon-folder-remove" @click="getQuerymquestionN">无效题目</button>
               <button class="btn2 el-icon-folder-checked" @click="getQuerymquestion">所有题目</button>
               <button class="btn2 el-icon-document" @click="addC">批量添加</button>
-              <input type="file" @change="importExcel(this)" id="inputExcel"
+              <input type="file" @change="importExcel(that)" id="inputExcel"
                      accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" style="display: none"/>
             </div>
             <div class="waimian">
@@ -281,94 +281,102 @@
     methods:{
       //分页
       setCurrentPageDate: function () {
-        let begin = (this.currentPage - 1) * this.pageSize;
-        let end = this.currentPage * this.pageSize;
-        this.currentPageData = this.mquestionList.slice(begin, end)
+        let that =this
+        let begin = (that.currentPage - 1) * that.pageSize;
+        let end = that.currentPage * that.pageSize;
+        that.currentPageData = that.mquestionList.slice(begin, end)
       },
       prePage() {
-        console.log(this.currentPage)
-        if (this.currentPage == 1)
+        let that =this
+        console.log(that.currentPage)
+        if (that.currentPage == 1)
           return
-        this.currentPage--;
-        this.setCurrentPageDate()
+        that.currentPage--;
+        that.setCurrentPageDate()
       },
       nextPage() {
-        if (this.currentPage == this.totalPage) return
-        this.currentPage++;
-        this.setCurrentPageDate()
+        let that =this
+        if (that.currentPage == that.totalPage) return
+        that.currentPage++;
+        that.setCurrentPageDate()
       },
       //获取多选题列表
       getQuerymquestion:function(){
-        this.$http.post('/yii/bank/choosem/querychoose',{
+        let that =this
+        that.$http.post('/bank/choosem/querychoose',{
           flag:1
         }).then(function (res) {
           console.log(res.data)
-          this.mquestionList = res.data.data
-          this.totalPage =Math.ceil(this.mquestionList.length/this.pageSize)
-          this.totalPage=this.totalPage==0?1:this.totalPage
-          this.setCurrentPageDate()
+          that.mquestionList = res.data.data
+          that.totalPage =Math.ceil(that.mquestionList.length/that.pageSize)
+          that.totalPage=that.totalPage==0?1:that.totalPage
+          that.setCurrentPageDate()
         }).catch(function (error) {
           console.log(error)
         })
       },
       //获取有效多选题列表
       getQuerymquestionY:function(){
-        this.$http.post('/yii/bank/choosem/querychoose',{
+        let that =this
+        that.$http.post('/bank/choosem/querychoose',{
           flag:2
         }).then(function (res) {
           console.log(res.data)
-          this.mquestionList = res.data.data
-          this.totalPage =Math.ceil(this.mquestionList.length/this.pageSize)
-          this.totalPage=this.totalPage==0?1:this.totalPage
-          this.setCurrentPageDate()
+          that.mquestionList = res.data.data
+          that.totalPage =Math.ceil(that.mquestionList.length/that.pageSize)
+          that.totalPage=that.totalPage==0?1:that.totalPage
+          that.setCurrentPageDate()
         }).catch(function (error) {
           console.log(error)
         })
       },
       //获取无效多选题列表
       getQuerymquestionN:function(){
-        this.$http.post('/yii/bank/choosem/querychoose',{
+        let that =this
+        that.$http.post('/bank/choosem/querychoose',{
           flag:4
         }).then(function (res) {
           console.log(res.data)
-          this.mquestionList = res.data.data
-          this.totalPage =Math.ceil(this.mquestionList.length/this.pageSize)
-          this.totalPage=this.totalPage==0?1:this.totalPage
-          this.setCurrentPageDate()
+          that.mquestionList = res.data.data
+          that.totalPage =Math.ceil(that.mquestionList.length/that.pageSize)
+          that.totalPage=that.totalPage==0?1:that.totalPage
+          that.setCurrentPageDate()
         }).catch(function (error) {
           console.log(error)
         })
       },
       //搜索
       searchC:function () {
-        console.log(this.name)
-        this.$http.post('/yii/bank/choosem/querychoose',{
+        let that =this
+        console.log(that.name)
+        that.$http.post('/bank/choosem/querychoose',{
           flag:3,
-          name:this.inputname
+          name:that.inputname
         }).then(function (res) {
           console.log(res.data)
-          this.mquestionList = res.data.data
-          this.totalPage =Math.ceil(this.mquestionList.length/this.pageSize)
-          this.totalPage=this.totalPage==0?1:this.totalPage
-          this.setCurrentPageDate()
+          that.mquestionList = res.data.data
+          that.totalPage =Math.ceil(that.mquestionList.length/that.pageSize)
+          that.totalPage=that.totalPage==0?1:that.totalPage
+          that.setCurrentPageDate()
         }).catch(function (error) {
           console.log(error)
         })
       },
       //添加题库
       addmquestion:function (List) {
+        let that =this
         console.log(List)
         if(List.item == '')
         {
-          this.$alert('题干为空', '警告', {
+          that.$alert('题干为空', '警告', {
             confirmButtonText: '确定',})
         }
         else if(List.ans==''){
-          this.$alert('答案为空', '警告', {
+          that.$alert('答案为空', '警告', {
             confirmButtonText: '确定',})
         }
         else{
-          this.$http.post('/yii/bank/choosem/addchoose',{
+          that.$http.post('/bank/choosem/addchoose',{
             qitem:List.item,
             op1:List.op1,
             op2:List.op2,
@@ -377,30 +385,31 @@
             ans:List.ans,
             tail:List.tail,
             rem:List.rem,
-            auth:this.$store.getters.getsId
+            auth:that.$store.getters.getsId
           }).then(function (res) {
             console.log(res.data)
             if(res.data.message=="插入多选题成功")
             {
-              this.getQuerymquestion()
+              that.getQuerymquestion()
               alert("插入多选题成功")
-              this.Reset()
+              that.Reset()
             }
-            this.dialogFormVisibleadd=false
+            that.dialogFormVisibleadd=false
           })
         }
 
       },
       //重置
       Reset:function () {
-        this.addList.rem=""
-        this.addList.tail=""
-        this.addList.ans=""
-        this.addList.op1=""
-        this.addList.op2=""
-        this.addList.op3=""
-        this.addList.op4=""
-        this.addList.item=""
+        let that =this
+        that.addList.rem=""
+        that.addList.tail=""
+        that.addList.ans=""
+        that.addList.op1=""
+        that.addList.op2=""
+        that.addList.op3=""
+        that.addList.op4=""
+        that.addList.item=""
 
       },
       //修改
@@ -414,183 +423,184 @@
       //8：知识点
       //9:状态
       changeChoose:function (item,id) {
+        let that =this
         console.log(item)
         if(item==1) {
-          this.$http.post('/yii/bank/choosem/change',{
-            cid:this.changeList.id,
+          that.$http.post('/bank/choosem/change',{
+            cid:that.changeList.id,
             flag:1,
-            item:this.changeList.item,
-            auth:this.$store.getters.getsId
+            item:that.changeList.item,
+            auth:that.$store.getters.getsId
           }).then(function (res) {
             console.log(res.data)
             if(res.data.message=="该多选题题干修改成功")
             {
-              this.getQuerymquestion()
+              that.getQuerymquestion()
             }
             alert(res.data.message)
-            this.dialogFormVisiblechangeitem=false
-            this.changeList.id=""
-            this.changeList.item=""
+            that.dialogFormVisiblechangeitem=false
+            that.changeList.id=""
+            that.changeList.item=""
           }).catch(function (error) {
             console.log(error)
           })
         }
         else if(item==2) {
-          this.$http.post('/yii/bank/choosem/change',{
-            cid:this.changeList.id,
+          that.$http.post('/bank/choosem/change',{
+            cid:that.changeList.id,
             flag:2,
             top:1,
-            op1:this.changeList.op1,
-            auth:this.$store.getters.getsId
+            op1:that.changeList.op1,
+            auth:that.$store.getters.getsId
           }).then(function (res) {
             console.log(res.data)
             if(res.data.message=="该多选题选项1修改成功")
             {
-              this.getQuerymquestion()
+              that.getQuerymquestion()
             }
             alert(res.data.message)
-            this.dialogFormVisiblechangeop1=false
-            this.changeList.id=""
-            this.changeList.op1=""
+            that.dialogFormVisiblechangeop1=false
+            that.changeList.id=""
+            that.changeList.op1=""
           }).catch(function (error) {
             console.log(error)
           })
         }
         else if(item==3){
-          this.$http.post('/yii/bank/choosem/change',{
-            cid:this.changeList.id,
+          that.$http.post('/bank/choosem/change',{
+            cid:that.changeList.id,
             flag:2,
             top:2,
-            op2:this.changeList.op2,
-            auth:this.$store.getters.getsId
+            op2:that.changeList.op2,
+            auth:that.$store.getters.getsId
           }).then(function (res) {
             console.log(res.data)
             if(res.data.message=="该多选题选项2修改成功")
             {
-              this.getQuerymquestion()
+              that.getQuerymquestion()
             }
             alert(res.data.message)
-            this.dialogFormVisiblechangeop2=false
-            this.changeList.id=""
-            this.changeList.op2=""
+            that.dialogFormVisiblechangeop2=false
+            that.changeList.id=""
+            that.changeList.op2=""
           }).catch(function (error) {
             console.log(error)
           })
         }
         else if(item==4){
-          this.$http.post('/yii/bank/choosem/change',{
-            cid:this.changeList.id,
+          that.$http.post('/bank/choosem/change',{
+            cid:that.changeList.id,
             flag:2,
             top:3,
-            op3:this.changeList.op3,
-            auth:this.$store.getters.getsId
+            op3:that.changeList.op3,
+            auth:that.$store.getters.getsId
           }).then(function (res) {
             console.log(res.data)
             if(res.data.message=="该多选题选项3修改成功")
             {
-              this.getQuerymquestion()
+              that.getQuerymquestion()
             }
             alert(res.data.message)
-            this.dialogFormVisiblechangeop3=false
-            this.changeList.id=""
-            this.changeList.op3=""
+            that.dialogFormVisiblechangeop3=false
+            that.changeList.id=""
+            that.changeList.op3=""
           }).catch(function (error) {
             console.log(error)
           })
         }
         else if(item==5){
-          this.$http.post('/yii/bank/choosem/change',{
-            cid:this.changeList.id,
+          that.$http.post('/bank/choosem/change',{
+            cid:that.changeList.id,
             flag:2,
             top:4,
-            op4:this.changeList.op4,
-            auth:this.$store.getters.getsId
+            op4:that.changeList.op4,
+            auth:that.$store.getters.getsId
           }).then(function (res) {
             console.log(res.data)
             if(res.data.message=="该多选题选项4修改成功")
             {
-              this.getQuerymquestion()
+              that.getQuerymquestion()
             }
             alert(res.data.message)
-            this.dialogFormVisiblechangeop4=false
-            this.changeList.id=""
-            this.changeList.op4=""
+            that.dialogFormVisiblechangeop4=false
+            that.changeList.id=""
+            that.changeList.op4=""
           }).catch(function (error) {
             console.log(error)
           })
         }
         else if(item==6){
-          this.$http.post('/yii/bank/choosem/change',{
-            cid:this.changeList.id,
+          that.$http.post('/bank/choosem/change',{
+            cid:that.changeList.id,
             flag:3,
-            ans:this.changeList.ans,
-            auth:this.$store.getters.getsId
+            ans:that.changeList.ans,
+            auth:that.$store.getters.getsId
           }).then(function (res) {
             console.log(res.data)
             if(res.data.message=="该多选题答案修改成功")
             {
-              this.getQuerymquestion()
+              that.getQuerymquestion()
             }
             alert(res.data.message)
-            this.dialogFormVisiblechangeans=false
-            this.changeList.id=""
-            this.changeList.ans=""
+            that.dialogFormVisiblechangeans=false
+            that.changeList.id=""
+            that.changeList.ans=""
           }).catch(function (error) {
             console.log(error)
           })
         }
         else if(item==7){
-          this.$http.post('/yii/bank/choosem/change',{
-            cid:this.changeList.id,
+          that.$http.post('/bank/choosem/change',{
+            cid:that.changeList.id,
             flag:4,
-            tail:this.changeList.tail,
-            auth:this.$store.getters.getsId
+            tail:that.changeList.tail,
+            auth:that.$store.getters.getsId
           }).then(function (res) {
             console.log(res.data)
             if(res.data.message=="该多选题详解修改成功")
             {
-              this.getQuerymquestion()
+              that.getQuerymquestion()
             }
             alert(res.data.message)
-            this.dialogFormVisiblechangetail=false
-            this.changeList.id=""
-            this.changeList.tail=""
+            that.dialogFormVisiblechangetail=false
+            that.changeList.id=""
+            that.changeList.tail=""
           }).catch(function (error) {
             console.log(error)
           })
         }
         else if(item==8){
-          this.$http.post('/yii/bank/choosem/change',{
-            cid:this.changeList.id,
+          that.$http.post('/bank/choosem/change',{
+            cid:that.changeList.id,
             flag:5,
-            rem:this.changeList.rem,
-            auth:this.$store.getters.getsId
+            rem:that.changeList.rem,
+            auth:that.$store.getters.getsId
           }).then(function (res) {
             console.log(res.data)
             if(res.data.message=="该多选题相关知识修改成功")
             {
-              this.getQuerymquestion()
+              that.getQuerymquestion()
             }
             alert(res.data.message)
-            this.dialogFormVisiblechangerem=false
-            this.changeList.id=""
-            this.changeList.tail=""
+            that.dialogFormVisiblechangerem=false
+            that.changeList.id=""
+            that.changeList.tail=""
           }).catch(function (error) {
             console.log(error)
           })
         }
         else if(item==9){
           console.log(id)
-          this.$http.post('/yii/bank/choosem/change',{
+          that.$http.post('/bank/choosem/change',{
             cid:id,
             flag:6,
-            auth:this.$store.getters.getsId
+            auth:that.$store.getters.getsId
           }).then(function (res) {
 
             console.log(res.data)
             if(res.data.message=="该多选题状态修改成功")
             {
-              this.getQuerymquestion()
+              that.getQuerymquestion()
             }
             alert(res.data.message)
           })
@@ -603,23 +613,24 @@
       //1:暂时删除
       //2：永久删除
       deleteChoose:function (item,id) {
+        let that =this
         console.log(item)
         if(item==1)
         {
-          this.$confirm("删除该用户多选题，是否继续？", "提示", {
+          that.$confirm("删除该用户多选题，是否继续？", "提示", {
             confirmButtonText: "确定",
             cancelButtonText: "取消",
             type: "warning"
           }).then(() => {
-            this.$http.post('/yii/bank/choosem/delete',{
+            that.$http.post('/bank/choosem/delete',{
               cid:id,
               flag:1,
-              auth:this.$store.getters.getsId
+              auth:that.$store.getters.getsId
             }).then(function (res) {
               console.log(res.data)
               if(res.data.message=="该多选题删除成功")
               {
-                this.getQuerymquestion()
+                that.getQuerymquestion()
               }
               alert(res.data.message)
             })
@@ -629,19 +640,19 @@
         }
         else if(item==2)
         {
-          this.$confirm("永久删除该用户多选题，是否继续？", "提示", {
+          that.$confirm("永久删除该用户多选题，是否继续？", "提示", {
             confirmButtonText: "确定",
             cancelButtonText: "取消",
             type: "warning"
           }).then(() => {
-            this.$http.post('/yii/bank/choosem/delete',{
+            that.$http.post('/bank/choosem/delete',{
               cid:id,
               flag:2
             }).then(function (res) {
               console.log(res.data)
               if(res.data.message=="该多选题永久删除成功")
               {
-                this.getQuerymquestion()
+                that.getQuerymquestion()
               }
               alert(res.data.message)
             })
@@ -658,9 +669,9 @@
         this.inputExcel.click()
       },
       importExcel (obj) {
-        let _this = this
+        let _that = this
         let inputDOM = this.$refs.inputer   // 通过DOM取文件数据
-        this.file = event.currentTarget.files[0]
+        that.file = event.currentTarget.files[0]
         var rABS = false // 是否将文件读取为二进制字符串
         var f = this.file
         var reader = new FileReader()
@@ -668,7 +679,6 @@
         FileReader.prototype.readAsBinaryString = function (f) {
           var binary = ''
           var rABS = false // 是否将文件读取为二进制字符串
-          var pt = this
           var wb // 读取完成的数据
           var outdata
           var reader = new FileReader()
@@ -702,17 +712,17 @@
               obj.ans= v.答案
               obj.tail= v.详解
               obj.rem= v.相关点
-              obj.auth=_this.$store.getters.getsId
+              obj.auth=_that.$store.getters.getsId
               arr.push(obj)
             })
-            _this.memberList = [...arr]
+            _that.memberList = [...arr]
             let data = {
-              data: JSON.stringify(_this.memberList)
+              data: JSON.stringify(_that.memberList)
             }
             console.log(data)
-            _this.$http.post('/yii/bank/choosem/importexcel', data).then(body => {
+            _that.$http.post('/bank/choosem/importexcel', data).then(body => {
               alert(body.data.message)
-              _this.getQuerymquestion()
+              _that.getQuerymquestion()
             })
           }
           reader.readAsArrayBuffer(f)

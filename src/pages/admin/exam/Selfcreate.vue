@@ -387,158 +387,178 @@
       methods:{
         //分页
         setCurrentPageDate1: function () {
-          let begin1 = (this.currentPage1 - 1) * this.pageSize1;
-          let end1 = this.currentPage1 * this.pageSize1;
-          this.currentPageData1 = this.Lists1.slice(begin1, end1)
+          let that =this
+          let begin1 = (that.currentPage1 - 1) * that.pageSize1;
+          let end1 = that.currentPage1 * that.pageSize1;
+          that.currentPageData1 = that.Lists1.slice(begin1, end1)
         },
         setCurrentPageDate2: function () {
-          let begin2 = (this.currentPage2 - 1) * this.pageSize2;
-          let end2 = this.currentPage2 * this.pageSize2;
-          this.currentPageData2 = this.Lists2.slice(begin2, end2)
+          let that =this
+          let begin2 = (that.currentPage2 - 1) * that.pageSize2;
+          let end2 = that.currentPage2 * that.pageSize2;
+          that.currentPageData2 = that.Lists2.slice(begin2, end2)
         },
         setCurrentPageDate3: function () {
-          let begin3 = (this.currentPage3 - 1) * this.pageSize3;
-          let end3 = this.currentPage3 * this.pageSize3;
-          this.currentPageData3 = this.Lists3.slice(begin3, end3)
+          let that =this
+          let begin3 = (that.currentPage3 - 1) * that.pageSize3;
+          let end3 = that.currentPage3 * that.pageSize3;
+          that.currentPageData3 = that.Lists3.slice(begin3, end3)
         },
         setCurrentPageDate4: function () {
-          let begin4 = (this.currentPage4 - 1) * this.pageSize4;
-          let end4 = this.currentPage4 * this.pageSize4;
-          this.currentPageData4 = this.Lists4.slice(begin4, end4)
+          let that =this
+          let begin4 = (that.currentPage4 - 1) * that.pageSize4;
+          let end4 = that.currentPage4 * that.pageSize4;
+          that.currentPageData4 = that.Lists4.slice(begin4, end4)
         },
         setCurrentPageDate5: function () {
-          let begin5 = (this.currentPage5 - 1) * this.pageSize5;
-          let end5 = this.currentPage5 * this.pageSize5;
-          this.currentPageData5 = this.Lists5.slice(begin5, end5)
+          let that =this
+          let begin5 = (that.currentPage5 - 1) * that.pageSize5;
+          let end5 = that.currentPage5 * that.pageSize5;
+          that.currentPageData5 = that.Lists5.slice(begin5, end5)
         },
         prePage1:function() {
-          console.log(this.currentPage1)
-          if (this.currentPage1 == 1)
+          let that =this
+          console.log(that.currentPage1)
+          if (that.currentPage1 == 1)
             return
-          this.currentPage1--;
-          this.setCurrentPageDate1()
+          that.currentPage1--;
+          that.setCurrentPageDate1()
         },
         prePage2:function() {
-          console.log(this.currentPage2)
-          if (this.currentPage2 == 1)
+          let that =this
+          console.log(that.currentPage2)
+          if (that.currentPage2 == 1)
             return
-          this.currentPage2--;
-          this.setCurrentPageDate2()
+          that.currentPage2--;
+          that.setCurrentPageDate2()
         },
         prePage3:function() {
-          console.log(this.currentPage3)
-          if (this.currentPage3 == 1)
+          let that =this
+          console.log(that.currentPage3)
+          if (that.currentPage3 == 1)
             return
-          this.currentPage3--;
-          this.setCurrentPageDate3()
+          that.currentPage3--;
+          that.setCurrentPageDate3()
         },
         prePage4:function() {
-          console.log(this.currentPage4)
-          if (this.currentPage4 == 1)
+          let that =this
+          console.log(that.currentPage4)
+          if (that.currentPage4 == 1)
             return
-          this.currentPage4--;
-          this.setCurrentPageDate4()
+          that.currentPage4--;
+          that.setCurrentPageDate4()
         },
         prePage5:function() {
-          console.log(this.currentPage5)
-          if (this.currentPage5 == 1)
+          let that =this
+          console.log(that.currentPage5)
+          if (that.currentPage5 == 1)
             return
-          this.currentPage5--;
-          this.setCurrentPageDate5()
+          that.currentPage5--;
+          that.setCurrentPageDate5()
         },
         nextPage1:function() {
-          if (this.currentPage1 == this.totalPage1) return
-          this.currentPage1++;
-          this.setCurrentPageDate1()
+          let that =this
+          if (that.currentPage1 == that.totalPage1) return
+          that.currentPage1++;
+          that.setCurrentPageDate1()
         },
         nextPage2:function() {
-          if (this.currentPage2 == this.totalPage2) return
-          this.currentPage2++;
-          this.setCurrentPageDate2()
+          let that =this
+          if (that.currentPage2 == that.totalPage2) return
+          that.currentPage2++;
+          that.setCurrentPageDate2()
         },
         nextPage3:function() {
-          if (this.currentPage3 == this.totalPage3) return
-          this.currentPage3++;
-          this.setCurrentPageDate3()
+          let that =this
+          if (that.currentPage3 == that.totalPage3) return
+          that.currentPage3++;
+          that.setCurrentPageDate3()
         },
         nextPage4:function() {
-          if (this.currentPage4 == this.totalPage4) return
-          this.currentPage4++;
-          this.setCurrentPageDate4()
+          let that =this
+          if (that.currentPage4 == that.totalPage4) return
+          that.currentPage4++;
+          that.setCurrentPageDate4()
         },
         nextPage5:function() {
-          if (this.currentPage5 == this.totalPage5) return
-          this.currentPage5++;
-          this.setCurrentPageDate5()
+          let that =this
+          if (that.currentPage5 == that.totalPage5) return
+          that.currentPage5++;
+          that.setCurrentPageDate5()
         },
 
           //获取所有列表内容;只有有效题目
         getQuery1:function () {
+          let that =this
           //选择题
-          this.$http.post('/yii/bank/chooseq/querychoose',{
+          that.$http.post('/bank/chooseq/querychoose',{
             flag:2
           }).then(function (res) {
             console.log(res.data)
-            this.Lists1 = res.data.data
-            this.totalPage1 =Math.ceil(this.Lists1.length/this.pageSize1)
-            this.totalPage1=this.totalPage1==0?1:this.totalPage1
-            this.setCurrentPageDate1()
+            that.Lists1 = res.data.data
+            that.totalPage1 =Math.ceil(that.Lists1.length/that.pageSize1)
+            that.totalPage1=that.totalPage1==0?1:that.totalPage1
+            that.setCurrentPageDate1()
           }).catch(function (error) {
             console.log(error)
           })
         },
         getQuery2:function () {
+          let that =this
           //填空题
-          this.$http.post('/yii/bank/fillq/queryfill',{
+          that.$http.post('/bank/fillq/queryfill',{
             flag:2
           }).then(function (res) {
             console.log(res.data)
-            this.Lists2 = res.data.data
-            this.totalPage2 =Math.ceil(this.Lists2.length/this.pageSize2)
-            this.totalPage2=this.totalPage2==0?1:this.totalPage2
-            this.setCurrentPageDate2()
+            that.Lists2 = res.data.data
+            that.totalPage2 =Math.ceil(that.Lists2.length/that.pageSize2)
+            that.totalPage2=that.totalPage2==0?1:that.totalPage2
+            that.setCurrentPageDate2()
           }).catch(function (error) {
             console.log(error)
           })
         },
         getQuery3:function () {
           //判断题
-          this.$http.post('/yii/bank/judge/queryjudge',{
+          let that =this
+          that.$http.post('/bank/judge/queryjudge',{
             flag:2
           }).then(function (res) {
             console.log(res.data)
-            this.Lists3 = res.data.data
-            this.totalPage3 =Math.ceil(this.Lists3.length/this.pageSize3)
-            this.totalPage3=this.totalPage3==0?1:this.totalPage3
-            this.setCurrentPageDate3()
+            that.Lists3 = res.data.data
+            that.totalPage3 =Math.ceil(that.Lists3.length/that.pageSize3)
+            that.totalPage3=that.totalPage3==0?1:that.totalPage3
+            that.setCurrentPageDate3()
           }).catch(function (error) {
             console.log(error)
           })
         },
         getQuery4:function () {
+          let that =this
           //多选题
-          this.$http.post('/yii/bank/choosem/querychoose',{
+          that.$http.post('/bank/choosem/querychoose',{
             flag:2
           }).then(function (res) {
             console.log(res.data)
-            this.Lists4 = res.data.data
-            this.totalPage4 =Math.ceil(this.Lists4.length/this.pageSize4)
-            this.totalPage4=this.totalPage4==0?1:this.totalPage4
-            this.setCurrentPageDate4()
+            that.Lists4 = res.data.data
+            that.totalPage4 =Math.ceil(that.Lists4.length/that.pageSize4)
+            that.totalPage4=that.totalPage4==0?1:that.totalPage4
+            that.setCurrentPageDate4()
           }).catch(function (error) {
             console.log(error)
           })
         },
         getQuery5:function () {
+          let that =this
           //程序题
-          this.$http.post('/yii/bank/program/queryprogram',{
+          that.$http.post('/bank/program/queryprogram',{
             flag:2
           }).then(function (res) {
             console.log(res.data)
-            this.Lists5 = res.data.data
-            this.totalPage5 =Math.ceil(this.Lists5.length/this.pageSize5)
-            this.totalPage5=this.totalPage5==0?1:this.totalPage5
-            this.setCurrentPageDate5()
+            that.Lists5 = res.data.data
+            that.totalPage5 =Math.ceil(that.Lists5.length/that.pageSize5)
+            that.totalPage5=that.totalPage5==0?1:that.totalPage5
+            that.setCurrentPageDate5()
           }).catch(function (error) {
             console.log(error)
           })
@@ -565,136 +585,144 @@
         },
         // 点击添加至列表中
         Click1:function (id) {
+          let that =this
         //  选择题
           console.log(id)
-          if(this.List1.indexOf(id)>-1){
-            this.List1.splice(this.List1.indexOf(id),1)
+          if(that.List1.indexOf(id)>-1){
+            that.List1.splice(that.List1.indexOf(id),1)
             document.getElementById("tianjia1("+id+")").innerHTML="添加"
           }
           else{
-            this.List1.push(id)
+            that.List1.push(id)
             document.getElementById("tianjia1("+id+")").innerHTML="已添加"
           }
-          console.log(this.List1)
+          console.log(that.List1)
         },
         Click2:function (id) {
+          let that =this
           console.log(id)
-          if(this.List2.indexOf(id)>-1){
-            this.List2.splice(this.List2.indexOf(id),1)
+          if(that.List2.indexOf(id)>-1){
+            that.List2.splice(that.List2.indexOf(id),1)
             document.getElementById("tianjia2("+id+")").innerHTML="添加"
           }
           else{
-            this.List2.push(id)
+            that.List2.push(id)
             document.getElementById("tianjia2("+id+")").innerHTML="已添加"
           }
-          console.log(this.List2)
+          console.log(that.List2)
         },
         Click3:function (id) {
+          let that =this
           console.log(id)
-          if(this.List3.indexOf(id)>-1){
-            this.List3.splice(this.List3.indexOf(id),1)
+          if(that.List3.indexOf(id)>-1){
+            that.List3.splice(that.List3.indexOf(id),1)
             document.getElementById("tianjia3("+id+")").innerHTML="添加"
           }
           else{
-            this.List3.push(id)
+            that.List3.push(id)
             document.getElementById("tianjia3("+id+")").innerHTML="已添加"
           }
-          console.log(this.List3)
+          console.log(that.List3)
         },
         Click4:function (id) {
+          let that =this
           console.log(id)
-          if(this.List4.indexOf(id)>-1){
-            this.List4.splice(this.List4.indexOf(id),1)
+          if(that.List4.indexOf(id)>-1){
+            that.List4.splice(that.List4.indexOf(id),1)
             document.getElementById("tianjia4("+id+")").innerHTML="添加"
           }
           else{
-            this.List4.push(id)
+            that.List4.push(id)
             document.getElementById("tianjia4("+id+")").innerHTML="已添加"
           }
-          console.log(this.List4)
+          console.log(that.List4)
         },
         Click5:function (id) {
+          let that =this
           console.log(id)
-          if(this.List5.indexOf(id)>-1){
-            this.List5.splice(this.List5.indexOf(id),1)
+          if(that.List5.indexOf(id)>-1){
+            that.List5.splice(that.List5.indexOf(id),1)
             document.getElementById("tianjia5("+id+")").innerHTML="添加"
           }
           else{
-            this.List5.push(id)
+            that.List5.push(id)
             document.getElementById("tianjia5("+id+")").innerHTML="已添加"
           }
-          console.log(this.List5)
+          console.log(that.List5)
         },
 
       //  预览试卷
         SelfView:function () {
+          let that =this
           console.log("预览试卷")
-          this.$http.post('/yii/exam/index/addexam',{
+          that.$http.post('/exam/index/addexam',{
             flag:2,
             k:1,
-            chooseList:this.List1,
-            fillList:this.List2,
-            judgeList:this.List3,
-            choosemList:this.List4,
-            programList:this.List5
+            chooseList:that.List1,
+            fillList:that.List2,
+            judgeList:that.List3,
+            choosemList:that.List4,
+            programList:that.List5
           }).then(function (res) {
             console.log(res.data)
-            this.ViewList1 = res.data.data[0]
-            this.ViewList2 = res.data.data[1]
-            this.ViewList3 = res.data.data[2]
-            this.ViewList4 = res.data.data[3]
-            this.ViewList5 = res.data.data[4]
+            that.ViewList1 = res.data.data[0]
+            that.ViewList2 = res.data.data[1]
+            that.ViewList3 = res.data.data[2]
+            that.ViewList4 = res.data.data[3]
+            that.ViewList5 = res.data.data[4]
           }).catch(function (error) {
             console.log(error)
           })
         },
         SelfOK:function () {
           console.log("完成问卷")
-          if(this.List1.length ==0 ||this.List2.length==0||this.List3.length==0||this.List4.length==0||this.List5.length==0)
+          if(that.List1.length ==0 ||that.List2.length==0||that.List3.length==0||that.List4.length==0||that.List5.length==0)
           {
-            this.$alert('五类题型中还有题型没有添加，请检查', '警告', {
+            that.$alert('五类题型中还有题型没有添加，请检查', '警告', {
               confirmButtonText: '确定',})
           }
           else{
-            this.$http.post('/yii/exam/index/addexam',{
+            that.$http.post('/exam/index/addexam',{
               flag:2,
               k:2,
-              chooseList:this.List1,
-              fillList:this.List2,
-              judgeList:this.List3,
-              choosemList:this.List4,
-              programList:this.List5,
-              exname:this.SelfList.name,
-              gdtime:this.SelfList.gdtime,
-              auth:this.$store.getters.getsId
+              chooseList:that.List1,
+              fillList:that.List2,
+              judgeList:that.List3,
+              choosemList:that.List4,
+              programList:that.List5,
+              exname:that.SelfList.name,
+              gdtime:that.SelfList.gdtime,
+              auth:that.$store.getters.getsId
             }).then(function (res) {
               console.log(res.data)
               if(res.data.message=="完成问卷试卷")
               {
-                this.$router.push({path:'/admin/exam/create'})
+                that.$router.push({path:'/admin/exam/create'})
               }
               alert(res.data.message)
-              this.dialogFormVisible = false
-              this.SelfList.name =""
+              that.dialogFormVisible = false
+              that.SelfList.name =""
             }).catch(function (error) {
               console.log(error)
             })
           }
         },
         getQuery:function () {
-          this.getQuery1()
-          this.getQuery2()
-          this.getQuery3()
-          this.getQuery4()
-          this.getQuery5()
+          let that =this
+          that.getQuery1()
+          that.getQuery2()
+          that.getQuery3()
+          that.getQuery4()
+          that.getQuery5()
         }
       },
       created(){
-        this.getQuery1()
-        this.getQuery2()
-        this.getQuery3()
-        this.getQuery4()
-        this.getQuery5()
+          this.getQuery()
+        // that.getQuery1()
+        // that.getQuery2()
+        // that.getQuery3()
+        // that.getQuery4()
+        // that.getQuery5()
       }
     }
 </script>

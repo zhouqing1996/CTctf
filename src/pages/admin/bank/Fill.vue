@@ -42,7 +42,7 @@
               <button class="btn2 el-icon-folder-remove" @click="getQueryfQuestionN">无效题目</button>
               <button class="btn2 el-icon-folder-checked" @click="getQueryfQuestion">所有题目</button>
               <button class="btn2 el-icon-document" @click="addF">批量添加</button>
-              <input type="file" @change="importExcel(this)" id="inputExcel"
+              <input type="file" @change="importExcel(that)" id="inputExcel"
                      accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" style="display: none"/>
             </div>
             <div class="waimian">
@@ -197,112 +197,120 @@
     methods:{
       //分页
       setCurrentPageDate: function () {
-        let begin = (this.currentPage - 1) * this.pageSize;
-        let end = this.currentPage * this.pageSize;
-        this.currentPageData = this.fQuestionList.slice(begin, end)
+        let that =this
+        let begin = (that.currentPage - 1) * that.pageSize;
+        let end = that.currentPage * that.pageSize;
+        that.currentPageData = that.fQuestionList.slice(begin, end)
       },
       prePage() {
-        console.log(this.currentPage)
-        if (this.currentPage == 1)
+        let that =this
+        console.log(that.currentPage)
+        if (that.currentPage == 1)
           return
-        this.currentPage--;
-        this.setCurrentPageDate()
+        that.currentPage--;
+        that.setCurrentPageDate()
       },
       nextPage() {
-        if (this.currentPage == this.totalPage) return
-        this.currentPage++;
-        this.setCurrentPageDate()
+        let that =this
+        if (that.currentPage == that.totalPage) return
+        that.currentPage++;
+        that.setCurrentPageDate()
       },
       //获取填空题列表
       getQueryfQuestion:function(){
-        this.$http.post('/yii/bank/fillq/queryfill',{
+        let that =this
+        that.$http.post('/bank/fillq/queryfill',{
           flag:1
         }).then(function (res) {
           console.log(res.data)
-          this.fQuestionList = res.data.data
-          this.totalPage =Math.ceil(this.fQuestionList.length/this.pageSize)
-          this.totalPage=this.totalPage==0?1:this.totalPage
-          this.setCurrentPageDate()
+          that.fQuestionList = res.data.data
+          that.totalPage =Math.ceil(that.fQuestionList.length/that.pageSize)
+          that.totalPage=that.totalPage==0?1:that.totalPage
+          that.setCurrentPageDate()
         }).catch(function (error) {
           console.log(error)
         })
       },
       //获取有效填空题列表
       getQueryfQuestionY:function(){
-        this.$http.post('/yii/bank/fillq/queryfill',{
+        let that =this
+        that.$http.post('/bank/fillq/queryfill',{
           flag:2
         }).then(function (res) {
           console.log(res.data)
-          this.fQuestionList = res.data.data
-          this.totalPage =Math.ceil(this.fQuestionList.length/this.pageSize)
-          this.totalPage=this.totalPage==0?1:this.totalPage
-          this.setCurrentPageDate()
+          that.fQuestionList = res.data.data
+          that.totalPage =Math.ceil(that.fQuestionList.length/that.pageSize)
+          that.totalPage=that.totalPage==0?1:that.totalPage
+          that.setCurrentPageDate()
         }).catch(function (error) {
           console.log(error)
         })
       },
       //获取无效填空题列表
       getQueryfQuestionN:function(){
-        this.$http.post('/yii/bank/fillq/queryfill',{
+        let that =this
+        that.$http.post('/bank/fillq/queryfill',{
           flag:4
         }).then(function (res) {
           console.log(res.data)
-          this.fQuestionList = res.data.data
-          this.totalPage =Math.ceil(this.fQuestionList.length/this.pageSize)
-          this.totalPage=this.totalPage==0?1:this.totalPage
-          this.setCurrentPageDate()
+          that.fQuestionList = res.data.data
+          that.totalPage =Math.ceil(that.fQuestionList.length/that.pageSize)
+          that.totalPage=that.totalPage==0?1:that.totalPage
+          that.setCurrentPageDate()
         }).catch(function (error) {
           console.log(error)
         })
       },
       //搜索
       searchF:function () {
-        console.log(this.name)
-        this.$http.post('/yii/bank/fillq/queryfill',{
+        let that =this
+        console.log(that.name)
+        that.$http.post('/bank/fillq/queryfill',{
           flag:3,
-          name:this.inputname
+          name:that.inputname
         }).then(function (res) {
           console.log(res.data)
-          this.fQuestionList = res.data.data
-          this.totalPage =Math.ceil(this.fQuestionList.length/this.pageSize)
-          this.totalPage=this.totalPage==0?1:this.totalPage
-          this.setCurrentPageDate()
+          that.fQuestionList = res.data.data
+          that.totalPage =Math.ceil(that.fQuestionList.length/that.pageSize)
+          that.totalPage=that.totalPage==0?1:that.totalPage
+          that.setCurrentPageDate()
         }).catch(function (error) {
           console.log(error)
         })
       },
       //添加题库
       addfQuestion:function (List) {
+        let that =this
         console.log(List)
         if(List.item == '')
         {
-          this.$alert('题干为空', '警告', {
+          that.$alert('题干为空', '警告', {
             confirmButtonText: '确定',})
         }
         else if(List.ans==''){
-          this.$alert('答案为空', '警告', {
+          that.$alert('答案为空', '警告', {
             confirmButtonText: '确定',})
         }
         else{
-          this.$http.post('/yii/bank/fillq/addfill',{
+          that.$http.post('/bank/fillq/addfill',{
             qitem:List.item,
             ans:List.ans,
             tail:List.tail,
             rem:List.rem,
-            auth:this.$store.getters.getsId
+            auth:that.$store.getters.getsId
           }).then(function (res) {
             console.log(res.data)
             if(res.data.message=="插入填空题成功")
             {
-              this.getQueryfQuestion()
+              that.getQueryfQuestion()
               alert("插入填空题成功")
-              this.dialogFormVisibleadd=false
-              this.Reset()
+              that.dialogFormVisibleadd=false
+              that.Reset()
             }
             else
             {
               alert(res.data.message)
-              this.Reset()
+              that.Reset()
             }
           })
         }
@@ -310,10 +318,11 @@
       },
       //重置
       Reset:function () {
-        this.addList.rem=""
-        this.addList.tail=""
-        this.addList.ans=""
-        this.addList.item=""
+        let that =this
+        that.addList.rem=""
+        that.addList.tail=""
+        that.addList.ans=""
+        that.addList.item=""
 
       },
       //修改
@@ -323,99 +332,100 @@
       //4：知识点
       //5:状态
       changefill:function (item,id) {
+        let that =this
         console.log(item)
         if(item==1) {
-          this.$http.post('/yii/bank/fillq/change',{
-            cid:this.changeList.id,
+          that.$http.post('/bank/fillq/change',{
+            cid:that.changeList.id,
             flag:1,
-            item:this.changeList.item,
-            auth:this.$store.getters.getsId
+            item:that.changeList.item,
+            auth:that.$store.getters.getsId
           }).then(function (res) {
             console.log(res.data)
             if(res.data.message=="该填空题题干修改成功")
             {
-              this.getQueryfQuestion()
+              that.getQueryfQuestion()
             }
             alert(res.data.message)
-            this.dialogFormVisiblechangeitem=false
-            this.changeList.id=""
-            this.changeList.item=""
+            that.dialogFormVisiblechangeitem=false
+            that.changeList.id=""
+            that.changeList.item=""
           }).catch(function (error) {
             console.log(error)
           })
         }
         else if(item==2){
-          this.$http.post('/yii/bank/fillq/change',{
-            cid:this.changeList.id,
+          that.$http.post('/bank/fillq/change',{
+            cid:that.changeList.id,
             flag:2,
-            ans:this.changeList.ans,
-            auth:this.$store.getters.getsId
+            ans:that.changeList.ans,
+            auth:that.$store.getters.getsId
           }).then(function (res) {
             console.log(res.data)
             if(res.data.message=="该填空题答案修改成功")
             {
-              this.getQueryfQuestion()
+              that.getQueryfQuestion()
             }
             alert(res.data.message)
-            this.dialogFormVisiblechangeans=false
-            this.changeList.id=""
-            this.changeList.ans=""
+            that.dialogFormVisiblechangeans=false
+            that.changeList.id=""
+            that.changeList.ans=""
           }).catch(function (error) {
             console.log(error)
           })
         }
         else if(item==3){
-          this.$http.post('/yii/bank/fillq/change',{
-            cid:this.changeList.id,
+          that.$http.post('/bank/fillq/change',{
+            cid:that.changeList.id,
             flag:3,
-            tail:this.changeList.tail,
-            auth:this.$store.getters.getsId
+            tail:that.changeList.tail,
+            auth:that.$store.getters.getsId
           }).then(function (res) {
             console.log(res.data)
             if(res.data.message=="该填空题详解修改成功")
             {
-              this.getQueryfQuestion()
+              that.getQueryfQuestion()
             }
             alert(res.data.message)
-            this.dialogFormVisiblechangetail=false
-            this.changeList.id=""
-            this.changeList.tail=""
+            that.dialogFormVisiblechangetail=false
+            that.changeList.id=""
+            that.changeList.tail=""
           }).catch(function (error) {
             console.log(error)
           })
         }
         else if(item==4){
-          this.$http.post('/yii/bank/fillq/change',{
-            cid:this.changeList.id,
+          that.$http.post('/bank/fillq/change',{
+            cid:that.changeList.id,
             flag:4,
-            rem:this.changeList.rem,
-            auth:this.$store.getters.getsId
+            rem:that.changeList.rem,
+            auth:that.$store.getters.getsId
           }).then(function (res) {
             console.log(res.data)
             if(res.data.message=="该填空题相关知识修改成功")
             {
-              this.getQueryfQuestion()
+              that.getQueryfQuestion()
             }
             alert(res.data.message)
-            this.dialogFormVisiblechangerem=false
-            this.changeList.id=""
-            this.changeList.tail=""
+            that.dialogFormVisiblechangerem=false
+            that.changeList.id=""
+            that.changeList.tail=""
           }).catch(function (error) {
             console.log(error)
           })
         }
         else if(item==5){
           console.log(id)
-          this.$http.post('/yii/bank/fillq/change',{
+          that.$http.post('/bank/fillq/change',{
             cid:id,
             flag:5,
-            auth:this.$store.getters.getsId
+            auth:that.$store.getters.getsId
           }).then(function (res) {
 
             console.log(res.data)
             if(res.data.message=="该填空题状态修改成功")
             {
-              this.getQueryfQuestion()
+              that.getQueryfQuestion()
             }
             alert(res.data.message)
           })
@@ -428,23 +438,24 @@
       //1:暂时删除
       //2：永久删除
       deletefill:function (item,id) {
+        let that =this
         console.log(item)
         if(item==1)
         {
-          this.$confirm("删除该用户填空题，是否继续？", "提示", {
+          that.$confirm("删除该用户填空题，是否继续？", "提示", {
             confirmButtonText: "确定",
             cancelButtonText: "取消",
             type: "warning"
           }).then(() => {
-            this.$http.post('/yii/bank/fillq/delete',{
+            that.$http.post('/bank/fillq/delete',{
               fid:id,
               flag:1,
-              auth:this.$store.getters.getsId
+              auth:that.$store.getters.getsId
             }).then(function (res) {
               console.log(res.data)
               if(res.data.message=="该填空题删除成功")
               {
-                this.getQueryfQuestion()
+                that.getQueryfQuestion()
               }
               alert(res.data.message)
             })
@@ -454,19 +465,19 @@
         }
         else if(item==2)
         {
-          this.$confirm("永久删除该用户填空题，是否继续？", "提示", {
+          that.$confirm("永久删除该用户填空题，是否继续？", "提示", {
             confirmButtonText: "确定",
             cancelButtonText: "取消",
             type: "warning"
           }).then(() => {
-            this.$http.post('/yii/bank/fillq/delete',{
+            that.$http.post('/bank/fillq/delete',{
               fid:id,
               flag:2
             }).then(function (res) {
               console.log(res.data)
               if(res.data.message=="该填空题永久删除成功")
               {
-                this.getQueryfQuestion()
+                that.getQueryfQuestion()
               }
               alert(res.data.message)
             })
@@ -483,9 +494,9 @@
         this.inputExcel.click()
       },
       importExcel (obj) {
-        let _this = this
+        let _that = this
         let inputDOM = this.$refs.inputer   // 通过DOM取文件数据
-        this.file = event.currentTarget.files[0]
+        that.file = event.currentTarget.files[0]
         var rABS = false // 是否将文件读取为二进制字符串
         var f = this.file
         var reader = new FileReader()
@@ -493,7 +504,6 @@
         FileReader.prototype.readAsBinaryString = function (f) {
           var binary = ''
           var rABS = false // 是否将文件读取为二进制字符串
-          var pt = this
           var wb // 读取完成的数据
           var outdata
           var reader = new FileReader()
@@ -523,17 +533,17 @@
               obj.ans= v.答案
               obj.tail= v.详解
               obj.rem= v.相关点
-              obj.auth=_this.$store.getters.getsId
+              obj.auth=_that.$store.getters.getsId
               arr.push(obj)
             })
-            _this.memberList = [...arr]
+            _that.memberList = [...arr]
             let data = {
-              data: JSON.stringify(_this.memberList)
+              data: JSON.stringify(_that.memberList)
             }
             console.log(data)
-            _this.$http.post('/yii/bank/fillq/importexcel', data).then(body => {
+            _that.$http.post('/bank/fillq/importexcel', data).then(body => {
               alert(body.data.message)
-              _this.getQueryfQuestion()
+              _that.getQueryfQuestion()
             })
           }
           reader.readAsArrayBuffer(f)

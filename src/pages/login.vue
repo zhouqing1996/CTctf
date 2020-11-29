@@ -54,50 +54,52 @@
     },
     methods: {
       showPass() {
-        if (this.passwordVisible === "text") {
-          this.passwordVisible = "password";
+        let that =this
+        if (that.passwordVisible === "text") {
+          that.passwordVisible = "password";
           //更换图标
-          this.icon = "el-icon-view";
+          that.icon = "el-icon-view";
         } else {
-          this.passwordVisible = "text";
-          this.icon = "el-icon-lock";
+          that.passwordVisible = "text";
+          that.icon = "el-icon-lock";
         }
       },
       login() {
-        if(this.loginForm.username==''||this.loginForm.password==''||this.loginForm.role=='')
+        let that =this
+        if(that.loginForm.username==''||that.loginForm.password==''||that.loginForm.role=='')
         {
-          this.$alert('请输入完整登录信息', '警告', {
+          that.$alert('请输入完整登录信息', '警告', {
             confirmButtonText: '确定',})
         }
         else{
-          this.$http.post('/yii/home/index/login',{
-            username:this.loginForm.username,
-            password:this.loginForm.password,
-            role:this.loginForm.role
+          that.$http.post('/home/index/login',{
+            username:that.loginForm.username,
+            password:that.loginForm.password,
+            role:that.loginForm.role
           }).then(res=>{
             console.log(res.data)
             var message = res.data.message
             if(message=="登录成功")
             {
-              this.$store.dispatch('login',res.data.data)
-              this.$store.dispatch('slogin',res.data.data)
-              let role = this.$store.getters.getsRole
+              that.$store.dispatch('login',res.data.data)
+              that.$store.dispatch('slogin',res.data.data)
+              let role = that.$store.getters.getsRole
               alert(message)
               if(role==1)
               {
                 //管理员
-                this.$router.push({path:'/admin/index'})
+                that.$router.push({path:'/admin/index'})
               }
               else if(role ==2)
               {
                 //二级管理员
-                this.$router.push({path:'/teacher/index'})
+                that.$router.push({path:'/teacher/index'})
               }
               else
               {
-                this.$router.push({path:'/user/index'})
+                that.$router.push({path:'/user/index'})
               }
-              console.log(this.$store.getters.getsToken)
+              console.log(that.$store.getters.getsToken)
             }
             else if(message=="该用户不存在")
             {

@@ -75,39 +75,42 @@
     },
     methods: {
       showPass() {
-        if (this.passwordVisible === "text") {
-          this.passwordVisible = "password";
+        let that = this
+        if (that.passwordVisible === "text") {
+          that.passwordVisible = "password";
           //更换图标
-          this.icon = "el-icon-view";
+          that.icon = "el-icon-view";
         } else {
-          this.passwordVisible = "text";
-          this.icon = "el-icon-lock";
+          that.passwordVisible = "text";
+          that.icon = "el-icon-lock";
         }
       },
       forget() {
+        let that = this
         let r = '/^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[~!@#$%^&*()_+`\\-={}:";\'<>,.\\/]).{6,10}/';
         var Reg = new RegExp(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[~!@#$%^&*()_+`\-={}:";'<>,.\/]).{6,10}/)
-        if(!Reg.test(this.forgetForm.password))
+        if(!Reg.test(that.forgetForm.password))
         {
-          this.$alert('密码规则为：6-10位包含数字、字母、特殊字符的字串', '警告', {
+          that.$alert('密码规则为：6-10位包含数字、字母、特殊字符的字串', '警告', {
             confirmButtonText: '确定',})
         }
         else{
-          this.$http.post('/yii/home/index/forget',{
-            username:this.forgetForm.username,
-            password:this.forgetForm.password,
-            role:this.forgetForm.role
+          let that = this
+          that.$http.post('/home/index/forget',{
+            username:that.forgetForm.username,
+            password:that.forgetForm.password,
+            role:that.forgetForm.role
           }).then(res=>{
             console.log(res.data)
             if(res.data.message=="修改密码成功")
             {
               alert('修改密码成功')
-              this.$store.dispatch('logout')
-              this.$store.dispatch('slogout')
-              this.$router.push({
+              that.$store.dispatch('logout')
+              that.$store.dispatch('slogout')
+              that.$router.push({
                 path:'/login',
                 params:{
-                  username:this.forgetForm.username
+                  username:that.forgetForm.username
                 }
               })
             }
@@ -121,18 +124,18 @@
 
       },
       // gotoReigster() {
-      //   this.$router.push({
+      //   that.$router.push({
       //     path: "/register"
       //   });
       // },
       // gotoLogin(){
-      //   this.$router.push({
+      //   that.$router.push({
       //     path:"/login"
       //   });
       // }
     },
     created:function () {
-      this.forgetForm.username = this.$route.params.username
+      that.forgetForm.username = that.$route.params.username
     }
   }
 </script>

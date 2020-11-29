@@ -29,12 +29,12 @@ exports.cssLoaders = function (options) {
     }
   }
 
-  // const postcssLoader = {
-  //   loader: 'postcss-loader',
-  //   options: {
-  //     sourceMap: options.sourceMap
-  //   }
-  // }
+  const postcssLoader = {
+    loader: 'postcss-loader',
+    options: {
+      sourceMap: options.sourceMap
+    }
+  }
 
   // generate loader string to be used with extract text plugin
   function generateLoaders (loader, loaderOptions) {
@@ -54,6 +54,7 @@ exports.cssLoaders = function (options) {
     if (options.extract) {
       return ExtractTextPlugin.extract({
         use: loaders,
+        publicPath: '../../',         //加上这一条就好了
         fallback: 'vue-style-loader'
       })
     } else {

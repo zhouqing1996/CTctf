@@ -154,14 +154,15 @@
       },
       methods:{
         back:function(){
-          this.$router.push({
+          let that = this
+          that.$router.push({
             path:'/user/evaluate',
           })
         },
         getExamList:function () {
           let that =this
-          this.$http.post('/yii/exam/exam/view',{
-            id:this.eid
+          that.$http.post('/exam/exam/view',{
+            id:that.eid
           }).then(function (res) {
             console.log(res.data)
             // that.limitTime = res.data.data[8].gdtime
@@ -198,8 +199,9 @@
         },
         //提交选择题
         cr:function(id,str){
+          let that = this
           let MeTime = new Date()
-          let SubTime = parseInt((MeTime - this.MsTime)/1000);
+          let SubTime = parseInt((MeTime - that.MsTime)/1000);
           let d = Math.floor(parseInt(SubTime/(24 * 60 * 60)));
           let h = Math.floor(parseInt(SubTime/60/60%24));
           let m = Math.floor(parseInt(SubTime/60%60));
@@ -209,33 +211,34 @@
           s = s > 9 ? s:'0' + s
           let time = h+':'+m+':'+s
           console.log(time)
-          this.MsTime = MeTime
+          that.MsTime = MeTime
           let flag = true
-          for(let i=0;i< this.cList.length;i++)
+          for(let i=0;i< that.cList.length;i++)
           {
-            if(this.cList[i]['id']==id)
+            if(that.cList[i]['id']==id)
             {
               flag=false
-              this.cList[i]['ans']=str
+              that.cList[i]['ans']=str
               break
             }
           }
           if(flag){
-            this.cList.push({
+            that.cList.push({
               id:id,
               ans:str,
               ctime:time
             })
           }
-          console.log(this.cList)
+          console.log(that.cList)
         },
         //提交填空题
         updateData (ans) {
           console.log(ans)
         },
         fr:function(id,event){
+          let that = this
           let MeTime = new Date()
-          let SubTime = parseInt((MeTime - this.MsTime)/1000);
+          let SubTime = parseInt((MeTime - that.MsTime)/1000);
           let d = Math.floor(parseInt(SubTime/(24 * 60 * 60)));
           let h = Math.floor(parseInt(SubTime/60/60%24));
           let m = Math.floor(parseInt(SubTime/60%60));
@@ -245,30 +248,31 @@
           s = s > 9 ? s:'0' + s
           let time = h+':'+m+':'+s
           console.log(time)
-          this.MsTime = MeTime
+          that.MsTime = MeTime
           let flag = true
-          for(let i=0;i< this.fList.length;i++)
+          for(let i=0;i< that.fList.length;i++)
           {
-            if(this.fList[i]['id']==id)
+            if(that.fList[i]['id']==id)
             {
               flag=false
-              this.fList[i]['ans'] = event.currentTarget.value
+              that.fList[i]['ans'] = event.currentTarget.value
               break
             }
           }
           if(flag){
-            this.fList.push({
+            that.fList.push({
               id:id,
               ans:event.currentTarget.value,
               ctime:time
             })
           }
-          console.log(this.fList)
+          console.log(that.fList)
         },
         //提交判断题
         jr:function(id,num) {
+          let that = this
           let MeTime = new Date()
-          let SubTime = parseInt((MeTime - this.MsTime)/1000);
+          let SubTime = parseInt((MeTime - that.MsTime)/1000);
           let d = Math.floor(parseInt(SubTime/(24 * 60 * 60)));
           let h = Math.floor(parseInt(SubTime/60/60%24));
           let m = Math.floor(parseInt(SubTime/60%60));
@@ -278,30 +282,31 @@
           s = s > 9 ? s:'0' + s
           let time = h+':'+m+':'+s
           console.log(time)
-          this.MsTime = MeTime
+          that.MsTime = MeTime
           let flag = true
-          for(let i=0;i< this.jList.length;i++)
+          for(let i=0;i< that.jList.length;i++)
           {
-            if(this.jList[i]['id']==id)
+            if(that.jList[i]['id']==id)
             {
               flag=false
-              this.jList[i]['ans'] = num
+              that.jList[i]['ans'] = num
               break
             }
           }
           if(flag){
-            this.jList.push({
+            that.jList.push({
               id:id,
               ans:num,
               ctime:time
             })
           }
-          console.log(this.jList)
+          console.log(that.jList)
         },
         //提交多选题
         mr:function(id,str){
+          let that = this
           let MeTime = new Date()
-          let SubTime = parseInt((MeTime - this.MsTime)/1000);
+          let SubTime = parseInt((MeTime - that.MsTime)/1000);
           let d = Math.floor(parseInt(SubTime/(24 * 60 * 60)));
           let h = Math.floor(parseInt(SubTime/60/60%24));
           let m = Math.floor(parseInt(SubTime/60%60));
@@ -311,14 +316,14 @@
           s = s > 9 ? s:'0' + s
           let time = h+':'+m+':'+s
           console.log(time)
-          this.MsTime = MeTime
+          that.MsTime = MeTime
           let flag =true
-          for(let i=0;i< this.cmList.length;i++)
+          for(let i=0;i< that.cmList.length;i++)
           {
-            if(this.cmList[i]['id']==id) {
+            if(that.cmList[i]['id']==id) {
               flag = false
               flag = false
-              let li = this.cmList[i]['ans'].split('---')
+              let li = that.cmList[i]['ans'].split('---')
               //判断是否重复
               let t = true
               let n = li.length
@@ -330,11 +335,11 @@
                 }
               }
               if (t) {
-                if (this.cmList[i]['ans'] == '') {
-                  this.cmList[i]['ans'] = str
+                if (that.cmList[i]['ans'] == '') {
+                  that.cmList[i]['ans'] = str
                 }
                 else {
-                  this.cmList[i]['ans'] = this.cmList[i]['ans'] + '---' + str
+                  that.cmList[i]['ans'] = that.cmList[i]['ans'] + '---' + str
                 }
               }
               else {
@@ -352,28 +357,30 @@
                     }
                   }
                 }
-                this.cmList[i]['ans'] = st
+                that.cmList[i]['ans'] = st
               }
             }
           }
           if(flag){
-            this.cmList.push({
+            that.cmList.push({
               id:id,
               ans:str,
               ctime:time
             })
           }
-          console.log(this.cmList)
+          console.log(that.cmList)
         },
         //提交程序题
         changePValue:function(vel)
         {
-          this.code_content = vel
-          console.log(this.code_content)
+          let that = this
+          that.code_content = vel
+          console.log(that.code_content)
         },
         pr:function(id,code_content){
+          let that = this
           let MeTime = new Date()
-          let SubTime = parseInt((MeTime - this.MsTime)/1000);
+          let SubTime = parseInt((MeTime - that.MsTime)/1000);
           let d = Math.floor(parseInt(SubTime/(24 * 60 * 60)));
           let h = Math.floor(parseInt(SubTime/60/60%24));
           let m = Math.floor(parseInt(SubTime/60%60));
@@ -383,36 +390,37 @@
           s = s > 9 ? s:'0' + s
           let time = h+':'+m+':'+s
           console.log(time)
-          this.MsTime = MeTime
+          that.MsTime = MeTime
           let flag = true
-          for(let i=0;i< this.pList.length;i++)
+          for(let i=0;i< that.pList.length;i++)
           {
-            if(this.pList[i]['id']==id)
+            if(that.pList[i]['id']==id)
             {
               flag=false
-              this.pList[i]['ans'] = this.code_content
+              that.pList[i]['ans'] = that.code_content
               break
             }
           }
           if(flag){
-            this.pList.push({
+            that.pList.push({
               id:id,
-              ans:this.code_content,
+              ans:that.code_content,
               ctime:time
             })
           }
-          console.log(this.pList)
+          console.log(that.pList)
         },
         //提交试卷
         EvaOK:function () {
-          console.log(this.cList)
-          console.log(this.pList)
-          console.log(this.cmList)
-          console.log(this.jList)
-          console.log(this.fList)
-          console.log(this.code_content)
+          let that = this
+          console.log(that.cList)
+          console.log(that.pList)
+          console.log(that.cmList)
+          console.log(that.jList)
+          console.log(that.fList)
+          console.log(that.code_content)
           let enTime = new Date()
-          let SubTime = parseInt((enTime - this.stime)/1000);
+          let SubTime = parseInt((enTime - that.stime)/1000);
           let d = Math.floor(parseInt(SubTime/(24 * 60 * 60)));
           let h = Math.floor(parseInt(SubTime/60/60%24));
           let m = Math.floor(parseInt(SubTime/60%60));
@@ -422,18 +430,25 @@
           s = s > 9 ? s:'0' + s
           let time = h+':'+m+':'+s
           console.log(time)
-          this.$http.post('/yii/exam/exam/userans',{
-            cList:this.cList,
-            fList:this.fList,
-            cmList:this.cmList,
-            pList:this.pList,
-            jList:this.jList,
-            uid:this.$store.getters.getsId,
-            eid:this.eid,
+          that.$http.post('/exam/exam/userans',{
+            cList:that.cList,
+            fList:that.fList,
+            cmList:that.cmList,
+            pList:that.pList,
+            jList:that.jList,
+            uid:that.$store.getters.getsId,
+            eid:that.eid,
             ctime:time
           }).then(function (res) {
             console.log(res.data)
-            this.$router.push({path:'/user/evaluate/userview'})
+            that.$router.push({
+              path:'/user/evaluate/userview',
+              query:{
+                uid:that.$store.getters.getsId,
+                eid:that.eid,
+                num:res.data.data
+              }
+            })
             alert(res.data.message)
           })
         },
@@ -449,40 +464,41 @@
           that.settime = mydate
           // console.log(mydate.toLocaleString())
           let time = setInterval(()=>{
-            if(this.tflag == true)
+            if(that.tflag == true)
             {
               clearInterval(time)
             }
-            this.timeDown()
+            that.timeDown()
           },1000)
-          this.$once("hook:beforeDestroy", () => {
+          that.$once("hook:beforeDestroy", () => {
             clearInterval(time);
           });
         },
         timeDown:function () {
-          const endTime = new Date(this.settime);
+          let that = this
+          const endTime = new Date(that.settime);
           const nowTime = new Date();
           let leftTime = Math.floor(parseInt((endTime.getTime()-nowTime.getTime())/1000));
           let d = Math.floor(parseInt(leftTime/(24 * 60 * 60)));
           let h = Math.floor(parseInt(leftTime/60/60%24));
           let m = Math.floor(parseInt(leftTime/60%60));
           let s = Math.floor(parseInt(leftTime%60));
-          // let h = this.formatTime(parseInt(leftTime /60 / 60 % 24));
-          // let m = this.formatTime(parseInt(leftTime /60 % 60));
-          // let s = this.formatTime(parseInt(leftTime % 60));
+          // let h = that.formatTime(parseInt(leftTime /60 / 60 % 24));
+          // let m = that.formatTime(parseInt(leftTime /60 % 60));
+          // let s = that.formatTime(parseInt(leftTime % 60));
           h = h > 9 ? h :'0' + h
           m = m > 9 ? m :'0' + m
           s = s > 9 ? s:'0' + s
           if(leftTime <=0){
-            this.tflag = true;
-            this.EvaOK()
+            that.tflag = true;
+            that.EvaOK()
             alert("时间到，暂停作答！")
           //  自动提交试卷
-            this.$router.push({
+            that.$router.push({
               path:'/user/evaluate',
             })
           }
-          this.tLabeL = `${h}:${m}:${s}`
+          that.tLabeL = `${h}:${m}:${s}`
         },
         formatTime:function(time){
           if(time>=10)
@@ -495,21 +511,23 @@
         }
       },
       created(){
-          this.eid =this.$route.query.id
-        this.getExamList()
-        // this.stime = this.$route.query.stime
-        this.stime = new Date()
-        this.limitTime = this.$route.query.limit
-        console.log(this.stime)
-        console.log(this.limitTime)
-        this.startCountDown()
-        this.MsTime = new Date()
-        console.log(this.MsTime)
+        let that = this
+          that.eid =that.$route.query.id
+        that.getExamList()
+        // that.stime = that.$route.query.stime
+        that.stime = new Date()
+        that.limitTime = that.$route.query.limit
+        console.log(that.stime)
+        console.log(that.limitTime)
+        that.startCountDown()
+        that.MsTime = new Date()
+        console.log(that.MsTime)
       },
       destroyed(){
-          if(this.settime)
+        let that = this
+          if(that.settime)
           {
-            clearInterval(this.settime)
+            clearInterval(that.settime)
           }
       }
     }

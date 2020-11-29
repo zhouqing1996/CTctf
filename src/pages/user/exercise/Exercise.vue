@@ -1,15 +1,17 @@
 <template>
   <div>
-    <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb-css">
-      <el-breadcrumb-item><span @click="getQuery" style="font-weight: bold">练习</span></el-breadcrumb-item>
-    </el-breadcrumb>
-    <div><hr/></div>
-    <div class="display1">
+    <div>
+      <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb-css">
+        <el-breadcrumb-item><span @click="getQuery" style="font-weight: bold">练习</span></el-breadcrumb-item>
+      </el-breadcrumb>
+      <div><hr/></div>
+    </div>
+    <div>
       <el-tabs type="border-card">
         <!--选择题-->
         <el-tab-pane>
           <span slot="label" @click="getQuery1"><i class="el-icon-date" ></i> 选择题列表</span>
-          <div class="display2">
+          <div>
             <div class="searchmem">
               <div class="meeting" >
                 <el-input v-model="inputname" placeholder="选择题" size="mini"></el-input>
@@ -35,26 +37,25 @@
                 </td>
               </tr>
             </table>
-            <hr/>
-            <div class="page">
-              <ul class="pagination pagination-sm"><!--分页-->
-                <li class="page-item" v-if="currentPage1!=1">
-                  <span class="page-link" v-on:click="prePage1">上一页</span>
-                </li>
-                <li class="page-item" >
-                  <span class="page-link" >第{{ currentPage1 }}页/共{{totalPage1}}页</span>
-                </li>
-                <li class="page-item" v-if="currentPage1!=totalPage1">
-                  <span class="page-link" v-on:click="nextPage1">下一页</span>
-                </li>
-              </ul>
-            </div>
+          </div>
+          <div class="page">
+            <ul class="pagination pagination-sm"><!--分页-->
+              <li class="page-item" v-if="currentPage1!=1">
+                <span class="page-link" v-on:click="prePage1">上一页</span>
+              </li>
+              <li class="page-item" >
+                <span class="page-link" >第{{ currentPage1 }}页/共{{totalPage1}}页</span>
+              </li>
+              <li class="page-item" v-if="currentPage1!=totalPage1">
+                <span class="page-link" v-on:click="nextPage1">下一页</span>
+              </li>
+            </ul>
           </div>
         </el-tab-pane>
         <!--填空题-->
         <el-tab-pane>
           <span slot="label" @click="getQuery2"><i class="el-icon-date"></i> 填空题列表</span>
-          <div class="display2">
+          <div>
             <div class="searchmem">
               <div class="meeting" >
                 <el-input v-model="inputname" placeholder="填空题" size="mini"></el-input>
@@ -81,8 +82,6 @@
               </tr>
             </table>
           </div>
-          <hr/>
-          <hr/>
           <div class="page">
             <ul class="pagination pagination-sm"><!--分页-->
               <li class="page-item" v-if="currentPage2!=1">
@@ -100,7 +99,7 @@
         <!--判断题-->
         <el-tab-pane>
           <span slot="label" @click="getQuery3"><i class="el-icon-date"></i> 判断题列表</span>
-          <div class="display2">
+          <div >
             <div class="searchmem">
               <div class="meeting" >
                 <el-input v-model="inputname" placeholder="判断题" size="mini"></el-input>
@@ -127,7 +126,6 @@
               </tr>
             </table>
           </div>
-          <hr/>
           <div class="page">
             <ul class="pagination pagination-sm"><!--分页-->
               <li class="page-item" v-if="currentPage3!=1">
@@ -145,7 +143,7 @@
         <!--多选题-->
         <el-tab-pane>
           <span slot="label" @click="getQuery4"><i class="el-icon-date"></i> 多选题列表</span>
-          <div class="display2">
+          <div>
             <div class="searchmem">
               <div class="meeting" >
                 <el-input v-model="inputname" placeholder="多选题" size="mini"></el-input>
@@ -172,8 +170,6 @@
               </tr>
             </table>
           </div>
-          <hr/>
-          <hr/>
           <div class="page">
             <ul class="pagination pagination-sm"><!--分页-->
               <li class="page-item" v-if="currentPage4!=1">
@@ -191,7 +187,7 @@
         <!--程序题-->
         <el-tab-pane>
           <span slot="label" @click="getQuery5"><i class="el-icon-date"></i> 程序题列表</span>
-          <div class="display2">
+          <div>
             <div class="searchmem">
               <div class="meeting" >
                 <el-input v-model="inputname" placeholder="程序题" size="mini"></el-input>
@@ -218,8 +214,6 @@
               </tr>
             </table>
           </div>
-          <hr/>
-          <hr/>
           <div class="page">
             <ul class="pagination pagination-sm"><!--分页-->
               <li class="page-item" v-if="currentPage5!=1">
@@ -283,168 +277,189 @@
       methods:{
         //分页
         setCurrentPageDate1: function () {
-          let begin1 = (this.currentPage1 - 1) * this.pageSize1;
-          let end1 = this.currentPage1 * this.pageSize1;
-          this.currentPageData1 = this.Lists1.slice(begin1, end1)
+          let that = this
+          let begin1 = (that.currentPage1 - 1) * that.pageSize1;
+          let end1 = that.currentPage1 * that.pageSize1;
+          that.currentPageData1 = that.Lists1.slice(begin1, end1)
         },
         setCurrentPageDate2: function () {
-          let begin2 = (this.currentPage2 - 1) * this.pageSize2;
-          let end2 = this.currentPage2 * this.pageSize2;
-          this.currentPageData2 = this.Lists2.slice(begin2, end2)
+          let that = this
+          let begin2 = (that.currentPage2 - 1) * that.pageSize2;
+          let end2 = that.currentPage2 * that.pageSize2;
+          that.currentPageData2 = that.Lists2.slice(begin2, end2)
         },
         setCurrentPageDate3: function () {
-          let begin3 = (this.currentPage3 - 1) * this.pageSize3;
-          let end3 = this.currentPage3 * this.pageSize3;
-          this.currentPageData3 = this.Lists3.slice(begin3, end3)
+          let that = this
+          let begin3 = (that.currentPage3 - 1) * that.pageSize3;
+          let end3 = that.currentPage3 * that.pageSize3;
+          that.currentPageData3 = that.Lists3.slice(begin3, end3)
         },
         setCurrentPageDate4: function () {
-          let begin4 = (this.currentPage4 - 1) * this.pageSize4;
-          let end4 = this.currentPage4 * this.pageSize4;
-          this.currentPageData4 = this.Lists4.slice(begin4, end4)
+          let that = this
+          let begin4 = (that.currentPage4 - 1) * that.pageSize4;
+          let end4 = that.currentPage4 * that.pageSize4;
+          that.currentPageData4 = that.Lists4.slice(begin4, end4)
         },
         setCurrentPageDate5: function () {
-          let begin5 = (this.currentPage5 - 1) * this.pageSize5;
-          let end5 = this.currentPage5 * this.pageSize5;
-          this.currentPageData5 = this.Lists5.slice(begin5, end5)
+          let that = this
+          let begin5 = (that.currentPage5 - 1) * that.pageSize5;
+          let end5 = that.currentPage5 * that.pageSize5;
+          that.currentPageData5 = that.Lists5.slice(begin5, end5)
         },
         prePage1:function() {
-          console.log(this.currentPage1)
-          if (this.currentPage1 == 1)
+          let that = this
+          console.log(that.currentPage1)
+          if (that.currentPage1 == 1)
             return
-          this.currentPage1--;
-          this.setCurrentPageDate1()
+          that.currentPage1--;
+          that.setCurrentPageDate1()
         },
         prePage2:function() {
-          console.log(this.currentPage2)
-          if (this.currentPage2 == 1)
+          let that = this
+          console.log(that.currentPage2)
+          if (that.currentPage2 == 1)
             return
-          this.currentPage2--;
-          this.setCurrentPageDate2()
+          that.currentPage2--;
+          that.setCurrentPageDate2()
         },
         prePage3:function() {
-          console.log(this.currentPage3)
-          if (this.currentPage3 == 1)
+          let that = this
+          console.log(that.currentPage3)
+          if (that.currentPage3 == 1)
             return
-          this.currentPage3--;
-          this.setCurrentPageDate3()
+          that.currentPage3--;
+          that.setCurrentPageDate3()
         },
         prePage4:function() {
-          console.log(this.currentPage4)
-          if (this.currentPage4 == 1)
+          let that = this
+          console.log(that.currentPage4)
+          if (that.currentPage4 == 1)
             return
-          this.currentPage4--;
-          this.setCurrentPageDate4()
+          that.currentPage4--;
+          that.setCurrentPageDate4()
         },
         prePage5:function() {
-          console.log(this.currentPage5)
-          if (this.currentPage5 == 1)
+          let that = this
+          console.log(that.currentPage5)
+          if (that.currentPage5 == 1)
             return
-          this.currentPage5--;
-          this.setCurrentPageDate5()
+          that.currentPage5--;
+          that.setCurrentPageDate5()
         },
         nextPage1:function() {
-          if (this.currentPage1 == this.totalPage1) return
-          this.currentPage1++;
-          this.setCurrentPageDate1()
+          let that = this
+          if (that.currentPage1 == that.totalPage1) return
+          that.currentPage1++;
+          that.setCurrentPageDate1()
         },
         nextPage2:function() {
-          if (this.currentPage2 == this.totalPage2) return
-          this.currentPage2++;
-          this.setCurrentPageDate2()
+          let that = this
+          if (that.currentPage2 == that.totalPage2) return
+          that.currentPage2++;
+          that.setCurrentPageDate2()
         },
         nextPage3:function() {
-          if (this.currentPage3 == this.totalPage3) return
-          this.currentPage3++;
-          this.setCurrentPageDate3()
+          let that = this
+          if (that.currentPage3 == that.totalPage3) return
+          that.currentPage3++;
+          that.setCurrentPageDate3()
         },
         nextPage4:function() {
-          if (this.currentPage4 == this.totalPage4) return
-          this.currentPage4++;
-          this.setCurrentPageDate4()
+          let that = this
+          if (that.currentPage4 == that.totalPage4) return
+          that.currentPage4++;
+          that.setCurrentPageDate4()
         },
         nextPage5:function() {
-          if (this.currentPage5 == this.totalPage5) return
-          this.currentPage5++;
-          this.setCurrentPageDate5()
+          let that = this
+          if (that.currentPage5 == that.totalPage5) return
+          that.currentPage5++;
+          that.setCurrentPageDate5()
         },
         //获取所有列表内容;只有有效题目
         getQuery1:function () {
-          this.inputname=''
+          let that = this
+          that.inputname=''
           //选择题
-          this.$http.post('/yii/bank/chooseq/querychoose',{
+          that.$http.post('/bank/chooseq/querychoose',{
             flag:2
           }).then(function (res) {
             console.log(res.data)
-            this.Lists1 = res.data.data
-            this.totalPage1 =Math.ceil(this.Lists1.length/this.pageSize1)
-            this.totalPage1=this.totalPage1==0?1:this.totalPage1
-            this.setCurrentPageDate1()
+            that.Lists1 = res.data.data
+            that.totalPage1 =Math.ceil(that.Lists1.length/that.pageSize1)
+            that.totalPage1=that.totalPage1==0?1:that.totalPage1
+            that.setCurrentPageDate1()
           }).catch(function (error) {
             console.log(error)
           })
         },
         getQuery2:function () {
-          this.inputname=''
+          let that = this
+          that.inputname=''
           //填空题
-          this.$http.post('/yii/bank/fillq/queryfill',{
+          that.$http.post('/bank/fillq/queryfill',{
             flag:2
           }).then(function (res) {
             console.log(res.data)
-            this.Lists2 = res.data.data
-            this.totalPage2 =Math.ceil(this.Lists2.length/this.pageSize2)
-            this.totalPage2=this.totalPage2==0?1:this.totalPage2
-            this.setCurrentPageDate2()
+            that.Lists2 = res.data.data
+            that.totalPage2 =Math.ceil(that.Lists2.length/that.pageSize2)
+            that.totalPage2=that.totalPage2==0?1:that.totalPage2
+            that.setCurrentPageDate2()
           }).catch(function (error) {
             console.log(error)
           })
         },
         getQuery3:function () {
-          this.inputname=''
+          let that = this
+          that.inputname=''
           //判断题
-          this.$http.post('/yii/bank/judge/queryjudge',{
+          that.$http.post('/bank/judge/queryjudge',{
             flag:2
           }).then(function (res) {
             console.log(res.data)
-            this.Lists3 = res.data.data
-            this.totalPage3 =Math.ceil(this.Lists3.length/this.pageSize3)
-            this.totalPage3=this.totalPage3==0?1:this.totalPage3
-            this.setCurrentPageDate3()
+            that.Lists3 = res.data.data
+            that.totalPage3 =Math.ceil(that.Lists3.length/that.pageSize3)
+            that.totalPage3=that.totalPage3==0?1:that.totalPage3
+            that.setCurrentPageDate3()
           }).catch(function (error) {
             console.log(error)
           })
         },
         getQuery4:function () {
-          this.inputname=''
+          let that = this
+          that.inputname=''
           //多选题
-          this.$http.post('/yii/bank/choosem/querychoose',{
+          that.$http.post('/bank/choosem/querychoose',{
             flag:2
           }).then(function (res) {
             console.log(res.data)
-            this.Lists4 = res.data.data
-            this.totalPage4 =Math.ceil(this.Lists4.length/this.pageSize4)
-            this.totalPage4=this.totalPage4==0?1:this.totalPage4
-            this.setCurrentPageDate4()
+            that.Lists4 = res.data.data
+            that.totalPage4 =Math.ceil(that.Lists4.length/that.pageSize4)
+            that.totalPage4=that.totalPage4==0?1:that.totalPage4
+            that.setCurrentPageDate4()
           }).catch(function (error) {
             console.log(error)
           })
         },
         getQuery5:function () {
-          this.inputname=''
+          let that = this
+          that.inputname=''
           //程序题
-          this.$http.post('/yii/bank/program/queryprogram',{
+          that.$http.post('/bank/program/queryprogram',{
             flag:2
           }).then(function (res) {
             console.log(res.data)
-            this.Lists5 = res.data.data
-            this.totalPage5 =Math.ceil(this.Lists5.length/this.pageSize5)
-            this.totalPage5=this.totalPage5==0?1:this.totalPage5
-            this.setCurrentPageDate5()
+            that.Lists5 = res.data.data
+            that.totalPage5 =Math.ceil(that.Lists5.length/that.pageSize5)
+            that.totalPage5=that.totalPage5==0?1:that.totalPage5
+            that.setCurrentPageDate5()
           }).catch(function (error) {
             console.log(error)
           })
         },
         Click1:function (id) {
-          this.$router.push({
+          let that = this
+          that.$router.push({
             path:'/user/exercisre/pchoose',
             query:{
               id:id
@@ -452,7 +467,8 @@
           })
         },
         Click2:function (id) {
-          this.$router.push({
+          let that = this
+          that.$router.push({
             path:'/user/exercise/pfill',
             query:{
               id:id
@@ -460,7 +476,8 @@
           })
         },
         Click3:function (id) {
-          this.$router.push({
+          let that = this
+          that.$router.push({
             path:'/user/exercise/pjudge',
             query:{
               id:id
@@ -468,7 +485,8 @@
           })
         },
         Click4:function (id) {
-          this.$router.push({
+          let that = this
+          that.$router.push({
             path:'/user/exercise/pchoosem',
             query:{
               id:id
@@ -476,7 +494,8 @@
           })
         },
         Click5:function (id) {
-          this.$router.push({
+          let that = this
+          that.$router.push({
             path:'/user/exercise/pprogram',
             query:{
               id:id
@@ -484,11 +503,12 @@
           })
         },
         getQuery:function () {
-          this.getQuery1()
-          this.getQuery2()
-          this.getQuery3()
-          this.getQuery4()
-          this.getQuery5()
+          let that = this
+          that.getQuery1()
+          that.getQuery2()
+          that.getQuery3()
+          that.getQuery4()
+          that.getQuery5()
         },
         search:function (id,name) {
           let that = this
@@ -499,40 +519,40 @@
           }
           else
           {
-            that.$http.post('/yii/student/exercise/search',{
+            that.$http.post('/student/exercise/search',{
               id:id,
               name:name
             }).then(function (res) {
               switch (id) {
                 case 1:
-                  this.Lists1 = res.data.data
-                  this.totalPage1 =Math.ceil(this.Lists1.length/this.pageSize1)
-                  this.totalPage1=this.totalPage1==0?1:this.totalPage1
-                  this.setCurrentPageDate1()
+                  that.Lists1 = res.data.data
+                  that.totalPage1 =Math.ceil(that.Lists1.length/that.pageSize1)
+                  that.totalPage1=that.totalPage1==0?1:that.totalPage1
+                  that.setCurrentPageDate1()
                   break
                 case 2:
-                  this.Lists2 = res.data.data
-                  this.totalPage2 =Math.ceil(this.Lists2.length/this.pageSize2)
-                  this.totalPage2=this.totalPage2==0?1:this.totalPage2
-                  this.setCurrentPageDate2()
+                  that.Lists2 = res.data.data
+                  that.totalPage2 =Math.ceil(that.Lists2.length/that.pageSize2)
+                  that.totalPage2=that.totalPage2==0?1:that.totalPage2
+                  that.setCurrentPageDate2()
                   break
                 case 3:
-                  this.Lists3 = res.data.data
-                  this.totalPage3 =Math.ceil(this.Lists3.length/this.pageSize3)
-                  this.totalPage3=this.totalPage3==0?1:this.totalPage3
-                  this.setCurrentPageDate3()
+                  that.Lists3 = res.data.data
+                  that.totalPage3 =Math.ceil(that.Lists3.length/that.pageSize3)
+                  that.totalPage3=that.totalPage3==0?1:that.totalPage3
+                  that.setCurrentPageDate3()
                   break
                 case 4:
-                  this.Lists4 = res.data.data
-                  this.totalPage4=Math.ceil(this.Lists4.length/this.pageSize4)
-                  this.totalPage4=this.totalPage4==0?1:this.totalPage4
-                  this.setCurrentPageDate4()
+                  that.Lists4 = res.data.data
+                  that.totalPage4=Math.ceil(that.Lists4.length/that.pageSize4)
+                  that.totalPage4=that.totalPage4==0?1:that.totalPage4
+                  that.setCurrentPageDate4()
                   break
                 case 5:
-                  this.Lists5= res.data.data
-                  this.totalPage5 =Math.ceil(this.Lists5.length/this.pageSize5)
-                  this.totalPage5=this.totalPage5==0?1:this.totalPage5
-                  this.setCurrentPageDate5()
+                  that.Lists5= res.data.data
+                  that.totalPage5 =Math.ceil(that.Lists5.length/that.pageSize5)
+                  that.totalPage5=that.totalPage5==0?1:that.totalPage5
+                  that.setCurrentPageDate5()
                   break
                 default:
                   break
@@ -542,7 +562,8 @@
         }
       },
       created(){
-          this.getQuery()
+        let that = this
+          that.getQuery()
       }
     }
 </script>
@@ -636,20 +657,20 @@
   table {
     border-collapse: collapse;
     width: 100%;
-    margin-top: 10px;
+    margin-top: 5px;
   }
   th {
     font-size: 14px;
     border: solid 1px #ccc;
     font-weight: bold;
-    padding: 5px;
+    padding: 3px;
     background-color: #F1F1F1;
     text-align: center;
   }
 
   table, td {
     border: solid 1px #ccc;
-    padding: 5px;
+    padding: 3px;
     text-align: center;
     font-size: 18px;
   }
@@ -660,7 +681,7 @@
 
   .display1{
     border: solid 1px #E5E7E9;
-    height: 600px;
+    height: auto;
     width: 98%;
     padding-left: 5px;
     padding-right: 5px;
@@ -692,10 +713,10 @@
   ul li {
     list-style: none;
     text-align: center;
-    line-height: 30px;
-    padding: 10px;
-    height: 30px;
+    /*line-height: 30px;*/
+    padding:2px;
+    height: auto;
     width: 100px;
-    margin: 0 10px;
+    margin: 0 2px;
   }
 </style>

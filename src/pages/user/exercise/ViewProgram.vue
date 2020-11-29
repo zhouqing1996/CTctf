@@ -93,17 +93,19 @@
       methods:{
         back:function()
         {
-          this.$router.push({
+          let that = this
+          that.$router.push({
             path:'/user/exercise',
           })
         },
         getQuestion:function () {
-          this.$http.post('/yii/student/exercise/queryquestion',{
+          let that = this
+          that.$http.post('/student/exercise/queryquestion',{
             flag:3,
-            pqid:this.qid
+            pqid:that.qid
           }).then(function (res) {
             console.log(res.data.data)
-            this.List =res.data.data
+            that.List =res.data.data
           }).catch(function (error) {
             console.log(error)
           })
@@ -111,31 +113,34 @@
         //提交程序题
         changePValue:function(vel)
         {
-          this.code_content = vel
-          console.log(this.code_content)
+          let that = this
+          that.code_content = vel
+          console.log(that.code_content)
         },
         Click:function(id,code_content){
+          let that = this
           let flag = true
-          for(let i=0;i< this.Ans.length;i++)
+          for(let i=0;i< that.Ans.length;i++)
           {
-            if(this.Ans[i]['id']==id)
+            if(that.Ans[i]['id']==id)
             {
               flag=false
-              this.Ans[i]['ans'] = this.code_content
+              that.Ans[i]['ans'] = that.code_content
               break
             }
           }
           if(flag){
-            this.Ans.push({
+            that.Ans.push({
               id:id,
-              ans:this.code_content
+              ans:that.code_content
             })
           }
-          console.log(this.Ans)
+          console.log(that.Ans)
         },
         Submit:function () {
-          this.endTime = new Date()
-          let SubTime = parseInt((this.endTime - this.startTime)/1000);
+          let that = this
+          that.endTime = new Date()
+          let SubTime = parseInt((that.endTime - that.startTime)/1000);
           let d = Math.floor(parseInt(SubTime/(24 * 60 * 60)));
           let h = Math.floor(parseInt(SubTime/60/60%24));
           let m = Math.floor(parseInt(SubTime/60%60));
@@ -145,28 +150,28 @@
           s = s > 9 ? s:'0' + s
           let time = h+':'+m+':'+s
           console.log(time)
-          if(this.Ans.length==0)
+          if(that.Ans.length==0)
           {
-            this.$alert('您尚未作答，请检查', '警告', {
+            that.$alert('您尚未作答，请检查', '警告', {
               confirmButtonText: '确定',})
           }
-          else if(this.Ans[0].ans=='')
+          else if(that.Ans[0].ans=='')
           {
-            this.$alert('您尚未作答，请检查', '警告', {
+            that.$alert('您尚未作答，请检查', '警告', {
               confirmButtonText: '确定',})
           }else{
-            this.$http.post('/yii/student/exercise/submitanser',{
+            that.$http.post('/student/exercise/submitanser',{
               flag:3,
-              uid:this.uid,
-              qid:this.qid,
-              ans:this.Ans,
+              uid:that.uid,
+              qid:that.qid,
+              ans:that.Ans,
               ctime:time
             }).then(function (res) {
               console.log(res.data)
               if(res.data.message=="练习程序题成功")
               {
-                this.Visable = true
-                this.AnsFlag=res.data.data
+                that.Visable = true
+                that.AnsFlag=res.data.data
               }
               else{
                 alert(res.data.message)
@@ -178,12 +183,13 @@
         }
       },
       created(){
-        this.qid = this.$route.query.id
-        this.getQuestion()
-        console.log(this.List)
-        this.uid = this.$store.getters.getsId
-        this.startTime = new Date()
-        console.log(this.startTime)
+        let that = this
+        that.qid = that.$route.query.id
+        that.getQuestion()
+        console.log(that.List)
+        that.uid = that.$store.getters.getsId
+        that.startTime = new Date()
+        console.log(that.startTime)
       }
     }
 </script>

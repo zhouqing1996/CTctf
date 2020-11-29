@@ -98,13 +98,14 @@
       },
       methods:{
         back:function(){
-          this.$router.push({
+          let that = this
+          that.$router.push({
             path:'/teacher/create',
           })
         },
         getView(id){
           let that =this
-          this.$http.post('/yii/exam/exam/view',{
+          that.$http.post('/exam/exam/view',{
             id:id
           }).then(function (res) {
             console.log(res.data)
@@ -121,9 +122,10 @@
         }
       },
       created(){
-          this.examList.id =this.$route.query.id
-        console.log(this.examList.id)
-        this.getView(this.examList.id)
+        let that = this
+          that.examList.id =that.$route.query.id
+        console.log(that.examList.id)
+        that.getView(that.examList.id)
       },
     }
 </script>

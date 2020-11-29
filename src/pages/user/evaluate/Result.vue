@@ -208,66 +208,70 @@
           }
       },
       created(){
-        this.List.uid = this.$route.query.uid
-        this.List.eid = this.$route.query.eid
-        this.List.num = this.$route.query.num
-        this.getData()
-        this.getList()
+        let that = this
+        that.List.uid = that.$route.query.uid
+        that.List.eid = that.$route.query.eid
+        that.List.num = that.$route.query.num
+        that.getData()
+        that.getList()
 
       },
       methods:{
         getData:function () {
-          console.log(this.List)
-          this.$http.post('/yii/student/student/radar',{
-            num:this.List.num,
-            uid:this.List.uid,
-            eid:this.List.eid,
+          let that = this
+          console.log(that.List)
+          that.$http.post('/student/student/radar',{
+            num:that.List.num,
+            uid:that.List.uid,
+            eid:that.List.eid,
           }).then(function (res) {
             console.log(res.data)
-            this.fact.NC=res.data.data[0].nc
-            this.fact.NF=res.data.data[0].nf
-            this.fact.NP=res.data.data[0].np
-            this.fact.NM=res.data.data[0].nm
-            this.fact.NJ=res.data.data[0].nj
-            this.real.NC=res.data.data[1].nc
-            this.real.NF=res.data.data[1].nf
-            this.real.NP=res.data.data[1].np
-            this.real.NM=res.data.data[1].nm
-            this.real.NJ=res.data.data[1].nj
-            console.log(this.fact)
-            console.log(this.real)
+            that.fact.NC=res.data.data[0].nc
+            that.fact.NF=res.data.data[0].nf
+            that.fact.NP=res.data.data[0].np
+            that.fact.NM=res.data.data[0].nm
+            that.fact.NJ=res.data.data[0].nj
+            that.real.NC=res.data.data[1].nc
+            that.real.NF=res.data.data[1].nf
+            that.real.NP=res.data.data[1].np
+            that.real.NM=res.data.data[1].nm
+            that.real.NJ=res.data.data[1].nj
+            console.log(that.fact)
+            console.log(that.real)
           })
         },
         back:function(){
-          this.$router.push({
+          let that = this
+          that.$router.push({
             path:'/user/evaluate/result',
           })
         },
           //获取试卷信息
           getList:function () {
-            console.log(this.List)
-            this.$http.post('/yii/exam/exam/getuserdetail',{
-              num:this.List.num,
-              uid:this.List.uid,
-              eid:this.List.eid
+            let that = this
+            console.log(that.List)
+            that.$http.post('/exam/exam/getuserdetail',{
+              num:that.List.num,
+              uid:that.List.uid,
+              eid:that.List.eid
             }).then(function (res) {
               console.log(res)
               let list = res.data.data[0]
               console.log(list)
-              this.List.exname = res.data.data[1].exname
-              this.List.exNum = res.data.data[2]
-              this.List.GradeLabel = res.data.data[3]
-              this.CList = []
-              this.FList = []
-              this.PList = []
-              this.CMList = []
-              this.JList = []
+              that.List.exname = res.data.data[1].exname
+              that.List.exNum = res.data.data[2]
+              that.List.GradeLabel = res.data.data[3]
+              that.CList = []
+              that.FList = []
+              that.PList = []
+              that.CMList = []
+              that.JList = []
               for(let i=0;i<list.length;i++)
               {
                 // console.log(list[i].type)
                 if(list[i].type==1)
                 {
-                  this.CList.push({
+                  that.CList.push({
                     ans:list[i].ans,
                     cho:list[i].cho,
                     flag:list[i].flag,
@@ -280,7 +284,7 @@
                 }
                 else if(list[i].type==2)
                 {
-                  this.FList.push({
+                  that.FList.push({
                     ans:list[i].ans,
                     flag:list[i].flag,
                     item:list[i].item,
@@ -292,7 +296,7 @@
                 }
                 else if(list[i].type==3)
                 {
-                  this.PList.push({
+                  that.PList.push({
                     ans:list[i].ans,
                     flag:list[i].flag,
                     item:list[i].item,
@@ -304,7 +308,7 @@
                 }
                 else if(list[i].type==4)
                 {
-                  this.CMList.push({
+                  that.CMList.push({
                     ans:list[i].ans,
                     cho:list[i].cho,
                     flag:list[i].flag,
@@ -317,7 +321,7 @@
                 }
                 else if(list[i].type==5)
                 {
-                  this.JList.push({
+                  that.JList.push({
                     ans:list[i].ans,
                     flag:list[i].flag,
                     item:list[i].item,
@@ -332,11 +336,11 @@
                   alert('错误！')
                 }
               }
-              this.rem=res.data.data[4]
-              this.BankList =res.data.data[5]
-              this.BookList=res.data.data[6]
+              that.rem=res.data.data[4]
+              that.BankList =res.data.data[5]
+              that.BookList=res.data.data[6]
             })
-            console.log(this.List.exname)
+            console.log(that.List.exname)
 
           },
       }

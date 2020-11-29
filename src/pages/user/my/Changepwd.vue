@@ -39,31 +39,34 @@
       },
       methods:{
         showPass() {
-          if (this.passwordVisible === "text") {
-            this.passwordVisible = "password";
+          let that = this
+          if (that.passwordVisible === "text") {
+            that.passwordVisible = "password";
             //更换图标
-            this.icon = "el-icon-view";
+            that.icon = "el-icon-view";
           } else {
-            this.passwordVisible = "text";
-            this.icon = "el-icon-lock";
+            that.passwordVisible = "text";
+            that.icon = "el-icon-lock";
           }
         },
         showPass1() {
-          if (this.passwordVisible1 === "text") {
-            this.passwordVisible1 = "password";
+          let that = this
+          if (that.passwordVisible1 === "text") {
+            that.passwordVisible1 = "password";
             //更换图标
-            this.icon1 = "el-icon-view";
+            that.icon1 = "el-icon-view";
           } else {
-            this.passwordVisible1 = "text";
-            this.icon1 = "el-icon-lock";
+            that.passwordVisible1 = "text";
+            that.icon1 = "el-icon-lock";
           }
         },
           //修改密码
           changePwd:function (newpwd,newpwds) {
+            let that = this
             if(newpwd==newpwds) {
-              this.$http.post('/yii/home/user/changeuser', {
+              that.$http.post('/home/user/changeuser', {
                 flag: 3,
-                userid: this.$store.getters.getsId,
+                userid: that.$store.getters.getsId,
                 password: newpwd
               }).then(res => {
                 console.log(res.data)
@@ -72,11 +75,11 @@
                 }
                 else if (res.data.message == "该用户密码修改成功") {
                   console.log(res.data)
-                  this.$store.dispatch('logout')
-                  this.$store.dispatch('slogout')
-                  // this.$store.dispatch('userLogin',true)
+                  that.$store.dispatch('logout')
+                  that.$store.dispatch('slogout')
+                  // that.$store.dispatch('userLogin',true)
                   alert("密码修改成功！")
-                  this.$router.push({path: '/login'})
+                  that.$router.push({path: '/login'})
                 }
                 else {
                   console.log(res.data.message)

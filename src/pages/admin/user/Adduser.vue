@@ -60,20 +60,22 @@
             this.$router.push({path:'/admin/user/userinfo'})
           },
         reset:function () {
+            let that =this
           //重置
-          this.addrole="";
-          this.addpwd="";
-          this.addname="";
-          this.addstatus=""
+          that.addrole="";
+          that.addpwd="";
+          that.addname="";
+          that.addstatus=""
         },
         sumbit:function () {
+            let that =this
           //提交
-          this.$http.post('/yii/home/user/adduser',
+          that.$http.post('/home/user/adduser',
             {
-              addname:this.addname,
-              addpwd:this.addpwd,
-              addrole:this.addrole,
-              addstatus:this.addstatus
+              addname:that.addname,
+              addpwd:that.addpwd,
+              addrole:that.addrole,
+              addstatus:that.addstatus
             }).then(function (res) {
               console.log(res.data)
             let msg = res.data.message
@@ -84,7 +86,7 @@
             else if(msg=="用户添加成功")
             {
               alert(msg)
-              this.$router.push({path:'/admin/user/userinfo'})
+              that.$router.push({path:'/admin/user/userinfo'})
             }
             else
             {

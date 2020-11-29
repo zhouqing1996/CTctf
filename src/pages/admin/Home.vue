@@ -69,25 +69,25 @@
         background-color="	#1E90FF"
         text-color="#fff"
         active-text-color="#ffd04b">
-        <el-menu-item index="1">footer1</el-menu-item>
-        <el-submenu index="2">
-          <template slot="title">footer2</template>
-          <el-menu-item index="2-1">选择题</el-menu-item>
-          <el-menu-item index="2-2">填空题</el-menu-item>
-          <el-menu-item index="2-3">程序题</el-menu-item>
-          <el-submenu index="2-4">
-            <template slot="title">选项4</template>
-            <el-menu-item index="2-4-1">选项1</el-menu-item>
-            <el-menu-item index="2-4-2">选项2</el-menu-item>
-            <el-menu-item index="2-4-3">选项3</el-menu-item>
-          </el-submenu>
-        </el-submenu>
-        <el-submenu index="3">
-          <template slot="title">有关信息</template>
-          <el-menu-item index="3-1">资料</el-menu-item>
-          <el-menu-item index="3-2">修改密码</el-menu-item>
-          <el-menu-item index="3-3">退出登录</el-menu-item>
-        </el-submenu>
+        <!--<el-menu-item index="1">footer1</el-menu-item>-->
+        <!--<el-submenu index="2">-->
+          <!--<template slot="title">footer2</template>-->
+          <!--<el-menu-item index="2-1">选择题</el-menu-item>-->
+          <!--<el-menu-item index="2-2">填空题</el-menu-item>-->
+          <!--<el-menu-item index="2-3">程序题</el-menu-item>-->
+          <!--<el-submenu index="2-4">-->
+            <!--<template slot="title">选项4</template>-->
+            <!--<el-menu-item index="2-4-1">选项1</el-menu-item>-->
+            <!--<el-menu-item index="2-4-2">选项2</el-menu-item>-->
+            <!--<el-menu-item index="2-4-3">选项3</el-menu-item>-->
+          <!--</el-submenu>-->
+        <!--</el-submenu>-->
+        <!--<el-submenu index="3">-->
+          <!--<template slot="title">有关信息</template>-->
+          <!--<el-menu-item index="3-1">资料</el-menu-item>-->
+          <!--<el-menu-item index="3-2">修改密码</el-menu-item>-->
+          <!--<el-menu-item index="3-3">退出登录</el-menu-item>-->
+        <!--</el-submenu>-->
       </el-menu>
     </el-footer>
   </el-container>
@@ -110,35 +110,28 @@
         window.onresize = ()=> {this.Height = document.documentElement.clientHeight -50}
       },
       methods:{
-          reload1:function(index){
-            if(index === this.$rotuer.path)
-            {
-              this.isN=false
-              this.$nextTick(function () {
-                this.isN=true
-              })
-            }
-          },
           //退出登录
           logout:function () {
-            let suserid=this.$store.getters.getsId
+            let that = this
+            let suserid=that.$store.getters.getsId
             console.log(suserid)
-            this.$confirm("是否退出？","提示",{
+            that.$confirm("是否退出？","提示",{
               confirmButtonText:"确定",
               cancelButtonText:"取消",
               type:"warning"
             }).then(()=>{
-              this.$http.post('/yii/home/index/logout',
+              that.$http.post('/home/index/logout',
                 {
                   userid:suserid
                 }).then(function (res) {
                 console.log(res.data)
                 if(res.data.message=="退出成功")
                 {
-                  this.$store.dispatch('logout')
-                  this.$store.dispatch('slogout')
-                  alert("退出成功！")
-                  this.$router.push({path:'/login'})
+                  that.$store.dispatch('logout')
+                  that.$store.dispatch('slogout')
+                  that.$alert('退出成功', '提示', {
+                    confirmButtonText: '确定',type:'warning'})
+                  that.$router.push({path:'/login'})
                 }
                 else
                 {

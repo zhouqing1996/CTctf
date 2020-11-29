@@ -5,9 +5,9 @@
       <h3 class="my_title">我的资料</h3>
       <p>用户编号：{{this.userid}}</p>
       <p>用户名：{{this.username}}</p>
-      <p v-if="this.userrole==1">身份：超级管理员</p>
-      <p v-if="this.userrole==2">身份：二级管理员</p>
-      <p v-if="this.userrole==3">身份：普通用户</p>
+      <p v-if="userrole==1">身份：超级管理员</p>
+      <p v-if="userrole==2">身份：二级管理员</p>
+      <p v-if="userrole==3">身份：普通用户</p>
     </el-form>
   </div>
 </template>
