@@ -9,6 +9,13 @@
   text-align: left;
   margin: 5px 5px 5px 5px;
 }
+.None{
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  color: #FF0000;
+
+}
 
 /*作答次数占比情况*/
 /*扇形图*/

@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-header>
+    <el-header class="header-css">
       <el-menu
         class="el-menu-demo"
         mode="horizontal"
@@ -33,9 +33,9 @@
           <el-menu-item index="7-1">
             <router-link to="/teacher/my" >我的资料</router-link>
           </el-menu-item>
-          <el-menu-item index="7-2">
-            <router-link to="/teacher/my/changepwd" >修改密码</router-link>
-          </el-menu-item>
+          <!--<el-menu-item index="7-2">-->
+            <!--<router-link to="/teacher/my/changepwd" >修改密码</router-link>-->
+          <!--</el-menu-item>-->
           <el-menu-item index="7-3" v-on:click="logout">
             退出登录
           </el-menu-item>
@@ -45,7 +45,7 @@
     <el-main  class="main-css" v-bind:style="{minHeight: Height+'px'}">
       <router-view />
     </el-main>
-    <el-footer>
+    <el-footer class="footer">
       <el-menu
         class="el-menu-demo"
         mode="horizontal"
@@ -74,10 +74,11 @@
     },
     methods:{
       mounted(){
+        let that =this
         //动态设置内容高度 让footer始终居底   header+footer的高度是100
-        that.Height = document.documentElement.clientHeight - 50;
+        that.Height = document.documentElement.clientHeight;
         //监听浏览器窗口变化　
-        window.onresize = ()=> {that.Height = document.documentElement.clientHeight -50}
+        window.onresize = ()=> {that.Height = document.documentElement.clientHeight}
       },
       //退出登录
       logout:function () {
@@ -96,9 +97,12 @@
             console.log(res.data)
             if(res.data.message=="退出成功")
             {
-              that.$store.dispatch('logout')
               that.$store.dispatch('slogout')
-              alert("退出成功！")
+              // alert("退出成功！")
+              that.$alert(res.data.message, '提示', {
+                confirmButtonText: '确定',
+                type:'warning'
+              })
               that.$router.push({path:'/login'})
             }
             else
@@ -118,26 +122,5 @@
 </script>
 
 <style scoped>
-  .header-css{
-    position: fixed;
-    top: 0px;
-    margin: auto;
-    opacity: 0.8;
-    float: right;
-  }
-  .header-menu{
-
-  }
-  .main-css{
-    width: 100%;
-    height: 600px;
-    /*position: absolute;*/
-  }
-  a {
-    text-decoration: none;
-  }
-  .router-link-active {
-    text-decoration: none;
-  }
-
+  @import "../../common/css/home.css";
 </style>

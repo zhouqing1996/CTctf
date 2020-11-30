@@ -1,69 +1,78 @@
 <template>
     <!--进入测评-->
-  <div id="waimian">
-    <div class="back">
-      <el-page-header @back="back">
-      </el-page-header>
-    </div>
+  <div>
     <div>
-      <div class="Tright">
-        <span v-text="tLabeL" ></span>
-      </div>
+      <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb-css">
+        <el-breadcrumb-item :to="{ path: '/user/evaluate' }">测评</el-breadcrumb-item>
+        <el-breadcrumb-item>测评考试</el-breadcrumb-item>
+        <el-breadcrumb-item>《{{examList.exname}}》</el-breadcrumb-item>
+      </el-breadcrumb>
+      <div><hr/></div>
+    </div>
+    <div id="waimian">
+      <!--<div class="back">-->
+        <!--<el-page-header @back="back">-->
+        <!--</el-page-header>-->
+      <!--</div>-->
       <div>
+        <div class="Tright">
+          <span v-text="tLabeL" ></span>
+        </div>
+        <div>
           <h1 class="Tcenter">{{examList.exname}}</h1>
           <p class="Tcenter">
             <i class="el-icon-s-custom"></i>试卷创建人：{{examList.exUser}}
             ||<i class="el-icon-date"></i>创建时间：{{examList.exCreateTime}}
-          ||<i class="el-icon-time"></i>考试时间：{{limitTime}} 分钟</p>
-      </div>
-      <hr/>
-      <h2>一、选择题</h2>
-      <div>
-        <div v-for="(c,index) in chooseqList">
-          <h3>({{index+1}}):{{c.cqitem}}</h3>
-          <ul>
-            <li v-for="(x,i) in c.cqcho" >
-              <input type="radio" :name="'choose'+c.cqid"
-                     @change="cr(c.cqid,c.cqcho[i])"/>{{x}}
-            </li>
-          </ul>
+            ||<i class="el-icon-time"></i>考试时间：{{limitTime}} 分钟</p>
         </div>
-      </div>
-      <hr/>
-      <h2>二、填空题</h2>
-      <div>
+        <hr/>
+        <h2>一、选择题</h2>
+        <div>
+          <div v-for="(c,index) in chooseqList">
+            <h3>({{index+1}}):{{c.cqitem}}</h3>
+            <ul>
+              <li v-for="(x,i) in c.cqcho" >
+                <input type="radio" :name="'choose'+c.cqid"
+                       @change="cr(c.cqid,c.cqcho[i])"/>{{x}}
+              </li>
+            </ul>
+          </div>
+        </div>
+        <hr/>
+        <h2>二、填空题</h2>
+        <div>
       <span v-for="(f,key2) in fillqList":key="key2">
       <li class="item">({{key2+1}}){{f.fqitem}}<br>
         <textarea style="width: 400px;height: 200px;" :name="'fill'+f.fqid" @input="fr(f.fqid,$event)" class="fans"></textarea>
       </li>
     </span>
-      </div>
-      <hr/>
-      <h2>三、判断题</h2>
-      <div>
+        </div>
+        <hr/>
+        <h2>三、判断题</h2>
+        <div>
       <span v-for="(j,keyj) in judgeList":key="keyj">
       <li class="item">({{keyj+1}}){{j.jqitem}}<br>
         <input type="radio" :name="'judge'+j.jqid" @change="jr(j.jqid,1)">正确
         <input type="radio" :name="'judge'+j.jqid" @change="jr(j.jqid,0)">错误
       </li>
     </span>
-      </div>
-      <hr/>
-      <h2>四、多选题</h2>
-      <div>
-        <div v-for="(m,index) in choosemList">
-          <h3>({{index+1}}):{{m.mitem}}</h3>
-          <ul>
-            <li v-for="(x,i) in m.mcho" >
-              <input type="checkbox" :name="'choosem'+m.mid+i"
-                     @change="mr(m.mid,m.mcho[i])"/>{{x}}
-            </li>
-          </ul>
         </div>
-      </div>
-      <hr/>
-      <h2>五、程序题</h2>
-      <div>
+        <hr/>
+        <h2>四、多选题</h2>
+        <div>
+          <div v-for="(m,index) in choosemList">
+            <h3>({{index+1}}):{{m.mitem}}</h3>
+            <ul>
+              <li v-for="(x,i) in m.mcho" >
+                <input type="checkbox" :name="'choosem'+m.mid+i"
+                       @change="mr(m.mid,m.mcho[i])"/>{{x}}
+              </li>
+            </ul>
+          </div>
+        </div>
+        <hr/>
+        <h2>五、程序题</h2>
+        <div>
         <span style="color: #FF0000;margin-left: 20px">
           <strong>请注意每一题目完成之后要点击保存！</strong>编程语言选择：
           <el-select v-model="yuyan"  placeholder="请选择" size="mini" class="code-mode-select">
@@ -75,7 +84,7 @@
           </el-option>
         </el-select>
         </span>
-      <span v-for="(p,keyp) in programqList":key="keyp">
+          <span v-for="(p,keyp) in programqList":key="keyp">
       <li class="item">({{keyp+1}}){{p.pqitem}}<br>
         <MonacoEditor :codes="code_content"
                       :read-only="false"
@@ -83,13 +92,15 @@
         <button @click="pr(p.pqid,code_content)">保存</button>
       </li>
     </span>
+        </div>
+      </div>
+      <hr/>
+      <div>
+        <button class="btn2" @click="EvaOK">提交试卷</button>
       </div>
     </div>
-    <hr/>
-    <div>
-      <button class="btn2" @click="EvaOK">提交试卷</button>
-    </div>
   </div>
+
 </template>
 
 <script>
@@ -192,7 +203,8 @@
                 mitem:mList[i].mqitem,
                 mcho:[mList[i].mqcho.split('---')[0],mList[i].mqcho.split('---')[1],mList[i].mqcho.split('---')[2],mList[i].mqcho.split('---')[3]],
                 mrem:mList[i].mqrem,
-                mans:mList[i].mqans
+                mans:mList[i].mqans,
+                mtail:mList[i].mqtail
               })
             }
           })

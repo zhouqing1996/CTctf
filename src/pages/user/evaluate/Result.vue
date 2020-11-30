@@ -2,24 +2,34 @@
   <!--&lt;!&ndash;<button @click="getAns">判断成绩</button>&ndash;&gt;-->
   <!--&lt;!&ndash;<button @click="getList">获得信息</button>&ndash;&gt;-->
   <!--学生查看结果查看试卷-->
-  <div id="waimian">
-    <div class="back">
-      <el-page-header @back="back">
-      </el-page-header>
-    </div>
+  <div>
     <div>
-      <h1 class="T"><strong>{{List.exname}}</strong>
-        <span v-text="'试题总分：'+List.exNum+',您的得分：'+List.GradeLabel" style="color: #FF0000;float: right!important;margin-right: 50px" ></span></h1>
-      <hr/>
-      <!--<div class="Tright">-->
-        <!---->
+      <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb-css">
+        <el-breadcrumb-item :to="{ path: '/user/evaluate/result?eid='+List.eid }">结果查看</el-breadcrumb-item>
+        <el-breadcrumb-item>查看结果</el-breadcrumb-item>
+        <el-breadcrumb-item>{{List.exname}}</el-breadcrumb-item>
+      </el-breadcrumb>
+      <div><hr/></div>
+    </div>
+
+    <div id="waimian">
+      <!--<div class="back">-->
+        <!--<el-page-header @back="back">-->
+        <!--</el-page-header>-->
       <!--</div>-->
-      <el-row :gutter="20">
-        <el-col :span="12">
-          <div>
-            <div v-if="CList.length>0">
-              <h2>一、选择题</h2>
-              <span v-for="(c,key1) in CList":key="key1" >
+      <div>
+        <h1 class="T"><strong>{{List.exname}}</strong>
+          <span v-text="'试题总分：'+List.exNum+',您的得分：'+List.GradeLabel" style="color: #FF0000;float: right!important;margin-right: 50px" ></span></h1>
+        <hr/>
+        <!--<div class="Tright">-->
+        <!---->
+        <!--</div>-->
+        <el-row :gutter="20">
+          <el-col :span="12">
+            <div>
+              <div v-if="CList.length>0">
+                <h2>一、选择题</h2>
+                <span v-for="(c,key1) in CList":key="key1" >
             <li class="item">({{key1+1}})<strong>{{c.item}}</strong><br>
               <input type="radio"  value="">（A）{{c.cho.split('---')[0]}}<br>
               <input type="radio"  value="">（B）{{c.cho.split('---')[1]}}<br>
@@ -37,10 +47,10 @@
               您未作答该题！
             </p>
         </span>
-            </div>
-            <div v-if="FList.length>0">
-              <h2>二、填空题</h2>
-              <span v-for="(f,key2) in FList":key="key2">
+              </div>
+              <div v-if="FList.length>0">
+                <h2>二、填空题</h2>
+                <span v-for="(f,key2) in FList":key="key2">
       <li class="item">({{key2+1}})<strong>{{f.item}}</strong><br>
         <input type="text" value=""><br>
       </li>
@@ -55,10 +65,10 @@
           您未作答该题！
         </p>
     </span>
-            </div>
-            <div v-if="JList.length>0">
-              <h2>三、判断题</h2>
-              <span v-for="(j,keyj) in JList":key="keyj">
+              </div>
+              <div v-if="JList.length>0">
+                <h2>三、判断题</h2>
+                <span v-for="(j,keyj) in JList":key="keyj">
         <li class="item">({{keyj+1}})<strong>{{j.item}}</strong><br>
           <input type="radio" :name="'judge'+j.jqid" >正确
           <input type="radio" :name="'judge'+j.jqid" >错误
@@ -81,10 +91,10 @@
           您未作答该题！
         </p>
     </span>
-            </div>
-            <div v-if="CMList.length>0">
-              <h2>四、多选题</h2>
-              <span v-for="(m,keym) in CMList":key="keym">
+              </div>
+              <div v-if="CMList.length>0">
+                <h2>四、多选题</h2>
+                <span v-for="(m,keym) in CMList":key="keym">
         <li class="item">({{keym+1}})<strong>{{m.item}}</strong><br>
               <input type="checkbox"  value="">（A）{{m.cho.split('---')[0]}}<br>
               <input type="checkbox"  value="">（B）{{m.cho.split('---')[1]}}<br>
@@ -103,10 +113,10 @@
           您未作答该题！
         </p>
     </span>
-            </div>
-            <div v-if="PList.length>0">
-              <h2>五、程序题</h2>
-              <span v-for="(p,key3) in PList":key="key3">
+              </div>
+              <div v-if="PList.length>0">
+                <h2>五、程序题</h2>
+                <span v-for="(p,key3) in PList":key="key3">
         ({{key3+1}})<strong>{{p.item}}</strong>
         <p class="ans">答案：{{p.ans}}</p>
         <p class="tail">详解：{{p.tail}}</p>
@@ -119,49 +129,51 @@
           您未作答该题！
         </p>
       </span>
+              </div>
             </div>
-          </div>
-        </el-col>
-        <el-col :span="1">
-          <el-divider direction="vertical"></el-divider>
-        </el-col>
-        <el-col :span="9">
-          <div class="Rdetail">
-            <div style="margin-top: 30px;margin-left: 20px;margin-bottom: 40px">
-              <span style="color: #0ea0db;font-weight: bold;">作答详细情况</span>
-            </div>
-            <!--<div class="Gright">-->
+          </el-col>
+          <el-col :span="1">
+            <el-divider direction="vertical"></el-divider>
+          </el-col>
+          <el-col :span="9">
+            <div class="Rdetail">
+              <div style="margin-top: 30px;margin-left: 20px;margin-bottom: 40px">
+                <span style="color: #0ea0db;font-weight: bold;">作答详细情况</span>
+              </div>
+              <!--<div class="Gright">-->
               <!--图像-->
               <RadarChart :fact="fact" :real="real"></RadarChart>
-            <!--</div>-->
-            <div>
-              <el-divider></el-divider>
-              <div style="margin-top: 10px;margin-left: 20px;margin-bottom: 40px">
-                <span style="color: #0ea0db;font-weight: bold;">推荐内容</span>
-              </div>
+              <!--</div>-->
               <div>
-                <span style="text-align: left;color: coral;font-weight: bold;margin-top: 10px;margin-bottom: 10px;margin-left: 20px;margin-bottom: 10px">知识点：</span>
-                <span v-for="x,index in rem">
+                <el-divider></el-divider>
+                <div style="margin-top: 10px;margin-left: 20px;margin-bottom: 40px">
+                  <span style="color: #0ea0db;font-weight: bold;">推荐内容</span>
+                </div>
+                <div>
+                  <span style="text-align: left;color: coral;font-weight: bold;margin-top: 10px;margin-bottom: 10px;margin-left: 20px;margin-bottom: 10px">知识点：</span>
+                  <span v-for="x,index in rem">
                   <p>({{index+1}}):{{x.rem}}</p>
                 </span>
-                <span style="text-align: left;color: coral;font-weight: bold;margin-top: 10px;margin-bottom: 10px;margin-left: 20px;margin-bottom: 10px">推荐题目：</span>
-                <span v-for="x,index in BankList">
+                  <span style="text-align: left;color: coral;font-weight: bold;margin-top: 10px;margin-bottom: 10px;margin-left: 20px;margin-bottom: 10px">推荐题目：</span>
+                  <span v-for="x,index in BankList">
                   <p>({{index+1}}):{{x.item}}</p>
                 </span>
-                <span style="text-align: left;color: coral;font-weight: bold;margin-top: 10px;margin-bottom: 10px;margin-left: 20px;margin-bottom: 10px">推荐书籍：</span>
-                <span v-for="x,index in BookList">
+                  <span style="text-align: left;color: coral;font-weight: bold;margin-top: 10px;margin-bottom: 10px;margin-left: 20px;margin-bottom: 10px">推荐书籍：</span>
+                  <span v-for="x,index in BookList">
                   <p>({{index+1}}):{{x.bookname}}({{x.item}})</p>
                 </span>
+                </div>
               </div>
             </div>
-          </div>
-        </el-col>
-        <el-col :span="2">
-          <el-divider direction="vertical"></el-divider>
-        </el-col>
-      </el-row>
+          </el-col>
+          <el-col :span="2">
+            <el-divider direction="vertical"></el-divider>
+          </el-col>
+        </el-row>
+      </div>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -243,7 +255,7 @@
         back:function(){
           let that = this
           that.$router.push({
-            path:'/user/evaluate/result',
+            path:'/user/evaluate/userNresult',
           })
         },
           //获取试卷信息

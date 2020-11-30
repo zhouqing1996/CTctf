@@ -91,7 +91,7 @@ import UserGoEva from '../pages/user/evaluate/Goeva'
 import UserResult from '../pages/user/evaluate/Resultview'
 //查看详情
 import UserView from '../pages/user/evaluate/Result'
-
+import UsernResult from '../pages/user/evaluate/nResult'
 //排名
 import UserRank from '../pages/user/rank/Rank'
 //练习
@@ -539,6 +539,14 @@ const  router = new Router({
             isLogin:true
           },
           component:UserView
+        },
+        {
+          path:'/user/evaluate/userNresult',
+          name:'UsernResult',
+          meta:{
+            isLogin:true
+          },
+          component:UsernResult
         },
         {
         //  练习

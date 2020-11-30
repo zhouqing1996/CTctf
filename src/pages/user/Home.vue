@@ -19,26 +19,27 @@
         <el-menu-item index="4">
           <router-link to="/user/rank" >排名</router-link>
         </el-menu-item>
-        <el-submenu index="6">
-          <template slot="title">结果</template>
-          <el-menu-item index="6-1">
-            <router-link to="/user/evaluate/result" >结果查看</router-link>
-          </el-menu-item>
-          <el-menu-item index="6-2">
-            <router-link to="/user/exercise/anlysis" >结果分析</router-link>
-          </el-menu-item>
-        </el-submenu>
+        <el-menu-item index="6">
+          <router-link to="/user/evaluate/userNresult" >结果查看</router-link>
+          <!--<template slot="title">结果</template>-->
+          <!--<el-menu-item index="6-1">-->
+            <!--<router-link to="/user/evaluate/result" >结果查看</router-link>-->
+          <!--</el-menu-item>-->
+          <!--<el-menu-item index="6-2">-->
+            <!--<router-link to="/user/evaluate/userNresult" >结果查看2</router-link>-->
+          <!--</el-menu-item>-->
+        </el-menu-item>
         <el-submenu index="7">
           <template slot="title">我的信息</template>
-          <el-menu-item index="7-1">
-            <router-link to="/user/class/select" >选择导师</router-link>
-          </el-menu-item>
+          <!--<el-menu-item index="7-1">-->
+            <!--<router-link to="/user/class/select" >选择导师</router-link>-->
+          <!--</el-menu-item>-->
           <el-menu-item index="7-2">
             <router-link to="/user/my" >我的资料</router-link>
           </el-menu-item>
-          <el-menu-item index="7-3">
-            <router-link to="/user/my/changepwd" >修改密码</router-link>
-          </el-menu-item>
+          <!--<el-menu-item index="7-3">-->
+            <!--<router-link to="/user/my/changepwd" >修改密码</router-link>-->
+          <!--</el-menu-item>-->
           <el-menu-item index="7-4" v-on:click="logout">
             退出登录
           </el-menu-item>
@@ -56,12 +57,6 @@
         text-color="#fff"
         active-text-color="#ffd04b">
         <el-menu-item index="1">用户页面</el-menu-item>
-        <!--<el-submenu index="2">-->
-          <!--<template slot="title">友情链接</template>-->
-          <!--<el-menu-item index="2-1">-->
-            <!--<a href="https://www.luogu.com.cn">洛谷</a>-->
-          <!--</el-menu-item>-->
-        <!--</el-submenu>-->
       </el-menu>
     </el-footer>
   </el-container>
@@ -101,12 +96,19 @@
             {
               that.$store.dispatch('logout')
               that.$store.dispatch('slogout')
-              that.$alert("退出成功！")
+              that.$alert("退出成功！",'成功',{
+                confirmButtonText:'确定',
+                type:'success'
+            })
               that.$router.push({path:'/login'})
             }
             else
             {
-              alert(res.data.message)
+              // alert(res.data.message)
+              that.$alert(res.data.message,'警告',{
+                confirmButtonText:'确定',
+                type:'warning'
+              })
             }
           })
         }).catch(()=>
@@ -121,35 +123,5 @@
 </script>
 
 <style scoped>
-  .header-css{
-    position: fixed;
-    top: 0px;
-    margin: auto;
-    opacity: 0.8;
-    float: right;
-  }
-  .header-menu{
-
-  }
-  .main-css{
-    width: 95%;
-    height: auto;
-    padding: 0px!important;
-    margin: 5px 20px 5px 20px;
-    text-align: center;
-  }
-  a {
-    text-decoration: none;
-  }
-  .router-link-active {
-    text-decoration: none;
-  }
-  .footer{
-    position: relative;
-    bottom: 0;
-    width: 100%;
-    text-align: center;
-    height: 10px;/*脚部的高度*/
-    clear:both;
-  }
+  @import "../../common/css/home.css";
 </style>

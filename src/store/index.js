@@ -6,12 +6,12 @@ export  default new Vuex.Store({
 
   state:{
     //全局变量
-    Id:JSON.parse(localStorage.getItem("vuex"))?JSON.parse(localStorage.getItem("vuex"))['Id']:"",
-    Name:JSON.parse(localStorage.getItem("vuex"))?JSON.parse(localStorage.getItem("vuex"))['Name']:"",
-    Pwd:JSON.parse(localStorage.getItem("vuex"))?JSON.parse(localStorage.getItem("vuex"))['Pwd']:"",
-    Token:JSON.parse(localStorage.getItem("vuex"))?JSON.parse(localStorage.getItem("vuex"))['Token']:"",
-    Role:JSON.parse(localStorage.getItem("vuex"))?JSON.parse(localStorage.getItem("vuex"))['Role']:"",
-    Status:JSON.parse(localStorage.getItem("vuex"))?JSON.parse(localStorage.getItem("vuex"))['Status']:"",
+    // Id:JSON.parse(localStorage.getItem("vuex"))?JSON.parse(localStorage.getItem("vuex"))['Id']:"",
+    // Name:JSON.parse(localStorage.getItem("vuex"))?JSON.parse(localStorage.getItem("vuex"))['Name']:"",
+    // Pwd:JSON.parse(localStorage.getItem("vuex"))?JSON.parse(localStorage.getItem("vuex"))['Pwd']:"",
+    // Token:JSON.parse(localStorage.getItem("vuex"))?JSON.parse(localStorage.getItem("vuex"))['Token']:"",
+    // Role:JSON.parse(localStorage.getItem("vuex"))?JSON.parse(localStorage.getItem("vuex"))['Role']:"",
+    // Status:JSON.parse(localStorage.getItem("vuex"))?JSON.parse(localStorage.getItem("vuex"))['Status']:"",
 
     sId:JSON.parse(sessionStorage.getItem("vuex"))?JSON.parse(sessionStorage.getItem("vuex"))['sId']:"",
     sName:JSON.parse(sessionStorage.getItem("vuex"))?JSON.parse(sessionStorage.getItem("vuex"))['sName']:"",
@@ -29,60 +29,60 @@ export  default new Vuex.Store({
       state.isLogin = flag
     },
     //set方法
-    setId:function (state,id) {
-      state.Id = id;
-      localStorage.setItem("vuex",JSON.stringify(state))
-    },
-    setName:function (state,name) {
-      state.Name = name;
-      localStorage.setItem("vuex",JSON.stringify(state))
-    },
-    setPwd:function (state,pwd) {
-      state.Pwd = pwd;
-      localStorage.setItem("vuex",JSON.stringify(state))
-    },
-    setToken:function (state,token) {
-      state.Token = token;
-      localStorage.setItem("vuex",JSON.stringify(state))
-    },
-    setRole:function (state,role) {
-      state.Role = role;
-      localStorage.setItem("vuex",JSON.stringify(state))
-    },
-    setStatus:function (state,status) {
-      state.Status = status;
-      localStorage.setItem("vuex",JSON.stringify(state))
-    },
-    delId(state)
-    {
-      state.Id= "";
-      localStorage.setItem("vuex",JSON.stringify(state))
-    },
-    delName(state)
-    {
-      state.Name = "";
-      localStorage.setItem("vuex",JSON.stringify(state))
-    },
-    delPwd(state)
-    {
-      state.Pwd = "";
-      localStorage.setItem("vuex",JSON.stringify(state))
-    },
-    delToken(state)
-    {
-      state.Token = "";
-      localStorage.setItem("vuex",JSON.stringify(state))
-    },
-    delRole(state)
-    {
-      state.Role = "";
-      localStorage.setItem("vuex",JSON.stringify(state))
-    },
-    delStatus(state)
-    {
-      state.Status = "";
-      localStorage.setItem("vuex",JSON.stringify(state))
-    },
+    // setId:function (state,id) {
+    //   state.Id = id;
+    //   localStorage.setItem("vuex",JSON.stringify(state))
+    // },
+    // setName:function (state,name) {
+    //   state.Name = name;
+    //   localStorage.setItem("vuex",JSON.stringify(state))
+    // },
+    // setPwd:function (state,pwd) {
+    //   state.Pwd = pwd;
+    //   localStorage.setItem("vuex",JSON.stringify(state))
+    // },
+    // setToken:function (state,token) {
+    //   state.Token = token;
+    //   localStorage.setItem("vuex",JSON.stringify(state))
+    // },
+    // setRole:function (state,role) {
+    //   state.Role = role;
+    //   localStorage.setItem("vuex",JSON.stringify(state))
+    // },
+    // setStatus:function (state,status) {
+    //   state.Status = status;
+    //   localStorage.setItem("vuex",JSON.stringify(state))
+    // },
+    // delId(state)
+    // {
+    //   state.Id= "";
+    //   localStorage.setItem("vuex",JSON.stringify(state))
+    // },
+    // delName(state)
+    // {
+    //   state.Name = "";
+    //   localStorage.setItem("vuex",JSON.stringify(state))
+    // },
+    // delPwd(state)
+    // {
+    //   state.Pwd = "";
+    //   localStorage.setItem("vuex",JSON.stringify(state))
+    // },
+    // delToken(state)
+    // {
+    //   state.Token = "";
+    //   localStorage.setItem("vuex",JSON.stringify(state))
+    // },
+    // delRole(state)
+    // {
+    //   state.Role = "";
+    //   localStorage.setItem("vuex",JSON.stringify(state))
+    // },
+    // delStatus(state)
+    // {
+    //   state.Status = "";
+    //   localStorage.setItem("vuex",JSON.stringify(state))
+    // },
 
     setsId:function (state,id) {
       state.sId = id;
@@ -110,7 +110,7 @@ export  default new Vuex.Store({
     },
     setsNo:function (state,no) {
       state.sNo = no;
-      localStorage.setItem("vuex",JSON.stringify(state))
+      sessionStorage.setItem("vuex",JSON.stringify(state))
     },
     delsId(state)
     {
@@ -151,24 +151,24 @@ export  default new Vuex.Store({
   getters:{
     isLogin: state => state.isLogin,
     //get方法
-    getId:(state)=>{
-      return state.Id
-    },
-    getName:(state)=>{
-      return state.Name
-    },
-    getPwd:(state)=>{
-      return state.Pwd
-    },
-    getToken:(state)=>{
-      return state.Token
-    },
-    getRole:(state)=>{
-      return state.Role
-    },
-    getStatus:(state)=>{
-      return state.Status
-    },
+    // getId:(state)=>{
+    //   return state.Id
+    // },
+    // getName:(state)=>{
+    //   return state.Name
+    // },
+    // getPwd:(state)=>{
+    //   return state.Pwd
+    // },
+    // getToken:(state)=>{
+    //   return state.Token
+    // },
+    // getRole:(state)=>{
+    //   return state.Role
+    // },
+    // getStatus:(state)=>{
+    //   return state.Status
+    // },
 
     getsId:(state)=>{
       return state.sId
@@ -197,26 +197,30 @@ export  default new Vuex.Store({
     userLogin({commit}, flag) {
       commit("userStatus", flag)
     },
-    login:({commit},obj)=>{
-      commit('setId',obj.id),commit('setName',obj.username),commit('setPwd',obj.password),
-      commit('setToken',obj.token),commit('setRole',obj.role),
-      commit('setStatus',obj.status)
-    },
-    logout:({commit})=>{
-      commit('delId'),commit('delName'),commit('delPwd'),
-      commit('delToken'),commit('delRole'),
-      commit('delStatus')
-    },
-    forget:({commit},obj)=>{
-      commit('setId',obj.id),commit('setName',obj.username),commit('setPwd',obj.password),
-      commit('setToken',obj.token),commit('setRole',obj.role),
-      commit('setStatus',obj.status)
-    },
+    // login:({commit},obj)=>{
+    //   commit('setId',obj.id),commit('setName',obj.username),commit('setPwd',obj.password),
+    //   commit('setToken',obj.token),commit('setRole',obj.role),
+    //   commit('setStatus',obj.status)
+    // },
+    // logout:({commit})=>{
+    //   commit('delId'),commit('delName'),commit('delPwd'),
+    //   commit('delToken'),commit('delRole'),
+    //   commit('delStatus')
+    // },
+    // forget:({commit},obj)=>{
+    //   commit('setId',obj.id),commit('setName',obj.username),commit('setPwd',obj.password),
+    //   commit('setToken',obj.token),commit('setRole',obj.role),
+    //   commit('setStatus',obj.status)
+    // },
 
     slogin:({commit},obj)=>{
-      commit('setsId',obj.id),commit('setsName',obj.username),commit('setsPwd',obj.password),
-        commit('setsToken',obj.token),commit('setsRole',obj.role),
-        commit('setsStatus',obj.status),commit('setsNo',obj.no)
+      commit('setsId',obj.id)
+      commit('setsNo',obj.no)
+      commit('setsName',obj.username)
+      commit('setsPwd',obj.password)
+      commit('setsToken',obj.token)
+      commit('setsRole',obj.role)
+      commit('setsStatus',obj.status)
     },
     slogout:({commit})=>{
       commit('delsId'),commit('delsName'),commit('delsPwd'),

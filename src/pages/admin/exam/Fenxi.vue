@@ -1,27 +1,41 @@
 <template>
   <!--数据分析-->
   <div>
-    <div class="whole">
-      <p style="color: #FF0000;text-align: center;font-weight: bold">试卷的整体分析</p>
-      <span><strong>答题总人数：</strong>{{List.userNum}}</span><br>
-      <span><strong>答题用户名单:</strong>
+    <div>
+      <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb-css">
+        <el-breadcrumb-item :to="{ path: '/admin/exam/create' }">测评题库</el-breadcrumb-item>
+        <el-breadcrumb-item>{{List.exname}}</el-breadcrumb-item>
+        <el-breadcrumb-item>数据分析</el-breadcrumb-item>
+      </el-breadcrumb>
+      <div><hr/></div>
+    </div>
+    <div v-if="List.userNum==0" class="None">
+      暂无人作答
+    </div>
+    <div v-else>
+      <div class="whole">
+        <p style="color: #FF0000;text-align: center;font-weight: bold">试卷的整体分析</p>
+        <span><strong>答题总人数：</strong>{{List.userNum}}</span><br>
+        <span><strong>答题用户名单:</strong>
       <span v-for="x in List.UserList" style="color: #0ea0db">
         <button @click="viewuser(List.eid,x.id)">{{x.name}}</button>
       </span>
       </span><br>
-      <span><strong>试卷总分：</strong>{{List.wholeSoce}}</span><br>
-      <span><strong>试卷最高分：</strong>{{List.heightScore}}</span><br>
-      <span><strong>试卷最低分：</strong><span style="color: #FF0000">{{List.lowScore}}</span></span><br>
-      <span><strong>平均得分：</strong>{{List.avgGrade}}</span><br>
-      <span><strong>平均作答时间：</strong>{{List.avgTime}}分钟</span><br>
-      <span><strong>平均作答次数:</strong>{{List.avgNum}}</span><br>
-      <span><strong>用户最多的作答次数：</strong>{{List.maxUserNum}}</span><br>
+        <span><strong>试卷总分：</strong>{{List.wholeSoce}}</span><br>
+        <span><strong>试卷最高分：</strong>{{List.heightScore}}</span><br>
+        <span><strong>试卷最低分：</strong><span style="color: #FF0000">{{List.lowScore}}</span></span><br>
+        <span><strong>平均得分：</strong>{{List.avgGrade}}</span><br>
+        <span><strong>平均作答时间：</strong>{{List.avgTime}}分钟</span><br>
+        <span><strong>平均作答次数:</strong>{{List.avgNum}}</span><br>
+        <span><strong>用户最多的作答次数：</strong>{{List.maxUserNum}}</span><br>
+      </div>
+      <div>
+        <PieChart :sdata="pie" :t="pieTitle" :subt="pieSubt"></PieChart>
+        <BarChart :data="bar" :title="barTitle"></BarChart>
+      </div>
     </div>
-    <div>
-      <PieChart :sdata="pie" :t="pieTitle" :subt="pieSubt"></PieChart>
-      <BarChart :data="bar" :title="barTitle"></BarChart>
-    </div>
-    <button>数据</button>
+
+    <!--<button>数据</button>-->
   </div>
 </template>
 

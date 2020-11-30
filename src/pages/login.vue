@@ -69,7 +69,8 @@
         if(that.loginForm.username==''||that.loginForm.password==''||that.loginForm.role=='')
         {
           that.$alert('请输入完整登录信息', '警告', {
-            confirmButtonText: '确定',})
+            confirmButtonText: '确定',
+          type:'warning'})
         }
         else{
           that.$http.post('/home/index/login',{
@@ -81,10 +82,13 @@
             var message = res.data.message
             if(message=="登录成功")
             {
-              that.$store.dispatch('login',res.data.data)
+              // that.$store.dispatch('login',res.data.data)
               that.$store.dispatch('slogin',res.data.data)
               let role = that.$store.getters.getsRole
-              alert(message)
+              // alert(message)
+              that.$alert(res.data.message, '成功', {
+                confirmButtonText: '确定',
+                type:'success'})
               if(role==1)
               {
                 //管理员

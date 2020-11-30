@@ -263,10 +263,16 @@
               if(res.data.message=="自动组卷成功")
               {
                 that.getExamList(3)
+                that.$alert(res.data.message, '成功', {
+                  confirmButtonText: '确定',type:'success'})
+                that.dialogFormVisibleAdd=false
+                that.Reset();
               }
-              that.dialogFormVisibleAdd=false
-              that.Reset();
-              alert(res.data.message)
+              else
+              {
+                that.$alert(res.data.message, '提示', {
+                  confirmButtonText: '确定',type:'warning'})
+              }
             }).catch(function (error) {
               console.log(error)
             })
@@ -400,7 +406,10 @@
           }).then(function (res) {
             console.log(res.data)
             that.getExamList(3)
-            alert(res.data.message)
+            // alert(res.data.message)
+            that.$alert(res.data.message, '成功', {
+              confirmButtonText: '确定',type:'success'})
+
           }).catch(function (error) {
             console.log(error)
           })
@@ -423,8 +432,15 @@
                 if(res.data.message=="删除成功")
                 {
                   that.getExamList(3)
+                  that.$alert(res.data.message, '成功', {
+                    confirmButtonText: '确定',type:'success'})
                 }
-                alert(res.data.message)
+                else
+                {
+                  that.$alert(res.data.message, '提示', {
+                    confirmButtonText: '确定',type:'warning'})
+                }
+                // alert(res.data.message)
               })
             }).catch(function (error) {
               console.log(error)
@@ -445,8 +461,15 @@
                 if(res.data.message=="完全删除成功")
                 {
                   that.getExamList(3)
+                  that.$alert(res.data.message, '成功', {
+                    confirmButtonText: '确定',type:'success'})
                 }
-                alert(res.data.message)
+                else
+                {
+                  that.$alert(res.data.message, '提示', {
+                    confirmButtonText: '确定',type:'warning'})
+                }
+                // alert(res.data.message)
               })
             }).catch(function (error) {
               console.log(error)

@@ -10,15 +10,15 @@
     <div><hr/></div>
     <div>
       <div >
-        <div >
-          <div class="meeting" >
-            <el-input v-model="name" placeholder="模糊查找" size="mini"></el-input>
-          </div>
-          <button class="btn el-icon-search" v-on:click="SeachEva()">搜索试卷</button>
-        </div>
-        <br>
-        <br>
-        <el-divider></el-divider>
+        <!--<div >-->
+          <!--<div class="meeting" >-->
+            <!--<el-input v-model="name" placeholder="模糊查找" size="mini"></el-input>-->
+          <!--</div>-->
+          <!--<button class="btn el-icon-search" v-on:click="SeachEva()">搜索试卷</button>-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<br>-->
+        <!--<el-divider></el-divider>-->
         <div class="waimian">
           <div v-if="currentPageData.length>0">
             <div  v-for=" (x,key) in currentPageData" class="detail" >
@@ -41,9 +41,6 @@
                 </div>
               </div>
             </div>
-          </div>
-          <div v-else>
-            <div>没有结果</div>
           </div>
         </div>
         <div class="page">
@@ -73,6 +70,7 @@
             //用户作答的试卷信息
             uexamList:[],
             uid:'',
+            eid:'',
             examList:[],
 
             // 翻页相关
@@ -85,6 +83,7 @@
       created(){
         let that = this
           that.uid = that.$store.getters.getsId
+        that.eid = that.$route.query.eid
           that.getExamList()
       },
       methods:{
@@ -159,7 +158,8 @@
             that.name=''
             let _that = that
             that.$http.post('/exam/exam/userresult',{
-              uid:that.uid
+              uid:that.uid,
+              eid:that.eid,
             }).then(function (res) {
               console.log(res.data)
               if(res.data.message=="查找成功")

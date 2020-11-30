@@ -5,55 +5,60 @@
       <el-breadcrumb-item><span @click="getEvaList" style="font-weight: bold">测评</span></el-breadcrumb-item>
     </el-breadcrumb>
     <div><hr/></div>
-    <div class="display1">
-      <el-tabs type="border-card">
-        <el-tab-pane>
-          <span slot="label"><i class="el-icon-date"></i> 试卷列表</span>
-          <div class="display2">
-            <div class="searchmem">
-              <div class="meeting" >
-                <el-input v-model="inputname" placeholder="模糊查找" size="mini"></el-input>
+    <div v-if="EvaList.length>0">
+      <div class="display1">
+        <el-tabs type="border-card">
+          <el-tab-pane>
+            <span slot="label"><i class="el-icon-date"></i> 试卷列表</span>
+            <div class="display2">
+              <div class="searchmem">
+                <div class="meeting" >
+                  <el-input v-model="inputname" placeholder="模糊查找" size="mini"></el-input>
+                </div>
+                <button class="btn2 el-icon-search" v-on:click="SeachEva()">搜索试卷</button>
               </div>
-              <button class="btn2 el-icon-search" v-on:click="SeachEva()">搜索试卷</button>
-            </div>
-            <br>
-            <br>
-            <el-divider></el-divider>
-            <div class="waimian">
-              <div  v-for=" (exam,key) in currentPageData" class="detail">
-                <div class="detail">
-                  <div>
-                    <h3>
-                      <p @click="Goexam(exam.exid,exam.gdtime)" class="title" target="_blank">
+              <br>
+              <br>
+              <el-divider></el-divider>
+              <div class="waimian">
+                <div  v-for=" (exam,key) in currentPageData" class="detail">
+                  <div class="detail">
+                    <div>
+                      <h3>
+                        <p @click="Goexam(exam.exid,exam.gdtime)" class="title" target="_blank">
                           <span class="span2">[序号：{{ key+1 }} 试卷编号：{{exam.exid}}]</span>{{exam.exname}}
-                          </p>
-                    </h3>
-                  </div>
-                  <div>
-                    <div class="Im">
-                      <img src="../../../assets/images/avter.png" class="avter"><span class="name">{{exam.auth}}</span>
+                        </p>
+                      </h3>
                     </div>
-                    <span class="ctime" ><i class="el-icon-time">时间：{{exam.gdtime}}分钟</i> <i class="el-icon-date">{{exam.createtime}}</i></span>
+                    <div>
+                      <div class="Im">
+                        <img src="../../../assets/images/avter.png" class="avter"><span class="name">{{exam.auth}}</span>
+                      </div>
+                      <span class="ctime" ><i class="el-icon-time">时间：{{exam.gdtime}}分钟</i> <i class="el-icon-date">{{exam.createtime}}</i></span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </el-tab-pane>
-      </el-tabs>
-      <div class="page">
-        <ul class="pagination pagination-sm"><!--分页-->
-          <li class="page-item" v-if="currentPage!=1">
-            <span class="page-link" v-on:click="prePage">上一页</span>
-          </li>
-          <li class="page-item" >
-            <span class="page-link" >第{{ currentPage }}页/共{{totalPage}}页</span>
-          </li>
-          <li class="page-item" v-if="currentPage!=totalPage">
-            <span class="page-link" v-on:click="nextPage">下一页</span>
-          </li>
-        </ul>
+          </el-tab-pane>
+        </el-tabs>
+        <div class="page">
+          <ul class="pagination pagination-sm"><!--分页-->
+            <li class="page-item" v-if="currentPage!=1">
+              <span class="page-link" v-on:click="prePage">上一页</span>
+            </li>
+            <li class="page-item" >
+              <span class="page-link" >第{{ currentPage }}页/共{{totalPage}}页</span>
+            </li>
+            <li class="page-item" v-if="currentPage!=totalPage">
+              <span class="page-link" v-on:click="nextPage">下一页</span>
+            </li>
+          </ul>
+        </div>
       </div>
+    </div>
+    <div v-else>
+      暂无测评试卷
     </div>
   </div>
 </template>

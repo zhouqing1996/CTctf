@@ -86,7 +86,7 @@
           </div>
         </el-tab-pane>
       </el-tabs>
-      <div style="font-size: 18px">
+      <div class="page">
         <ul class="pagination pagination-sm"><!--分页-->
           <li class="page-item" v-if="currentPage!=1">
             <span class="page-link" v-on:click="prePage">上一页</span>

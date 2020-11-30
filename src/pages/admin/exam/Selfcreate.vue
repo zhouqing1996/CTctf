@@ -8,7 +8,6 @@
         <!--<el-breadcrumb-item><button class="btn2 el-icon-folder-checked" >完成组卷</button></el-breadcrumb-item>-->
       </el-breadcrumb>
       <div><hr/></div>
-
       <div class="display1">
         <el-tabs type="border-card">
           <!--选择题-->
@@ -41,21 +40,21 @@
                 </tr>
               </table>
               <hr/>
-              <div>单选题：{{List1}}，填空题：{{List2}},判断题：{{List3}},多选题：{{List4}},程序题：{{List5}}</div>
+              <div style="height: 20px">单选题：{{List1}}，填空题：{{List2}},判断题：{{List3}},多选题：{{List4}},程序题：{{List5}}</div>
               <hr/>
-              <div class="page">
-                <ul class="pagination pagination-sm"><!--分页-->
-                  <li class="page-item" v-if="currentPage1!=1">
-                    <span class="page-link" v-on:click="prePage1">上一页</span>
-                  </li>
-                  <li class="page-item" >
-                    <span class="page-link" >第{{ currentPage1 }}页/共{{totalPage1}}页</span>
-                  </li>
-                  <li class="page-item" v-if="currentPage1!=totalPage1">
-                    <span class="page-link" v-on:click="nextPage1">下一页</span>
-                  </li>
-                </ul>
-              </div>
+            </div>
+            <div class="page">
+              <ul class="pagination pagination-sm"><!--分页-->
+                <li class="page-item" v-if="currentPage1!=1">
+                  <span class="page-link" v-on:click="prePage1">上一页</span>
+                </li>
+                <li class="page-item" >
+                  <span class="page-link" >第{{ currentPage1 }}页/共{{totalPage1}}页</span>
+                </li>
+                <li class="page-item" v-if="currentPage1!=totalPage1">
+                  <span class="page-link" v-on:click="nextPage1">下一页</span>
+                </li>
+              </ul>
             </div>
           </el-tab-pane>
           <!--填空题-->
@@ -90,7 +89,7 @@
               </table>
             </div>
             <hr/>
-            <div>单选题：{{List1}}，填空题：{{List2}},判断题：{{List3}},多选题：{{List4}},程序题：{{List5}}</div>
+            <div style="height: 20px">单选题：{{List1}}，填空题：{{List2}},判断题：{{List3}},多选题：{{List4}},程序题：{{List5}}</div>
             <hr/>
             <div class="page">
               <ul class="pagination pagination-sm"><!--分页-->
@@ -138,7 +137,7 @@
               </table>
             </div>
             <hr/>
-            <div>单选题：{{List1}}，填空题：{{List2}},判断题：{{List3}},多选题：{{List4}},程序题：{{List5}}</div>
+            <div style="height: 20px">单选题：{{List1}}，填空题：{{List2}},判断题：{{List3}},多选题：{{List4}},程序题：{{List5}}</div>
             <hr/>
             <div class="page">
               <ul class="pagination pagination-sm"><!--分页-->
@@ -186,7 +185,7 @@
               </table>
             </div>
             <hr/>
-            <div>单选题：{{List1}}，填空题：{{List2}},判断题：{{List3}},多选题：{{List4}},程序题：{{List5}}</div>
+            <div style="height: 20px">单选题：{{List1}}，填空题：{{List2}},判断题：{{List3}},多选题：{{List4}},程序题：{{List5}}</div>
             <hr/>
             <div class="page">
               <ul class="pagination pagination-sm"><!--分页-->
@@ -234,7 +233,7 @@
               </table>
             </div>
             <hr/>
-            <div>单选题：{{List1}}，填空题：{{List2}},判断题：{{List3}},多选题：{{List4}},程序题：{{List5}}</div>
+            <div style="height: 20px">单选题：{{List1}}，填空题：{{List2}},判断题：{{List3}},多选题：{{List4}},程序题：{{List5}}</div>
             <hr/>
             <div class="page">
               <ul class="pagination pagination-sm"><!--分页-->
@@ -675,6 +674,7 @@
           })
         },
         SelfOK:function () {
+          let that =this
           console.log("完成问卷")
           if(that.List1.length ==0 ||that.List2.length==0||that.List3.length==0||that.List4.length==0||that.List5.length==0)
           {
@@ -699,7 +699,11 @@
               {
                 that.$router.push({path:'/admin/exam/create'})
               }
-              alert(res.data.message)
+              // alert(res.data.message)
+              that.$alert(res.data.message, '成功', {
+                confirmButtonText: '确定',
+                type:'success'
+              })
               that.dialogFormVisible = false
               that.SelfList.name =""
             }).catch(function (error) {
@@ -841,15 +845,28 @@
   }
 
   .display1{
-    border: solid 1px #E5E7E9;
+    /*border: solid 1px #E5E7E9;*/
     height: 600px;
     width: 98%;
-    padding-left: 5px;
-    padding-right: 5px;
+    /*padding-left: 5px;*/
+    /*padding-right: 5px;*/
     background-color: #fff;
+  }
+  .display2
+  {
+    /*border: solid 5px #E5E7E9;*/
+    height: auto;
+    width: 95%;
+    /*padding-left: 5px;*/
+    /*padding-right: 5px;*/
+    background-color: #fff;
+    /*margin-bottom: 40px;*/
   }
   .page {
     text-align: center;
+    margin-top: 20px;
+    font-size: 16px;
+    color: #0ea0db;
   }
   .meeting{
     float:left;
