@@ -23,7 +23,7 @@
           <!--</el-menu-item>-->
         <!--</el-submenu>-->
         <el-menu-item index="3">
-          <router-link to="" >资源管理</router-link>
+          <router-link to="/teacher/resourse" >资源管理</router-link>
         </el-menu-item>
         <el-menu-item index="4">
           <router-link to="/teacher/create" >评测管理</router-link>

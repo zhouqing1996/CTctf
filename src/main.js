@@ -56,6 +56,9 @@ Vue.config.productionTip = false
 Vue.use(initHtml5Editor)
 import MonacoInstall from './common/install'
 Vue.use(MonacoInstall)
+import Video from 'video.js'
+import 'video.js/dist/video-js.css'
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

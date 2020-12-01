@@ -566,6 +566,10 @@
   }
   .page {
     text-align: center;
+    font-size: 16px;
+    margin: 20px 20px 20px 20px;
+    color: #5FA7FE;
+    width:90%
   }
   .meeting{
     float:left;

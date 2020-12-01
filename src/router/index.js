@@ -76,6 +76,7 @@ import TeacherNewCreate from '../pages/teacher/teach/Newcreate'
 import TeacherSManage from '../pages/teacher/student/SManage'
 //数据分析
 import TeacherFenxi from '../pages/teacher/fenxi/fenxi'
+import TeacherRecourse from '../pages/teacher/teach/Recource'
 
 
 //用户身份
@@ -467,6 +468,15 @@ const  router = new Router({
             isLogin:true
           },
           component:TeacherView
+        },
+        {
+          //资源管理
+          path:'/teacher/resourse',
+          name:'TeacherRecourse',
+          meta:{
+            isLogin:true
+          },
+          component:TeacherRecourse
         },
         {
         //  教师管理学生

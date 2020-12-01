@@ -76,21 +76,6 @@
             <p class="tail">详解：{{m.mtail}}</p>
             <p class="rem">相关知识点：{{m.mrem}}</p>
           </div>
-          <!--<span v-for="(m,keym) in choosemList":key="keym">-->
-          <!--<li class="item">({{keym+1}}){{m.mqitem}}<br>-->
-          <!--<ul>-->
-          <!--<li v-for="(x,i) in m.mcho" >-->
-          <!--<input type="checkbox" :name="'choosem'+m.mid+i"-->
-          <!--@change="mr(m.mid,m.mcho[i])"/>{{x}}-->
-          <!--</li>-->
-          <!--</ul>-->
-          <!--&lt;!&ndash;<input type="text" value=""><br>&ndash;&gt;-->
-          <!--</li>-->
-
-          <!--<p class="ans">答案：{{m.mqans}}</p>-->
-          <!--<p class="tail">详解：{{m.mqtail}}</p>-->
-          <!--<p class="rem">相关知识点：{{m.mqrem}}</p>-->
-          <!--</span>-->
         </div>
         <hr/>
         <h2>五、程序题</h2>
