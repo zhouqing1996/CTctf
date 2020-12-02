@@ -42,6 +42,7 @@
               <button class="btn2 el-icon-folder-remove" @click="getQueryPN">无效题目</button>
               <button class="btn2 el-icon-folder-checked" @click="getQueryP">所有题目</button>
               <button class="btn2 el-icon-document" @click="addF">批量添加</button>
+              <button class="btn2 el-icon-document" @click="exportP">导出</button>
               <input type="file" @change="importExcel(that)" id="inputExcel"
                      accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" style="display: none"/>
             </div>
@@ -197,6 +198,14 @@
       }
     },
     methods:{
+      exportP:function()
+      {
+        let that =this
+        that.$http.post('/home/export/exportprogram').then(function (res) {
+          console.log(res.data)
+          window.open(res.data.data)
+        })
+      },
       //分页
       setCurrentPageDate: function () {
         let that =this

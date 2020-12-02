@@ -60,6 +60,7 @@
               <button class="btn2 el-icon-folder-remove" @click="getQuerypQuestionN">无效题目</button>
               <button class="btn2 el-icon-folder-checked" @click="getQuerypQuestion">所有题目</button>
               <button class="btn2 el-icon-document" @click="addP">批量添加</button>
+              <button class="btn2 el-icon-document" @click="exportP">导出</button>
               <input type="file" @change="importExcel(that)" id="inputExcel"
                      accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" style="display: none"/>
             </div>
@@ -157,6 +158,14 @@
       }
     },
     methods:{
+      exportP:function()
+      {
+        let that =this
+        that.$http.post('/home/export/exportprogram').then(function (res) {
+          console.log(res.data)
+          window.open(res.data.data)
+        })
+      },
       viewProgram:function(id){
         let that =this
         console.log(id)

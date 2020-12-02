@@ -60,6 +60,7 @@
               <button class="btn2 el-icon-folder-remove" @click="getQueryN">无效用户</button>
               <button class="btn2 el-icon-folder-checked" @click="getQuery">所有用户</button>
               <button class="btn2 el-icon-document" @click="addU">批量添加</button>
+              <button class="btn2 el-icon-document" @click="exportU">导出用户</button>
               <input type="file" @change="importExcel(this)" id="inputExcel"
                      accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" style="display: none"/>
             </div>
@@ -188,6 +189,14 @@
         }
       },
       methods: {
+        exportU:function()
+        {
+          let that =this
+          that.$http.post('/home/export/exportuser').then(function (res) {
+            console.log(res.data)
+            window.open(res.data.data)
+          })
+        },
         //分页
         setCurrentPageDate: function () {
           let that =this

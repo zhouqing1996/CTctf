@@ -55,6 +55,7 @@
               <button class="btn2 el-icon-folder" @click="getExamList(1)">有效试卷</button>
               <button class="btn2 el-icon-folder-remove" @click="getExamList(2)">无效试卷</button>
               <button class="btn2 el-icon-folder-checked" @click="getExamList(3)">所有试卷</button>
+              <button class="btn2 el-icon-document" @click="exportE">导出</button>
             </div>
             <div class="waimian">
               <div v-for=" (exam,key) in currentPageData" class="detail">
@@ -65,6 +66,7 @@
                     <div class="delete">
                       <span @click="goDown(exam.exid)" class="span3">下载试卷</span>
                       <span @click="goFenXi(exam.exid)" class="span3">学生答题情况</span>
+                      <span @click="exportone(exam.exid)" class="span3">下载答题信息</span>
                       <span v-if="exam.exstatus==1">有效
                         <span @click="deleteExam(1,exam.exid)" class="span1"><i class="el-icon-delete">删除</i></span>
                         </span>
@@ -134,6 +136,24 @@
           }
       },
       methods:{
+        exportE:function()
+        {
+          let that =this
+          that.$http.post('/home/export/examinfo').then(function (res) {
+            console.log(res.data)
+            window.open(res.data.data)
+          })
+        },
+        exportone:function(id)
+        {
+          let that =this
+          that.$http.post('/home/export/examone',{
+            eid:id
+          }).then(function (res) {
+            console.log(res.data)
+            window.open(res.data.data)
+          })
+        },
         goDown:function(id){
           let that =this
           that.$http.post('/exam/download/dfile',{

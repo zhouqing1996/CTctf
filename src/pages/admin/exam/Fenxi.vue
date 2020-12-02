@@ -85,7 +85,14 @@
       //查看某用户的作答情况
       viewuser:function(eid,uid)
       {
-
+        let that =this
+        that.$http.post('/home/export/exportuserinfo',{
+          eid:eid,
+          uid:uid
+        }).then(function (res) {
+          console.log(res.data)
+          window.open(res.data.data)
+        })
       },
       getData:function () {
         let that =this
