@@ -12,6 +12,7 @@
       <div class="search" v-if="recourseList.length>0">
         <el-input placeholder="搜索" prefix-icon="el-icon-search" v-model="name" class="searchInput"></el-input>
         <el-button round @click="searchRecourse" class="searchBtn">搜索</el-button>
+        <el-button round @click="exportRe" class="searchBtn">导出</el-button>
       </div>
       <div><br><br><br></div>
       <div>
@@ -101,6 +102,16 @@
         this.getRecourse()
       },
       methods:{
+        exportRe:function()
+        {
+          let that =this
+          that.$http.post('/home/export/teacherreco',{
+            tid:that.uid
+          }).then(function (res) {
+            console.log(res.data)
+            window.open(res.data.data)
+          })
+        },
           getRecourse:function () {
             let that =this
             that.$http.post('/teacher/teacher/recourselist',{

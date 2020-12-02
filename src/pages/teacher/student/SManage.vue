@@ -12,6 +12,7 @@
           <el-input placeholder="搜索" prefix-icon="el-icon-search" v-model="name" class="searchInput"></el-input>
           <el-button round @click="searchStudent" class="searchBtn">搜索</el-button>
           <el-button round @click="addFlag=true" class="searchBtn">添加学生</el-button>
+          <el-button round  class="searchBtn el-icon-document" @click="exportS">导出</el-button>
           <el-dialog title="添加学生" :visible.sync="addFlag">
             <el-form >
               <el-form-item label="学生列表：" >
@@ -57,6 +58,20 @@
       </div>
       <div v-else>
         暂无学生
+        <el-button round @click="addFlag=true" class="searchBtn">添加学生</el-button>
+        <el-dialog title="添加学生" :visible.sync="addFlag">
+          <el-form >
+            <el-form-item label="学生列表：" >
+              <el-select style="width: 350px;" v-model="addList" multiple placeholder="选择学生" auto-complete="off">
+                <el-option v-for="(x,i) in addStudentList" :label="x.name" :value="x.id" :key="i">{{x.name}}</el-option>
+              </el-select>
+            </el-form-item>
+          </el-form>
+          <div slot="footer" style="align-content: center" class="dialog-footer">
+            <el-button type="primary" @click="SubmitAddStudent">提交</el-button>
+            <el-button @click="Reset">重置</el-button>
+          </div>
+        </el-dialog>
       </div>
     </div>
 </template>
@@ -89,6 +104,16 @@
         this.addStudent()
       },
       methods:{
+        exportS:function()
+        {
+          let that =this
+          that.$http.post('/home/export/teacherstu',{
+            tid:that.uid
+          }).then(function (res) {
+            console.log(res.data)
+            window.open(res.data.data)
+          })
+        },
           getStudentList:function () {
             let that =this
             that.$http.post('/teacher/teacher/studentlist',{

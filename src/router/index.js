@@ -41,7 +41,7 @@ import ChooseM from '../pages/admin/bank/Choosem'
 
 //图书信息
 import Book from '../pages/admin/book/Book'
-
+import Bookitem from '../pages/admin/book/Bookitem'
 //试卷信息
 //创建试卷
 import Create from '../pages/admin/exam/Create'
@@ -53,7 +53,7 @@ import SelfCreate from '../pages/admin/exam/Selfcreate'
 import NewCreate from '../pages/admin/exam/Newcreate'
 //分析试卷的答题情况
 import AdminFenxi from '../pages/admin/exam/Fenxi'
-
+import AdminPractice from '../pages/admin/user/Practice'
 
 
 //教师用户
@@ -260,6 +260,14 @@ const  router = new Router({
           component:Userinfo
         },
         {
+          path:'/admin/practice',
+          name:'AdminPractice',
+          meta:{
+            isLogin:true
+          },
+          component:AdminPractice
+        },
+        {
           //用户信息：添加用户
           path:'/admin/user/adduser',
           name:'adduser',
@@ -333,6 +341,14 @@ const  router = new Router({
             isLogin:true
           },
           component:Book
+        },
+        {
+          path:'/admin/book/item',
+          name:'Bookitem',
+          meta:{
+            isLogin:true
+          },
+          component:Bookitem
         },
         //试卷
         //创建试卷

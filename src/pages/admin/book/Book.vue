@@ -53,6 +53,7 @@
                     <span v-if="Book.status==1" @click="dialogFormVisiblechangName=true;changeList.id=Book.bookid;item=Book.bookname" class="span2">修改</span>
                     {{Book.bookname}}
                     <div class="delete">
+                      <span @click="BookLook(Book.bookid)" class="span3">查看</span>
                       <span v-if="Book.status==1">有效</span>
                       <span v-if="Book.status==1"@click="deleteBook(1,Book.bookid)" class="span1"><i class="el-icon-delete">删除</i></span>
                       <span v-if="Book.status==0">无效
@@ -201,6 +202,17 @@
               window.open(res.data.data)
             })
           },
+        BookLook:function(id)
+        {
+          let that =this
+          that.$router.push({
+              path:'/admin/book/item',
+              query:{
+                bid:id
+              }
+            }
+          )
+        },
         //分页
         setCurrentPageDate: function () {
           let that =this
@@ -647,6 +659,28 @@
     border-radius: 2px;
   }
   .span2:hover{
+    background-color: #5FA7FE;
+  }
+  /*查看*/
+  /*删除*/
+  .span3{
+    padding: 7px;
+    color: white;
+    background-color: #0ea0db;
+    margin-left: 5px;
+    margin-top: 17px;
+    margin-bottom: 5px;
+    display: inline-block;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: auto;
+    height: 30px;
+    line-height: 20px;
+    text-align: center;
+    font-size: 12px;
+    border-radius: 2px;
+  }
+  .span3:hover{
     background-color: #5FA7FE;
   }
   .delete{

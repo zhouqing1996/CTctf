@@ -49,6 +49,9 @@
             <el-menu-item index="5">
               <router-link to="/admin/exam/create" >测评题库</router-link>
             </el-menu-item>
+          <el-menu-item index="6">
+            <router-link to="/admin/practice" >学生练习</router-link>
+          </el-menu-item>
           <!--<el-submenu index="6">-->
             <!--<template slot="title">测评结果</template>-->
             <!--&lt;!&ndash;<el-menu-item index="6-1">查看测评</el-menu-item>&ndash;&gt;-->
