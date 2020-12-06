@@ -3,23 +3,12 @@
   <div style="margin-left: 30px">
     <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb-css">
       <el-breadcrumb-item :to="{ path: '/user/index' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item >
-        <span @click="getExamList" class="span1">结果查看</span>
-      </el-breadcrumb-item>
+      <el-breadcrumb-item :to="{path:'/user/evaluate/userNresult'}">结果查看</el-breadcrumb-item>
+      <el-breadcrumb-item >{{exname}}</el-breadcrumb-item>
     </el-breadcrumb>
     <div><hr/></div>
     <div>
-      <div >
-        <!--<div >-->
-          <!--<div class="meeting" >-->
-            <!--<el-input v-model="name" placeholder="模糊查找" size="mini"></el-input>-->
-          <!--</div>-->
-          <!--<button class="btn el-icon-search" v-on:click="SeachEva()">搜索试卷</button>-->
-        <!--</div>-->
-        <!--<br>-->
-        <!--<br>-->
-        <!--<el-divider></el-divider>-->
-        <div class="waimian">
+        <div>
           <div v-if="currentPageData.length>0">
             <div  v-for=" (x,key) in currentPageData" class="detail" >
               <div class="detail">
@@ -56,7 +45,6 @@
             </li>
           </ul>
         </div>
-      </div>
     </div>
   </div>
 </template>
@@ -78,6 +66,7 @@
             totalPage: 1,
             pageSize: 10,
             currentPageData:[],
+            exname:''
           }
       },
       created(){
@@ -164,7 +153,8 @@
               console.log(res.data)
               if(res.data.message=="查找成功")
               {
-                let list = res.data.data
+                _that.exname = res.data.data[0]
+                let list = res.data.data[1]
                 _that.uexamList = [];
                 for(let i=0;i<list.length;i++)
                 {

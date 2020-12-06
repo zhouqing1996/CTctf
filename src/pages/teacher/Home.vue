@@ -28,6 +28,9 @@
         <el-menu-item index="4">
           <router-link to="/teacher/create" >评测管理</router-link>
         </el-menu-item>
+        <el-menu-item index="5">
+          <router-link to="/teacher/pCreate" >练习管理</router-link>
+        </el-menu-item>
         <el-submenu index="7">
           <template slot="title">我的信息</template>
           <el-menu-item index="7-1">

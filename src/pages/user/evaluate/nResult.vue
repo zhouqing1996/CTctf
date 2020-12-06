@@ -4,7 +4,7 @@
     <div>
         <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb-css">
           <el-breadcrumb-item :to="{ path: '/user/index' }">首页</el-breadcrumb-item>
-          <el-breadcrumb-item>测试结果</el-breadcrumb-item>
+          <el-breadcrumb-item>结果查看</el-breadcrumb-item>
         </el-breadcrumb>
         <div><hr/></div>
     </div>

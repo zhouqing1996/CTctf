@@ -77,6 +77,10 @@ import TeacherSManage from '../pages/teacher/student/SManage'
 //数据分析
 import TeacherFenxi from '../pages/teacher/fenxi/fenxi'
 import TeacherRecourse from '../pages/teacher/teach/Recource'
+//练习题库
+import TeacherPCreate from '../pages/teacher/pratice/pCreate'
+import TeacherPractice from '../pages/teacher/pratice/Pratice'
+import TeacherVPractice from '../pages/teacher/pratice/vPractice'
 
 
 //用户身份
@@ -95,6 +99,11 @@ import UserView from '../pages/user/evaluate/Result'
 import UsernResult from '../pages/user/evaluate/nResult'
 //排名
 import UserRank from '../pages/user/rank/Rank'
+
+//练习部分的新形式
+import UserPractice from '../pages/user/exercise/new/Pracu'
+import UservPractice from '../pages/user/exercise/new/vPracu'
+import UseransPractice from '../pages/user/exercise/new/ansPracu'
 //练习
 import UserExercise from '../pages/user/exercise/Exercise'
 // 练习题目 选择题
@@ -495,6 +504,30 @@ const  router = new Router({
           component:TeacherRecourse
         },
         {
+          path:'/teacher/pCreate',
+          name:'TeacherPCreate',
+          meta:{
+            isLogin:true
+          },
+          component:TeacherPCreate
+        },
+        {
+          path:'/teacher/practice',
+          name:'TeacherPractice',
+          meta:{
+            isLogin:true
+          },
+          component:TeacherPractice
+        },
+        {
+          path:'/teacher/vpractice',
+          name:'TeacherVPractice',
+          meta:{
+            isLogin:true
+          },
+          component:TeacherVPractice
+        },
+        {
         //  教师管理学生
           path:'/teacher/stuManage',
           name:'TeacherStuManage',
@@ -573,6 +606,31 @@ const  router = new Router({
             isLogin:true
           },
           component:UsernResult
+        },
+        {
+          //新的练习
+          path:'/user/practice',
+          name:'UserPractice',
+          meta:{
+            isLogin:true
+          },
+          component:UserPractice
+        },
+        {
+          path:'/user/vpractice',
+          name:'UservPractice',
+          meta:{
+            isLogin:true
+          },
+          component:UservPractice
+        },
+        {
+          path:'/user/ansPractice',
+          name:'UseransPractice',
+          meta:{
+            isLogin:true
+          },
+          component:UseransPractice
         },
         {
         //  练习

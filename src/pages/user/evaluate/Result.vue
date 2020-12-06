@@ -5,9 +5,10 @@
   <div>
     <div>
       <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb-css">
-        <el-breadcrumb-item :to="{ path: '/user/evaluate/result?eid='+List.eid }">结果查看</el-breadcrumb-item>
-        <el-breadcrumb-item>查看结果</el-breadcrumb-item>
-        <el-breadcrumb-item>{{List.exname}}</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{path:'/user/index'}">首页</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{path:'/user/evaluate/userNresult'}">查看结果</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/user/evaluate/result?eid='+List.eid }">{{List.exname}}</el-breadcrumb-item>
+        <el-breadcrumb-item>{{List.exname}}({{List.num}})</el-breadcrumb-item>
       </el-breadcrumb>
       <div><hr/></div>
     </div>
@@ -187,7 +188,7 @@
             List:{
               eid:'',
               uid:'',
-              id:'',
+              num:'',
               exname:'',
               GradeLabel:0,
               exNum:'',

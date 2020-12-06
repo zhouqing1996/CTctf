@@ -1,7 +1,7 @@
 <template>
     <!--饼图-->
   <div>
-    <div id="PieChart" :style="{height: '400px',width:'80%'}"></div>
+    <div id="PieChart" :style="{height: '400px',width:'400px'}"></div>
   </div>
 </template>
 
@@ -39,7 +39,7 @@
       },
       methods:{
           init(){
-
+            this.drawPie()
           },
         toData(data,t,st){
             this.title = t

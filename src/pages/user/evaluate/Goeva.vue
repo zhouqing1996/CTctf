@@ -10,10 +10,6 @@
       <div><hr/></div>
     </div>
     <div id="waimian">
-      <!--<div class="back">-->
-        <!--<el-page-header @back="back">-->
-        <!--</el-page-header>-->
-      <!--</div>-->
       <div>
         <div class="Tright">
           <span v-text="tLabeL" ></span>

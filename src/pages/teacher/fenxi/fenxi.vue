@@ -23,8 +23,8 @@
         <span><strong>用户最多的作答次数：</strong>{{List.maxUserNum}}</span><br>
       </div>
       <div>
-        <PieChart :sdata="pie" :t="pieTitle" :subt="pieSubt"></PieChart>
-        <BarChart :data="bar" :title="barTitle"></BarChart>
+          <PieChart :sdata="pie" :t="pieTitle" :subt="pieSubt"></PieChart>
+          <BarChart :data="bar" :title="barTitle"></BarChart>
       </div>
     </div>
     <div v-else>
@@ -79,10 +79,16 @@
             path:'/teacher/create',
           })
         },
-          //查看某用户的作答情况
         viewuser:function(eid,uid)
         {
-
+          let that =this
+          that.$http.post('/home/export/exportuserinfo',{
+            eid:eid,
+            uid:uid
+          }).then(function (res) {
+            console.log(res.data)
+            window.open(res.data.data)
+          })
         },
           getData:function () {
             let that =this

@@ -1,0 +1,47 @@
+#waimian {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
+  margin-top: 5px;
+  text-align: left;
+  padding: 30px;
+}
+.item{
+  /*background-color: sandybrown;*/
+  margin-left: 20px;
+  margin-top: 10px;
+  font-family: "Times New Roman";
+  font-size: 16px;
+}
+.ans{
+  /*background-color: gray;*/
+  font-size: 14px;
+  font-family: "Times New Roman";
+}
+.tail{
+  font-family: "Times New Roman";
+  font-size: 12px;
+}
+.rem{
+  font-family: "Times New Roman";
+  font-size: 10px;
+}
+.btn2 {
+  width: 100px;/*px*/
+  padding: 7px;
+  font-size: 14px;
+  border-radius: 3px;
+  border: none;
+  color: white;
+  background-color: #7F96FE;
+  float: left;
+  margin-left: 5px;
+  margin-top: 17px;
+  margin-bottom: 5px;
+}
+
+.btn2:hover {
+  background-color: #5FA7FE;
+}
+li{list-style-type:none;}
