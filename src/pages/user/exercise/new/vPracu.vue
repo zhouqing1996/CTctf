@@ -108,19 +108,19 @@
         languages: {
           'c': 'c',
           'cpp': 'c++',
-          'css': 'css',
+          // 'css': 'css',
           'go': 'go',
-          'html': 'html',
+          // 'html': 'html',
           'java': 'java',
           'javascript': 'javascript',
-          'markdown': 'markdown',
+          // 'markdown': 'markdown',
           'php': 'php',
           'python': 'python',
           'r': 'r',
-          'swift': 'swift',
-          'typescript': 'typescript',
-          'vb': 'vb',
-          'xml': 'xml',
+          // 'swift': 'swift',
+          // 'typescript': 'typescript',
+          // 'vb': 'vb',
+          // 'xml': 'xml',
         },
         pid:"",
         qList:{
@@ -449,60 +449,6 @@
           // alert(res.data.message)
         })
       },
-      //  计时
-
-      // startCountDown:function () {
-      //   let that = this
-      //   var mydate = new Date()
-      //   // console.log(mydate.toLocaleString())
-      //   console.log(mydate.getMinutes())
-      //   console.log(that.limitTime)
-      //   mydate.setMinutes(mydate.getMinutes()+parseInt(that.limitTime))
-      //   that.settime = mydate
-      //   // console.log(mydate.toLocaleString())
-      //   let time = setInterval(()=>{
-      //     if(that.tflag == true)
-      //     {
-      //       clearInterval(time)
-      //     }
-      //     that.timeDown()
-      //   },1000)
-      //   that.$once("hook:beforeDestroy", () => {
-      //     clearInterval(time);
-      //   });
-      // },
-      // timeDown:function () {
-      //   let that = this
-      //   const endTime = new Date(that.settime);
-      //   const nowTime = new Date();
-      //   let leftTime = Math.floor(parseInt((endTime.getTime()-nowTime.getTime())/1000));
-      //   let d = Math.floor(parseInt(leftTime/(24 * 60 * 60)));
-      //   let h = Math.floor(parseInt(leftTime/60/60%24));
-      //   let m = Math.floor(parseInt(leftTime/60%60));
-      //   let s = Math.floor(parseInt(leftTime%60));
-      //   h = h > 9 ? h :'0' + h
-      //   m = m > 9 ? m :'0' + m
-      //   s = s > 9 ? s:'0' + s
-      //   if(leftTime <=0){
-      //     that.tflag = true;
-      //     that.EvaOK()
-      //     alert("时间到，暂停作答！")
-      //     //  自动提交试卷
-      //     that.$router.push({
-      //       path:'/user/evaluate',
-      //     })
-      //   }
-      //   that.tLabeL = `${h}:${m}:${s}`
-      // },
-      // formatTime:function(time){
-      //   if(time>=10)
-      //   {
-      //     return time
-      //   }
-      //   else{
-      //     return `0${time}`
-      //   }
-      // }
     },
     created(){
       let that = this

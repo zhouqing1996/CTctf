@@ -10,18 +10,19 @@
         <el-menu-item index="1">
           <router-link to="/user/index">首页</router-link>
         </el-menu-item>
+        <el-menu-item index="3">
+          <router-link to="/user/practice">练习</router-link>
+        </el-menu-item>
         <el-menu-item index="2">
           <router-link to="/user/evaluate" >测评</router-link>
         </el-menu-item>
         <!--<el-menu-item index="3">-->
           <!--<router-link to="/user/exercise" >练习</router-link>-->
         <!--</el-menu-item>-->
-        <el-menu-item index="3">
-          <router-link to="/user/practice">练习</router-link>
-        </el-menu-item>
-        <el-menu-item index="4">
-          <router-link to="/user/rank" >排名</router-link>
-        </el-menu-item>
+
+        <!--<el-menu-item index="4">-->
+          <!--<router-link to="/user/rank" >排名</router-link>-->
+        <!--</el-menu-item>-->
         <el-menu-item index="6">
           <router-link to="/user/evaluate/userNresult" >结果查看</router-link>
           <!--<template slot="title">结果</template>-->

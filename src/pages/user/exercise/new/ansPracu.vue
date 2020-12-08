@@ -5,7 +5,6 @@
         <el-breadcrumb-item :to="{path:'/user/index'}">首页</el-breadcrumb-item>
         <el-breadcrumb-item :to="{path:'/user/practice'}">练习</el-breadcrumb-item>
         <el-breadcrumb-item >{{List.exname}}</el-breadcrumb-item>
-        <el-breadcrumb-item>{{List.exname}}({{List.num}})</el-breadcrumb-item>
       </el-breadcrumb>
       <div><hr/></div>
     </div>
@@ -195,6 +194,7 @@
       that.List.uid = that.$route.query.uid
       that.List.pid = that.$route.query.pid
       that.List.num = that.$route.query.num
+      console.log(that.List)
       that.getData()
       that.getList()
 
