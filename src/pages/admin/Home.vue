@@ -50,7 +50,7 @@
               <router-link to="/admin/exam/create" >测评题库</router-link>
             </el-menu-item>
           <el-menu-item index="6">
-            <router-link to="/admin/practice" >学生练习</router-link>
+            <router-link to="/admin/practice/practice" >学生练习</router-link>
           </el-menu-item>
           <!--<el-submenu index="6">-->
             <!--<template slot="title">测评结果</template>-->

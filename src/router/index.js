@@ -53,8 +53,10 @@ import SelfCreate from '../pages/admin/exam/Selfcreate'
 import NewCreate from '../pages/admin/exam/Newcreate'
 //分析试卷的答题情况
 import AdminFenxi from '../pages/admin/exam/Fenxi'
-import AdminPractice from '../pages/admin/user/Practice'
-
+// import AdminPractice from '../pages/admin/user/Practice'
+//学生练习
+import AdminPractice from '../pages/admin/practice/pPractice'
+import AdminvpPractice from '../pages/admin/practice/vpPractice'
 
 //教师用户
 //教师主页
@@ -269,13 +271,22 @@ const  router = new Router({
           component:Userinfo
         },
         {
-          path:'/admin/practice',
+          path:'/admin/practice/practice',
           name:'AdminPractice',
           meta:{
             isLogin:true
           },
           component:AdminPractice
         },
+        {
+          path:'/admin/practice/vpractice',
+          name:'AdminvpPractice',
+          meta:{
+            isLogin:true
+          },
+          component:AdminvpPractice
+        },
+
         {
           //用户信息：添加用户
           path:'/admin/user/adduser',

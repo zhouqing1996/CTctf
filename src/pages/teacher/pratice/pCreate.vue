@@ -164,7 +164,8 @@
           }
           else{
             that.$http.post('/teacher/practice/searchparctice',{
-              name:that.name
+              name:that.name,
+              uid:that.uid
             }).then(function (res) {
               console.log(res.data)
               that.pList = res.data.data
