@@ -31,7 +31,7 @@ export default function () {
       // 上传参数,默认把图片转为base64而不上传
       // upload config,default null and convert image to base64
       upload: {
-        url:null,
+        url:'http://127.0.0.1/ComputeThinking/advanced/backend/web/index.php/admin/editer/uploadimage',
         headers:{},
         params: {},
         fieldName:'file'
@@ -44,15 +44,16 @@ export default function () {
         quality: 80
       },
       // 响应数据处理,最终返回图片链接
-      uploadHandler(text){
+      uploadHandler(responseText){
 //      default accept json data like  {ok:false,msg:"unexpected"} or {ok:true,data:"image url"}
-        var json = JSON.parse(text)
-        if(!json.ok)
-        {
-          alert(json.msg)
-        }
-        else {
+        var json = JSON.parse(responseText);
+        console.log(json)
+        if(json.code == 200){
+          console.log(json.data)
           return json.data
+        }else{
+          console.log(json.error)
+          alert(json.error)
         }
       },
     },
@@ -115,7 +116,7 @@ export default function () {
       "link",
 //    "unlink",
 //    "tabulation",
-//       "image",
+      "image",
       "hr",
 //    "eraser",
       "undo",

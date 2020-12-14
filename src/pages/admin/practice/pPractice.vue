@@ -24,15 +24,16 @@
                     <span class="span2">[序号：{{ key+1 }} 练习编号：{{x.id}}</span>{{x.name}}
                   </span>
               <div class="delete">
-                <span  class="span3" @click="Down(x.id)">下载练习</span>
+                <span  class="span3" @click="Down(x.id)">下载练习试题</span>
                 <!--<span  class="span3">学生答题情况</span>-->
-                <span  class="span3" v-on:click="Downp(x.id)">下载答题信息</span>
+                <span  class="span3" v-on:click="downxlsx(x.id,1)">下载答题总体信息</span>
+                <span  class="span3"  v-on:click="downxlsx(x.id,2)">下载答题详细信息</span>
                 <span v-if="x.status==1">有效
-                        <span  class="span1"><i class="el-icon-delete">删除</i></span>
+                        <span  class="span1" v-on:click="Delete(x.id,1)"><i class="el-icon-delete">删除</i></span>
                         </span>
                 <span v-if="x.status==0">无效
-                        <span class="span2">修改</span>
-                        <span   class="span1"><i class="el-icon-delete">删除</i></span>
+                        <span class="span2" v-on:click="Delete(x.id,2)">修改</span>
+                        <span class="span1" v-on:click="Delete(x.id,3)"><i class="el-icon-delete">删除</i></span>
                       </span>
               </div>
             </h3>
@@ -102,8 +103,7 @@
         })
       },
       //下载作答信息
-      downPracinfo:function()
-      {
+      downPracinfo:function() {
         let that =this
         that.$http.post('/admin/practice/downpracinfo').then(function (res) {
           console.log(res.data)
@@ -198,6 +198,27 @@
           window.open(res.data.data)
         })
       },
+      Delete:function (id,flag) {
+        let that =this
+        that.$http.post('/admin/practice/deleteprac',{
+          pid:id,
+          flag:flag
+        }).then(function (res) {
+          console.log(res.data)
+          that.getPracList()
+        })
+      },
+      //下载总体信息
+      downxlsx:function (id,flag) {
+        let that =this
+        that.$http.post('/admin/practice/down',{
+          pid:id,
+          flag:flag
+        }).then(function (res) {
+          console.log(res.data)
+          window.open(res.data.data)
+        })
+      }
     }
   }
 </script>

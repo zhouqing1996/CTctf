@@ -10,10 +10,6 @@
       <div><hr/></div>
     </div>
     <div id="waimian">
-      <!--<div class="back">-->
-        <!--<el-page-header @back="back">-->
-        <!--</el-page-header>-->
-      <!--</div>-->
       <div>
         <h1>{{examList.id}}:<strong>{{examList.exname}}</strong></h1>
         <p><i class="el-icon-s-custom"></i>试卷创建人：{{examList.exUser}}  ||<i class="el-icon-date"></i>创建时间：{{examList.exCreateTime}}</p>
@@ -21,60 +17,63 @@
         <h2>一、选择题</h2>
         <div>
       <span v-for="(c,key1) in chooseqList":key="key1">
-      <li class="item">({{key1+1}}){{c.cqitem}}<br>
-        <input type="radio"  value="">（A）{{c.cqcho.split('---')[0]}}<br>
-        <input type="radio"  value="">（B）{{c.cqcho.split('---')[1]}}<br>
-        <input type="radio"  value="">（C）{{c.cqcho.split('---')[2]}}<br>
-        <input type="radio"  value="">（D）{{c.cqcho.split('---')[3]}}<br>
-      </li>
-      <p class="ans">答案：{{c.cqans}}</p>
-      <p class="tail">详解：{{c.cqtail}}</p>
-      <p class="rem">相关知识点：{{c.cqrem}}</p>
+        ({{key1+1}}):<h3 v-html="c.cqitem">{{c.cqitem}}</h3>
+            <ul>
+              <li v-for="(x,i) in c.cqcho" >
+                <input type="radio" :name="'choose'+c.cqid+i" />
+                <span v-html="x"></span>
+                <br>
+              </li>
+            </ul>
+      答案：<span class="ans" v-html="c.cqans">{{c.cqans}}</span><br/>
+      详解：<span class="tail" v-html="c.cqtail">{{c.cqtail}}</span><br/>
+      相关知识点：<span class="rem" v-html="c.cqrem">{{c.cqrem}}</span><br/>
     </span>
         </div>
         <hr/>
         <h2>二、填空题</h2>
         <div>
       <span v-for="(f,key2) in fillqList":key="key2">
-      <li class="item">({{key2+1}}){{f.fqitem}}<br>
+      ({{key2+1}}):<li class="item" v-html="f.fqitem">{{f.fqitem}}<br>
         <input type="text" value=""><br>
       </li>
 
-      <p class="ans">答案：{{f.fqans}}</p>
-      <p class="tail">详解：{{f.fqtail}}</p>
-      <p class="rem">相关知识点：{{f.fqrem}}</p>
+      答案：<span class="ans" v-html="f.fqans">{{f.fqans}}</span><br/>
+      详解：<span class="tail" v-html="f.fqtail">{{f.fqtail}}</span><br/>
+      相关知识点：<span class="rem" v-html="f.fqrem">{{f.fqrem}}</span><br/>
     </span>
         </div>
         <hr/>
         <h2>三、判断题</h2>
         <div>
       <span v-for="(j,keyj) in judgeList":key="keyj">
-         <li class="item">({{keyj+1}}){{j.jqitem}}<br>
-        <input type="radio" :name="'judge'+j.jqid" @change="jr(j.jqid,1)">正确
+         ({{keyj+1}}):<li class="item" v-html="j.jqitem">{{j.jqitem}}<br>
+        <input type="radio" :name="'judge'+j.jqid" @change="jr(j.jqid,1)" >正确
         <input type="radio" :name="'judge'+j.jqid" @change="jr(j.jqid,0)">错误
       </li>
         <!--<li class="item">({{keyj+1}}){{j.jqitem}}<br>-->
         <!--<input type="text" value=""><br>-->
         <!--</li>-->
-      <p class="ans">答案：{{j.jqans}}</p>
-      <p class="tail">详解：{{j.jqtail}}</p>
-      <p class="rem">相关知识点：{{j.jqrem}}</p>
+      答案：<span class="ans" v-html="j.jqans">{{j.jqans}}</span><br/>
+      详解：<span class="tail" v-html="j.jqtail">{{j.jqtail}}</span><br/>
+      相关知识点：<span class="rem" v-html="j.jqrem">{{j.jqrem}}</span><br/>
     </span>
         </div>
         <hr/>
         <h2>四、多选题</h2>
         <div>
           <div v-for="(m,index) in choosemList">
-            <h3>({{index+1}}):{{m.mitem}}</h3>
+            ({{index+1}}):<h3 v-html="m.mitem">{{m.mitem}}</h3>
             <ul>
               <li v-for="(x,i) in m.mcho" >
                 <input type="checkbox" :name="'choosem'+m.mid+i"
-                       @change="mr(m.mid,m.mcho[i])"/>{{x}}
+                       @change="mr(m.mid,m.mcho[i])" />
+                <span v-html="x">{{x}}</span>
               </li>
             </ul>
-            <p class="ans">答案：{{m.mans}}</p>
-            <p class="tail">详解：{{m.mtail}}</p>
-            <p class="rem">相关知识点：{{m.mrem}}</p>
+            答案：<span class="ans" v-html="m.mans">{{m.mans}}</span><br/>
+            详解：<span class="tail" v-html="m.mtail">{{m.mtail}}</span><br/>
+            相关知识点： <span class="rem" v-html="m.mrem">{{m.mrem}}</span><br/>
           </div>
         </div>
         <hr/>
@@ -82,10 +81,10 @@
         <div>
       <span v-for="(p,key3) in programqList":key="key3">
         <hr/>
-        ({{key3+1}})<strong>题目：{{p.pqitem}}</strong>
-        <p class="ans">答案：{{p.pqans}}</p>
-        <p class="tail">详解：{{p.pqtail}}</p>
-        <p class="rem">相关知识点：{{p.pqrem}}</p>
+        ({{key3+1}})<h3 v-html="p.pqitem">{{p.pqitem}}</h3>
+        答案：<span class="ans" v-html="p.pqans">{{p.pqans}}</span><br/>
+        详解：<span class="tail" v-html="p.pqtail">{{p.pqtail}}</span><br/>
+        相关知识点：<span class="rem" v-html="p.pqrem">{{p.pqrem}}</span><br/>
       </span>
         </div>
       </div>
@@ -129,7 +128,18 @@
             that.examList.exname=res.data.data[0]
             that.examList.exUser=res.data.data[1].data.username
             that.examList.exCreateTime=res.data.data[2]
-            that.chooseqList=res.data.data[3]
+            let List=res.data.data[3]
+            for(let i=0;i<List.length;i++)
+            {
+              that.chooseqList.push({
+                cqid:List[i].cqid,
+                cqitem:List[i].cqitem,
+                cqcho:[List[i].cqcho.split('---')[0],List[i].cqcho.split('---')[1],List[i].cqcho.split('---')[2],List[i].cqcho.split('---')[3]],
+                cqrem:List[i].cqrem,
+                cqans:List[i].cqans,
+                cqtail:List[i].cqtail
+              })
+            }
             that.fillqList=res.data.data[4]
             that.programqList=res.data.data[5]
             that.judgeList =res.data.data[6]
