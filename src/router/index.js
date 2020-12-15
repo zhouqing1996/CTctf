@@ -38,6 +38,18 @@ import Judge from '../pages/admin/bank/Judge'
 //多选题
 import ChooseM from '../pages/admin/bank/Choosem'
 
+//添加题库
+import addChoose from '../pages/admin/bank/addChoose'
+import addChoosem from  '../pages/admin/bank/addChoosem'
+import addFill from '../pages/admin/bank/addFill'
+import addJudge from '../pages/admin/bank/addJudge'
+import addProgram from '../pages/admin/bank/addProgram'
+//修改题库
+import changeChoose from '../pages/admin/bank/changeChoose'
+import changeChoosem from '../pages/admin/bank/changeChoosem'
+import changeFill from '../pages/admin/bank/changeFill'
+import changeJudge from '../pages/admin/bank/changeJudge'
+import changeProgram from '../pages/admin/bank/changeProgram'
 
 //图书信息
 import Book from '../pages/admin/book/Book'
@@ -297,6 +309,86 @@ const  router = new Router({
           component:Adduser
         },
         //题库信息
+        {
+          path:'/admin/bank/addchoose',
+          name:'addChoose',
+          meta:{
+            isLogin:true
+          },
+          component:addChoose
+        },
+        {
+          path:'/admin/bank/addchoosem',
+          name:'addChoosem',
+          meta:{
+            isLogin:true
+          },
+          component:addChoosem
+        },
+        {
+          path:'/admin/bank/addfill',
+          name:'addFill',
+          meta:{
+            isLogin:true
+          },
+          component:addFill
+        },
+        {
+          path:'/admin/bank/addjudge',
+          name:'addJudge',
+          meta:{
+            isLogin:true
+          },
+          component:addJudge
+        },
+        {
+          path:'/admin/bank/addprogram',
+          name:'addProgram',
+          meta:{
+            isLogin:true
+          },
+          component:addProgram
+        },
+        {
+          path:'/admin/bank/changechoose',
+          name:'changeChoose',
+          meta:{
+            isLogin:true
+          },
+          component:changeChoose
+        },
+        {
+          path:'/admin/bank/changechoosem',
+          name:'changeChoosem',
+          meta:{
+            isLogin:true
+          },
+          component:changeChoosem
+        },
+        {
+          path:'/admin/bank/changefill',
+          name:'changeFill',
+          meta:{
+            isLogin:true
+          },
+          component:changeFill
+        },
+        {
+          path:'/admin/bank/changejudge',
+          name:'changeJudge',
+          meta:{
+            isLogin:true
+          },
+          component:changeJudge
+        },
+        {
+          path:'/admin/bank/changeprogram',
+          name:'changeProgram',
+          meta:{
+            isLogin:true
+          },
+          component:changeProgram
+        },
         {
           path:'/admin/bank/choose',
           name:'choose',

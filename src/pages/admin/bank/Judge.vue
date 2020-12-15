@@ -17,7 +17,8 @@
                 <el-input v-model="inputname" placeholder="模糊查找" size="mini"></el-input>
               </div>
               <button class="btn3 el-icon-search" v-on:click="searchF()">搜索</button>
-              <button class="btn3 el-icon-circle-plus-outline" @click="dialogFormVisibleadd = true">添加</button>
+              <!--<button class="btn3 el-icon-circle-plus-outline" @click="dialogFormVisibleadd = true">添加</button>-->
+              <button class="btn3 el-icon-circle-plus-outline" v-on:click="addJudge">添加</button>
               <el-dialog title="添加判断题" :visible.sync="dialogFormVisibleadd">
                 <el-form :model="addList">
                   <el-form-item label="题干" :label-width="formLabelWidth">
@@ -56,8 +57,8 @@
                   <div>
                     <h3>
                       [<span>序号：{{key+1}}</span><span>题编号：{{JQuestion.jqid}}</span>]
-                      <span v-if="JQuestion.jqstatus==1" @click="dialogFormVisiblechangeitem=true;changeList.id=JQuestion.jqid;item=JQuestion.jqitem" class="span2">修改</span>
-                      {{JQuestion.jqitem}}
+                      <!--<span v-if="JQuestion.jqstatus==1" @click="dialogFormVisiblechangeitem=true;changeList.id=JQuestion.jqid;item=JQuestion.jqitem" class="span2">修改</span>-->
+                      <span v-html="JQuestion.jqitem">{{JQuestion.jqitem}}</span>
 
                       <div class="delete">
                         <span v-if="JQuestion.jqstatus==1">有效
@@ -67,6 +68,7 @@
                           <span  @click="changejudge(5,JQuestion.jqid)" class="span2">修改</span>
                           <span  @click="deletejudge(2,JQuestion.jqid)" class="span1"><i class="el-icon-delete">永久删除</i></span>
                         </span>
+                        <span v-on:click="change(JQuestion.jqid)" class="span1">修改题目</span>
                       </div>
                     </h3>
                     <el-dialog title="修改题干" :visible.sync="dialogFormVisiblechangeitem">
@@ -86,7 +88,7 @@
                   </div>
                   <div>
                     <span>
-                      <span v-if="JQuestion.jqstatus==1" @click="dialogFormVisiblechangeans=true;changeList.id=JQuestion.jqid;item=JQuestion.jqans" class="span2">修改</span>
+                      <!--<span v-if="JQuestion.jqstatus==1" @click="dialogFormVisiblechangeans=true;changeList.id=JQuestion.jqid;item=JQuestion.jqans" class="span2">修改</span>-->
 
                       <!--<span v-if="JQuestion.jqstatus==1" @click="dialogFormVisiblechangeans=true;changeList.id=JQuestion.jqid;item=JQuestion.jqans" class="span2">修改</span></span>-->
                     答案：<span v-if="JQuestion.jqans==0">错误</span>
@@ -112,8 +114,8 @@
                     </el-dialog>
                     </span><br>
                     <span>
-                      <span v-if="JQuestion.jqstatus==1" @click="dialogFormVisiblechangetail=true;changeList.id=JQuestion.jqid;item=JQuestion.jqtail" class="span2">修改</span>
-                  详解：{{JQuestion.jqtail}}
+                      <!--<span v-if="JQuestion.jqstatus==1" @click="dialogFormVisiblechangetail=true;changeList.id=JQuestion.jqid;item=JQuestion.jqtail" class="span2">修改</span>-->
+                  详解：<span v-html="JQuestion.jqtail">{{JQuestion.jqtail}}</span>
                       <el-dialog title="修改详解" :visible.sync="dialogFormVisiblechangetail">
                     <el-form :model="changeList">
                       <el-form-item label="原始详解" :label-width="formLabelWidth">
@@ -130,8 +132,8 @@
                   </el-dialog>
                     </span><br>
                     <span>
-                      <span v-if="JQuestion.jqstatus==1" @click="dialogFormVisiblechangerem=true;changeList.id=JQuestion.jqid;item=JQuestion.jqrem" class="span2">修改</span>
-                  知识点：{{JQuestion.jqrem}}
+                      <!--<span v-if="JQuestion.jqstatus==1" @click="dialogFormVisiblechangerem=true;changeList.id=JQuestion.jqid;item=JQuestion.jqrem" class="span2">修改</span>-->
+                  知识点：<span v-html="JQuestion.jqrem">{{JQuestion.jqrem}}</span>
                       <el-dialog title="修改知识点" :visible.sync="dialogFormVisiblechangerem">
                     <el-form :model="changeList">
                       <el-form-item label="原始知识点" :label-width="formLabelWidth">
@@ -211,6 +213,22 @@
       }
     },
     methods:{
+      addJudge:function()
+      {
+        this.$router.push({
+          path:'/admin/bank/addjudge'
+        })
+      },
+      change:function(id)
+      {
+        console.log(id)
+        this.$router.push({
+          path:'/admin/bank/changejudge',
+          query:{
+            id:id
+          }
+        })
+      },
       exportJ:function()
       {
         let that =this

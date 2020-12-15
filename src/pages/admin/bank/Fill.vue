@@ -17,7 +17,8 @@
                 <el-input v-model="inputname" placeholder="模糊查找" size="mini"></el-input>
               </div>
               <button class="btn3 el-icon-search" v-on:click="searchF()">搜索</button>
-              <button class="btn3 el-icon-circle-plus-outline" @click="dialogFormVisibleadd = true">添加</button>
+              <!--<button class="btn3 el-icon-circle-plus-outline" @click="dialogFormVisibleadd = true">添加</button>-->
+              <button class="btn3 el-icon-circle-plus-outline" v-on:click="addFill">添加</button>
               <el-dialog title="添加填空题" :visible.sync="dialogFormVisibleadd">
                 <el-form :model="addList">
                   <el-form-item label="题干" :label-width="formLabelWidth">
@@ -51,8 +52,9 @@
                 <div>
                   <div>
                     <h3>[<span>序号：{{index+1}}</span><span>题编号：{{fQuestion.fqid}}</span>]
-                      <span v-if="fQuestion.fqstatus==1" @click="dialogFormVisiblechangeitem=true;changeList.id=fQuestion.fqid;item=fQuestion.fqitem" class="span2">修改</span>
-                      {{fQuestion.fqitem}}
+                      <span v-html="fQuestion.fqitem">{{fQuestion.fqitem}}</span>
+                      <!--<span v-if="fQuestion.fqstatus==1" @click="dialogFormVisiblechangeitem=true;changeList.id=fQuestion.fqid;item=fQuestion.fqitem" class="span2">修改</span>-->
+
                       <div class="delete">
                         <span v-if="fQuestion.fqstatus==1">有效</span>
                         <span v-if="fQuestion.fqstatus==1"@click="deletefill(1,fQuestion.fqid)" class="span1"><i class="el-icon-delete">删除</i></span>
@@ -60,6 +62,7 @@
                           <span v-if="fQuestion.fqstatus==0" @click="changefill(5,fQuestion.fqid)" class="span2">修改</span>
                           <span v-if="fQuestion.fqstatus==0" @click="deletefill(2,fQuestion.fqid)" class="span1"><i class="el-icon-delete">删除</i></span>
                         </span>
+                        <span v-on:click="change(fQuestion.fqid)" class="span1">修改题目</span>
                       </div>
                     </h3>
                     <el-dialog title="修改题干" :visible.sync="dialogFormVisiblechangeitem">
@@ -79,8 +82,8 @@
                   </div>
                   <div>
                     <div>
-                      <span v-if="fQuestion.fqstatus==1" @click="dialogFormVisiblechangeans=true;changeList.id=fQuestion.fqid;item=fQuestion.fqans" class="span2">修改</span>
-                      答案：{{fQuestion.fqans}}
+                      <!--<span v-if="fQuestion.fqstatus==1" @click="dialogFormVisiblechangeans=true;changeList.id=fQuestion.fqid;item=fQuestion.fqans" class="span2">修改</span>-->
+                      答案：<span v-html="fQuestion.fqans">{{fQuestion.fqans}}</span>
                       <el-dialog title="修改答案" :visible.sync="dialogFormVisiblechangeans">
                         <el-form :model="changeList">
                           <el-form-item label="原始答案" :label-width="formLabelWidth">
@@ -97,8 +100,8 @@
                       </el-dialog>
                     </div>
                     <div>
-                      <span v-if="fQuestion.fqstatus==1" @click="dialogFormVisiblechangetail=true;changeList.id=fQuestion.fqid;item=fQuestion.fqtail" class="span2">修改</span>
-                      详解：{{fQuestion.fqtail}}
+                      <!--<span v-if="fQuestion.fqstatus==1" @click="dialogFormVisiblechangetail=true;changeList.id=fQuestion.fqid;item=fQuestion.fqtail" class="span2">修改</span>-->
+                      详解：<span v-html="fQuestion.fqtail">{{fQuestion.fqtail}}</span>
                       <el-dialog title="修改详解" :visible.sync="dialogFormVisiblechangetail">
                         <el-form :model="changeList">
                           <el-form-item label="原始详解" :label-width="formLabelWidth">
@@ -115,8 +118,8 @@
                       </el-dialog>
                     </div>
                     <div>
-                      <span v-if="fQuestion.fqstatus==1" @click="dialogFormVisiblechangerem=true;changeList.id=fQuestion.fqid;item=fQuestion.fqrem" class="span2">修改</span>
-                      知识点：{{fQuestion.rem}}
+                      <!--<span v-if="fQuestion.fqstatus==1" @click="dialogFormVisiblechangerem=true;changeList.id=fQuestion.fqid;item=fQuestion.fqrem" class="span2">修改</span>-->
+                      知识点：<span v-html="fQuestion.rem">{{fQuestion.rem}}</span>
                       <el-dialog title="修改知识点" :visible.sync="dialogFormVisiblechangerem">
                         <el-form :model="changeList">
                           <el-form-item label="原始知识点" :label-width="formLabelWidth">
@@ -196,6 +199,22 @@
       }
     },
     methods:{
+      addFill:function()
+      {
+        this.$router.push({
+          path:'/admin/bank/addfill'
+        })
+      },
+      change:function(id)
+      {
+        console.log(id)
+        this.$router.push({
+          path:'/admin/bank/changefill',
+          query:{
+            id:id
+          }
+        })
+      },
       exportF:function()
       {
         let that =this

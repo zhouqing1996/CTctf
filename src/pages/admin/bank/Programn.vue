@@ -17,7 +17,7 @@
                 <el-input v-model="inputname" placeholder="模糊查找" size="mini"></el-input>
               </div>
               <button class="btn3 el-icon-search" v-on:click="searchF()">搜索</button>
-              <button class="btn3 el-icon-circle-plus-outline" @click="dialogFormVisibleadd = true">添加</button>
+              <button class="btn3 el-icon-circle-plus-outline" v-on:click="addProgram">添加</button>
               <el-dialog title="添加程序题" :visible.sync="dialogFormVisibleadd">
                 <el-form :model="addList">
                   <el-form-item label="题干" :label-width="formLabelWidth">
@@ -52,8 +52,8 @@
                   <div>
                     <h3>
                       [<span>序号：{{key+1}}</span><span>题编号：{{P.pqid}}</span>]
-                      <span v-if="P.pqstatus==1" @click="dialogFormVisiblechangeitem=true;changeList.id=P.pqid;item=P.pqitem" class="span2">修改</span>
-                      {{P.pqitem}}
+                      <!--<span v-if="P.pqstatus==1" @click="dialogFormVisiblechangeitem=true;changeList.id=P.pqid;item=P.pqitem" class="span2">修改</span>-->
+                      <span v-html="P.pqitem">{{P.pqitem}}</span>
                       <div class="delete">
                         <span v-if="P.pqstatus==1">有效
                         <span @click="deleteprogram(1,P.pqid)" class="span1"><i class="el-icon-delete">删除</i></span>
@@ -62,6 +62,7 @@
                           <span  @click="changeprogram(5,P.pqid)" class="span2">修改</span>
                           <span  @click="deleteprogram(2,P.pqid)" class="span1"><i class="el-icon-delete">删除</i></span>
                         </span>
+                        <span v-on:click="change(P.pqid)" class="span1">修改题目</span>
                       </div>
                     </h3>
                     <el-dialog title="修改题干" :visible.sync="dialogFormVisiblechangeitem">
@@ -81,8 +82,8 @@
                   </div>
                   <div>
                     <span>
-                      <span v-if="P.pqstatus==1" @click="dialogFormVisiblechangeans=true;changeList.id=P.pqid;item=P.pqans" class="span2">修改</span>
-                      答案：{{P.pqans}}
+                      <!--<span v-if="P.pqstatus==1" @click="dialogFormVisiblechangeans=true;changeList.id=P.pqid;item=P.pqans" class="span2">修改</span>-->
+                      答案：<span v-html="P.pqans">{{P.pqans}}</span>
                   <el-dialog title="修改答案" :visible.sync="dialogFormVisiblechangeans">
                     <el-form :model="changeList">
                       <el-form-item label="原始答案" :label-width="formLabelWidth">
@@ -99,8 +100,8 @@
                   </el-dialog>
                     </span><br>
                     <span>
-                      <span v-if="P.pqstatus==1" @click="dialogFormVisiblechangetail=true;changeList.id=P.pqid;item=P.pqtail" class="span2">修改</span>
-                      详解：{{P.pqtail}}
+                      <!--<span v-if="P.pqstatus==1" @click="dialogFormVisiblechangetail=true;changeList.id=P.pqid;item=P.pqtail" class="span2">修改</span>-->
+                      详解：<span v-html="P.pqtail">{{P.pqtail}}</span>
                   <el-dialog title="修改详解" :visible.sync="dialogFormVisiblechangetail">
                     <el-form :model="changeList">
                       <el-form-item label="原始详解" :label-width="formLabelWidth">
@@ -117,8 +118,8 @@
                   </el-dialog>
                     </span><br>
                     <span>
-                      <span v-if="P.pqstatus==1" @click="dialogFormVisiblechangerem=true;changeList.id=P.pqid;item=P.pqrem" class="span2">修改</span>
-                      知识点：{{P.pqrem}}
+                      <!--<span v-if="P.pqstatus==1" @click="dialogFormVisiblechangerem=true;changeList.id=P.pqid;item=P.pqrem" class="span2">修改</span>-->
+                      知识点：<span v-html="P.pqrem">{{P.pqrem}}</span>
                   <el-dialog title="修改知识点" :visible.sync="dialogFormVisiblechangerem">
                     <el-form :model="changeList">
                       <el-form-item label="原始知识点" :label-width="formLabelWidth">
@@ -198,6 +199,22 @@
       }
     },
     methods:{
+      addProgram:function()
+      {
+        this.$router.push({
+          path:'/admin/bank/addprogram'
+        })
+      },
+      change:function(id)
+      {
+        console.log(id)
+        this.$router.push({
+          path:'/admin/bank/changeprogram',
+          query:{
+            id:id
+          }
+        })
+      },
       exportP:function()
       {
         let that =this

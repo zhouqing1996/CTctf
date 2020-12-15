@@ -17,7 +17,8 @@
                 <el-input v-model="inputname" placeholder="模糊查找" size="mini"></el-input>
               </div>
               <button class="btn3 el-icon-search" v-on:click="searchC()">搜索</button>
-              <button class="btn3 el-icon-circle-plus-outline" @click="dialogFormVisibleadd = true">添加</button>
+              <!--<button class="btn3 el-icon-circle-plus-outline" @click="dialogFormVisibleadd = true">添加</button>-->
+              <button class="btn3 el-icon-circle-plus-outline" v-on:click="addChoose">添加</button>
               <el-dialog title="添加选择题" :visible.sync="dialogFormVisibleadd">
                 <el-form :model="addList">
                   <el-form-item label="题干" :label-width="formLabelWidth">
@@ -64,20 +65,23 @@
               <div v-for="(cQuestion,index) in currentPageData" class="detail">
                 <div>
                   <div>
-                    <h3>[<span>序号：{{index+1}}</span><span>题编号：{{cQuestion.cqid}}</span>]<span v-if="cQuestion.cqstatus==1" @click="dialogFormVisiblechangeitem=true;changeList.id=cQuestion.cqid;item=cQuestion.cqitem" class="span2">修改</span>
-                      {{cQuestion.cqitem}}
+                    <h3>[<span>序号：{{index+1}}</span><span>题编号：{{cQuestion.cqid}}</span>]
+                      <!--<span v-if="cQuestion.cqstatus==1" @click="dialogFormVisiblechangeitem=true;changeList.id=cQuestion.cqid;item=cQuestion.cqitem" class="span2">修改</span>-->
+                      <span v-html="cQuestion.cqitem">{{cQuestion.cqitem}}</span>
                       <div class="delete">
                         <span v-if="cQuestion.cqstatus==1">有效</span>
                         <span v-if="cQuestion.cqstatus==1"@click="deleteChoose(1,cQuestion.cqid)" class="span1"><i class="el-icon-delete">删除</i></span>
                         <span v-if="cQuestion.cqstatus==0">无效
-                          <span v-if="cQuestion.cqstatus==0" @click="changeChoose(9,cQuestion.cqid)" class="span2">修改</span>
+                          <span v-if="cQuestion.cqstatus==0" @click="changeChoose(9,cQuestion.cqid)" class="span2">修改状态</span>
                           <span v-if="cQuestion.cqstatus==0" @click="deleteChoose(2,cQuestion.cqid)" class="span1"><i class="el-icon-delete">删除</i></span>
                         </span>
+                        <span v-on:click="change(cQuestion.cqid)" class="span1">修改题目</span>
                       </div>
                     </h3>
                   </div>
                   <el-dialog title="修改题干" :visible.sync="dialogFormVisiblechangeitem">
                     <el-form :model="changeList">
+
                       <el-form-item label="题干内容1" :label-width="formLabelWidth">
                         <el-input style="width: 350px;" v-model="item" auto-complete="off"></el-input>
                       </el-form-item>
@@ -91,8 +95,8 @@
                     </div>
                   </el-dialog>
                   <div class="xuanxiang">
-                    <span><span v-if="cQuestion.cqstatus==1" @click="dialogFormVisiblechangeop1=true;changeList.id=cQuestion.cqid;item=cQuestion.cqcho.split('---')[0]" class="span2">修改</span>
-                      选项1：{{cQuestion.cqcho.split('---')[0]}}
+                    <!--<span><span v-if="cQuestion.cqstatus==1" @click="dialogFormVisiblechangeop1=true;changeList.id=cQuestion.cqid;item=cQuestion.cqcho.split('-&#45;&#45;')[0]" class="span2">修改</span>-->
+                      选项1：<span v-html="cQuestion.cqcho.split('---')[0]"> {{cQuestion.cqcho.split('---')[0]}}</span>
 
                     <el-dialog title="修改选项1" :visible.sync="dialogFormVisiblechangeop1">
                       <el-form :model="changeList">
@@ -108,10 +112,11 @@
                         <el-button @click="dialogFormVisiblechangeop1=false">退出</el-button>
                       </div>
                     </el-dialog>
-                    </span><br>
+                    <!--</span>-->
+                    <br>
                     <span>
-                      <span v-if="cQuestion.cqstatus==1" @click="dialogFormVisiblechangeop2=true;changeList.id=cQuestion.cqid;item=cQuestion.cqcho.split('---')[1]" class="span2">修改</span>
-                       选项2：{{cQuestion.cqcho.split('---')[1]}}
+                      <!--<span v-if="cQuestion.cqstatus==1" @click="dialogFormVisiblechangeop2=true;changeList.id=cQuestion.cqid;item=cQuestion.cqcho.split('-&#45;&#45;')[1]" class="span2">修改</span>-->
+                       选项2：<span v-html="cQuestion.cqcho.split('---')[1]"> {{cQuestion.cqcho.split('---')[1]}}</span>
 
                   <el-dialog title="修改选项2" :visible.sync="dialogFormVisiblechangeop2">
                     <el-form :model="changeList">
@@ -129,8 +134,8 @@
                   </el-dialog>
                     </span><br>
                     <span>
-                      <span v-if="cQuestion.cqstatus==1" @click="dialogFormVisiblechangeop3=true;changeList.id=cQuestion.cqid;item=cQuestion.cqcho.split('---')[2]" class="span2">修改</span>
-                     选项3：{{cQuestion.cqcho.split('---')[2]}}
+                      <!--<span v-if="cQuestion.cqstatus==1" @click="dialogFormVisiblechangeop3=true;changeList.id=cQuestion.cqid;item=cQuestion.cqcho.split('-&#45;&#45;')[2]" class="span2">修改</span>-->
+                     选项3：<span v-html="cQuestion.cqcho.split('---')[2]"> {{cQuestion.cqcho.split('---')[2]}}</span>
 
                   <el-dialog title="修改选项3" :visible.sync="dialogFormVisiblechangeop3">
                     <el-form :model="changeList">
@@ -148,8 +153,8 @@
                   </el-dialog>
                    </span><br>
                     <span>
-                      <span v-if="cQuestion.cqstatus==1" @click="dialogFormVisiblechangeop4=true;changeList.id=cQuestion.cqid;item=cQuestion.cqcho.split('---')[3]" class="span2">修改</span>
-                       选项4：{{cQuestion.cqcho.split('---')[3]}}
+                      <!--<span v-if="cQuestion.cqstatus==1" @click="dialogFormVisiblechangeop4=true;changeList.id=cQuestion.cqid;item=cQuestion.cqcho.split('-&#45;&#45;')[3]" class="span2">修改</span>-->
+                       选项4：<span v-html="cQuestion.cqcho.split('---')[4]"> {{cQuestion.cqcho.split('---')[4]}}</span>
 
                   <el-dialog title="修改选项4" :visible.sync="dialogFormVisiblechangeop4">
                     <el-form :model="changeList">
@@ -168,8 +173,8 @@
                     </span><br>
                   </div>
                   <div>
-                    <span><span v-if="cQuestion.cqstatus==1" @click="dialogFormVisiblechangeans=true;changeList.id=cQuestion.cqid;item=cQuestion.cqans" class="span2">修改</span>
-                      答案：{{cQuestion.cqans}}
+                    <!--<span><span v-if="cQuestion.cqstatus==1" @click="dialogFormVisiblechangeans=true;changeList.id=cQuestion.cqid;item=cQuestion.cqans" class="span2">修改</span>-->
+                      答案：<span v-html="cQuestion.cqans"> {{cQuestion.cqans}}</span>
 
                   <el-dialog title="修改答案" :visible.sync="dialogFormVisiblechangeans">
                     <el-form :model="changeList">
@@ -185,9 +190,10 @@
                       <el-button @click="dialogFormVisiblechangeans=false">退出</el-button>
                     </div>
                   </el-dialog>
-                    </span><br>
-                    <span><span v-if="cQuestion.cqstatus==1" @click="dialogFormVisiblechangeans=true;changeList.id=cQuestion.cqid;item=cQuestion.cqans" class="span2">修改</span>
-                      详解：{{cQuestion.cqtail}}
+                    <!--</span>-->
+                    <br>
+                    <!--<span><span v-if="cQuestion.cqstatus==1" @click="dialogFormVisiblechangeans=true;changeList.id=cQuestion.cqid;item=cQuestion.cqans" class="span2">修改</span>-->
+                      详解：<span v-html="cQuestion.cqtail">{{cQuestion.cqtail}}</span>
 
                   <el-dialog title="修改答案" :visible.sync="dialogFormVisiblechangeans">
                     <el-form :model="changeList">
@@ -203,9 +209,10 @@
                       <el-button @click="dialogFormVisiblechangeans=false">退出</el-button>
                     </div>
                   </el-dialog>
-                    </span><br>
-                    <span><span v-if="cQuestion.cqstatus==1" @click="dialogFormVisiblechangerem=true;changeList.id=cQuestion.cqid;item=cQuestion.cqtail" class="span2">修改</span>
-                      知识点：{{cQuestion.cqrem}}
+                    <!--</span>-->
+                    <br>
+                    <!--<span><span v-if="cQuestion.cqstatus==1" @click="dialogFormVisiblechangerem=true;changeList.id=cQuestion.cqid;item=cQuestion.cqtail" class="span2">修改</span>-->
+                      知识点：<span v-html="cQuestion.cqrem">{{cQuestion.cqrem}}</span>
 
                   <el-dialog title="修改知识点" :visible.sync="dialogFormVisiblechangerem">
                     <el-form :model="changeList">
@@ -221,7 +228,7 @@
                       <el-button @click="dialogFormVisiblechangerem=false">退出</el-button>
                     </div>
                   </el-dialog>
-                    </span>
+                    <!--</span>-->
                   </div>
 
                 </div>
@@ -501,6 +508,23 @@
           }
       },
       methods:{
+          //添加
+        addChoose:function()
+        {
+          this.$router.push({
+            path:'/admin/bank/addchoose'
+          })
+        },
+        change:function(id)
+        {
+          console.log(id)
+          this.$router.push({
+            path:'/admin/bank/changechoose',
+            query:{
+              id:id
+            }
+          })
+        },
         exportC:function()
         {
           let that =this

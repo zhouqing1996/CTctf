@@ -54,22 +54,22 @@
                   选项  一：
                   <vue-html5-editor :content="item.cqcho1" :height="100" @change="updateDataCcho($event,index,1)">
                   </vue-html5-editor>
-                  <el-button v-on:click="SetCAns(index,1)" type="danger" :id="sets(index)">设置为正确答案</el-button><br>
+                  <el-button v-on:click="SetCAns(index,1)" type="danger" :id="sets1(index)">设置选项为答案</el-button><br>
                   <!--<el-input v-model="item.cqcho1" placeholder="题目选项一" class="input"></el-input><br>-->
                   选项  二：
                   <vue-html5-editor :content="item.cqcho2" :height="100" @change="updateDataCcho($event,index,2)">
                   </vue-html5-editor>
-                  <el-button v-on:click="SetCAns(index,2)" type="danger" >设置为正确答案</el-button><br>
+                  <el-button v-on:click="SetCAns(index,2)" type="danger" :id="sets2(index)">设置选项为答案</el-button><br>
                   <!--<el-input v-model="item.cqcho2" placeholder="题目选项二" class="input"></el-input><br>-->
                   选项  三：
                   <vue-html5-editor :content="item.cqcho3" :height="100" @change="updateDataCcho($event,index,3)">
                   </vue-html5-editor>
-                  <el-button v-on:click="SetCAns(index,3)" type="danger" >设置为正确答案</el-button><br>
+                  <el-button v-on:click="SetCAns(index,3)" type="danger" :id="sets3(index)">设置选项为答案</el-button><br>
                   <!--<el-input v-model="item.cqcho3" placeholder="题目选项三" class="input"></el-input><br>-->
                   选项  四：
                   <vue-html5-editor :content="item.cqcho4" :height="100" @change="updateDataCcho($event,index,4)">
                   </vue-html5-editor>
-                  <el-button v-on:click="SetCAns(index,4)" type="danger" >设置为正确答案</el-button><br>
+                  <el-button v-on:click="SetCAns(index,4)" type="danger" :id="sets4(index)">设置选项为答案</el-button><br>
                   <!--<el-input v-model="item.cqcho4"rem placeholder="题目选项四" class="input"></el-input><br>-->
                   相关知识：
                   <vue-html5-editor :content="item.cqrem" :height="100" @change="updateDataCOther($event,index,2)">
@@ -137,19 +137,19 @@
                   <el-button @click.prevent="deleteCMClick(index)" type="danger" >删除</el-button><br>
                   选项  一：<vue-html5-editor :content="item.mcho1" :height="100" @change="updateDataCMcho($event,index,1)">
                 </vue-html5-editor>
-                  <el-button v-on:click="SetCMAns(index,1)" type="danger" >设置为正确答案</el-button><br>
+                  <el-button v-on:click="SetCMAns(index,1)" type="danger" :id="setsm1(index)">设置选项为答案</el-button><br>
                   <!--<el-input v-model="item.mcho1" placeholder="题目选项一" class="input"></el-input><br>-->
                   选项  二：<vue-html5-editor :content="item.mcho2" :height="100" @change="updateDataCMcho($event,index,2)">
                 </vue-html5-editor>
-                  <el-button v-on:click="SetCMAns(index,2)" type="danger" >设置为正确答案</el-button><br>
+                  <el-button v-on:click="SetCMAns(index,2)" type="danger"  :id="setsm2(index)">设置选项为答案</el-button><br>
                   <!--<el-input v-model="item.mcho2" placeholder="题目选项二" class="input"></el-input><br>-->
                   选项  三：<vue-html5-editor :content="item.mcho3" :height="100" @change="updateDataCMcho($event,index,3)">
                 </vue-html5-editor>
-                  <el-button v-on:click="SetCMAns(index,3)" type="danger" >设置为正确答案</el-button><br>
+                  <el-button v-on:click="SetCMAns(index,3)" type="danger"  :id="setsm3(index)">设置选项为答案</el-button><br>
                   <!--<el-input v-model="item.mcho3" placeholder="题目选项三" class="input"></el-input><br>-->
                   选项  四：<vue-html5-editor :content="item.mcho4" :height="100" @change="updateDataCMcho($event,index,4)">
                 </vue-html5-editor>
-                  <el-button v-on:click="SetCMAns(index,4)" type="danger" >设置为正确答案</el-button><br>
+                  <el-button v-on:click="SetCMAns(index,4)" type="danger"  :id="setsm4(index)">设置选项为答案</el-button><br>
                   <!--<el-input v-model="item.mcho4"rem placeholder="题目选项四" class="input"></el-input><br>-->
                   相关知识：<vue-html5-editor :content="item.mrem" :height="100" @change="updateDataCMItem($event,index,3)">
                 </vue-html5-editor>
@@ -160,7 +160,7 @@
                   详    解：<vue-html5-editor :content="item.mtail" :height="100" @change="updateDataCMItem($event,index,4)">
                 </vue-html5-editor>
                   <!--<el-input v-model="item.mtail" placeholder="题目详解" class="input"></el-input><br>-->
-                  <span>多选题答案选项用“---”连接，如答案为ABC 则显示在A---B---C</span>
+                  <!--<span>多选题答案选项用“-&#45;&#45;”连接，如答案为ABC 则显示在A-&#45;&#45;B-&#45;&#45;C</span>-->
                 </el-form-item>
               </el-form>
               <!--程序题-->
@@ -419,7 +419,6 @@
           default:
             break
         }
-
       },
       updateDataCMcho ($event="",f,flag) {
         let that =this
@@ -475,6 +474,319 @@
             break
         }
       },
+      //设置选择题的答案
+      sets1:function(id) {
+          return "sets1("+id+")";
+      },
+      sets2:function(id) {
+        return "sets2("+id+")";
+      },
+      sets3:function(id) {
+        return "sets3("+id+")";
+      },
+      sets4:function(id) {
+        return "sets4("+id+")";
+      },
+
+      SetCAns:function(id,flag) {
+        let that =this
+        switch (flag) {
+          case 1:
+            if(that.CList[id].cqans==that.CList[id].cqcho1)
+            {
+              that.CList[id].cqans = ''
+              document.getElementById("sets1("+id+")").innerHTML="设置选项为答案"
+            }
+            else {
+              that.CList[id].cqans = that.CList[id].cqcho1
+              document.getElementById("sets1("+id+")").innerHTML="取消该答案"
+              document.getElementById("sets2("+id+")").innerHTML="设置选项为答案"
+              document.getElementById("sets3("+id+")").innerHTML="设置选项为答案"
+              document.getElementById("sets4("+id+")").innerHTML="设置选项为答案"
+            }
+            break
+          case 2:
+            if(that.CList[id].cqans==that.CList[id].cqcho2)
+            {
+              that.CList[id].cqans = ''
+              document.getElementById("sets2("+id+")").innerHTML="设置选项为答案"
+            }
+            else {
+              that.CList[id].cqans = that.CList[id].cqcho2
+              document.getElementById("sets2("+id+")").innerHTML="取消该答案"
+              document.getElementById("sets1("+id+")").innerHTML="设置选项为答案"
+              document.getElementById("sets3("+id+")").innerHTML="设置选项为答案"
+              document.getElementById("sets4("+id+")").innerHTML="设置选项为答案"
+            }
+            break
+          case 3:
+            if(that.CList[id].cqans==that.CList[id].cqcho3)
+            {
+              that.CList[id].cqans = ''
+              document.getElementById("sets3("+id+")").innerHTML="设置选项为答案"
+            }
+            else {
+              that.CList[id].cqans = that.CList[id].cqcho3
+              document.getElementById("sets3("+id+")").innerHTML="取消该答案"
+              document.getElementById("sets2("+id+")").innerHTML="设置选项为答案"
+              document.getElementById("sets1("+id+")").innerHTML="设置选项为答案"
+              document.getElementById("sets4("+id+")").innerHTML="设置选项为答案"
+            }
+            break
+          case 4:
+            if(that.CList[id].cqans==that.CList[id].cqcho4)
+            {
+              that.CList[id].cqans = ''
+              document.getElementById("sets4("+id+")").innerHTML="设置选项为答案"
+            }
+            else {
+              that.CList[id].cqans = that.CList[id].cqcho4
+              document.getElementById("sets4("+id+")").innerHTML="取消该答案"
+              document.getElementById("sets2("+id+")").innerHTML="设置选项为答案"
+              document.getElementById("sets3("+id+")").innerHTML="设置选项为答案"
+              document.getElementById("sets1("+id+")").innerHTML="设置选项为答案"
+            }
+            break
+          default:
+            break
+        }
+        console.log(that.CList[id].cqans)
+      },
+      //设置多选题答案
+      setsm1:function(id)
+      {
+        return "setsm1("+id+")";
+      },
+      setsm2:function(id)
+      {
+        return "setsm2("+id+")";
+      },
+      setsm3:function(id)
+      {
+        return "setsm3("+id+")";
+      },
+      setsm4:function(id)
+      {
+        return "setsm4("+id+")";
+      },
+      SetCMAns:function(id,flag) {
+        let that =this
+        console.log(that.CMList[id].mans)
+        switch (flag) {
+          case 1:
+            let ans1 = that.CMList[id].mans.split('---')
+            console.log(ans1.length)
+            let flag1 = false
+            let index1 = ans1.length
+            for(let i=0;i<ans1.length;i++)
+            {
+              if(ans1[i]==that.CMList[id].mcho1)
+              {
+                flag1 =true
+                index1 = i
+                break
+              }
+            }
+            if(flag1)
+            {
+              that.CMList[id].mans = ''
+              if(ans1.length==1)
+              {
+                that.CMList[id].mans = ''
+              }
+              else
+              {
+                for(let i=0;i<ans1.length;i++)
+                {
+                  if(i==index1)
+                  {
+                    continue
+                  }
+                  else if(that.CMList[id].mans=='')
+                  {
+                    that.CMList[id].mans = ans1[i]
+                  }
+                  else
+                  {
+                    that.CMList[id].mans = that.CMList[id].mans+'---'+ans1[i]
+                  }
+                }
+              }
+              document.getElementById("setsm1(" + id + ")").innerHTML = "设置选项为答案"
+            }
+            else
+            {
+              if(that.CMList[id].mans=='')
+              {
+                that.CMList[id].mans = that.CMList[id].mcho1
+              }
+              else {
+                that.CMList[id].mans = that.CMList[id].mans+'---'+that.CMList[id].mcho1
+              }
+              document.getElementById("setsm1(" + id + ")").innerHTML = "取消该答案"
+            }
+            break
+          case 2:
+            let ans2 = that.CMList[id].mans.split('---')
+            let flag2 = false
+            let index2 = ans2.length
+            for(let i=0;i<ans2.length;i++)
+            {
+              if(ans2[i]==that.CMList[id].mcho2)
+              {
+                flag2 =true
+                index2 = i
+                break
+              }
+            }
+            if(flag2)
+            {
+              that.CMList[id].mans = ''
+              if(ans2.length==1)
+              {
+                that.CMList[id].mans = ''
+              }
+              else
+              {
+                for(let i=0;i<ans2.length;i++)
+                {
+                  if(i==index2)
+                  {
+                    continue
+                  }
+                  else if(that.CMList[id].mans=='')
+                  {
+                    that.CMList[id].mans = ans2[i]
+                  }
+                  else
+                  {
+                    that.CMList[id].mans = that.CMList[id].mans+'---'+ans2[i]
+                  }
+                }
+              }
+              document.getElementById("setsm2(" + id + ")").innerHTML = "设置选项为答案"
+            }
+            else
+            {
+              if(that.CMList[id].mans=='')
+              {
+                that.CMList[id].mans = that.CMList[id].mcho2
+              }
+              else {
+                that.CMList[id].mans = that.CMList[id].mans+'---'+that.CMList[id].mcho2
+              }
+              document.getElementById("setsm2(" + id + ")").innerHTML = "取消该答案"
+            }
+            break
+          case 3:
+            let ans3 = that.CMList[id].mans.split('---')
+            let flag3 = false
+            let index3 = ans3.length
+            for(let i=0;i<ans3.length;i++)
+            {
+              if(ans3[i]==that.CMList[id].mcho3)
+              {
+                flag3 =true
+                index3 = i
+                break
+              }
+            }
+            if(flag3)
+            {
+              that.CMList[id].mans = ''
+              if(ans3.length==1)
+              {
+                that.CMList[id].mans = ''
+              }
+              else
+              {
+                for(let i=0;i<ans3.length;i++)
+                {
+                  if(i==index3)
+                  {
+                    continue
+                  }
+                  else if(that.CMList[id].mans=='')
+                  {
+                    that.CMList[id].mans = ans3[i]
+                  }
+                  else
+                  {
+                    that.CMList[id].mans = that.CMList[id].mans+'---'+ans3[i]
+                  }
+                }
+              }
+              document.getElementById("setsm3(" + id + ")").innerHTML = "设置选项为答案"
+            }
+            else
+            {
+              if(that.CMList[id].mans=='')
+              {
+                that.CMList[id].mans = that.CMList[id].mcho3
+              }
+              else {
+                that.CMList[id].mans = that.CMList[id].mans+'---'+that.CMList[id].mcho3
+              }
+              document.getElementById("setsm3(" + id + ")").innerHTML = "取消该答案"
+            }
+            break
+          case 4:
+            let ans4 = that.CMList[id].mans.split('---')
+            let flag4 = false
+            let index4 = ans4.length
+            for(let i=0;i<ans4.length;i++)
+            {
+              if(ans4[i]==that.CMList[id].mcho4)
+              {
+                flag4 =true
+                index4 = i
+                break
+              }
+            }
+            if(flag4)
+            {
+              that.CMList[id].mans = ''
+              if(ans4.length==1)
+              {
+                that.CMList[id].mans = ''
+              }
+              else
+              {
+                for(let i=0;i<ans4.length;i++)
+                {
+                  if(i==index4)
+                  {
+                    continue
+                  }
+                  else if(that.CMList[id].mans=='')
+                  {
+                    that.CMList[id].mans = ans4[i]
+                  }
+                  else
+                  {
+                    that.CMList[id].mans = that.CMList[id].mans+'---'+ans4[i]
+                  }
+                }
+              }
+              document.getElementById("setsm4(" + id + ")").innerHTML = "设置选项为答案"
+            }
+            else
+            {
+              if(that.CMList[id].mans=='')
+              {
+                that.CMList[id].mans = that.CMList[id].mcho4
+              }
+              else {
+                that.CMList[id].mans = that.CMList[id].mans+'---'+that.CMList[id].mcho4
+              }
+              document.getElementById("setsm4(" + id + ")").innerHTML = "取消该答案"
+            }
+            break
+          default:
+            break
+        }
+        console.log(that.CMList[id].mans)
+      },
       //添加选择题
       addCClick:function(){
         this.CList.push({
@@ -487,63 +799,6 @@
           cqrem:'',
           cqtail:''
         })
-      },
-      //设置选择题的答案
-      sets:function(id)
-      {
-          return "sets("+id+")";
-      },
-      SetCAns:function(id,flag) {
-        let that =this
-        switch (flag) {
-          case 1:
-            if(that.CList[id].cqans==that.CList[id].cqcho1)
-            {
-              that.CList[id].cqans = ''
-              document.getElementById("sets("+id+")").innerHTML="设置选项为答案"
-            }
-            else {
-              that.CList[id].cqans = that.CList[id].cqcho1
-              document.getElementById("sets("+id+")").innerHTML="取消该答案"
-            }
-            break
-          case 2:
-            if(that.CList[id].cqans==that.CList[id].cqcho2)
-            {
-              that.CList[id].cqans = ''
-              document.getElementById("sets("+id+")").innerHTML="设置选项为答案"
-            }
-            else {
-              that.CList[id].cqans = that.CList[id].cqcho2
-              document.getElementById("sets("+id+")").innerHTML="取消该答案"
-            }
-            break
-          case 3:
-            if(that.CList[id].cqans==that.CList[id].cqcho3)
-            {
-              that.CList[id].cqans = ''
-              document.getElementById("sets("+id+")").innerHTML="设置选项为答案"
-            }
-            else {
-              that.CList[id].cqans = that.CList[id].cqcho3
-              document.getElementById("sets("+id+")").innerHTML="取消该答案"
-            }
-            break
-          case 4:
-            if(that.CList[id].cqans==that.CList[id].cqcho4)
-            {
-              that.CList[id].cqans = ''
-              document.getElementById("sets("+id+")").innerHTML="设置选项为答案"
-            }
-            else {
-              that.CList[id].cqans = that.CList[id].cqcho4
-              document.getElementById("sets("+id+")").innerHTML="取消该答案"
-            }
-            break
-            break
-          default:
-            break
-        }
       },
       deleteCClick:function (id) {
         this.CList.splice(id,1)
@@ -583,53 +838,53 @@
         })
       },
       //设置多选题的答案
-      SetCMAns:function(id,flag) {
-        let that =this
-        switch (flag) {
-          case 1:
-            if(that.CMList[id].mans=='')
-            {
-              that.CMList[id].mans = that.CMList[id].mcho1
-            }
-            else
-            {
-              that.CMList[id].mans =that.CMList[id].mans+'---'+that.CMList[id].mcho1
-            }
-            break
-          case 2:
-            if(that.CMList[id].mans=='')
-            {
-              that.CMList[id].mans = that.CMList[id].mcho2
-            }
-            else
-            {
-              that.CMList[id].mans =that.CMList[id].mans+'---'+that.CMList[id].mcho2
-            }
-            break
-          case 3:
-            if(that.CMList[id].mans=='')
-            {
-              that.CMList[id].mans = that.CMList[id].mcho3
-            }
-            else
-            {
-              that.CMList[id].mans =that.CMList[id].mans+'---'+that.CMList[id].mcho3
-            }
-            break
-          case 4:
-            if(that.CMList[id].mans=='')
-            {
-              that.CMList[id].mans = that.CMList[id].mcho4
-            }
-            else
-            {
-              that.CMList[id].mans =that.CMList[id].mans+'---'+that.CMList[id].mcho4
-            }
-            break
-          default:
-            break
-        }
-      },
+      // SetCMAns:function(id,flag) {
+      //   let that =this
+      //   switch (flag) {
+      //     case 1:
+      //       if(that.CMList[id].mans=='')
+      //       {
+      //         that.CMList[id].mans = that.CMList[id].mcho1
+      //       }
+      //       else
+      //       {
+      //         that.CMList[id].mans =that.CMList[id].mans+'---'+that.CMList[id].mcho1
+      //       }
+      //       break
+      //     case 2:
+      //       if(that.CMList[id].mans=='')
+      //       {
+      //         that.CMList[id].mans = that.CMList[id].mcho2
+      //       }
+      //       else
+      //       {
+      //         that.CMList[id].mans =that.CMList[id].mans+'---'+that.CMList[id].mcho2
+      //       }
+      //       break
+      //     case 3:
+      //       if(that.CMList[id].mans=='')
+      //       {
+      //         that.CMList[id].mans = that.CMList[id].mcho3
+      //       }
+      //       else
+      //       {
+      //         that.CMList[id].mans =that.CMList[id].mans+'---'+that.CMList[id].mcho3
+      //       }
+      //       break
+      //     case 4:
+      //       if(that.CMList[id].mans=='')
+      //       {
+      //         that.CMList[id].mans = that.CMList[id].mcho4
+      //       }
+      //       else
+      //       {
+      //         that.CMList[id].mans =that.CMList[id].mans+'---'+that.CMList[id].mcho4
+      //       }
+      //       break
+      //     default:
+      //       break
+      //   }
+      // },
       DeleteCMAns:function(id,flag) {
         let that =this
         switch (flag) {

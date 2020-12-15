@@ -47,15 +47,41 @@
                 <h3>选择题</h3>
                 <el-form-item v-for="(item,index) in CList" :key="index">
                   <span>({{index+1}})</span>
-                  题   干：<el-input v-model="item.cqitem" placeholder="题目题干" class="input"></el-input>
+                  题   干：<vue-html5-editor :content="item.cqitem" :height="100" @change="updateDataCItem($event,index)">
+                </vue-html5-editor>
+                  <!--<el-input v-model="item.cqitem" placeholder="题目题干" class="input"></el-input>-->
                   <el-button @click.prevent="deleteCClick(index)" type="danger" >删除</el-button><br>
-                  选项  一：<el-input v-model="item.cqcho1" placeholder="题目选项一" class="input"></el-input><br>
-                  选项  二：<el-input v-model="item.cqcho2" placeholder="题目选项二" class="input"></el-input><br>
-                  选项  三：<el-input v-model="item.cqcho3" placeholder="题目选项三" class="input"></el-input><br>
-                  选项  四：<el-input v-model="item.cqcho4"rem placeholder="题目选项四" class="input"></el-input><br>
-                  相关知识：<el-input v-model="item.cqrem" placeholder="题目相关知识" class="input"></el-input><br>
-                  答    案：<el-input v-model="item.cqans" placeholder="题目答案" class="input"></el-input><br>
-                  详    解：<el-input v-model="item.cqtail" placeholder="题目详解" class="input"></el-input><br>
+                  选项  一：
+                  <vue-html5-editor :content="item.cqcho1" :height="100" @change="updateDataCcho($event,index,1)">
+                  </vue-html5-editor>
+                  <el-button v-on:click="SetCAns(index,1)" type="danger" :id="sets1(index)">设置选项为答案</el-button><br>
+                  <!--<el-input v-model="item.cqcho1" placeholder="题目选项一" class="input"></el-input><br>-->
+                  选项  二：
+                  <vue-html5-editor :content="item.cqcho2" :height="100" @change="updateDataCcho($event,index,2)">
+                  </vue-html5-editor>
+                  <el-button v-on:click="SetCAns(index,2)" type="danger" :id="sets2(index)">设置选项为答案</el-button><br>
+                  <!--<el-input v-model="item.cqcho2" placeholder="题目选项二" class="input"></el-input><br>-->
+                  选项  三：
+                  <vue-html5-editor :content="item.cqcho3" :height="100" @change="updateDataCcho($event,index,3)">
+                  </vue-html5-editor>
+                  <el-button v-on:click="SetCAns(index,3)" type="danger" :id="sets3(index)">设置选项为答案</el-button><br>
+                  <!--<el-input v-model="item.cqcho3" placeholder="题目选项三" class="input"></el-input><br>-->
+                  选项  四：
+                  <vue-html5-editor :content="item.cqcho4" :height="100" @change="updateDataCcho($event,index,4)">
+                  </vue-html5-editor>
+                  <el-button v-on:click="SetCAns(index,4)" type="danger" :id="sets4(index)">设置选项为答案</el-button><br>
+                  <!--<el-input v-model="item.cqcho4"rem placeholder="题目选项四" class="input"></el-input><br>-->
+                  相关知识：
+                  <vue-html5-editor :content="item.cqrem" :height="100" @change="updateDataCOther($event,index,2)">
+                  </vue-html5-editor>
+                  <!--<el-input v-model="item.cqrem" placeholder="题目相关知识" class="input"></el-input><br>-->
+                  <!--答    案：-->
+                  <!--<vue-html5-editor :content="item.cqans" :height="100" @change="updateDataCOther($event,index,1)">-->
+                  <!--</vue-html5-editor>-->
+                  <!--<el-input v-model="item.cqans" placeholder="题目答案" class="input"></el-input><br>-->
+                  详    解：<vue-html5-editor :content="item.cqtail" :height="100" @change="updateDataCOther($event,index,3)">
+                </vue-html5-editor>
+                  <!--<el-input v-model="item.cqtail" placeholder="题目详解" class="input"></el-input><br>-->
                 </el-form-item>
               </el-form>
               <!--填空题-->
@@ -63,11 +89,19 @@
                 <h3>填空题</h3>
                 <el-form-item v-for="(item,index) in FList" :key="index">
                   <span>（{{index+1}}）</span>
-                  题  干：<el-input v-model="item.fitem" placeholder="题目题干" class="input"></el-input>
+                  题  干：<vue-html5-editor :content="item.fitem" :height="100" @change="updateDataFItem($event,index,1)">
+                </vue-html5-editor>
+                  <!--<el-input v-model="item.fitem" placeholder="题目题干" class="input"></el-input>-->
                   <el-button @click.prevent="deleteFClick(index)" type="danger" >删除</el-button><br>
-                  相关知识：<el-input v-model="item.frem" placeholder="题目相关知识" class="input"></el-input><br>
-                  答    案：<el-input v-model="item.fans" placeholder="题目答案" class="input"></el-input><br>
-                  详    解：<el-input v-model="item.ftail" placeholder="题目详解" class="input"></el-input><br>
+                  相关知识：<vue-html5-editor :content="item.frem" :height="100" @change="updateDataFItem($event,index,3)">
+                </vue-html5-editor>
+                  <!--<el-input v-model="item.frem" placeholder="题目相关知识" class="input"></el-input><br>-->
+                  答    案：<vue-html5-editor :content="item.fans" :height="100" @change="updateDataFItem($event,index,2)">
+                </vue-html5-editor>
+                  <!--<el-input v-model="item.fans" placeholder="题目答案" class="input"></el-input><br>-->
+                  详    解：<vue-html5-editor :content="item.ftail" :height="100" @change="updateDataFItem($event,index,4)">
+                </vue-html5-editor>
+                  <!--<el-input v-model="item.ftail" placeholder="题目详解" class="input"></el-input><br>-->
                 </el-form-item>
               </el-form>
               <!--判断题-->
@@ -75,15 +109,21 @@
                 <h3>判断题</h3>
                 <el-form-item v-for="(item,index) in JList" :key="index">
                   <span>（{{index+1}}）</span>
-                  题    干：<el-input v-model="item.jitem" placeholder="题目题干" class="input"></el-input>
+                  题    干：<vue-html5-editor :content="item.ftail" :height="100" @change="updateDataJItem($event,index,1)">
+                </vue-html5-editor>
+                  <!--<el-input v-model="item.jitem" placeholder="题目题干" class="input"></el-input>-->
                   <el-button @click.prevent="deleteJClick(index)" type="danger" >删除</el-button><br>
-                  相关知识：<el-input v-model="item.jrem" placeholder="题目相关知识" class="input"></el-input><br>
+                  相关知识：<vue-html5-editor :content="item.jrem" :height="100" @change="updateDataJItem($event,index,2)">
+                </vue-html5-editor>
+                  <!--<el-input v-model="item.jrem" placeholder="题目相关知识" class="input"></el-input><br>-->
                   答    案：
                   <!--<el-input v-model="item.jans" placeholder="题目答案" class="input"></el-input><br>-->
                   <input type="radio" :name="index" v-model="item.jans" value="1">正确
                   <input type="radio" :name="index" v-model="item.jans" value="0">错误
                   <br>
-                  详    解：<el-input v-model="item.jtail" placeholder="题目详解" class="input"></el-input><br>
+                  详    解：<vue-html5-editor :content="item.jtail" :height="100" @change="updateDataJItem($event,index,3)">
+                </vue-html5-editor>
+                  <!--<el-input v-model="item.jtail" placeholder="题目详解" class="input"></el-input><br>-->
                 </el-form-item>
               </el-form>
               <!--多选题-->
@@ -91,16 +131,36 @@
                 <h3>多选题</h3>
                 <el-form-item v-for="(item,index) in CMList" :key="index">
                   <span>（{{index+1}}）</span>
-                  题  干：<el-input v-model="item.mitem" placeholder="题目题干" class="input"></el-input>
+                  题  干：<vue-html5-editor :content="item.mitem" :height="100" @change="updateDataCMItem($event,index,1)">
+                </vue-html5-editor>
+                  <!--<el-input v-model="item.mitem" placeholder="题目题干" class="input"></el-input>-->
                   <el-button @click.prevent="deleteCMClick(index)" type="danger" >删除</el-button><br>
-                  选项  一：<el-input v-model="item.mcho1" placeholder="题目选项一" class="input"></el-input><br>
-                  选项  二：<el-input v-model="item.mcho2" placeholder="题目选项二" class="input"></el-input><br>
-                  选项  三：<el-input v-model="item.mcho3" placeholder="题目选项三" class="input"></el-input><br>
-                  选项  四：<el-input v-model="item.mcho4"rem placeholder="题目选项四" class="input"></el-input><br>
-                  相关知识：<el-input v-model="item.mrem" placeholder="题目相关知识" class="input"></el-input><br>
-                  答    案：<el-input v-model="item.mans" placeholder="题目答案" class="input"></el-input><br>
-                  详    解：<el-input v-model="item.mtail" placeholder="题目详解" class="input"></el-input><br>
-                  <span>多选题答案选项用“---”连接，如答案为ABC 则显示在A---B---C</span>
+                  选项  一：<vue-html5-editor :content="item.mcho1" :height="100" @change="updateDataCMcho($event,index,1)">
+                </vue-html5-editor>
+                  <el-button v-on:click="SetCMAns(index,1)" type="danger" :id="setsm1(index)">设置选项为答案</el-button><br>
+                  <!--<el-input v-model="item.mcho1" placeholder="题目选项一" class="input"></el-input><br>-->
+                  选项  二：<vue-html5-editor :content="item.mcho2" :height="100" @change="updateDataCMcho($event,index,2)">
+                </vue-html5-editor>
+                  <el-button v-on:click="SetCMAns(index,2)" type="danger"  :id="setsm2(index)">设置选项为答案</el-button><br>
+                  <!--<el-input v-model="item.mcho2" placeholder="题目选项二" class="input"></el-input><br>-->
+                  选项  三：<vue-html5-editor :content="item.mcho3" :height="100" @change="updateDataCMcho($event,index,3)">
+                </vue-html5-editor>
+                  <el-button v-on:click="SetCMAns(index,3)" type="danger"  :id="setsm3(index)">设置选项为答案</el-button><br>
+                  <!--<el-input v-model="item.mcho3" placeholder="题目选项三" class="input"></el-input><br>-->
+                  选项  四：<vue-html5-editor :content="item.mcho4" :height="100" @change="updateDataCMcho($event,index,4)">
+                </vue-html5-editor>
+                  <el-button v-on:click="SetCMAns(index,4)" type="danger"  :id="setsm4(index)">设置选项为答案</el-button><br>
+                  <!--<el-input v-model="item.mcho4"rem placeholder="题目选项四" class="input"></el-input><br>-->
+                  相关知识：<vue-html5-editor :content="item.mrem" :height="100" @change="updateDataCMItem($event,index,3)">
+                </vue-html5-editor>
+                  <!--<el-input v-model="item.mrem" placeholder="题目相关知识" class="input"></el-input><br>-->
+                  <!--答    案：<vue-html5-editor :content="item.mans" :height="100" @change="updateDataCMItem($event,index,2)">-->
+                  <!--</vue-html5-editor>-->
+                  <!--<el-input v-model="item.mans" placeholder="题目答案" class="input"></el-input><br>-->
+                  详    解：<vue-html5-editor :content="item.mtail" :height="100" @change="updateDataCMItem($event,index,4)">
+                </vue-html5-editor>
+                  <!--<el-input v-model="item.mtail" placeholder="题目详解" class="input"></el-input><br>-->
+                  <!--<span>多选题答案选项用“-&#45;&#45;”连接，如答案为ABC 则显示在A-&#45;&#45;B-&#45;&#45;C</span>-->
                 </el-form-item>
               </el-form>
               <!--程序题-->
@@ -108,13 +168,99 @@
                 <h3>程序题</h3>
                 <el-form-item v-for="(item,index) in PList" :key="index">
                   <span>（{{index+1}}）</span>
-                  题   干：<el-input v-model="item.pitem" placeholder="题目题干" class="input"></el-input>
+                  题   干：<vue-html5-editor :content="item.pitem" :height="100" @change="updateDataPItem($event,index,1)">
+                </vue-html5-editor>
+                  <!--<el-input v-model="item.pitem" placeholder="题目题干" class="input"></el-input>-->
                   <el-button @click.prevent="deletePClick(index)" type="danger" >删除</el-button><br>
-                  相关知识：<el-input v-model="item.prem" placeholder="题目相关知识" class="input"></el-input><br>
-                  答    案：<el-input v-model="item.pans" placeholder="题目答案" class="input"></el-input><br>
-                  详    解：<el-input v-model="item.ptail" placeholder="题目详解" class="input"></el-input><br>
+                  相关知识：<vue-html5-editor :content="item.prem" :height="100" @change="updateDataPItem($event,index,2)">
+                </vue-html5-editor>
+                  <!--<el-input v-model="item.prem" placeholder="题目相关知识" class="input"></el-input><br>-->
+                  答    案：<vue-html5-editor :content="item.pans" :height="100" @change="updateDataPItem($event,index,4)">
+                </vue-html5-editor>
+                  <!--<MonacoEditor :codes="code_content"-->
+                  <!--:read-only="false"-->
+                  <!--:language="yuyan" @contentBody="changePValue"></MonacoEditor>-->
+                  <!--<el-input v-model="item.pans" placeholder="题目答案" class="input"></el-input><br>-->
+                  详    解：<vue-html5-editor :content="item.ptail" :height="100" @change="updateDataPItem($event,index,3)">
+                </vue-html5-editor>
+                  <!--<el-input v-model="item.ptail" placeholder="题目详解" class="input"></el-input><br>-->
                 </el-form-item>
               </el-form>
+              <span>
+                <!--&lt;!&ndash;单选题&ndash;&gt;-->
+                <!--<el-form v-if="CList.length>0">-->
+                <!--<h3>选择题</h3>-->
+                <!--<el-form-item v-for="(item,index) in CList" :key="index">-->
+                <!--<span>({{index+1}})</span>-->
+                <!--题   干：<el-input v-model="item.cqitem" placeholder="题目题干" class="input"></el-input>-->
+                <!--<el-button @click.prevent="deleteCClick(index)" type="danger" >删除</el-button><br>-->
+                <!--选项  一：<el-input v-model="item.cqcho1" placeholder="题目选项一" class="input"></el-input><br>-->
+                <!--选项  二：<el-input v-model="item.cqcho2" placeholder="题目选项二" class="input"></el-input><br>-->
+                <!--选项  三：<el-input v-model="item.cqcho3" placeholder="题目选项三" class="input"></el-input><br>-->
+                <!--选项  四：<el-input v-model="item.cqcho4"rem placeholder="题目选项四" class="input"></el-input><br>-->
+                <!--相关知识：<el-input v-model="item.cqrem" placeholder="题目相关知识" class="input"></el-input><br>-->
+                <!--答    案：<el-input v-model="item.cqans" placeholder="题目答案" class="input"></el-input><br>-->
+                <!--详    解：<el-input v-model="item.cqtail" placeholder="题目详解" class="input"></el-input><br>-->
+                <!--</el-form-item>-->
+                <!--</el-form>-->
+                <!--&lt;!&ndash;填空题&ndash;&gt;-->
+                <!--<el-form v-if="FList.length>0">-->
+                <!--<h3>填空题</h3>-->
+                <!--<el-form-item v-for="(item,index) in FList" :key="index">-->
+                <!--<span>（{{index+1}}）</span>-->
+                <!--题  干：<el-input v-model="item.fitem" placeholder="题目题干" class="input"></el-input>-->
+                <!--<el-button @click.prevent="deleteFClick(index)" type="danger" >删除</el-button><br>-->
+                <!--相关知识：<el-input v-model="item.frem" placeholder="题目相关知识" class="input"></el-input><br>-->
+                <!--答    案：<el-input v-model="item.fans" placeholder="题目答案" class="input"></el-input><br>-->
+                <!--详    解：<el-input v-model="item.ftail" placeholder="题目详解" class="input"></el-input><br>-->
+                <!--</el-form-item>-->
+                <!--</el-form>-->
+                <!--&lt;!&ndash;判断题&ndash;&gt;-->
+                <!--<el-form v-if="JList.length>0">-->
+                <!--<h3>判断题</h3>-->
+                <!--<el-form-item v-for="(item,index) in JList" :key="index">-->
+                <!--<span>（{{index+1}}）</span>-->
+                <!--题    干：<el-input v-model="item.jitem" placeholder="题目题干" class="input"></el-input>-->
+                <!--<el-button @click.prevent="deleteJClick(index)" type="danger" >删除</el-button><br>-->
+                <!--相关知识：<el-input v-model="item.jrem" placeholder="题目相关知识" class="input"></el-input><br>-->
+                <!--答    案：-->
+                <!--&lt;!&ndash;<el-input v-model="item.jans" placeholder="题目答案" class="input"></el-input><br>&ndash;&gt;-->
+                <!--<input type="radio" :name="index" v-model="item.jans" value="1">正确-->
+                <!--<input type="radio" :name="index" v-model="item.jans" value="0">错误-->
+                <!--<br>-->
+                <!--详    解：<el-input v-model="item.jtail" placeholder="题目详解" class="input"></el-input><br>-->
+                <!--</el-form-item>-->
+                <!--</el-form>-->
+                <!--&lt;!&ndash;多选题&ndash;&gt;-->
+                <!--<el-form v-if="CMList.length>0">-->
+                <!--<h3>多选题</h3>-->
+                <!--<el-form-item v-for="(item,index) in CMList" :key="index">-->
+                <!--<span>（{{index+1}}）</span>-->
+                <!--题  干：<el-input v-model="item.mitem" placeholder="题目题干" class="input"></el-input>-->
+                <!--<el-button @click.prevent="deleteCMClick(index)" type="danger" >删除</el-button><br>-->
+                <!--选项  一：<el-input v-model="item.mcho1" placeholder="题目选项一" class="input"></el-input><br>-->
+                <!--选项  二：<el-input v-model="item.mcho2" placeholder="题目选项二" class="input"></el-input><br>-->
+                <!--选项  三：<el-input v-model="item.mcho3" placeholder="题目选项三" class="input"></el-input><br>-->
+                <!--选项  四：<el-input v-model="item.mcho4"rem placeholder="题目选项四" class="input"></el-input><br>-->
+                <!--相关知识：<el-input v-model="item.mrem" placeholder="题目相关知识" class="input"></el-input><br>-->
+                <!--答    案：<el-input v-model="item.mans" placeholder="题目答案" class="input"></el-input><br>-->
+                <!--详    解：<el-input v-model="item.mtail" placeholder="题目详解" class="input"></el-input><br>-->
+                <!--<span>多选题答案选项用“-&#45;&#45;”连接，如答案为ABC 则显示在A-&#45;&#45;B-&#45;&#45;C</span>-->
+                <!--</el-form-item>-->
+                <!--</el-form>-->
+                <!--&lt;!&ndash;程序题&ndash;&gt;-->
+                <!--<el-form v-if="PList.length>0">-->
+                <!--<h3>程序题</h3>-->
+                <!--<el-form-item v-for="(item,index) in PList" :key="index">-->
+                <!--<span>（{{index+1}}）</span>-->
+                <!--题   干：<el-input v-model="item.pitem" placeholder="题目题干" class="input"></el-input>-->
+                <!--<el-button @click.prevent="deletePClick(index)" type="danger" >删除</el-button><br>-->
+                <!--相关知识：<el-input v-model="item.prem" placeholder="题目相关知识" class="input"></el-input><br>-->
+                <!--答    案：<el-input v-model="item.pans" placeholder="题目答案" class="input"></el-input><br>-->
+                <!--详    解：<el-input v-model="item.ptail" placeholder="题目详解" class="input"></el-input><br>-->
+                <!--</el-form-item>-->
+                <!--</el-form>-->
+              </span>
             </div>
             <button class="btn2 el-icon-circle-plus-outline" @click="createOK">完成创建</button>
           </div>
@@ -210,6 +356,511 @@
       }
     },
     methods:{
+      //富文本编辑器
+      //选择题
+      updateDataCItem ($event="",f) {
+        let that =this
+        console.log($event)
+        let c1 = $event.replace(/<img width="200px" height="200px"/g, "<img");
+        let c2 = c1.replace(/<img/g, '<img width="200px" height="200px"');
+        that.CList[f].cqitem = c2
+        console.log(that.CList[f].cqitem)
+      },
+      updateDataCcho ($event="",f,flag) {
+        let that =this
+        console.log($event)
+        let c1 = $event.replace(/<img width="200px" height="200px"/g, "<img");
+        let c2 = c1.replace(/<img/g, '<img width="200px" height="200px"');
+        switch (flag) {
+          case 1:
+            that.CList[f].cqcho1 = c2
+            console.log(that.CList[f].cqcho1)
+            break;
+          case 2:
+            that.CList[f].cqcho2 = c2
+            console.log(that.CList[f].cqcho2)
+            break;
+          case 3:
+            that.CList[f].cqcho3 = c2
+            console.log(that.CList[f].cqcho3)
+            break;
+          case 4:
+            that.CList[f].cqcho4 = c2
+            console.log(that.CList[f].cqcho4)
+            break;
+          default:
+            break
+        }
+      },
+      updateDataCOther ($event="",f,flag) {
+        let that =this
+        console.log($event)
+        let c1 = $event.replace(/<img width="200px" height="200px"/g, "<img");
+        let c2 = c1.replace(/<img/g, '<img width="200px" height="200px"');
+        switch (flag) {
+          case 1:
+            that.CList[f].cqans = c2
+            console.log(that.CList[f].cqans)
+            break;
+          case 2:
+            that.CList[f].cqrem = c2
+            console.log(that.CList[f].cqrem)
+            break;
+          case 3:
+            that.CList[f].cqtail = c2
+            console.log(that.CList[f].cqtail)
+            break;
+          default:
+            break
+        }
+      },
+      //填空题
+      updateDataFItem ($event="",f,flag) {
+        let that =this
+        console.log($event)
+        let c1 = $event.replace(/<img width="200px" height="200px"/g, "<img");
+        let c2 = c1.replace(/<img/g, '<img width="200px" height="200px"');
+        switch (flag) {
+          case 1:
+            //item
+            that.FList[f].fitem = c2
+            console.log(that.FList[f].fitem)
+            break
+          case 2:
+            that.FList[f].fans = c2
+            console.log(that.FList[f].fans)
+            break
+          case 3:
+            that.FList[f].frem = c2
+            console.log(that.FList[f].frem)
+            break
+          case 4:
+            that.FList[f].ftail = c2
+            console.log(that.FList[f].ftail)
+            break
+          default:
+            break
+        }
+      },
+      //判断题
+      updateDataJItem ($event="",f,flag) {
+        let that =this
+        console.log($event)
+        let c1 = $event.replace(/<img width="200px" height="200px"/g, "<img");
+        let c2 = c1.replace(/<img/g, '<img width="200px" height="200px"');
+        switch (flag) {
+          case 1:
+            //item
+            that.JList[f].jitem = c2
+            console.log(that.JList[f].jitem)
+            break
+          case 2:
+            that.JList[f].jrem = c2
+            console.log(that.JList[f].jrem)
+            break
+          case 3:
+            that.JList[f].jtail = c2
+            console.log(that.JList[f].jtail)
+            break
+          default:
+            break
+        }
+      },
+      //多选题
+      updateDataCMItem ($event="",f,flag) {
+        let that =this
+        console.log($event)
+        let c1 = $event.replace(/<img width="200px" height="200px"/g, "<img");
+        let c2 = c1.replace(/<img/g, '<img width="200px" height="200px"');
+        switch (flag) {
+          case 1:
+            that.CMList[f].mitem = c2
+            console.log(that.CMList[f].mitem)
+            break
+          case 2:
+            that.CMList[f].mans = c2
+            console.log(that.CMList[f].mans)
+            break
+          case 3:
+            that.CMList[f].mrem = c2
+            console.log(that.CMList[f].mrem)
+            break
+          case 4:
+            that.CMList[f].mtail= c2
+            console.log(that.CMList[f].mtail)
+            break
+          default:
+            break
+        }
+
+      },
+      updateDataCMcho ($event="",f,flag) {
+        let that =this
+        console.log($event)
+        let c1 = $event.replace(/<img width="200px" height="200px"/g, "<img");
+        let c2 = c1.replace(/<img/g, '<img width="200px" height="200px"');
+        switch (flag) {
+          case 1:
+            that.CMList[f].mcho1 = c2
+            console.log(that.CMList[f].mcho1)
+            break;
+          case 2:
+            that.CMList[f].mcho2 = c2
+            console.log(that.CMList[f].mcho2)
+            break;
+          case 3:
+            that.CMList[f].mcho3 = c2
+            console.log(that.CMList[f].mcho3)
+            break;
+          case 4:
+            that.CMList[f].mcho4 = c2
+            console.log(that.CMList[f].mcho4)
+            break;
+          default:
+            break
+        }
+      },
+      //程序题
+      updateDataPItem ($event="",f,flag) {
+        let that =this
+        console.log($event)
+        let c1 = $event.replace(/<img width="200px" height="200px"/g, "<img");
+        let c2 = c1.replace(/<img/g, '<img width="200px" height="200px"');
+        switch (flag) {
+          case 1:
+            //item
+            that.PList[f].pitem = c2
+            console.log(that.PList[f].pitem)
+            break
+          case 2:
+            that.PList[f].prem = c2
+            console.log(that.PList[f].prem)
+            break
+          case 3:
+            that.PList[f].ptail = c2
+            console.log(that.PList[f].ptail)
+            break
+          case 4:
+            that.PList[f].pans = c2
+            console.log(that.PList[f].pans)
+            break
+          default:
+            break
+        }
+      },
+      //设置选择题的答案
+      sets1:function(id) {
+        return "sets1("+id+")";
+      },
+      sets2:function(id) {
+        return "sets2("+id+")";
+      },
+      sets3:function(id) {
+        return "sets3("+id+")";
+      },
+      sets4:function(id) {
+        return "sets4("+id+")";
+      },
+
+      SetCAns:function(id,flag) {
+        let that =this
+        switch (flag) {
+          case 1:
+            if(that.CList[id].cqans==that.CList[id].cqcho1)
+            {
+              that.CList[id].cqans = ''
+              document.getElementById("sets1("+id+")").innerHTML="设置选项为答案"
+            }
+            else {
+              that.CList[id].cqans = that.CList[id].cqcho1
+              document.getElementById("sets1("+id+")").innerHTML="取消该答案"
+              document.getElementById("sets2("+id+")").innerHTML="设置选项为答案"
+              document.getElementById("sets3("+id+")").innerHTML="设置选项为答案"
+              document.getElementById("sets4("+id+")").innerHTML="设置选项为答案"
+            }
+            break
+          case 2:
+            if(that.CList[id].cqans==that.CList[id].cqcho2)
+            {
+              that.CList[id].cqans = ''
+              document.getElementById("sets2("+id+")").innerHTML="设置选项为答案"
+            }
+            else {
+              that.CList[id].cqans = that.CList[id].cqcho2
+              document.getElementById("sets2("+id+")").innerHTML="取消该答案"
+              document.getElementById("sets1("+id+")").innerHTML="设置选项为答案"
+              document.getElementById("sets3("+id+")").innerHTML="设置选项为答案"
+              document.getElementById("sets4("+id+")").innerHTML="设置选项为答案"
+            }
+            break
+          case 3:
+            if(that.CList[id].cqans==that.CList[id].cqcho3)
+            {
+              that.CList[id].cqans = ''
+              document.getElementById("sets3("+id+")").innerHTML="设置选项为答案"
+            }
+            else {
+              that.CList[id].cqans = that.CList[id].cqcho3
+              document.getElementById("sets3("+id+")").innerHTML="取消该答案"
+              document.getElementById("sets2("+id+")").innerHTML="设置选项为答案"
+              document.getElementById("sets1("+id+")").innerHTML="设置选项为答案"
+              document.getElementById("sets4("+id+")").innerHTML="设置选项为答案"
+            }
+            break
+          case 4:
+            if(that.CList[id].cqans==that.CList[id].cqcho4)
+            {
+              that.CList[id].cqans = ''
+              document.getElementById("sets4("+id+")").innerHTML="设置选项为答案"
+            }
+            else {
+              that.CList[id].cqans = that.CList[id].cqcho4
+              document.getElementById("sets4("+id+")").innerHTML="取消该答案"
+              document.getElementById("sets2("+id+")").innerHTML="设置选项为答案"
+              document.getElementById("sets3("+id+")").innerHTML="设置选项为答案"
+              document.getElementById("sets1("+id+")").innerHTML="设置选项为答案"
+            }
+            break
+          default:
+            break
+        }
+        console.log(that.CList[id].cqans)
+      },
+      //设置多选题答案
+      setsm1:function(id)
+      {
+        return "setsm1("+id+")";
+      },
+      setsm2:function(id)
+      {
+        return "setsm2("+id+")";
+      },
+      setsm3:function(id)
+      {
+        return "setsm3("+id+")";
+      },
+      setsm4:function(id)
+      {
+        return "setsm4("+id+")";
+      },
+      SetCMAns:function(id,flag) {
+        let that =this
+        console.log(that.CMList[id].mans)
+        switch (flag) {
+          case 1:
+            let ans1 = that.CMList[id].mans.split('---')
+            console.log(ans1.length)
+            let flag1 = false
+            let index1 = ans1.length
+            for(let i=0;i<ans1.length;i++)
+            {
+              if(ans1[i]==that.CMList[id].mcho1)
+              {
+                flag1 =true
+                index1 = i
+                break
+              }
+            }
+            if(flag1)
+            {
+              that.CMList[id].mans = ''
+              if(ans1.length==1)
+              {
+                that.CMList[id].mans = ''
+              }
+              else
+              {
+                for(let i=0;i<ans1.length;i++)
+                {
+                  if(i==index1)
+                  {
+                    continue
+                  }
+                  else if(that.CMList[id].mans=='')
+                  {
+                    that.CMList[id].mans = ans1[i]
+                  }
+                  else
+                  {
+                    that.CMList[id].mans = that.CMList[id].mans+'---'+ans1[i]
+                  }
+                }
+              }
+              document.getElementById("setsm1(" + id + ")").innerHTML = "设置选项为答案"
+            }
+            else
+            {
+              if(that.CMList[id].mans=='')
+              {
+                that.CMList[id].mans = that.CMList[id].mcho1
+              }
+              else {
+                that.CMList[id].mans = that.CMList[id].mans+'---'+that.CMList[id].mcho1
+              }
+              document.getElementById("setsm1(" + id + ")").innerHTML = "取消该答案"
+            }
+            break
+          case 2:
+            let ans2 = that.CMList[id].mans.split('---')
+            let flag2 = false
+            let index2 = ans2.length
+            for(let i=0;i<ans2.length;i++)
+            {
+              if(ans2[i]==that.CMList[id].mcho2)
+              {
+                flag2 =true
+                index2 = i
+                break
+              }
+            }
+            if(flag2)
+            {
+              that.CMList[id].mans = ''
+              if(ans2.length==1)
+              {
+                that.CMList[id].mans = ''
+              }
+              else
+              {
+                for(let i=0;i<ans2.length;i++)
+                {
+                  if(i==index2)
+                  {
+                    continue
+                  }
+                  else if(that.CMList[id].mans=='')
+                  {
+                    that.CMList[id].mans = ans2[i]
+                  }
+                  else
+                  {
+                    that.CMList[id].mans = that.CMList[id].mans+'---'+ans2[i]
+                  }
+                }
+              }
+              document.getElementById("setsm2(" + id + ")").innerHTML = "设置选项为答案"
+            }
+            else
+            {
+              if(that.CMList[id].mans=='')
+              {
+                that.CMList[id].mans = that.CMList[id].mcho2
+              }
+              else {
+                that.CMList[id].mans = that.CMList[id].mans+'---'+that.CMList[id].mcho2
+              }
+              document.getElementById("setsm2(" + id + ")").innerHTML = "取消该答案"
+            }
+            break
+          case 3:
+            let ans3 = that.CMList[id].mans.split('---')
+            let flag3 = false
+            let index3 = ans3.length
+            for(let i=0;i<ans3.length;i++)
+            {
+              if(ans3[i]==that.CMList[id].mcho3)
+              {
+                flag3 =true
+                index3 = i
+                break
+              }
+            }
+            if(flag3)
+            {
+              that.CMList[id].mans = ''
+              if(ans3.length==1)
+              {
+                that.CMList[id].mans = ''
+              }
+              else
+              {
+                for(let i=0;i<ans3.length;i++)
+                {
+                  if(i==index3)
+                  {
+                    continue
+                  }
+                  else if(that.CMList[id].mans=='')
+                  {
+                    that.CMList[id].mans = ans3[i]
+                  }
+                  else
+                  {
+                    that.CMList[id].mans = that.CMList[id].mans+'---'+ans3[i]
+                  }
+                }
+              }
+              document.getElementById("setsm3(" + id + ")").innerHTML = "设置选项为答案"
+            }
+            else
+            {
+              if(that.CMList[id].mans=='')
+              {
+                that.CMList[id].mans = that.CMList[id].mcho3
+              }
+              else {
+                that.CMList[id].mans = that.CMList[id].mans+'---'+that.CMList[id].mcho3
+              }
+              document.getElementById("setsm3(" + id + ")").innerHTML = "取消该答案"
+            }
+            break
+          case 4:
+            let ans4 = that.CMList[id].mans.split('---')
+            let flag4 = false
+            let index4 = ans4.length
+            for(let i=0;i<ans4.length;i++)
+            {
+              if(ans4[i]==that.CMList[id].mcho4)
+              {
+                flag4 =true
+                index4 = i
+                break
+              }
+            }
+            if(flag4)
+            {
+              that.CMList[id].mans = ''
+              if(ans4.length==1)
+              {
+                that.CMList[id].mans = ''
+              }
+              else
+              {
+                for(let i=0;i<ans4.length;i++)
+                {
+                  if(i==index4)
+                  {
+                    continue
+                  }
+                  else if(that.CMList[id].mans=='')
+                  {
+                    that.CMList[id].mans = ans4[i]
+                  }
+                  else
+                  {
+                    that.CMList[id].mans = that.CMList[id].mans+'---'+ans4[i]
+                  }
+                }
+              }
+              document.getElementById("setsm4(" + id + ")").innerHTML = "设置选项为答案"
+            }
+            else
+            {
+              if(that.CMList[id].mans=='')
+              {
+                that.CMList[id].mans = that.CMList[id].mcho4
+              }
+              else {
+                that.CMList[id].mans = that.CMList[id].mans+'---'+that.CMList[id].mcho4
+              }
+              document.getElementById("setsm4(" + id + ")").innerHTML = "取消该答案"
+            }
+            break
+          default:
+            break
+        }
+        console.log(that.CMList[id].mans)
+      },
       //添加选择题
       addCClick:function(){
         let that = this
