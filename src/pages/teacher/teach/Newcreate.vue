@@ -54,22 +54,22 @@
                   选项  一：
                   <vue-html5-editor :content="item.cqcho1" :height="100" @change="updateDataCcho($event,index,1)">
                   </vue-html5-editor>
-                  <el-button v-on:click="SetCAns(index,1)" type="danger" :id="sets1(index)">设置选项为答案</el-button><br>
+                  <el-button v-on:click="SetCAns(index,1)" type="success" :id="sets1(index)">设置选项为答案</el-button><br>
                   <!--<el-input v-model="item.cqcho1" placeholder="题目选项一" class="input"></el-input><br>-->
                   选项  二：
                   <vue-html5-editor :content="item.cqcho2" :height="100" @change="updateDataCcho($event,index,2)">
                   </vue-html5-editor>
-                  <el-button v-on:click="SetCAns(index,2)" type="danger" :id="sets2(index)">设置选项为答案</el-button><br>
+                  <el-button v-on:click="SetCAns(index,2)" type="success" :id="sets2(index)">设置选项为答案</el-button><br>
                   <!--<el-input v-model="item.cqcho2" placeholder="题目选项二" class="input"></el-input><br>-->
                   选项  三：
                   <vue-html5-editor :content="item.cqcho3" :height="100" @change="updateDataCcho($event,index,3)">
                   </vue-html5-editor>
-                  <el-button v-on:click="SetCAns(index,3)" type="danger" :id="sets3(index)">设置选项为答案</el-button><br>
+                  <el-button v-on:click="SetCAns(index,3)" type="success" :id="sets3(index)">设置选项为答案</el-button><br>
                   <!--<el-input v-model="item.cqcho3" placeholder="题目选项三" class="input"></el-input><br>-->
                   选项  四：
                   <vue-html5-editor :content="item.cqcho4" :height="100" @change="updateDataCcho($event,index,4)">
                   </vue-html5-editor>
-                  <el-button v-on:click="SetCAns(index,4)" type="danger" :id="sets4(index)">设置选项为答案</el-button><br>
+                  <el-button v-on:click="SetCAns(index,4)" type="success" :id="sets4(index)">设置选项为答案</el-button><br>
                   <!--<el-input v-model="item.cqcho4"rem placeholder="题目选项四" class="input"></el-input><br>-->
                   相关知识：
                   <vue-html5-editor :content="item.cqrem" :height="100" @change="updateDataCOther($event,index,2)">
@@ -137,19 +137,19 @@
                   <el-button @click.prevent="deleteCMClick(index)" type="danger" >删除</el-button><br>
                   选项  一：<vue-html5-editor :content="item.mcho1" :height="100" @change="updateDataCMcho($event,index,1)">
                 </vue-html5-editor>
-                  <el-button v-on:click="SetCMAns(index,1)" type="danger" :id="setsm1(index)">设置选项为答案</el-button><br>
+                  <el-button v-on:click="SetCMAns(index,1)" type="success" :id="setsm1(index)">设置选项为答案</el-button><br>
                   <!--<el-input v-model="item.mcho1" placeholder="题目选项一" class="input"></el-input><br>-->
                   选项  二：<vue-html5-editor :content="item.mcho2" :height="100" @change="updateDataCMcho($event,index,2)">
                 </vue-html5-editor>
-                  <el-button v-on:click="SetCMAns(index,2)" type="danger"  :id="setsm2(index)">设置选项为答案</el-button><br>
+                  <el-button v-on:click="SetCMAns(index,2)" type="success"  :id="setsm2(index)">设置选项为答案</el-button><br>
                   <!--<el-input v-model="item.mcho2" placeholder="题目选项二" class="input"></el-input><br>-->
                   选项  三：<vue-html5-editor :content="item.mcho3" :height="100" @change="updateDataCMcho($event,index,3)">
                 </vue-html5-editor>
-                  <el-button v-on:click="SetCMAns(index,3)" type="danger"  :id="setsm3(index)">设置选项为答案</el-button><br>
+                  <el-button v-on:click="SetCMAns(index,3)" type="success"  :id="setsm3(index)">设置选项为答案</el-button><br>
                   <!--<el-input v-model="item.mcho3" placeholder="题目选项三" class="input"></el-input><br>-->
                   选项  四：<vue-html5-editor :content="item.mcho4" :height="100" @change="updateDataCMcho($event,index,4)">
                 </vue-html5-editor>
-                  <el-button v-on:click="SetCMAns(index,4)" type="danger"  :id="setsm4(index)">设置选项为答案</el-button><br>
+                  <el-button v-on:click="SetCMAns(index,4)" type="success"  :id="setsm4(index)">设置选项为答案</el-button><br>
                   <!--<el-input v-model="item.mcho4"rem placeholder="题目选项四" class="input"></el-input><br>-->
                   相关知识：<vue-html5-editor :content="item.mrem" :height="100" @change="updateDataCMItem($event,index,3)">
                 </vue-html5-editor>
@@ -262,7 +262,6 @@
                 <!--</el-form>-->
               </span>
             </div>
-            <button class="btn2 el-icon-circle-plus-outline" @click="createOK">完成创建</button>
           </div>
         </el-col>
         <el-col :span="1">
@@ -270,36 +269,39 @@
         </el-col>
         <el-col :span="4" >
           <div class="yulan">
+            <el-button v-on:click="createOK" type="success">完成创建</el-button>
+            <br>
+            <br>
             <div v-if="CList.length >0">
               <h3>选择题</h3>
               <span v-for="(c,key1) in CList":key="key1" >
-                  <span class="item">({{key1+1}}){{c.cqitem}}</span><br>
+                  <span class="item">({{key1+1}})<span v-html="c.cqitem">{{c.cqitem}}</span></span><br>
                     <el-radio-group >
-                      <el-radio :label="3">{{c.cqcho1}}</el-radio><br>
-                      <el-radio :label="6">{{c.cqcho2}}</el-radio><br>
-                      <el-radio :label="9">{{c.cqcho3}}</el-radio><br>
-                      <el-radio :label="10">{{c.cqcho4}}</el-radio><br>
+                      <el-radio :label="3"><span v-html="c.cqcho1">{{c.cqcho1}}</span> </el-radio><br>
+                      <el-radio :label="6"><span v-html="c.cqcho2">{{c.cqcho2}}</span></el-radio><br>
+                      <el-radio :label="9"><span v-html="c.cqcho3">{{c.cqcho3}}</span></el-radio><br>
+                      <el-radio :label="10"><span v-html="c.cqcho4">{{c.cqcho4}}</span></el-radio><br>
                     </el-radio-group><br>
-                  <span class="ans" >答案：{{c.cqans}}</span><br>
-                  <span class="tail">详解：{{c.cqtail}}</span><br>
-                  <span class="rem">相关知识：{{c.cqrem}}</span><br>
+                  <span class="ans" >答案：<span v-html="c.cqans">{{c.cqans}}</span> </span><br>
+                  <span class="tail">详解：<span v-html="c.cqtail">{{c.cqtail}}</span> </span><br>
+                  <span class="rem">相关知识：<span v-html="c.cqrem">{{c.cqrem}}</span> </span><br>
                 </span>
             </div>
 
             <div v-if="FList.length>0">
               <h3>填空题</h3>
               <span v-for="(c,key1) in FList":key="key1" >
-                  <span class="item">({{key1+1}}){{c.fitem}}</span><br>
-                  <span class="ans" >答案：{{c.fans}}</span><br>
-                  <span class="tail">详解：{{c.ftail}}</span><br>
-                  <span class="rem">相关知识：{{c.frem}}</span><br>
+                  <span class="item">({{key1+1}})<span v-html="c.fitem">{{c.fitem}}</span> </span><br>
+                  <span class="ans" >答案：<span v-html="c.fans">{{c.fans}}</span> </span><br>
+                  <span class="tail">详解：<span v-html="c.ftail">{{c.ftail}}</span> </span><br>
+                  <span class="rem">相关知识：<span v-html="c.frem">{{c.frem}}</span> </span><br>
                 </span>
             </div>
 
             <div v-if="JList.length>0">
               <h3>判断题</h3>
               <span v-for="(c,key1) in JList":key="key1" >
-                  <span class="item">({{key1+1}}){{c.jitem}}</span><br>
+                  <span class="item">({{key1+1}})<span v-html="c.jitem">{{c.jitem}}</span> </span><br>
                   <span class="ans" v-if="c.jans==1">答案：正确</span>
                   <span class="ans" v-if="c.jans==0">答案：错误</span><br>
                   <span class="tail">详解：{{c.jtail}}</span><br>
@@ -310,26 +312,26 @@
             <div v-if="CMList.length>0">
               <h3>多选题</h3>
               <span v-for="(c,key1) in CMList":key="key1" >
-                  <span class="item">({{key1+1}}){{c.mitem}}</span><br>
+                  <span class="item">({{key1+1}})<span v-html="c.mitem">{{c.mitem}}</span> </span><br>
                   <el-radio-group >
-                      <el-radio :label="3">{{c.mcho1}}</el-radio><br>
-                      <el-radio :label="6">{{c.mcho2}}</el-radio><br>
-                      <el-radio :label="9">{{c.mcho3}}</el-radio><br>
-                      <el-radio :label="10">{{c.mcho4}}</el-radio><br>
+                      <el-radio :label="3"><span v-html="c.mcho1">{{c.mcho1}}</span> </el-radio><br>
+                      <el-radio :label="6"><span v-html="c.mcho2">{{c.mcho2}}</span> </el-radio><br>
+                      <el-radio :label="9"><span v-html="c.mcho3">{{c.mcho3}}</span> </el-radio><br>
+                      <el-radio :label="10"><span v-html="c.mcho4">{{c.mcho4}}</span> </el-radio><br>
                     </el-radio-group><br>
-                  <span class="ans" >答案：{{c.mans}}</span><br>
-                  <span class="tail">详解：{{c.mtail}}</span><br>
-                  <span class="rem">相关知识：{{c.mrem}}</span><br>
+                  <span class="ans" >答案：<span v-html="c.mans">{{c.mans}}</span> </span><br>
+                  <span class="tail">详解：<span v-html="c.mtail">{{c.mtail}}</span> </span><br>
+                  <span class="rem">相关知识：<span v-html="c.mrem">{{c.mrem}}</span> </span><br>
                 </span>
             </div>
 
             <div v-if="PList.length>0">
               <h3>程序题</h3>
               <span v-for="(c,key1) in PList":key="key1" >
-                  <span class="item">({{key1+1}}){{c.pitem}}</span><br>
-                  <span class="ans" >答案：{{c.pans}}</span><br>
-                  <span class="tail">详解：{{c.ptail}}</span><br>
-                  <span class="rem">相关知识：{{c.prem}}</span><br>
+                  <span class="item">({{key1+1}})<span v-html="c.pitem">{{c.pitem}}</span> </span><br>
+                  <span class="ans" >答案：<span v-html="c.pans">{{c.pans}}</span> </span><br>
+                  <span class="tail">详解：<span v-html="c.ptail">{{c.ptail}}</span> </span><br>
+                  <span class="rem">相关知识：<span v-html="c.prem">{{c.prem}}</span> </span><br>
                 </span>
             </div>
           </div>

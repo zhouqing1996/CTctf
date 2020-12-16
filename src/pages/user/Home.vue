@@ -16,9 +16,9 @@
         <el-menu-item index="2">
           <router-link to="/user/evaluate" >测评</router-link>
         </el-menu-item>
-        <!--<el-menu-item index="3">-->
-          <!--<router-link to="/user/exercise" >练习</router-link>-->
-        <!--</el-menu-item>-->
+        <el-menu-item index="4">
+          <router-link to="/user/recourse" >资源</router-link>
+        </el-menu-item>
 
         <!--<el-menu-item index="4">-->
           <!--<router-link to="/user/rank" >排名</router-link>-->
@@ -98,7 +98,7 @@
             console.log(res.data)
             if(res.data.message=="退出成功")
             {
-              that.$store.dispatch('logout')
+              // that.$store.dispatch('logout')
               that.$store.dispatch('slogout')
               that.$alert("退出成功！",'成功',{
                 confirmButtonText:'确定',

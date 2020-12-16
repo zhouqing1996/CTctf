@@ -187,13 +187,13 @@
                 </el-form-item>
               </el-form>
             </div>
-            <button class="btn2 el-icon-circle-plus-outline" @click="createOK">完成创建</button>
           </div>
         </el-col>
         <el-col :span="1">
           <el-divider direction="vertical"></el-divider>
         </el-col>
         <el-col :span="4" >
+          <button class="btn2 el-icon-circle-plus-outline" @click="createOK">完成创建</button>
           <div class="yulan">
             <div v-if="CList.length >0">
               <h3>选择题</h3>
@@ -837,54 +837,6 @@
           mtail:''
         })
       },
-      //设置多选题的答案
-      // SetCMAns:function(id,flag) {
-      //   let that =this
-      //   switch (flag) {
-      //     case 1:
-      //       if(that.CMList[id].mans=='')
-      //       {
-      //         that.CMList[id].mans = that.CMList[id].mcho1
-      //       }
-      //       else
-      //       {
-      //         that.CMList[id].mans =that.CMList[id].mans+'---'+that.CMList[id].mcho1
-      //       }
-      //       break
-      //     case 2:
-      //       if(that.CMList[id].mans=='')
-      //       {
-      //         that.CMList[id].mans = that.CMList[id].mcho2
-      //       }
-      //       else
-      //       {
-      //         that.CMList[id].mans =that.CMList[id].mans+'---'+that.CMList[id].mcho2
-      //       }
-      //       break
-      //     case 3:
-      //       if(that.CMList[id].mans=='')
-      //       {
-      //         that.CMList[id].mans = that.CMList[id].mcho3
-      //       }
-      //       else
-      //       {
-      //         that.CMList[id].mans =that.CMList[id].mans+'---'+that.CMList[id].mcho3
-      //       }
-      //       break
-      //     case 4:
-      //       if(that.CMList[id].mans=='')
-      //       {
-      //         that.CMList[id].mans = that.CMList[id].mcho4
-      //       }
-      //       else
-      //       {
-      //         that.CMList[id].mans =that.CMList[id].mans+'---'+that.CMList[id].mcho4
-      //       }
-      //       break
-      //     default:
-      //       break
-      //   }
-      // },
       DeleteCMAns:function(id,flag) {
         let that =this
         switch (flag) {

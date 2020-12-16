@@ -3,8 +3,8 @@
   <div>
     <div>
       <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb-css">
-        <el-breadcrumb-item :to="{ path: '/user/evaluate' }">测评</el-breadcrumb-item>
-        <el-breadcrumb-item>测评考试</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/user/practice' }">练习</el-breadcrumb-item>
+        <el-breadcrumb-item>练习考试</el-breadcrumb-item>
         <el-breadcrumb-item>《练习：{{qList.exname}}》</el-breadcrumb-item>
       </el-breadcrumb>
       <div><hr/></div>
@@ -22,11 +22,11 @@
         <h2>一、选择题</h2>
         <div>
           <div v-for="(c,index) in chooseqList">
-            <h3>({{index+1}}):{{c.cqitem}}</h3>
+            <h3>({{index+1}})<span v-html="c.cqitem">{{c.cqitem}}</span></h3>
             <ul>
               <li v-for="(x,i) in c.cqcho" >
                 <input type="radio" :name="'choose'+c.cqid"
-                       @change="cr(c.cqid,c.cqcho[i])"/>{{x}}
+                       @change="cr(c.cqid,c.cqcho[i])"/><span v-html="x">{{x}}</span>
               </li>
             </ul>
           </div>
@@ -35,7 +35,7 @@
         <h2>二、填空题</h2>
         <div>
       <span v-for="(f,key2) in fillqList":key="key2">
-      <li class="item">({{key2+1}}){{f.fqitem}}<br>
+      <li class="item">({{key2+1}})<span v-html="f.fqitem">{{f.fqitem}}</span> <br>
         <textarea style="width: 400px;height: 200px;" :name="'fill'+f.fqid" @input="fr(f.fqid,$event)" class="fans"></textarea>
       </li>
     </span>
@@ -44,7 +44,7 @@
         <h2>三、判断题</h2>
         <div>
       <span v-for="(j,keyj) in judgeList":key="keyj">
-      <li class="item">({{keyj+1}}){{j.jqitem}}<br>
+      <li class="item">({{keyj+1}})<span v-html="j.jqitem">{{j.jqitem}}</span><br>
         <input type="radio" :name="'judge'+j.jqid" @change="jr(j.jqid,1)">正确
         <input type="radio" :name="'judge'+j.jqid" @change="jr(j.jqid,0)">错误
       </li>
@@ -54,11 +54,11 @@
         <h2>四、多选题</h2>
         <div>
           <div v-for="(m,index) in choosemList">
-            <h3>({{index+1}}):{{m.mitem}}</h3>
+            <h3>({{index+1}})<span v-html="m.mitem">{{m.mitem}}</span> </h3>
             <ul>
               <li v-for="(x,i) in m.mcho" >
                 <input type="checkbox" :name="'choosem'+m.mid+i"
-                       @change="mr(m.mid,m.mcho[i])"/>{{x}}
+                       @change="mr(m.mid,m.mcho[i])"/><span v-html="x">{{x}}</span>
               </li>
             </ul>
           </div>
@@ -78,7 +78,7 @@
         </el-select>
         </span>
           <span v-for="(p,keyp) in programqList":key="keyp">
-      <li class="item">({{keyp+1}}){{p.pqitem}}<br>
+      <li class="item">({{keyp+1}})<span v-html="p.pqitem">{{p.pqitem}}</span> <br>
         <MonacoEditor :codes="code_content"
                       :read-only="false"
                       :language="yuyan" @contentBody="changePValue"></MonacoEditor>

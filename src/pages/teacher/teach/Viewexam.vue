@@ -1,189 +1,3 @@
-<!--<template>-->
-    <!--&lt;!&ndash;查看试卷&ndash;&gt;-->
-  <!--<div id="waimian">-->
-    <!--<div class="back">-->
-      <!--<el-page-header @back="back">-->
-      <!--</el-page-header>-->
-    <!--</div>-->
-    <!--<div>-->
-      <!--<h1><strong>{{examList.exname}}</strong></h1>-->
-      <!--<p><i class="el-icon-s-custom"></i>试卷创建人：{{examList.exUser}}-->
-        <!--||<i class="el-icon-date"></i>创建时间：{{examList.exCreateTime}}-->
-      <!--||<i class="el-icon-time"></i>考试时间：{{examList.gdtime}} 分钟</p>-->
-      <!--<hr/>-->
-      <!--<h2>一、选择题</h2>-->
-      <!--<div>-->
-      <!--<span v-for="(c,key1) in chooseqList":key="key1">-->
-      <!--<li class="item">({{key1+1}}){{c.cqitem}}<br>-->
-        <!--<input type="radio"  value="">（A）{{c.cqcho.split('-&#45;&#45;')[0]}}<br>-->
-        <!--<input type="radio"  value="">（B）{{c.cqcho.split('-&#45;&#45;')[1]}}<br>-->
-        <!--<input type="radio"  value="">（C）{{c.cqcho.split('-&#45;&#45;')[2]}}<br>-->
-        <!--<input type="radio"  value="">（D）{{c.cqcho.split('-&#45;&#45;')[3]}}<br>-->
-      <!--</li>-->
-      <!--<p class="ans">答案：{{c.cqans}}</p>-->
-      <!--<p class="tail">详解：{{c.cqtail}}</p>-->
-      <!--<p class="rem">相关知识点：{{c.cqrem}}</p>-->
-    <!--</span>-->
-      <!--</div>-->
-      <!--<hr/>-->
-      <!--<h2>二、填空题</h2>-->
-      <!--<div>-->
-      <!--<span v-for="(f,key2) in fillqList":key="key2">-->
-      <!--<li class="item">({{key2+1}}){{f.fqitem}}<br>-->
-        <!--<input type="text" value=""><br>-->
-      <!--</li>-->
-      <!--<p class="ans">答案：{{f.fqans}}</p>-->
-      <!--<p class="tail">详解：{{f.fqtail}}</p>-->
-      <!--<p class="rem">相关知识点：{{f.fqrem}}</p>-->
-    <!--</span>-->
-      <!--</div>-->
-      <!--<hr/>-->
-      <!--<h2>三、判断题</h2>-->
-      <!--<div>-->
-      <!--<span v-for="(j,keyj) in judgeList":key="keyj">-->
-      <!--<li class="item">({{keyj+1}}){{j.jqitem}}<br>-->
-        <!--<input type="text" value=""><br>-->
-      <!--</li>-->
-      <!--<p class="ans">答案：{{j.jqans}}</p>-->
-      <!--<p class="tail">详解：{{j.jqtail}}</p>-->
-      <!--<p class="rem">相关知识点：{{j.jqrem}}</p>-->
-    <!--</span>-->
-      <!--</div>-->
-      <!--<hr/>-->
-      <!--<h2>四、多选题</h2>-->
-      <!--<div>-->
-      <!--<span v-for="(m,keym) in choosemList":key="keym">-->
-      <!--<li class="item">({{keym+1}}){{m.mqitem}}<br>-->
-        <!--<input type="text" value=""><br>-->
-      <!--</li>-->
-
-      <!--<p class="ans">答案：{{m.mqans}}</p>-->
-      <!--<p class="tail">详解：{{m.mqtail}}</p>-->
-      <!--<p class="rem">相关知识点：{{m.mqrem}}</p>-->
-    <!--</span>-->
-      <!--</div>-->
-      <!--<hr/>-->
-      <!--<h2>五、程序题</h2>-->
-      <!--<div>-->
-      <!--<span v-for="(p,key3) in programqList":key="key3">-->
-        <!--<hr/>-->
-        <!--({{key3+1}})<strong>题目：{{p.pqitem}}</strong>-->
-        <!--<p class="ans">答案：{{p.pqans}}</p>-->
-        <!--<p class="tail">详解：{{p.pqtail}}</p>-->
-        <!--<p class="rem">相关知识点：{{p.pqrem}}</p>-->
-      <!--</span>-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
-<!--</template>-->
-
-<!--<script>-->
-    <!--export default {-->
-        <!--name: "Viewexam",-->
-      <!--data(){-->
-          <!--return{-->
-            <!--examList:{-->
-              <!--id:'',-->
-              <!--exname:'',-->
-              <!--exUser:'',-->
-              <!--exCreateTime:'',-->
-              <!--gdtime:''-->
-            <!--},-->
-            <!--chooseqList:[],-->
-            <!--fillqList:[],-->
-            <!--judgeList:[],-->
-            <!--choosemList:[],-->
-            <!--programqList:[],-->
-          <!--}-->
-      <!--},-->
-      <!--methods:{-->
-        <!--back:function(){-->
-          <!--let that = this-->
-          <!--that.$router.push({-->
-            <!--path:'/teacher/create',-->
-          <!--})-->
-        <!--},-->
-        <!--getView(id){-->
-          <!--let that =this-->
-          <!--that.$http.post('/exam/exam/view',{-->
-            <!--id:id-->
-          <!--}).then(function (res) {-->
-            <!--console.log(res.data)-->
-            <!--that.examList.exname=res.data.data[0]-->
-            <!--that.examList.exUser=res.data.data[1].data.username-->
-            <!--that.examList.exCreateTime=res.data.data[2]-->
-            <!--that.chooseqList=res.data.data[3]-->
-            <!--that.fillqList=res.data.data[4]-->
-            <!--that.programqList=res.data.data[5]-->
-            <!--that.judgeList =res.data.data[6]-->
-            <!--that.choosemList=res.data.data[7]-->
-            <!--that.examList.gdtime = res.data.data[8].gdtime-->
-          <!--})-->
-        <!--}-->
-      <!--},-->
-      <!--created(){-->
-        <!--let that = this-->
-          <!--that.examList.id =that.$route.query.id-->
-        <!--console.log(that.examList.id)-->
-        <!--that.getView(that.examList.id)-->
-      <!--},-->
-    <!--}-->
-<!--</script>-->
-
-<!--<style scoped>-->
-  <!--.back{-->
-    <!--margin-top: 30px;-->
-    <!--margin-bottom: 20px;-->
-  <!--}-->
-  <!--#waimian {-->
-    <!--margin-top: 10px;-->
-    <!--padding: 10px;-->
-    <!--background-color: aliceblue;-->
-    <!--margin-left: 20px;-->
-    <!--margin-right: 20px;-->
-    <!--border: white;-->
-    <!--width: auto;-->
-    <!--text-align: left;-->
-  <!--}-->
-  <!--.item{-->
-    <!--/*background-color: sandybrown;*/-->
-    <!--margin-left: 20px;-->
-    <!--margin-top: 10px;-->
-    <!--font-family: "Times New Roman";-->
-    <!--font-size: 16px;-->
-  <!--}-->
-  <!--.ans{-->
-    <!--/*background-color: gray;*/-->
-    <!--font-size: 14px;-->
-    <!--font-family: "Times New Roman";-->
-  <!--}-->
-  <!--.tail{-->
-    <!--font-family: "Times New Roman";-->
-    <!--font-size: 12px;-->
-  <!--}-->
-  <!--.rem{-->
-    <!--font-family: "Times New Roman";-->
-    <!--font-size: 10px;-->
-  <!--}-->
-  <!--.btn2 {-->
-    <!--width: 100px;/*px*/-->
-    <!--padding: 7px;-->
-    <!--font-size: 14px;-->
-    <!--border-radius: 3px;-->
-    <!--border: none;-->
-    <!--color: white;-->
-    <!--background-color: #7F96FE;-->
-    <!--float: left;-->
-    <!--margin-left: 5px;-->
-    <!--margin-top: 17px;-->
-    <!--margin-bottom: 5px;-->
-  <!--}-->
-
-  <!--.btn2:hover {-->
-    <!--background-color: #5FA7FE;-->
-  <!--}-->
-  <!--li{list-style-type:none;}-->
-<!--</style>-->
 <template>
   <!--查看试卷-->
   <div>
@@ -196,10 +10,6 @@
       <div><hr/></div>
     </div>
     <div id="waimian">
-      <!--<div class="back">-->
-      <!--<el-page-header @back="back">-->
-      <!--</el-page-header>-->
-      <!--</div>-->
       <div>
         <h1>{{examList.id}}:<strong>{{examList.exname}}</strong></h1>
         <p><i class="el-icon-s-custom"></i>试卷创建人：{{examList.exUser}}  ||<i class="el-icon-date"></i>创建时间：{{examList.exCreateTime}}</p>
@@ -207,57 +17,57 @@
         <h2>一、选择题</h2>
         <div>
       <span v-for="(c,key1) in chooseqList":key="key1">
-      <li class="item">({{key1+1}}){{c.cqitem}}<br>
-        <input type="radio"  value="">（A）{{c.cqcho.split('---')[0]}}<br>
-        <input type="radio"  value="">（B）{{c.cqcho.split('---')[1]}}<br>
-        <input type="radio"  value="">（C）{{c.cqcho.split('---')[2]}}<br>
-        <input type="radio"  value="">（D）{{c.cqcho.split('---')[3]}}<br>
+      <li class="item">({{key1+1}})<span v-html="c.cqitem">{{c.cqitem}}</span> <br>
+        <input type="radio"  value=""><span v-html="c.cqcho.split('---')[0]">{{c.cqcho.split('---')[0]}}</span> <br>
+        <input type="radio"  value=""><span v-html="c.cqcho.split('---')[1]">{{c.cqcho.split('---')[1]}}</span><br>
+        <input type="radio"  value=""><span v-html="c.cqcho.split('---')[2]">{{c.cqcho.split('---')[2]}}</span><br>
+        <input type="radio"  value=""><span v-html="c.cqcho.split('---')[3]">{{c.cqcho.split('---')[3]}}</span><br>
       </li>
-      <p class="ans">答案：{{c.cqans}}</p>
-      <p class="tail">详解：{{c.cqtail}}</p>
-      <p class="rem">相关知识点：{{c.cqrem}}</p>
+      <p class="ans">答案：<span v-html="c.cqans">{{c.cqans}}</span> </p>
+      <p class="tail">详解：<span v-html="c.cqtail">{{c.cqtail}}</span> </p>
+      <p class="rem">相关知识点：<span v-html="c.cqrem">{{c.cqrem}}</span> </p>
     </span>
         </div>
         <hr/>
         <h2>二、填空题</h2>
         <div>
       <span v-for="(f,key2) in fillqList":key="key2">
-      <li class="item">({{key2+1}}){{f.fqitem}}<br>
+      <li class="item">({{key2+1}})<span v-html="f.fqitem">{{f.fqitem}}</span> <br>
         <input type="text" value=""><br>
       </li>
 
-      <p class="ans">答案：{{f.fqans}}</p>
-      <p class="tail">详解：{{f.fqtail}}</p>
-      <p class="rem">相关知识点：{{f.fqrem}}</p>
+      <p class="ans">答案：<span v-html="f.fqans">{{f.fqans}}</span> </p>
+      <p class="tail">详解：<span v-html="f.fqtail">{{f.fqtail}}</span> </p>
+      <p class="rem">相关知识点：<span v-html="f.fqrem">{{f.fqrem}}</span> </p>
     </span>
         </div>
         <hr/>
         <h2>三、判断题</h2>
         <div>
       <span v-for="(j,keyj) in judgeList":key="keyj">
-         <li class="item">({{keyj+1}}){{j.jqitem}}<br>
+         <li class="item">({{keyj+1}})<span v-html="j.jqitem">{{j.jqitem}}</span> <br>
         <input type="radio" :name="'judge'+j.jqid" @change="jr(j.jqid,1)">正确
         <input type="radio" :name="'judge'+j.jqid" @change="jr(j.jqid,0)">错误
       </li>
-      <p class="ans">答案：{{j.jqans}}</p>
-      <p class="tail">详解：{{j.jqtail}}</p>
-      <p class="rem">相关知识点：{{j.jqrem}}</p>
+      <p class="ans">答案：<span v-html="j.jqans">{{j.jqans}}</span> </p>
+      <p class="tail">详解：<span v-html="j.jqtail">{{j.jqtail}}</span> </p>
+      <p class="rem">相关知识点：<span v-html="j.jqrem">{{j.jqrem}}</span> </p>
     </span>
         </div>
         <hr/>
         <h2>四、多选题</h2>
         <div>
           <div v-for="(m,index) in choosemList">
-            <h3>({{index+1}}):{{m.mitem}}</h3>
+            <h3>({{index+1}})<span v-html="m.mitem">{{m.mitem}}</span> </h3>
             <ul>
               <li v-for="(x,i) in m.mcho" >
                 <input type="checkbox" :name="'choosem'+m.mid+i"
-                       @change="mr(m.mid,m.mcho[i])"/>{{x}}
+                       @change="mr(m.mid,m.mcho[i])"/><span v-html="x">{{x}}</span>
               </li>
             </ul>
-            <p class="ans">答案：{{m.mans}}</p>
-            <p class="tail">详解：{{m.mtail}}</p>
-            <p class="rem">相关知识点：{{m.mrem}}</p>
+            <p class="ans">答案：<span v-html="m.mans">{{m.mans}}</span> </p>
+            <p class="tail">详解：<span v-html="m.mtail">{{m.mtail}}</span> </p>
+            <p class="rem">相关知识点：<span v-html="m.mrem">{{m.mrem}}</span> </p>
           </div>
         </div>
         <hr/>
@@ -265,10 +75,10 @@
         <div>
       <span v-for="(p,key3) in programqList":key="key3">
         <hr/>
-        ({{key3+1}})<strong>题目：{{p.pqitem}}</strong>
-        <p class="ans">答案：{{p.pqans}}</p>
-        <p class="tail">详解：{{p.pqtail}}</p>
-        <p class="rem">相关知识点：{{p.pqrem}}</p>
+        <h3>({{key3+1}})<span v-html="p.pqitem">{{p.pqitem}}</span> </h3>
+        <p class="ans">答案：<span v-html="p.pqans">{{p.pqans}}</span> </p>
+        <p class="tail">详解：<span v-html="p.pqtail">{{p.pqtail}}</span> </p>
+        <p class="rem">相关知识点：<span v-html="p.pqrem">{{p.pqrem}}</span> </p>
       </span>
         </div>
       </div>

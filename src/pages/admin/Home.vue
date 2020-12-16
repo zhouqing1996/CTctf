@@ -42,9 +42,9 @@
             <el-menu-item index="3-6">
               <router-link to="/admin/bank/choosem" >多选题</router-link>
             </el-menu-item>
-            <el-menu-item index="3-7">
-              <router-link to="/admin/bank/addchoose" >添加单选题</router-link>
-            </el-menu-item>
+            <!--<el-menu-item index="3-7">-->
+              <!--<router-link to="/admin/bank/addchoose" >添加单选题</router-link>-->
+            <!--</el-menu-item>-->
           </el-submenu>
           <el-menu-item index="4">
             <router-link to="/admin/book" >图书管理</router-link>
@@ -138,7 +138,7 @@
                 console.log(res.data)
                 if(res.data.message=="退出成功")
                 {
-                  that.$store.dispatch('logout')
+                  // that.$store.dispatch('logout')
                   that.$store.dispatch('slogout')
                   that.$alert(res.data.message, '成功', {
                     confirmButtonText: '确定',

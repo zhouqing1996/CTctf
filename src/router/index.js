@@ -113,6 +113,8 @@ import UserView from '../pages/user/evaluate/Result'
 import UsernResult from '../pages/user/evaluate/nResult'
 //排名
 import UserRank from '../pages/user/rank/Rank'
+//资源学习
+import UserRecourse from '../pages/user/recourse/Recourse'
 
 //练习部分的新形式
 import UserPractice from '../pages/user/exercise/new/Pracu'
@@ -743,6 +745,14 @@ const  router = new Router({
             isLogin:true
           },
           component:UserExercise
+        },
+        {
+          path:'/user/recourse',
+          name:"UserRecourse",
+          meta:{
+            isLogin:true
+          },
+          component:UserRecourse
         },
         {
         //  用户练习选择题

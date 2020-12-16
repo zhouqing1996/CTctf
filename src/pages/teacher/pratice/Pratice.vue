@@ -33,7 +33,7 @@
               <tr v-for=" (c,key) in currentPageData1" :key="key">
                 <td style="width: 10%">{{key+1}}</td>
                 <td style="width: 10%">{{c.cqid}}</td>
-                <td style="width: 70%;text-align: left">{{c.cqitem}}</td>
+                <td style="width: 70%;text-align: left"><span v-html="c.cqitem">{{c.cqitem}}</span> </td>
                 <td>
                   <span class="span2" @click="Click1(c.cqid)" :id="tianjia1(c.cqid)">添加</span>
                 </td>
@@ -80,7 +80,7 @@
               <tr v-for=" (f,key) in currentPageData2" :key="key">
                 <td style="width: 10%">{{key+1}}</td>
                 <td style="width: 10%">{{f.fqid}}</td>
-                <td style="width: 70%;text-align: left">{{f.fqitem}}</td>
+                <td style="width: 70%;text-align: left"><span v-html="f.fqitem">{{f.fqitem}}</span> </td>
                 <td>
                   <!--<span  class="span2" @click="Click2(f.fqid)" >添加</span>-->
                   <span class="span2" @click="Click2(f.fqid)" :id="tianjia2(f.fqid)">添加</span>
@@ -128,7 +128,7 @@
               <tr v-for=" (j,key) in currentPageData3" :key="key">
                 <td style="width: 10%">{{key+1}}</td>
                 <td style="width: 10%">{{j.jqid}}</td>
-                <td style="width: 70%;text-align: left">{{j.jqitem}}</td>
+                <td style="width: 70%;text-align: left"><span v-html="j.jqitem">{{j.jqitem}}</span> </td>
                 <td>
                   <!--<span  class="span2" @click="Click3(j.jqid)">添加</span>-->
                   <span class="span2" @click="Click3(j.jqid)" :id="tianjia3(j.jqid)">添加</span>
@@ -176,7 +176,7 @@
               <tr v-for=" (m,key) in currentPageData4" :key="key">
                 <td style="width: 10%">{{key+1}}</td>
                 <td style="width: 10%">{{m.mqid}}</td>
-                <td style="width: 70%;text-align: left">{{m.mqitem}}</td>
+                <td style="width: 70%;text-align: left"><span v-html="m.mqitem">{{m.mqitem}}</span> </td>
                 <td>
                   <!--<span  class="span2" @click="Click4(m.mqid)">添加</span>-->
                   <span class="span2" @click="Click4(m.mqid)" :id="tianjia4(m.mqid)">添加</span>
@@ -224,7 +224,7 @@
               <tr v-for=" (p,key) in currentPageData5" :key="key">
                 <td style="width: 10%">{{key+1}}</td>
                 <td style="width: 10%">{{p.pqid}}</td>
-                <td style="width: 70%;text-align: left">{{p.pqitem}}</td>
+                <td style="width: 70%;text-align: left"><span v-html="p.pqitem">{{p.pqitem}}</span> </td>
                 <td>
                   <!--<span  class="span2" @click="Click5(p.pqid)">添加</span>-->
                   <span class="span2" @click="Click5(p.pqid)" :id="tianjia5(p.pqid)" >添加</span>
@@ -250,24 +250,24 @@
           </div>
         </el-tab-pane>
         <el-tab-pane>
-          <span slot="label" @click="SelfView"><i class="el-icon-date" ></i>完成组卷</span>
+          <span slot="label" @click="SelfView"><i class="el-icon-date" ></i>完成组练习</span>
           <div class="parc">
             <div>
               <div v-if="ViewList1.length>0">
                 <h3>选择题</h3>
                 <span v-for="(c,key1) in ViewList1":key="key1">
-                    <li class="item">({{key1+1}}){{c.cqitem}}<br>
-                      <input type="radio"  value="">（A）{{c.cqcho.split('---')[0]}}<br>
-                      <input type="radio"  value="">（B）{{c.cqcho.split('---')[1]}}<br>
-                      <input type="radio"  value="">（C）{{c.cqcho.split('---')[2]}}<br>
-                      <input type="radio"  value="">（D）{{c.cqcho.split('---')[3]}}<br>
+                    <li class="item">({{key1+1}})<span v-html="c.cqitem">{{c.cqitem}}</span> <br>
+                      <input type="radio"  value=""><span v-html="c.cqcho.split('---')[0]">{{c.cqcho.split('---')[0]}}</span> <br>
+                      <input type="radio"  value=""><span v-html="c.cqcho.split('---')[1]">{{c.cqcho.split('---')[1]}}</span><br>
+                      <input type="radio"  value=""><span v-html="c.cqcho.split('---')[2]">{{c.cqcho.split('---')[2]}}</span><br>
+                      <input type="radio"  value=""><span v-html="c.cqcho.split('---')[3]">{{c.cqcho.split('---')[3]}}</span><br>
                     </li>
                   </span>
               </div>
               <div v-if="ViewList1.length>0">
                 <h3>填空题</h3>
                 <span v-for="(f,key2) in ViewList2":key="key2">
-                    <li class="item">({{key2+1}}){{f.fqitem}}<br>
+                    <li class="item">({{key2+1}})<span v-html="f.fqitem">{{f.fqitem}}</span> <br>
                         <input type="text" value=""><br>
                     </li>
                   </span>
@@ -276,24 +276,27 @@
               <div v-if="ViewList3.length>0">
                 <h3>判断题</h3>
                 <span v-for="(j,key3) in ViewList3":key="key3">
-                    <li class="item">({{key3+1}}){{j.jqitem}}<br>
+                    <li class="item">({{key3+1}})<span v-html="j.jqitem">{{j.jqitem}}</span> <br>
                       <input type="radio"  value="1">对<br>
                       <input type="radio"  value="0">错<br>
-
                     </li>
                   </span>
               </div>
               <div v-if="ViewList4.length>0">
                 <h3>多选题</h3>
                 <span v-for="(m,key4) in ViewList4":key="key4">
-                    <li class="item">({{key4+1}}){{m.mqitem}}<br>
+                    <li class="item">({{key4+1}})<span v-html="m.mqitem">{{m.mqitem}}</span> <br>
+                      <input type="checkbox" :name="'choosem'+m.mid"/><span v-html="m.mqcho.split('---')[0]">{{m.mqcho.split('---')[0]}}</span><br>
+                      <input type="checkbox" :name="'choosem'+m.mid"/><span v-html="m.mqcho.split('---')[1]">{{m.mqcho.split('---')[1]}}</span><br>
+                      <input type="checkbox" :name="'choosem'+m.mid"/><span v-html="m.mqcho.split('---')[2]">{{m.mqcho.split('---')[2]}}</span><br>
+                      <input type="checkbox" :name="'choosem'+m.mid"/><span v-html="m.mqcho.split('---')[3]">{{m.mqcho.split('---')[3]}}</span><br>
                     </li>
                   </span>
               </div>
               <div v-if="ViewList5.length>0">
                 <h3>程序题</h3>
                 <span v-for="(p,key5) in ViewList5":key="key5">
-                    <li class="item">({{key5+1}}){{p.pqitem}}<br>
+                    <li class="item">({{key5+1}})<span v-html="p.pqitem">{{p.pqitem}}</span> <br>
                       <input type="text" value=""><br>
                     </li>
                   </span>
