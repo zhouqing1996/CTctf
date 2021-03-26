@@ -6,21 +6,21 @@
       <el-breadcrumb-item><span @click="getQuery" style="font-weight: bold">用户信息</span></el-breadcrumb-item>
     </el-breadcrumb>
     <div><hr/></div>
-    <div class="display1">
-      <el-tabs type="border-card">
-        <el-tab-pane>
-          <span slot="label" @click="getQuery"><i class="el-icon-date"></i> 用户列表</span>
-          <div class="display2">
-            <div class="searchmem">
-              <div class="meeting" >
+    <!--<div class="display1">-->
+      <!--<el-tabs type="border-card">-->
+        <!--<el-tab-pane>-->
+          <!--<span slot="label" @click="getQuery"><i class="el-icon-date"></i> 用户列表</span>-->
+          <div>
+            <div>
+              <div class="SearchInput" >
                 <el-input v-model="inputname" placeholder="用户姓名" size="mini"></el-input>
               </div>
-              <button class="btn3 el-icon-search" v-on:click="searchCom()">搜索</button>
+              <button class="btn el-icon-search" v-on:click="searchCom()">搜索</button>
               <!--<router-link :to="{ name: 'adduser' }">-->
                 <!--<button class="btn3 el-icon-circle-plus-outline">添加</button>-->
               <!--</router-link>-->
               <!--//另一种形式-->
-              <button class="btn3 el-icon-circle-plus-outline" @click="dialogFormVisible = true">添加</button>
+              <button class="btn el-icon-circle-plus-outline" @click="dialogFormVisible = true">添加</button>
               <!--添加-->
               <el-dialog title="添加用户" :visible.sync="dialogFormVisible">
                 <el-form :model="addUserList">
@@ -54,13 +54,13 @@
                   <el-button @click="addReset">重置</el-button>
                 </div>
               </el-dialog>
-              <button class="btn2 el-icon-folder-checked" @click="getQueryS">学生用户</button>
-              <button class="btn2 el-icon-folder-checked" @click="getQueryT">教师用户</button>
-              <button class="btn2 el-icon-folder" @click="getQueryY">有效用户</button>
-              <button class="btn2 el-icon-folder-remove" @click="getQueryN">无效用户</button>
-              <button class="btn2 el-icon-folder-checked" @click="getQuery">所有用户</button>
-              <button class="btn2 el-icon-document" @click="addU">批量添加</button>
-              <button class="btn2 el-icon-document" @click="exportU">导出用户</button>
+              <button class="btn el-icon-folder-checked" @click="getQueryS">学生用户</button>
+              <button class="btn el-icon-folder-checked" @click="getQueryT">教师用户</button>
+              <button class="btn el-icon-folder" @click="getQueryY">有效用户</button>
+              <button class="btn el-icon-folder-remove" @click="getQueryN">无效用户</button>
+              <button class="btn el-icon-folder-checked" @click="getQuery">所有用户</button>
+              <button class="btn el-icon-document" @click="addU">批量添加</button>
+              <button class="btn el-icon-document" @click="exportU">导出用户</button>
               <input type="file" @change="importExcel(this)" id="inputExcel"
                      accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" style="display: none"/>
             </div>
@@ -135,23 +135,23 @@
               </tr>
             </table>
           </div>
-        </el-tab-pane>
-      </el-tabs>
+        <!--</el-tab-pane>-->
+      <!--</el-tabs>-->
       <div style="font-size: 16px">
-        <ul class="pagination pagination-sm"><!--分页-->
-          <li class="page-item" v-if="currentPage!=1">
-            <span class="page-link" v-on:click="prePage">上一页</span>
+        <ul><!--分页-->
+          <li v-if="currentPage!=1">
+            <span  v-on:click="prePage" class="page">上一页</span>
           </li>
-          <li class="page-item" >
-            <span class="page-link" >第{{ currentPage }}页/共{{totalPage}}页</span>
+          <li >
+            <span >第{{ currentPage }}页/共{{totalPage}}页</span>
           </li>
-          <li class="page-item" v-if="currentPage!=totalPage">
-            <span class="page-link" v-on:click="nextPage">下一页</span>
+          <li v-if="currentPage!=totalPage">
+            <span v-on:click="nextPage" class="page">下一页</span>
           </li>
         </ul>
       </div>
     </div>
-  </div>
+  <!--</div>-->
 
 </template>
 
@@ -184,7 +184,7 @@
           // 翻页相关
           currentPage: 1,
           totalPage: 1,
-          pageSize: 10,
+          pageSize: 15,
           currentPageData: []
         }
       },
@@ -592,159 +592,5 @@
 </script>
 
 <style scoped>
-  a {
-    text-decoration: none;
-  }
-  .router-link-active {
-    text-decoration: none;
-  }
-  .btn1 {
-    font-size: 10px;/*px*/
-    padding: 7px 7px;
-    border: 1px solid #E5E7E9;/*no*/
-    cursor: pointer;
-    background: #fff;
-    margin-bottom: -1px;
-    color: black;
-    width: 40px;
-  }
-  .active {
-    color: #01A6FE;
-  }
-  .btn2 {
-    width: 100px;/*px*/
-    padding: 7px;
-    font-size: 14px;
-    border-radius: 3px;
-    border: none;
-    color: white;
-    background-color: #7F96FE;
-    float: left;
-    margin-left: 5px;
-    margin-top: 17px;
-    margin-bottom: 5px;
-  }
-
-  .btn2:hover {
-    background-color: #5FA7FE;
-  }
-  .btn3 {
-    width: 80px;/*px*/
-    padding: 7px;
-    font-size: 14px;
-    border-radius: 3px;
-    border: none;
-    color: white;
-    background-color: #7F96FE;
-    float: left;
-    margin-left: 5px;
-    margin-top: 17px;
-    margin-bottom: 5px;
-  }
-
-  .btn3:hover {
-    background-color: #5FA7FE;
-  }
-  /*删除*/
-  .span1{
-    width: 100px;/*px*/
-    padding: 7px;
-    font-size: 14px;
-    border-radius: 3px;
-    border: none;
-    color: white;
-    background-color: gray;
-    margin-left: 5px;
-    margin-top: 17px;
-    margin-bottom: 5px;
-  }
-  .span1:hover{
-    background-color: #5FA7FE;
-  }
-  /*修改*/
-  .span2{
-    width: 50px;/*px*/
-    padding: 7px;
-    font-size: 14px;
-    border-radius: 3px;
-    border: none;
-    color: white;
-    background-color: sandybrown;
-    margin-left: 5px;
-    margin-top: 17px;
-    margin-bottom: 5px;
-  }
-  .span2:hover{
-    background-color: #5FA7FE;
-  }
-  table {
-    border-collapse: collapse;
-    width: 100%;
-    margin-top: 10px;
-
-  }
-
-  th {
-    font-size: 14px;
-    border: solid 1px #ccc;
-    font-weight: bold;
-    padding: 5px;
-    background-color: #F1F1F1;
-    text-align: center;
-  }
-
-  table, td {
-    border: solid 1px #ccc;/*no*/
-    padding: 5px;/*no*/
-    text-align: center;
-    font-size: 18px;/*px*/
-  }
-  .display{
-    padding-left: 5px;
-    padding-top: 10px;
-  }
-
-  .display1{
-    border: solid 1px #E5E7E9;
-    height: 600px;
-    /*text-align: center;*/
-    width: 98%;
-    padding-left: 5px;
-    padding-right: 5px;
-    background-color: #fff;
-  }
-  .page {
-    text-align: center;
-  }
-  .meeting{
-    float:left;
-    margin:14px 0 10px 0;
-    font-weight: bold;
-    background-color: #00AAFF;
-    border:solid 1px #00AAFF;
-    border-radius: 5px;
-    width: 20%;
-    padding:2px;
-  }
-  li{list-style-type:none;}
-  .dialog1{
-    width: 350px;
-    height:400px;
-  }
-  ul {
-    display: flex;
-    /*flex-direction: row;*/
-    /*flex-wrap: nowrap;*/
-    flex-flow: row nowrap;
-    justify-content: center;
-  }
-  ul li {
-    list-style: none;
-    text-align: center;
-    line-height: 30px;
-    padding: 10px;
-    height: 30px;
-    width: 100px;
-    margin: 0 10px;
-  }
+  @import "../../../common/css/admin/user.css";
 </style>

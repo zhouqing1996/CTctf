@@ -1,24 +1,24 @@
 <template>
   <!--填空题-->
   <div>
-    <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb-css" style="font-size: 0.25rem">
+    <el-breadcrumb separator-class="el-icon-arrow-right" class="top" >
       <el-breadcrumb-item :to="{ path: '/admin/index' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item>题库信息</el-breadcrumb-item>
       <el-breadcrumb-item ><span @click="getQueryfQuestion" style="font-weight: bold">填空题</span></el-breadcrumb-item>
     </el-breadcrumb>
     <div><hr/></div>
     <div class="display1">
-      <el-tabs type="border-card">
-        <el-tab-pane>
-          <span slot="label"><i class="el-icon-date"></i> 填空题列表</span>
+      <!--<el-tabs type="border-card">-->
+        <!--<el-tab-pane>-->
+          <!--<span slot="label"><i class="el-icon-date"></i> 填空题列表</span>-->
           <div class="display2">
             <div class="searchmem">
-              <div class="meeting" >
+              <div class="SearchInput" >
                 <el-input v-model="inputname" placeholder="模糊查找" size="mini"></el-input>
               </div>
-              <button class="btn3 el-icon-search" v-on:click="searchF()">搜索</button>
+              <button class="btn el-icon-search" v-on:click="searchF()">搜索</button>
               <!--<button class="btn3 el-icon-circle-plus-outline" @click="dialogFormVisibleadd = true">添加</button>-->
-              <button class="btn3 el-icon-circle-plus-outline" v-on:click="addFill">添加</button>
+              <button class="btn el-icon-circle-plus-outline" v-on:click="addFill">添加</button>
               <el-dialog title="添加填空题" :visible.sync="dialogFormVisibleadd">
                 <el-form :model="addList">
                   <el-form-item label="题干" :label-width="formLabelWidth">
@@ -39,11 +39,11 @@
                   <el-button @click="Reset">重置</el-button>
                 </div>
               </el-dialog>
-              <button class="btn2 el-icon-folder" @click="getQueryfQuestionY">有效题目</button>
-              <button class="btn2 el-icon-folder-remove" @click="getQueryfQuestionN">无效题目</button>
-              <button class="btn2 el-icon-folder-checked" @click="getQueryfQuestion">所有题目</button>
-              <button class="btn2 el-icon-document" @click="addF">批量添加</button>
-              <button class="btn2 el-icon-document" @click="exportF">导出</button>
+              <button class="btn el-icon-folder" @click="getQueryfQuestionY">有效题目</button>
+              <button class="btn el-icon-folder-remove" @click="getQueryfQuestionN">无效题目</button>
+              <button class="btn el-icon-folder-checked" @click="getQueryfQuestion">所有题目</button>
+              <button class="btn el-icon-document" @click="addF">批量添加</button>
+              <button class="btn el-icon-document" @click="exportF">导出</button>
               <input type="file" @change="importExcel(that)" id="inputExcel"
                      accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" style="display: none"/>
             </div>
@@ -55,14 +55,14 @@
                       <span v-html="fQuestion.fqitem">{{fQuestion.fqitem}}</span>
                       <!--<span v-if="fQuestion.fqstatus==1" @click="dialogFormVisiblechangeitem=true;changeList.id=fQuestion.fqid;item=fQuestion.fqitem" class="span2">修改</span>-->
 
-                      <div class="delete">
-                        <span v-if="fQuestion.fqstatus==1">有效</span>
+                      <div class="Status">
+                        <span v-if="fQuestion.fqstatus==1" class="valid_span">有效</span>
                         <span v-if="fQuestion.fqstatus==1"@click="deletefill(1,fQuestion.fqid)" class="span1"><i class="el-icon-delete">删除</i></span>
-                        <span v-if="fQuestion.fqstatus==0">无效
+                        <span v-if="fQuestion.fqstatus==0" class="novalid_span">无效
                           <span v-if="fQuestion.fqstatus==0" @click="changefill(5,fQuestion.fqid)" class="span2">修改</span>
                           <span v-if="fQuestion.fqstatus==0" @click="deletefill(2,fQuestion.fqid)" class="span1"><i class="el-icon-delete">删除</i></span>
                         </span>
-                        <span v-on:click="change(fQuestion.fqid)" class="span1">修改题目</span>
+                        <span v-on:click="change(fQuestion.fqid)" class="span3">修改题目</span>
                       </div>
                     </h3>
                     <el-dialog title="修改题干" :visible.sync="dialogFormVisiblechangeitem">
@@ -119,7 +119,7 @@
                     </div>
                     <div>
                       <!--<span v-if="fQuestion.fqstatus==1" @click="dialogFormVisiblechangerem=true;changeList.id=fQuestion.fqid;item=fQuestion.fqrem" class="span2">修改</span>-->
-                      知识点：<span v-html="fQuestion.rem">{{fQuestion.rem}}</span>
+                      知识点：<span v-html="fQuestion.fqrem">{{fQuestion.fqrem}}</span>
                       <el-dialog title="修改知识点" :visible.sync="dialogFormVisiblechangerem">
                         <el-form :model="changeList">
                           <el-form-item label="原始知识点" :label-width="formLabelWidth">
@@ -140,21 +140,21 @@
               </div>
             </div>
           </div>
-        </el-tab-pane>
-        <div class="page">
-          <ul class="pagination pagination-sm"><!--分页-->
-            <li class="page-item" v-if="currentPage!=1">
-              <span class="page-link" v-on:click="prePage">上一页</span>
+        <!--</el-tab-pane>-->
+        <div >
+          <ul ><!--分页-->
+            <li v-if="currentPage!=1">
+              <span class="page" v-on:click="prePage">上一页</span>
             </li>
-            <li class="page-item" >
-              <span class="page-link" >第{{ currentPage }}页/共{{totalPage}}页</span>
+            <li >
+              <span  >第{{ currentPage }}页/共{{totalPage}}页</span>
             </li>
-            <li class="page-item" v-if="currentPage!=totalPage">
-              <span class="page-link" v-on:click="nextPage">下一页</span>
+            <li  v-if="currentPage!=totalPage">
+              <span class="page" v-on:click="nextPage">下一页</span>
             </li>
           </ul>
         </div>
-      </el-tabs>
+      <!--</el-tabs>-->
     </div>
   </div>
 </template>
@@ -594,183 +594,5 @@
 </script>
 
 <style scoped>
-  .btn1 {
-    font-size: 10px;
-    padding: 7px 7px;
-    border: 1px solid #E5E7E9;
-    cursor: pointer;
-    background: #fff;
-    margin-bottom: -1px;
-    color: black;
-    width: 40px;
-  }
-  .active {
-    color: #01A6FE;
-  }
-  .btn2 {
-    width: 100px;
-    padding: 7px;
-    font-size: 14px;
-    border-radius: 3px;
-    border: none;
-    color: white;
-    background-color: #7F96FE;
-    float: left;
-    margin-left: 5px;
-    margin-top: 17px;
-    margin-bottom: 5px;
-  }
-
-  .btn2:hover {
-    background-color: #5FA7FE;
-  }
-  .btn3 {
-    width: 80px;
-    padding: 7px;
-    font-size: 14px;
-    border-radius: 3px;
-    border: none;
-    color: white;
-    background-color: #7F96FE;
-    float: left;
-    margin-left: 5px;
-    margin-top: 17px;
-    margin-bottom: 5px;
-  }
-
-  .btn3:hover {
-    background-color: #5FA7FE;
-  }
-  /*删除*/
-  .span1{
-    padding: 7px;
-    color: white;
-    background-color: gray;
-    margin-left: 5px;
-    margin-top: 17px;
-    margin-bottom: 5px;
-    display: inline-block;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    width: auto;
-    height: 30px;
-    line-height: 20px;
-    text-align: center;
-    font-size: 12px;
-    border-radius: 2px;
-  }
-  .span1:hover{
-    background-color: #5FA7FE;
-  }
-  /*修改*/
-  .span2{
-    color: #e33e33;
-    background-color: rgba(227,62,51,0.1);
-    display: inline-block;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    width: auto;
-    height: 20px;
-    line-height: 20px;
-    text-align: center;
-    font-size: 12px;
-    border-radius: 2px;
-  }
-  .span2:hover{
-    background-color: #5FA7FE;
-  }
-  .delete{
-    float: right!important;
-  }
-  table {
-    border-collapse: collapse;
-    width: 100%;
-    margin-top: 10px;
-
-  }
-
-  th {
-    font-size: 14px;
-    border: solid 1px #ccc;
-    font-weight: bold;
-    padding: 5px;
-    background-color: #F1F1F1;
-    text-align: center;
-  }
-
-  table, td {
-    border: solid 1px #ccc;/*no*/
-    padding: 5px;
-    text-align: center;
-    font-size: 18px;
-  }
-  .display{
-    padding-left: 5px;
-    padding-top: 10px;
-  }
-
-  .display1{
-    border: solid 1px #E5E7E9;
-    height: 600px;
-    /*text-align: center;*/
-    width: 98%;
-    padding-left: 5px;
-    padding-right: 5px;
-    background-color: #fff;
-  }
-  .page {
-    text-align: center;
-  }
-  .meeting{
-    float:left;
-    margin:14px 0 10px 0;
-    font-weight: bold;
-    background-color: #00AAFF;
-    border:solid 1px #00AAFF;
-    border-radius: 5px;
-    width: 20%;
-    padding:2px;
-  }
-  li{list-style-type:none;}
-  .dialog1{
-    width: 350px;
-    height:400px;
-  }
-  ul {
-    display: flex;
-    /*flex-direction: row;*/
-    /*flex-wrap: nowrap;*/
-    flex-flow: row nowrap;
-    justify-content: center;
-  }
-  ul li {
-    list-style: none;
-    text-align: center;
-    line-height: 30px;
-    padding: 10px;
-    height: 30px;
-    width: 100px;
-    margin: 0 10px;
-  }
-  .waimian{
-    margin-top: 60px;
-    margin-top: 10px;
-    text-align: left;
-    width: auto;
-    height: auto;
-  }
-  .detail {
-    border-collapse: collapse;
-    width: 80%;
-    margin-top: 5px;
-    table-layout: fixed;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow: ellipsis;
-    padding: 5px;
-    text-align: left;
-    border-bottom: 1px solid #f0f2f5;
-    position: relative;
-    font-size: 14px;
-  }
+  @import "../../../common/css/admin/item.css";
 </style>

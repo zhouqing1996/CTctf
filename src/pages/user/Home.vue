@@ -1,30 +1,46 @@
 <template>
-  <el-container>
-    <el-header>
+  <el-container class="all">
+    <el-header class="header-css">
       <el-menu
         class="el-menu-demo"
         mode="horizontal"
-        background-color="	#1E90FF"
-        text-color="#fff"
-        active-text-color="#ffd04b">
+        background-color="#EED8AE"
+        text-color="#4876FF"
+        active-text-color="#00F5FF"
+        height="100px">
+        <el-menu-item index="10">
+          <router-link to="/teacher/index">
+            <img src="../../common/img/sds_di42leiwangzhanfuwu--.png" style="height:60px;width: 60px">
+          </router-link>
+        </el-menu-item>
         <el-menu-item index="1">
-          <router-link to="/user/index">首页</router-link>
+          <router-link to="/user/index">
+            <img src="../../common/img/web.png" style="height: 20px;width: 20px">
+            首页</router-link>
         </el-menu-item>
         <el-menu-item index="3">
-          <router-link to="/user/practice">练习</router-link>
+          <router-link to="/user/practice">
+            <img src="../../common/img/web.png" style="height: 20px;width: 20px">
+            练习</router-link>
         </el-menu-item>
         <el-menu-item index="2">
-          <router-link to="/user/evaluate" >测评</router-link>
+          <router-link to="/user/evaluate" >
+            <img src="../../common/img/web.png" style="height: 20px;width: 20px">
+            测评</router-link>
         </el-menu-item>
         <el-menu-item index="4">
-          <router-link to="/user/recourse" >资源</router-link>
+          <router-link to="/user/recourse" >
+            <img src="../../common/img/web.png" style="height: 20px;width: 20px">
+            资源</router-link>
         </el-menu-item>
 
         <!--<el-menu-item index="4">-->
           <!--<router-link to="/user/rank" >排名</router-link>-->
         <!--</el-menu-item>-->
         <el-menu-item index="6">
-          <router-link to="/user/evaluate/userNresult" >结果查看</router-link>
+          <router-link to="/user/evaluate/userNresult" >
+            <img src="../../common/img/web.png" style="height: 20px;width: 20px">
+            结果查看</router-link>
           <!--<template slot="title">结果</template>-->
           <!--<el-menu-item index="6-1">-->
             <!--<router-link to="/user/evaluate/result" >结果查看</router-link>-->
@@ -34,18 +50,22 @@
           <!--</el-menu-item>-->
         </el-menu-item>
         <el-submenu index="7">
-          <template slot="title">我的信息</template>
+          <template slot="title">
+            <img src="../../common/img/web.png" style="height: 20px;width: 20px">
+            我的信息</template>
           <!--<el-menu-item index="7-1">-->
             <!--<router-link to="/user/class/select" >选择导师</router-link>-->
           <!--</el-menu-item>-->
           <el-menu-item index="7-2">
-            <router-link to="/user/my" >我的资料</router-link>
+            <router-link to="/user/my" >
+              <img src="../../common/img/web.png" style="height: 20px;width: 20px">
+              我的资料</router-link>
           </el-menu-item>
           <!--<el-menu-item index="7-3">-->
             <!--<router-link to="/user/my/changepwd" >修改密码</router-link>-->
           <!--</el-menu-item>-->
           <el-menu-item index="7-4" v-on:click="logout">
-            退出登录
+            <img src="../../common/img/web.png" style="height: 20px;width: 20px">退出登录
           </el-menu-item>
         </el-submenu>
       </el-menu>
@@ -54,14 +74,14 @@
       <router-view />
     </el-main>
     <el-footer class="footer">
-      <el-menu
-        class="el-menu-demo"
-        mode="horizontal"
-        background-color="#1E90FF"
-        text-color="#fff"
-        active-text-color="#ffd04b">
-        <el-menu-item index="1">用户页面</el-menu-item>
-      </el-menu>
+      <!--<el-menu-->
+        <!--class="el-menu-demo"-->
+        <!--mode="horizontal"-->
+        <!--background-color="#1E90FF"-->
+        <!--text-color="#fff"-->
+        <!--active-text-color="#ffd04b">-->
+        <!--<el-menu-item index="1">用户页面</el-menu-item>-->
+      <!--</el-menu>-->
     </el-footer>
   </el-container>
 </template>
@@ -76,7 +96,7 @@
     },
     mounted(){
       //动态设置内容高度 让footer始终居底   header+footer的高度是100
-      this.Height = document.documentElement.clientHeight;
+      this.Height = document.documentElement.clientHeight-200;
       //监听浏览器窗口变化　
       window.onresize = ()=> {this.Height = document.documentElement.clientHeight}
     },

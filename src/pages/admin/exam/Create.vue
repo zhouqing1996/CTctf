@@ -6,12 +6,12 @@
       <el-breadcrumb-item><span @click="getExamList(3)" style="font-weight: bold">测评试卷</span></el-breadcrumb-item>
     </el-breadcrumb>
     <div><hr/></div>
-    <div class="display1">
-      <el-tabs type="border-card">
-        <el-tab-pane>
-          <span slot="label"><i class="el-icon-date"></i> 试卷列表</span>
-          <div class="display2">
-            <div class="searchmem">
+    <div >
+      <!--<el-tabs type="border-card">-->
+        <!--<el-tab-pane>-->
+          <!--<span slot="label"><i class="el-icon-date"></i> 试卷列表</span>-->
+          <div >
+            <div >
               <div class="meeting" >
                 <el-input v-model="inputname" placeholder="模糊查找" size="mini"></el-input>
               </div>
@@ -86,7 +86,7 @@
               </div>
             </div>
           </div>
-        </el-tab-pane>
+        <!--</el-tab-pane>-->
         <div class="page">
           <ul class="pagination pagination-sm"><!--分页-->
             <li class="page-item" v-if="currentPage!=1">
@@ -100,7 +100,7 @@
             </li>
           </ul>
         </div>
-      </el-tabs>
+      <!--</el-tabs>-->
 
     </div>
   </div>

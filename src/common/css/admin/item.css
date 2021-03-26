@@ -1,0 +1,157 @@
+/*题库*/
+/*顶部*/
+.top{
+  font-size: 16px;
+  font-weight: bold;
+  color: #b36539;
+
+}
+.SearchInput{
+  /*搜索框*/
+  float:left;
+  margin:10px 10px 20px 10px;
+  font-weight: bold;
+  background-color: #00AAFF;
+  border:solid 1px #00AAFF;
+  border-radius: 5px;
+  width: 20%;
+  padding:2px;
+}
+/*按钮*/
+.btn{
+  width: 100px;
+  padding: 7px;
+  font-size: 14px;
+  border-radius: 3px;
+  border: none;
+  color: black;
+  background-color: #EECFA1;
+  float: left;
+  margin-left: 5px;
+  margin-top: 17px;
+  margin-bottom: 5px;
+}
+.btn:hover {
+  background-color: #EE9572;
+}
+
+/**/
+.waimian{
+  text-align: left;
+  margin: 10px 20px 10px 20px;
+}
+.xuanxiang{
+  width: auto;
+  color: black;
+  font-size: 16px;
+
+}
+.detail {
+  border-collapse: collapse;
+  width: 80%;
+  margin-top: 5px;
+  table-layout: fixed;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow: ellipsis;
+  padding: 5px;
+  text-align: left;
+  border-bottom: 1px solid #f0f2f5;
+  position: relative;
+  font-size: 14px;
+}
+/*有效标签*/
+.valid_span{
+  color: #b36539;
+  font-weight: bold;
+}
+.novalid_span{
+  color: #FF0000;
+  font-weight: bold;
+}
+/*状态管理div*/
+.Status{
+  margin: 5px 0px 5px 10px;
+}
+/*删除标签*/
+.span1{
+  width: 100px;/*px*/
+  padding: 7px;
+  font-size: 14px;
+  border-radius: 3px;
+  border: none;
+  color: white;
+  background-color: gray;
+  margin-left: 5px;
+  margin-top: 17px;
+  margin-bottom: 5px;
+}
+.span1:hover{
+  background-color: #5FA7FE;
+}
+/*修改状态*/
+.span2{
+  width: 50px;/*px*/
+  padding: 7px;
+  font-size: 14px;
+  border-radius: 3px;
+  border: none;
+  color: white;
+  background-color: sandybrown;
+  text-align: right;
+}
+.span2:hover{
+  background-color: #5FA7FE;
+}
+/*修改题目*/
+.span3{
+  width: 50px;/*px*/
+  padding: 7px;
+  font-size: 14px;
+  border-radius: 3px;
+  border: none;
+  color: black;
+  background-color: #76EE00;
+  text-align: right;
+}
+.span3:hover{
+  background-color: #5FA7FE;
+}
+/*分页*/
+li{list-style-type:none;}
+ul {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+}
+ul li {
+  list-style: none;
+  text-align: center;
+  line-height: 30px;
+  padding: 10px;
+  height: 30px;
+  width: 100px;
+  margin: 0 10px;
+}
+.page{
+  color: #3B3B3B;
+  font-size: 16px;
+  font-weight: bold;
+}
+.page:hover{
+  color: #D2691E;
+}
+
+/*答案*/
+.ans{
+  color: red;
+  font-size: 16px;
+}
+.tail{
+  color: #1ab2ff;
+  font-size: 16px;
+}
+.rem{
+  color: #5daf34;
+  font-size: 16px;
+}

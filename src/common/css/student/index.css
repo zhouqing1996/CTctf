@@ -1,0 +1,20 @@
+/*管理员主页*/
+ul li{
+  /*list-style: none url("../../img/web.png");*/
+  list-style-type: none;
+}
+.photo{
+  /*图片*/
+  alignment: center;
+  height: 350px;
+  margin: 40px 40px 40px 40px;
+}
+.about{
+  /*关于计算思维*/
+  font-family: "Californian FB";
+  border-color: #0ea0db;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: left;
+  margin: 20px 20px 20px 20px;
+}

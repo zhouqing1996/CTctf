@@ -21,22 +21,22 @@
 <template>
   <div class="page">
     <div class="loginwarrp">
-      <div class="logo">计算思维考试系统</div>
+      <div class="logo"><img src="../common/img/web.png" style="width: 50px;height: 50px;" align="middle"/>计算思维考试系统</div>
       <div class="login_form">
         <li class="login-item" >
-          <span style="font-size: 20px;color: #0ea0db;" class="el-icon-user">用户账号：</span>
+          <span style="font-size: 20px;color: #0ea0db;font-weight: bold;" class="el-icon-user">用户账号：</span>
           <input type="text" v-model="forgetForm.username" class="login_input" placeholder="用户名">
           <span class="error"></span>
         </li>
         <li class="login-item">
-          <span style="font-size: 20px;color: #0ea0db;" class="el-icon-key">设置新密码：</span>
+          <span style="font-size: 20px;color: #0ea0db;font-weight: bold;" class="el-icon-key">设置密码：</span>
           <input :type="passwordVisible" v-model="forgetForm.password" class="login_input" placeholder="6-10位包含数字、字母、特殊字符">
           <i slot="suffix" :class="icon" @click="showPass"></i>
           <span class="error"></span>
         </li>
         <li class="login-item">
-          <span style="font-size: 20px;color: #0ea0db;" class="el-icon-s-custom">身  份：</span>
-          <select v-model="forgetForm.role" placeholder="选择身份">
+          <span style="font-size: 20px;color: #0ea0db;font-weight: bold;" class="el-icon-s-custom">身份选择：</span>
+          <select v-model="forgetForm.role" placeholder="选择身份" style="border-radius:10px;">
             <option value="2">教  师</option>
             <option value="3" selected="selected">学  生</option>
             <option value="1">管理员</option>
@@ -141,47 +141,5 @@
 </script>
 
 <style>
-  #poster {
-    /*background:url("../assets/eva.jpg") no-repeat;*/
-    background-position: center;
-    height: 100%;
-    width: 100%;
-    background-size: cover;
-    position: fixed;
-  }
-  body{
-    margin: 0px;
-    padding: 0;
-  }
-
-  .forget-container {
-    border-radius: 15px;
-    background-clip: padding-box;
-    margin: 90px auto;
-    width: 350px;
-    padding: 35px 35px 15px 35px;
-    background: #fff;
-    border: 1px solid #eaeaea;
-    box-shadow: 0 0 25px #cac6c6;
-  }
-
-  .forget_title {
-    margin: 0px auto 40px auto;
-    text-align: center;
-    color: #505458;
-  }
-
-  .other {
-    margin-top: 10px;
-    font-size: 14px;
-    line-height: 22px;
-    color: #1ab2ff;
-    cursor: pointer;
-    text-align: center;
-    /*text-indent: 8px;*/
-    width: 360px;
-  }
-  .other:hover {
-    /*color: #2c2fd6;*/
-  }
+  @import "../common/css/forget.css";
 </style>

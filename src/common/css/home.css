@@ -1,22 +1,41 @@
+.all{
+  /*color: #dedede;*/
+  background-color: #FCFCFC;
+  border-radius: 2px;
+}
 .header-css{
-  padding: 0px!important;
+  /*padding: 0px!important;*/
   float: right!important;
   text-align: right;
+  /*margin: 5px 40px 20px 40px;*/
+  height: 100px;
+}
+.header-css .el-menu-demo{
+  font-family: SansSerif;
+  margin: 20px 0px 20px 0px;
+}
+.el-menu-item{
+  font-size: 20px;
+  color: #FF0000;
+
+}
+.el-submenu__title{
+  font-size: 20px;
+  color: #0ea0db;
+  height: 50px;
 }
 .main-css{
   width: 95%;
-  height: 650px;
-  margin-left: 30px;
-  margin-right: 30px;
+  margin: 20px 10px 10px 10px;
 }
 a {
   text-decoration: none;
 }
 .footer{
-  position: relative;
   bottom: 0;
   width: 100%;
   text-align: center;
   height: 30px;/*脚部的高度*/
-  clear:both;
+  /*background-color: #0ea0db;*/
+  padding: 20px 0;
 }

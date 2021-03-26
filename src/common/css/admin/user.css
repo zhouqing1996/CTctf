@@ -1,0 +1,106 @@
+/*用户管理*/
+
+.SearchInput{
+  /*搜索框*/
+  float:left;
+  margin:10px 10px 20px 10px;
+  font-weight: bold;
+  background-color: #00AAFF;
+  border:solid 1px #00AAFF;
+  border-radius: 5px;
+  width: 20%;
+  padding:2px;
+}
+/*按钮*/
+.btn{
+  width: 100px;
+  padding: 7px;
+  font-size: 14px;
+  border-radius: 3px;
+  border: none;
+  color: black;
+  background-color: #EECFA1;
+  float: left;
+  margin-left: 5px;
+  margin-top: 17px;
+  margin-bottom: 5px;
+}
+.btn:hover {
+  background-color: #EE9572;
+}
+/*表格*/
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 10px 10px 10px 20px;
+}
+th {
+  font-size: 18px;
+  border: solid 1px #ccc;
+  font-weight: bold;
+  padding: 5px;
+  background-color: #F1F1F1;
+  text-align: center;
+}
+
+table, td {
+  border: solid 1px #ccc;
+  padding: 5px;
+  text-align: center;
+  font-size: 16px;
+}
+/*删除标签*/
+.span1{
+  width: 100px;/*px*/
+  padding: 7px;
+  font-size: 14px;
+  border-radius: 3px;
+  border: none;
+  color: white;
+  background-color: gray;
+  margin-left: 5px;
+  margin-top: 17px;
+  margin-bottom: 5px;
+}
+.span1:hover{
+  background-color: #5FA7FE;
+}
+/*修改*/
+.span2{
+  width: 50px;/*px*/
+  padding: 7px;
+  font-size: 14px;
+  border-radius: 3px;
+  border: none;
+  color: white;
+  background-color: sandybrown;
+  text-align: right;
+}
+.span2:hover{
+  background-color: #5FA7FE;
+}
+
+/*分页*/
+li{list-style-type:none;}
+ul {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+}
+ul li {
+  list-style: none;
+  text-align: center;
+  line-height: 30px;
+  padding: 10px;
+  height: 30px;
+  width: 100px;
+  margin: 0 10px;
+}
+.page{
+  color: #3B3B3B;
+  font-size: 16px;
+  font-weight: bold;
+}
+.page:hover{
+  color: #D2691E;
+}

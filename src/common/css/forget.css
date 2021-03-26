@@ -1,0 +1,46 @@
+#poster {
+  /*background:url("../assets/eva.jpg") no-repeat;*/
+  background-position: center;
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  position: fixed;
+}
+body{
+  margin: 0px;
+  padding: 0;
+}
+
+.forget-container {
+  border-radius: 15px;
+  background-clip: padding-box;
+  margin: 90px auto;
+  width: 350px;
+  padding: 35px 35px 15px 35px;
+  background: #fff;
+  border: 1px solid #eaeaea;
+  box-shadow: 0 0 25px #cac6c6;
+}
+
+.forget_title {
+  margin: 0px auto 40px auto;
+  text-align: center;
+  color: #505458;
+}
+
+.other {
+  margin-top: 10px;
+  font-size: 14px;
+  line-height: 22px;
+  color: #1ab2ff;
+  cursor: pointer;
+  text-align: center;
+  /*text-indent: 8px;*/
+  width: 360px;
+}
+.other:hover {
+  /*color: #2c2fd6;*/
+}
+.clearfix .login-sub{
+  margin: 10px 0px 10px 0px;
+}

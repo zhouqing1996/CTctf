@@ -1,17 +1,27 @@
 <template>
-  <el-container>
+  <el-container class="all">
     <el-header class="header-css">
       <el-menu
         class="el-menu-demo"
         mode="horizontal"
-        background-color="	#1E90FF"
-        text-color="#fff"
-        active-text-color="#ffd04b">
+        background-color="#EED8AE"
+        text-color="#4876FF"
+        active-text-color="#00F5FF"
+        height="100px">
+        <el-menu-item index="10">
+          <router-link to="/teacher/index">
+            <img src="../../common/img/sds_di42leiwangzhanfuwu--.png" style="height:60px;width: 60px">
+          </router-link>
+        </el-menu-item>
         <el-menu-item index="1">
-          <router-link to="/teacher/index">首页</router-link>
+          <router-link to="/teacher/index">
+            <img src="../../common/img/web.png" style="height: 20px;width: 20px">
+            首页</router-link>
         </el-menu-item>
         <el-menu-item index="2">
-          <router-link to="/teacher/stuManage" >学生管理</router-link>
+          <router-link to="/teacher/stuManage" >
+            <img src="../../common/img/web.png" style="height: 20px;width: 20px">
+            学生管理</router-link>
         </el-menu-item>
         <!--<el-submenu index="3">-->
           <!--<template slot="title">教师事务管理</template>-->
@@ -23,23 +33,34 @@
           <!--</el-menu-item>-->
         <!--</el-submenu>-->
         <el-menu-item index="3">
-          <router-link to="/teacher/resourse" >资源管理</router-link>
+          <router-link to="/teacher/resourse" >
+            <img src="../../common/img/web.png" style="height: 20px;width: 20px">
+            资源管理</router-link>
         </el-menu-item>
         <el-menu-item index="4">
-          <router-link to="/teacher/create" >评测管理</router-link>
+          <router-link to="/teacher/create" >
+            <img src="../../common/img/web.png" style="height: 20px;width: 20px">
+            评测管理</router-link>
         </el-menu-item>
         <el-menu-item index="5">
-          <router-link to="/teacher/pCreate" >练习管理</router-link>
+          <router-link to="/teacher/pCreate" >
+            <img src="../../common/img/web.png" style="height: 20px;width: 20px">
+            练习管理</router-link>
         </el-menu-item>
-        <el-submenu index="7">
-          <template slot="title">我的信息</template>
-          <el-menu-item index="7-1">
-            <router-link to="/teacher/my" >我的资料</router-link>
+        <el-submenu index="6">
+          <template slot="title">
+            <img src="../../common/img/web.png" style="height: 20px;width: 20px">
+            我的信息</template>
+          <el-menu-item index="6-1">
+            <router-link to="/teacher/my" >
+              <img src="../../common/img/web.png" style="height: 20px;width: 20px">
+              我的资料</router-link>
           </el-menu-item>
           <!--<el-menu-item index="7-2">-->
             <!--<router-link to="/teacher/my/changepwd" >修改密码</router-link>-->
           <!--</el-menu-item>-->
-          <el-menu-item index="7-3" v-on:click="logout">
+          <el-menu-item index="6-2" v-on:click="logout">
+            <img src="../../common/img/web.png" style="height: 20px;width: 20px">
             退出登录
           </el-menu-item>
         </el-submenu>
@@ -49,20 +70,20 @@
       <router-view />
     </el-main>
     <el-footer class="footer">
-      <el-menu
-        class="el-menu-demo"
-        mode="horizontal"
-        background-color="#1E90FF"
-        text-color="#fff"
-        active-text-color="#ffd04b">
-        <el-menu-item index="1">用户页面</el-menu-item>
-        <el-submenu index="2">
-          <template slot="title">友情链接</template>
-          <el-menu-item index="2-1">
-            <a href="https://www.luogu.com.cn">洛谷</a>
-          </el-menu-item>
-        </el-submenu>
-      </el-menu>
+      <!--<el-menu-->
+        <!--class="el-menu-demo"-->
+        <!--mode="horizontal"-->
+        <!--background-color="#1E90FF"-->
+        <!--text-color="#fff"-->
+        <!--active-text-color="#ffd04b">-->
+        <!--<el-menu-item index="1">用户页面</el-menu-item>-->
+        <!--<el-submenu index="2">-->
+          <!--<template slot="title">友情链接</template>-->
+          <!--<el-menu-item index="2-1">-->
+            <!--<a href="https://www.luogu.com.cn">洛谷</a>-->
+          <!--</el-menu-item>-->
+        <!--</el-submenu>-->
+      <!--</el-menu>-->
     </el-footer>
   </el-container>
 </template>

@@ -1,33 +1,33 @@
 <template>
   <div class="page">
     <div class="loginwarrp">
-      <div class="logo">计算思维考试系统</div>
+      <div class="logo"><img src="../common/img/web.png" style="width: 50px;height: 50px;" align="middle"/>计算思维考试系统</div>
       <div class="login_form">
         <li class="login-item" >
-          <span style="font-size: 20px;color: #0ea0db;" class="el-icon-user">用户账号：</span>
+          <span style="font-size: 20px;color: #0ea0db;font-weight: bold;" class="el-icon-user">用户账号：</span>
           <input type="text" v-model="registerForm.userno" class="login_input" placeholder="用户账号">
           <span class="error"></span>
         </li>
         <li class="login-item" >
-          <span style="font-size: 20px;color: #0ea0db;" class="el-icon-user"> 用 户 名：</span>
+          <span style="font-size: 20px;color: #0ea0db;font-weight: bold;" class="el-icon-user"> 用 户 名：</span>
           <input type="text" v-model="registerForm.username" class="login_input" placeholder="用户名">
           <span class="error"></span>
         </li>
         <li class="login-item">
-          <span style="font-size: 20px;color: #0ea0db;" class="el-icon-key">设置密码：</span>
+          <span style="font-size: 20px;color: #0ea0db;font-weight: bold;" class="el-icon-key">设置密码：</span>
           <input :type="passwordVisible1" v-model="registerForm.password" class="login_input" placeholder="6-10位包含数字、字母、特殊字符">
           <i slot="suffix" :class="icon1" @click="showPass1"></i>
           <span class="error"></span>
         </li>
         <li class="login-item">
-          <span style="font-size: 20px;color: #0ea0db;" class="el-icon-key">确认密码：</span>
+          <span style="font-size: 20px;color: #0ea0db;font-weight: bold;" class="el-icon-key">确认密码：</span>
           <input :type="passwordVisible2" v-model="registerForm.password1" class="login_input" placeholder="密码">
           <i slot="suffix" :class="icon2" @click="showPass2"></i>
           <span class="error"></span>
         </li>
         <li class="login-item">
-          <span style="font-size: 20px;color: #0ea0db;" class="el-icon-s-custom">注册身份：</span>
-          <select v-model="registerForm.role" placeholder="选择注册身份">
+          <span style="font-size: 20px;color: #0ea0db;font-weight: bold;" class="el-icon-s-custom">注册身份：</span>
+          <select v-model="registerForm.role" placeholder="选择注册身份" style="border-radius:10px;">
             <option value="2">教  师</option>
             <option value="3" selected="selected">学  生</option>
             <option value="1">管理员</option>
